@@ -14,5 +14,5 @@ Compose is split into **fragments** under `compose/` so each stack concern stays
 **Manual merge (no `include`):** you can still run:
 
 ```bash
-docker compose -f docker/compose/postgres.yml -f docker/compose/hono-api.yml --project-name starter up --build -d
+docker compose -f docker/compose/postgres.yml -f docker/compose/hono-api.yml --project-name school-os up --build -d
 ```

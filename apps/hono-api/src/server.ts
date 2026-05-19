@@ -1,5 +1,5 @@
 import "./load-env";
-import { createLogger } from "@starter/logger";
+import { createLogger } from "@school-os/logger";
 import { serve } from "bun";
 import app from "@/app";
 import { appConfig } from "@/shared/configs/app-config";

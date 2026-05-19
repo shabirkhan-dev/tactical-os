@@ -1,4 +1,4 @@
-import { createLogger } from "@starter/logger";
+import { createLogger } from "@school-os/logger";
 import { VerificationType } from "@/generated/prisma/enums";
 import { prisma } from "@/shared/lib/prisma";
 import { AppError } from "@/shared/middlewares/app-error";

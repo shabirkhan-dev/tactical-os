@@ -1,7 +1,7 @@
 [project]
-name = "starter-fastapi"
+name = "school-os-fastapi"
 version = "0.1.0"
-description = "FastAPI app for the starter monorepo"
+description = "FastAPI app for the school-os monorepo"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

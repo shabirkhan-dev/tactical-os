@@ -1,5 +1,5 @@
 # Hono API + Prisma. Build from repo root: docker compose build hono-api
-# Context must be repo root so workspace deps (@starter/logger) resolve.
+# Context must be repo root so workspace deps (@school-os/logger) resolve.
 
 FROM oven/bun:1-alpine
 

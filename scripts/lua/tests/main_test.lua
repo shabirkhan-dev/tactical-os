@@ -8,5 +8,5 @@ end
 local output = handle:read("*a")
 handle:close()
 
-assert(output:match("Hello from Starter Kit scripts %(lua%)"), "unexpected lua output")
+assert(output:match("Hello from School OS scripts %(lua%)"), "unexpected lua output")
 print("lua test passed")

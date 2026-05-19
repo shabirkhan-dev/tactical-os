@@ -1,4 +1,4 @@
-import { createLogger } from "@starter/logger";
+import { createLogger } from "@school-os/logger";
 import { appConfig } from "@/shared/configs/app-config";
 
 const log = createLogger({ prefix: "mailer" });

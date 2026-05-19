@@ -15,7 +15,7 @@
 	"dependencies": {
 		"@prisma/adapter-pg": "^7.8.0",
 		"@prisma/client": "^7.8.0",
-		"@starter/logger": "workspace:*",
+		"@school-os/logger": "workspace:*",
 		"bcryptjs": "^3.0.3",
 		"hono": "^4.12.19",
 		"jose": "^6.2.3",

@@ -1,6 +1,6 @@
-# Starter Kit C app
+# School OS C app
 
-C binary in the starter monorepo. Lives under **`apps/c`**. Turbo can run `build` / `dev` from root.
+C binary in the school-os monorepo. Lives under **`apps/c`**. Turbo can run `build` / `dev` from root.
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ C binary in the starter monorepo. Lives under **`apps/c`**. Turbo can run `build
 
 | From root | From `apps/c` | Purpose |
 |-----------|---------------|---------|
-| `bun run build` | `just build` | Build binary to `build/starter-c` |
+| `bun run build` | `just build` | Build binary to `build/school-os-c` |
 | `bun run dev` | `just run` | Build and run |
 | `bun run test` (Turbo) | `bun run test` | Compile and run C unit tests |
 | — | `just lint` | clang-tidy |

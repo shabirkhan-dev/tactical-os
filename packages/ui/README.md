@@ -1,6 +1,6 @@
-# @starter/ui
+# @school-os/ui
 
-Shared web UI primitives for the starter monorepo.
+Shared web UI primitives for the school-os monorepo.
 
 This package is intentionally small. It contains stable shadcn-style primitives that are safe to
 reuse across web apps. Keep complex, product-specific composed components inside each app until they
@@ -9,7 +9,7 @@ prove reusable.
 ## Usage
 
 ```tsx
-import { Button, Card, CardContent, CardHeader, CardTitle } from "@starter/ui";
+import { Button, Card, CardContent, CardHeader, CardTitle } from "@school-os/ui";
 ```
 
 The consuming app must include the shared Tailwind token file and scan this package for classes:

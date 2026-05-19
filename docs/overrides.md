@@ -1,10 +1,10 @@
 # Architecture Overrides
 
-Use this file to record intentional deviations from starter defaults.
+Use this file to record intentional deviations from school-os defaults.
 
 ## Why this exists
 
-The starter is intentionally opinionated, but not rigid. Overrides are valid when they
+The school-os is intentionally opinionated, but not rigid. Overrides are valid when they
 enable a better fit for a specific project requirement.
 
 ## How to override safely

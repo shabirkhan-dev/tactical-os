@@ -1,11 +1,11 @@
-# Agent instructions (Starter Kit)
+# Agent instructions (School OS)
 
 Universal instructions for AI agents (Cursor, Copilot, Claude Code, Windsurf, Cline, Aider, etc.).
 Read this file first when working in this repo.
 
 ## Project overview
 
-Monorepo starter kit managed with **Turborepo + Bun**. Four apps, shared packages, and
+Monorepo School OS managed with **Turborepo + Bun**. Four apps, shared packages, and
 multi-language scripts, all wired into a single lint/format/build/test surface.
 
 
@@ -19,14 +19,14 @@ Before any Next.js work, find and read the relevant doc in `node_modules/next/di
 ## Repository layout
 
 ```
-starter/
+school-os/
 ├── apps/
 │   ├── web/             # Next.js (React, Tailwind, shadcn-style UI)
 │   ├── mobile/          # Expo Router + NativeWind app (TypeScript)
 │   ├── hono-api/        # Hono + Prisma + PostgreSQL REST API
 │   ├── rust/            # Rust binary (Cargo, Axum)
 │   └── c/               # C binary (clang-format, clang-tidy)
-│   └── docs/               # Documentation for the starter kit
+│   └── docs/               # Documentation for the School OS
 
 ├── packages/
 │   ├── ui/              # Shared web UI primitives
@@ -80,8 +80,8 @@ Optional: install [just](https://github.com/casey/just) and use `just lint`, `ju
 - **No ESLint/Prettier**: Biome is the only lint/format tool for TS/JS in this project.
 - **Naming**: PascalCase for components; files match component name. Hooks use `use*` prefix;
   utility functions are plain named exports.
-- **Imports**: Prefer workspace imports as `@starter/<package>` (e.g. `@starter/ui`,
-  `@starter/tailwind-config`). Group: external → workspace → relative. No unused imports.
+- **Imports**: Prefer workspace imports as `@school-os/<package>` (e.g. `@school-os/ui`,
+  `@school-os/tailwind-config`). Group: external → workspace → relative. No unused imports.
 - **Types**: Explicit types for props and public APIs. Avoid `any`; use `unknown` and narrow.
 - **Errors**: Handle explicitly — log and rethrow, or use result types. No silent catches.
 - **Size**: Small, single-responsibility functions and components. Extract when complexity grows.
@@ -91,7 +91,7 @@ Optional: install [just](https://github.com/casey/just) and use `just lint`, `ju
 - **Monorepo**: Apps in `apps/`, shared code in `packages/`. When a change applies across apps,
   prefer changing a shared package.
 - **New apps**: Add under `apps/`, wire into `turbo.json` tasks if needed.
-- **New packages**: Add under `packages/`, export via `@starter/<name>`.
+- **New packages**: Add under `packages/`, export via `@school-os/<name>`.
 - **Shared UI**: `packages/ui` uses shadcn-style components. Shared Tailwind theme is in
   `packages/tailwind-config/theme.css`.
 - **TypeScript config**: Extend from `packages/typescript-config/base.json` (or `nextjs.json`
@@ -141,7 +141,7 @@ Postgres on 5432, Hono API on 3001 (host). See `docs/docker.md`.
 
 - `PROJECT.md` — detailed layout, tooling, and commands.
 - `DESIGN.md` — design-system brief for UI generation and review.
-- `docs/ai-first-starter-workflow.md` — starter-kit audit and AI-first workflow roadmap.
+- `docs/ai-first-school-os-workflow.md` — school-os audit and AI-first workflow roadmap.
 - `docs/QoL.md` — full QoL stack (hooks, CI, per-language tools).
 - `docs/architecture/README.md` — architecture baseline and enforceable boundaries.
 - `docs/overrides.md` — policy for project-specific architecture overrides.

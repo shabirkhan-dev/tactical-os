@@ -1,6 +1,6 @@
-# Starter Kit Rust app
+# School OS Rust app
 
-Rust binary in the starter monorepo. Lives under **`apps/rust`** so Turbo can run `build` / `dev` from root via `bun run build` / `bun run dev` (Rust app is included when Turbo runs those tasks).
+Rust binary in the school-os monorepo. Lives under **`apps/rust`** so Turbo can run `build` / `dev` from root via `bun run build` / `bun run dev` (Rust app is included when Turbo runs those tasks).
 
 ## Prerequisites
 

@@ -1,4 +1,4 @@
-//! starter-logger — Beautiful, injectable logger for Rust. Use `Logger::new()` and inject anywhere.
+//! school-logger — Beautiful, injectable logger for Rust. Use `Logger::new()` and inject anywhere.
 
 mod format;
 mod level;

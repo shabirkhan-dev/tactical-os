@@ -1,5 +1,5 @@
 {
-  "name": "@starter/tailwind-config",
+  "name": "@school-os/tailwind-config",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",

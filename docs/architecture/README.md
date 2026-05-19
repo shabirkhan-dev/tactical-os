@@ -1,6 +1,6 @@
 # Architecture Baseline
 
-This starter uses a strong default architecture that is intentionally overridable.
+This school-os uses a strong default architecture that is intentionally overridable.
 
 ## Principles
 

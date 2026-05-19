@@ -1,12 +1,12 @@
 # Design System Brief
 
-This file is the source of truth for AI agents and humans when creating UI in this starter kit.
+This file is the source of truth for AI agents and humans when creating UI in this School OS.
 Keep it updated before generating new screens with Codex, Claude Code, Cursor, v0, Open Design,
 Figma MCP, Onlook, Scamp, or similar tools.
 
 ## Product Intent
 
-This starter kit should produce production-grade application interfaces, not generic demo pages.
+This School OS should produce production-grade application interfaces, not generic demo pages.
 Generated UI must feel domain-specific, accessible, responsive, and built from reusable components.
 
 ## Audience
@@ -67,7 +67,7 @@ The repo has a shared web primitive package at `packages/ui` and app-local primi
 
 Current rule:
 
-- Use `@starter/ui` for stable shared primitives such as `Button`, `Card`, `Badge`, form fields,
+- Use `@school-os/ui` for stable shared primitives such as `Button`, `Card`, `Badge`, form fields,
   `Separator`, `Skeleton`, and `Textarea`.
 - Keep complex or app-specific composed components inside each app or feature module.
 - Promote a component to `packages/ui` only after it is reusable and free of route/auth/data

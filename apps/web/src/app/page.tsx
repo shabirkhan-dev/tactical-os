@@ -7,7 +7,7 @@ export default function Page() {
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-center gap-8 p-4">
 			<div className="text-center">
-				<h1 className="text-3xl font-bold">Starter Kit</h1>
+				<h1 className="text-3xl font-bold">School OS</h1>
 				<p className="text-muted-foreground mt-2">Monorepo: Next.js, Python API, Rust API</p>
 			</div>
 			<HomeClient />

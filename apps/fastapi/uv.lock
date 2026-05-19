@@ -794,7 +794,7 @@ wheels = [
 ]
 
 [[package]]
-name = "starter-fastapi"
+name = "school-os-fastapi"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

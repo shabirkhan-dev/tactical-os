@@ -1,3 +1,4 @@
 #include "message.h"
 
-const char *starter_message(void) { return "Hello from Starter Kit C app"; }
+const char *school_os_message(void) { return "Hello from School OS C app"; }
+

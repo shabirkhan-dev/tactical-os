@@ -1,6 +1,6 @@
 ---
 name: antigravity
-description: Core operating principles and premium design standards for the Antigravity agent in the Starter Kit.
+description: Core operating principles and premium design standards for the Antigravity agent in the School OS.
 version: 1.0.0
 ---
 
@@ -35,7 +35,7 @@ When working on the frontend (`apps/web`, `apps/mobile`):
 - **Bun**: The only package manager used.
 - **Turbo**: Used for task execution and orchestration.
 - **Biome**: The sole source of truth for linting and formatting.
-- **Workspace Imports**: Always use `@starter/*` for internal packages.
+- **Workspace Imports**: Always use `@school-os/*` for internal packages.
 
 ## Guidelines for Users
 - **Planning**: Antigravity uses `implementation_plan.md` for complex tasks; please review and approve.
@@ -43,6 +43,6 @@ When working on the frontend (`apps/web`, `apps/mobile`):
 - **Feedback**: Antigravity thrives on specific design feedback—mention colors, moods, or specific UI patterns you like.
 
 ## References
-- [AGENTS.md](file:///home/shabir/work/starter/AGENTS.md)
-- [.cursor/rules/antigravity.mdc](file:///home/shabir/work/starter/.cursor/rules/antigravity.mdc)
-- [.cursor/plans/starter-next-phase-roadmap-fbfaf701.plan.md](file:///home/shabir/work/starter/.cursor/plans/starter-next-phase-roadmap-fbfaf701.plan.md)
+- [AGENTS.md](file:///home/shabir/work/school-os/AGENTS.md)
+- [.cursor/rules/antigravity.mdc](file:///home/shabir/work/school-os/.cursor/rules/antigravity.mdc)
+- [.cursor/plans/school-os-next-phase-roadmap-fbfaf701.plan.md](file:///home/shabir/work/school-os/.cursor/plans/school-os-next-phase-roadmap-fbfaf701.plan.md)

@@ -6,7 +6,7 @@ Accepted
 
 ## Context
 
-This repository is a reusable starter for multiple future projects. It needs:
+This repository is a reusable school-os for multiple future projects. It needs:
 
 - strong defaults to keep solo/open-source delivery consistent
 - clear quality gates for reliability
@@ -28,7 +28,7 @@ overrides via documented exception paths.
 
 - Overrides are allowed with written rationale in `docs/overrides.md`.
 - A project may add its own `ARCHITECTURE.md` and stricter rules.
-- Overrides should be additive where possible to preserve starter compatibility.
+- Overrides should be additive where possible to preserve school-os compatibility.
 
 ## Consequences
 

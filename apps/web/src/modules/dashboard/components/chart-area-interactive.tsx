@@ -18,7 +18,7 @@ import {
 	SelectValue,
 	ToggleGroup,
 	ToggleGroupItem,
-} from "@starter/ui";
+} from "@school-os/ui";
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import { useIsMobile } from "@/hooks/use-mobile";

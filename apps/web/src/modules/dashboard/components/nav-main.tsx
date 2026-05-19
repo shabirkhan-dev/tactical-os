@@ -9,7 +9,7 @@ import {
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
-} from "@starter/ui";
+} from "@school-os/ui";
 
 export function NavMain({
 	items,

@@ -1,9 +1,10 @@
 /*
- * Message helpers for Starter Kit C app.
+ * Message helpers for School OS C app.
  */
-#ifndef STARTER_MESSAGE_H
-#define STARTER_MESSAGE_H
+#ifndef SCHOOL_OS_MESSAGE_H
+#define SCHOOL_OS_MESSAGE_H
 
-const char *starter_message(void);
+const char *school_os_message(void);
 
 #endif
+

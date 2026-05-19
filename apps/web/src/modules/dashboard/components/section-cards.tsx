@@ -10,7 +10,7 @@ import {
 	CardFooter,
 	CardHeader,
 	CardTitle,
-} from "@starter/ui";
+} from "@school-os/ui";
 
 export function SectionCards() {
 	return (

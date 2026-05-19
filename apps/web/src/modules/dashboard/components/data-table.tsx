@@ -75,7 +75,7 @@ import {
 	TabsContent,
 	TabsList,
 	TabsTrigger,
-} from "@starter/ui";
+} from "@school-os/ui";
 import {
 	type ColumnDef,
 	type ColumnFiltersState,

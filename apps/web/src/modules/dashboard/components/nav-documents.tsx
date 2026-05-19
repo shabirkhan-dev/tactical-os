@@ -20,7 +20,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 	useSidebar,
-} from "@starter/ui";
+} from "@school-os/ui";
 
 export function NavDocuments({
 	items,

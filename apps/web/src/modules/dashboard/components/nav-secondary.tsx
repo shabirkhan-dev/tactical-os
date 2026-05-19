@@ -6,7 +6,7 @@ import {
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
-} from "@starter/ui";
+} from "@school-os/ui";
 import type * as React from "react";
 
 export function NavSecondary({

@@ -42,7 +42,7 @@ export default function TabTwoScreen() {
 				<ThemedView style={styles.titleContainer}>
 					<ThemedText type="subtitle">Explore</ThemedText>
 					<ThemedText style={styles.centerText} themeColor="textSecondary">
-						This starter app includes example{"\n"}code to help you get started.
+						This school-os app includes example{"\n"}code to help you get started.
 					</ThemedText>
 
 					<ExternalLink href="https://docs.expo.dev" asChild>

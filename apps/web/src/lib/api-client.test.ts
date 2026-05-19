@@ -44,8 +44,8 @@ describe("api client", () => {
 							data: {
 								user: {
 									id: "u_1",
-									name: "starter",
-									email: "starter@example.com",
+									name: "school-os",
+									email: "school-os@example.com",
 									isEmailVerified: true,
 								},
 							},
@@ -55,12 +55,12 @@ describe("api client", () => {
 		);
 
 		const user = await register("hono", {
-			username: "starter",
-			email: "starter@example.com",
+			username: "school-os",
+			email: "school-os@example.com",
 			password: "super-secret-password",
 		});
 
-		expect(user.username).toBe("starter");
+		expect(user.username).toBe("school-os");
 		expect(user.is_active).toBe(true);
 	});
 
@@ -75,8 +75,8 @@ describe("api client", () => {
 							data: {
 								user: {
 									id: "u_1",
-									name: "starter",
-									email: "starter@example.com",
+									name: "school-os",
+									email: "school-os@example.com",
 									isEmailVerified: true,
 								},
 								mfaRequired: false,
@@ -87,7 +87,7 @@ describe("api client", () => {
 		);
 
 		const token = await login("hono", {
-			email: "starter@example.com",
+			email: "school-os@example.com",
 			password: "super-secret-password",
 		});
 		expect(token.access_token).toBe("cookie");
@@ -105,8 +105,8 @@ describe("api client", () => {
 							data: {
 								user: {
 									id: "u_1",
-									name: "starter",
-									email: "starter@example.com",
+									name: "school-os",
+									email: "school-os@example.com",
 									isEmailVerified: true,
 								},
 								mfaRequired: true,
@@ -117,7 +117,7 @@ describe("api client", () => {
 		);
 
 		await expect(
-			login("hono", { email: "starter@example.com", password: "super-secret-password" }),
+			login("hono", { email: "school-os@example.com", password: "super-secret-password" }),
 		).rejects.toThrow("MFA verification is required");
 	});
 
@@ -131,8 +131,8 @@ describe("api client", () => {
 					data: {
 						user: {
 							id: "u_1",
-							name: "starter",
-							email: "starter@example.com",
+							name: "school-os",
+							email: "school-os@example.com",
 							isEmailVerified: true,
 							enable2FA: false,
 						},
@@ -143,7 +143,7 @@ describe("api client", () => {
 		]);
 
 		const user = await me("hono", "cookie");
-		expect(user.username).toBe("starter");
+		expect(user.username).toBe("school-os");
 		expect(user.enable2FA).toBe(false);
 	});
 

@@ -4,8 +4,8 @@ import { createContext, type ReactNode, useCallback, useContext, useEffect, useS
 import * as api from "@/lib/api-client";
 import type { ApiKind, LoginRequest, RegisterRequest, User } from "@/lib/auth-types";
 
-const STORAGE_API = "starter-api-kind";
-const STORAGE_TOKEN = "starter-auth-token";
+const STORAGE_API = "school-os-api-kind";
+const STORAGE_TOKEN = "school-os-auth-token";
 
 interface AuthState {
 	api: ApiKind;

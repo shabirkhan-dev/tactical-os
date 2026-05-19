@@ -1,6 +1,6 @@
 import type { Context } from "hono";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
-import { createLogger } from "@starter/logger";
+import { createLogger } from "@school-os/logger";
 import { z } from "zod";
 import { appConfig } from "@/shared/configs/app-config";
 import type { HttpCode } from "@/shared/configs/http-config";

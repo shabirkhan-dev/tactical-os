@@ -1,8 +1,8 @@
-# AI-First Starter Kit Workflow Roadmap
+# AI-First School OS Workflow Roadmap
 
 Last updated: May 6, 2026
 
-This document audits the starter monorepo as a reusable personal starter kit and turns the recent
+This document audits the school-os monorepo as a reusable personal School OS and turns the recent
 AI/UI research into a practical improvement plan.
 
 ## Current Strengths
@@ -18,10 +18,10 @@ The repo already has a strong base:
 - Docker Compose fragments for Postgres and Hono API.
 - Dev Container support.
 - Agent instructions and rule files.
-- Shared `@starter/ui` package for stable web primitives.
+- Shared `@school-os/ui` package for stable web primitives.
 - Web app already has shadcn-style primitives, dashboard examples, Vitest, and Playwright.
 
-This is already beyond a normal starter kit. The next phase should make it easier to turn into a
+This is already beyond a normal School OS. The next phase should make it easier to turn into a
 real product quickly while keeping design quality, security, and agent workflow consistent.
 
 ## High-Priority Gaps
@@ -73,7 +73,7 @@ Recommendation:
 - Consider Storybook + Chromatic/Percy later for shared components.
 - Store approved screenshots only if the team wants baseline visual regression.
 
-Minimum starter-kit policy:
+Minimum school-os policy:
 
 - Every new product screen should be checked at desktop and mobile widths.
 - Every data view should include loading, empty, error, and populated states.
@@ -109,7 +109,7 @@ Recommendation:
 
 Why it matters:
 
-- Starter kits must clone cleanly.
+- School OS kits must clone cleanly.
 - CI and new machines should not depend on local-only nested repo state.
 
 ### 6. Security Coverage Is JS-Heavy
@@ -138,7 +138,7 @@ Recommendation:
 
 ### 8. App Provisioning Is Manual
 
-The repo is a starter kit, but it does not yet have a first-class "create a new product from this"
+The repo is a School OS, but it does not yet have a first-class "create a new product from this"
 script.
 
 Recommendation:
@@ -197,7 +197,7 @@ Output should be:
 
 For web:
 
-- Use `@starter/ui` for stable shared primitives.
+- Use `@school-os/ui` for stable shared primitives.
 - Keep app-local components in `apps/web/src/components/ui` until they prove reusable.
 - Move reusable primitives into `packages/ui` gradually.
 - Keep route-specific composed components in feature modules.
@@ -226,12 +226,12 @@ Minimum before merge:
 - secret scan
 - PR review
 
-## Starter Kit Target Architecture
+## School OS Target Architecture
 
 Recommended eventual layout:
 
 ```text
-starter/
+school-os/
 ├── DESIGN.md
 ├── apps/
 │   ├── web/
@@ -248,7 +248,7 @@ starter/
 │   ├── config/
 │   └── typescript-config/
 ├── docs/
-│   ├── ai-first-starter-workflow.md
+│   ├── ai-first-school-os-workflow.md
 │   ├── design-system.md
 │   ├── release.md
 │   └── security.md
@@ -328,7 +328,7 @@ Agents should follow this pattern:
 
 ## Final Recommendation
 
-Do not turn this repo into a huge framework. Keep it as a practical starter kit with strong
+Do not turn this repo into a huge framework. Keep it as a practical School OS with strong
 defaults, clear escape hatches, and first-class AI-agent instructions.
 
 The best next investment is:
@@ -339,5 +339,5 @@ The best next investment is:
 4. Add visual QA.
 5. Add scaffold automation.
 
-That combination will make this starter kit useful for real upcoming projects, not just a collection
+That combination will make this School OS useful for real upcoming projects, not just a collection
 of templates.

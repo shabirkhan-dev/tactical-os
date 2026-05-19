@@ -1,5 +1,5 @@
 {
-	"name": "Starter PWA",
+	"name": "School OS PWA",
 	"short_name": "PWA",
 	"description": "Bun-served static PWA with a service worker.",
 	"start_url": "/",

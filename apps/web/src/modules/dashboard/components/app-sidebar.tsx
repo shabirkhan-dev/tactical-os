@@ -24,7 +24,7 @@ import {
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
-} from "@starter/ui";
+} from "@school-os/ui";
 import type * as React from "react";
 import { NavDocuments } from "./nav-documents";
 import { NavMain } from "./nav-main";

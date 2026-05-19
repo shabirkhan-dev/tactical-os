@@ -1,11 +1,11 @@
 ---
 name: expo-mobile
-description: Best practices for Expo Router mobile apps in this monorepo starter; Tailwind/NativeWind; official Expo Skills and LLM docs.
+description: Best practices for Expo Router mobile apps in this monorepo school-os; Tailwind/NativeWind; official Expo Skills and LLM docs.
 version: 1.2.0
 license: MIT
 ---
 
-# Expo Mobile Skill (Starter)
+# Expo Mobile Skill (School OS)
 
 Use this when working on **`apps/mobile`**.
 
@@ -135,7 +135,7 @@ A fresh **create-expo-app** template may use **StyleSheet** + **ThemedText** / *
 
 ## Expo UI
 
-- Prefer `@expo/ui` where it fits (starter may use pieces like `@expo/ui/datetimepicker`).
+- Prefer `@expo/ui` where it fits (school-os may use pieces like `@expo/ui/datetimepicker`).
 
 ## References
 

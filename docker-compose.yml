@@ -3,7 +3,7 @@
 #   cp env.docker.example .env && docker compose up --build -d
 # Run without sudo: bash scripts/bash/docker-group.sh then newgrp docker
 
-name: starter
+name: school-os
 
 include:
   - docker/compose/postgres.yml

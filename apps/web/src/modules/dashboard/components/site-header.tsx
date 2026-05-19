@@ -1,4 +1,4 @@
-import { Separator, SidebarTrigger } from "@starter/ui";
+import { Separator, SidebarTrigger } from "@school-os/ui";
 
 export function SiteHeader() {
 	return (

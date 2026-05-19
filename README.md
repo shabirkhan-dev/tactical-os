@@ -1,6 +1,6 @@
-# Starter Kit
+# School OS
 
-Production-ready monorepo starter built with **Bun + Turborepo**.
+Production-ready monorepo school-os built with **Bun + Turborepo**.
 
 It includes multiple runnable apps (web, mobile, APIs, docs, systems demos), shared packages,
 polyglot scripts, architecture checks, hooks, CI/CD, security workflows, Docker, and a Dev
@@ -26,7 +26,7 @@ bun run dev
 | Area | Purpose |
 | --- | --- |
 | `apps/` | Runnable products/services: web, mobile, APIs, docs, PWA, and language demos |
-| `packages/` | Shared workspace packages used across apps (`@starter/*`) |
+| `packages/` | Shared workspace packages used across apps (`@school-os/*`) |
 | `scripts/` | Utility + test scripts in Bash/Lua/Python |
 | `docs/` | Architecture, Docker, QoL, and override documentation |
 | `docker/` | Docker Compose fragments used by root `docker-compose.yml` |
@@ -51,7 +51,7 @@ bun run dev
 
 | Package | Purpose |
 | --- | --- |
-| `packages/ui` | Shared web UI primitives (`@starter/ui`) |
+| `packages/ui` | Shared web UI primitives (`@school-os/ui`) |
 | `packages/logger` | Shared logger for TypeScript and Rust |
 | `packages/tailwind-config` | Shared Tailwind theme/tokens |
 | `packages/typescript-config` | Shared TS config presets (`base`, `nextjs`, `expo`) |
@@ -127,7 +127,7 @@ docker compose up --build
 
 - [PROJECT.md](PROJECT.md) - project overview and conventions
 - [DESIGN.md](DESIGN.md) - design-system brief for humans and AI agents
-- [docs/ai-first-starter-workflow.md](docs/ai-first-starter-workflow.md) - starter-kit audit and AI-first workflow roadmap
+- [docs/ai-first-school-os-workflow.md](docs/ai-first-school-os-workflow.md) - school-os audit and AI-first workflow roadmap
 - [docs/QoL.md](docs/QoL.md) - developer quality-of-life stack
 - [docs/docker.md](docs/docker.md) - Docker setup and flow
 - [docs/architecture/README.md](docs/architecture/README.md) - architecture baseline and rules

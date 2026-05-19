@@ -1,14 +1,14 @@
-# Starter Kit - Project overview
+# School OS - Project overview
 
-This document is the deeper technical reference for the Starter Kit monorepo.
+This document is the deeper technical reference for the School OS monorepo.
 For quick setup/use, start with `README.md`.
 
 ## What this repository includes
 
-Monorepo starter managed by **Bun + Turborepo**, with:
+Monorepo school-os managed by **Bun + Turborepo**, with:
 
 - Multiple app templates (web, mobile, API, docs, PWA, systems-language apps)
-- Shared workspace packages (`@starter/*`)
+- Shared workspace packages (`@school-os/*`)
 - Polyglot scripts and quality tooling
 - Architecture boundary checks
 - Git hooks and CI/CD/security pipelines
@@ -17,7 +17,7 @@ Monorepo starter managed by **Bun + Turborepo**, with:
 ## Repository layout
 
 ```text
-starter/
+school-os/
 ├── apps/                     # Runnable applications
 │   ├── web/                  # Next.js app
 │   ├── mobile/               # Expo Router + NativeWind app
@@ -62,10 +62,10 @@ starter/
 
 | Package | Workspace import | Purpose |
 | --- | --- | --- |
-| `packages/ui` | `@starter/ui` | Shared web UI primitives |
-| `packages/logger` | `@starter/logger` | Shared structured logger for TypeScript and Rust |
-| `packages/tailwind-config` | `@starter/tailwind-config` | Shared design tokens/theme |
-| `packages/typescript-config` | `@starter/typescript-config` | Reusable TypeScript config presets |
+| `packages/ui` | `@school-os/ui` | Shared web UI primitives |
+| `packages/logger` | `@school-os/logger` | Shared structured logger for TypeScript and Rust |
+| `packages/tailwind-config` | `@school-os/tailwind-config` | Shared design tokens/theme |
+| `packages/typescript-config` | `@school-os/typescript-config` | Reusable TypeScript config presets |
 
 ## Root command surface
 
@@ -179,7 +179,7 @@ More details: `docs/docker.md` and `docker/README.md`.
 - Cursor-specific rules: `.cursor/rules/`
 - Architecture baseline: `docs/architecture/README.md`
 - Override process: `docs/overrides.md`
-- Use workspace imports as `@starter/<package>`
+- Use workspace imports as `@school-os/<package>`
 
 ## Related docs
 

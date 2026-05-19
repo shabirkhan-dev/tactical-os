@@ -1,6 +1,6 @@
 const sw = self as unknown as ServiceWorkerGlobalScope;
 
-const CACHE_NAME = "starter-pwa-v1";
+const CACHE_NAME = "school-os-pwa-v1";
 const PRECACHE_URLS = [
 	"/",
 	"/index.html",

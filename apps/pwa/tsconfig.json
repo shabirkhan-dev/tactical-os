@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
-	"extends": "@starter/typescript-config/base.json",
+	"extends": "@school-os/typescript-config/base.json",
 	"compilerOptions": {
 		"rootDir": ".",
 		"lib": ["esnext", "dom", "dom.iterable"],
