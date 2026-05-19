@@ -1,0 +1,46 @@
+---
+title: Project Structure
+description: A clear map of the monorepo layout and responsibilities.
+---
+
+## Repository layout
+
+```text
+starter/
+├── apps/
+│   ├── web/
+│   ├── mobile/
+│   ├── docs/
+│   ├── hono-api/
+│   ├── rust/
+│   └── c/
+├── packages/
+│   ├── ui/
+│   ├── tailwind-config/
+│   ├── typescript-config/
+│   └── logger/
+├── docs/
+├── scripts/
+├── docker/
+├── turbo.json
+└── biome.json
+```
+
+## Core principles
+
+- Keep app-specific code inside each app folder.
+- Move reusable logic into `packages/*`.
+- Prefer workspace imports (`@starter/*`) over copy-paste.
+- Keep tooling centralized at repository root.
+
+## Where to add new code
+
+- New product surface: `apps/<new-app>`
+- Shared UI/utilities/types: `packages/<new-package>`
+- Operational docs and architecture notes: `docs/`
+- Automation scripts: `scripts/`
+
+## Why this works
+
+This structure keeps local iteration fast while preserving consistency at scale. Teams can ship
+independently inside each app, without losing shared standards across the repo.

@@ -1,0 +1,104 @@
+"use client";
+
+import {
+	CreditCardIcon,
+	Logout01Icon,
+	MoreVerticalCircle01Icon,
+	Notification03Icon,
+	UserCircle02Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+	Avatar,
+	AvatarFallback,
+	AvatarImage,
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuGroup,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+	SidebarMenu,
+	SidebarMenuButton,
+	SidebarMenuItem,
+	useSidebar,
+} from "@starter/ui";
+
+export function NavUser({
+	user,
+}: {
+	user: {
+		name: string;
+		email: string;
+		avatar: string;
+	};
+}) {
+	const { isMobile } = useSidebar();
+	return (
+		<SidebarMenu>
+			<SidebarMenuItem>
+				<DropdownMenu>
+					<DropdownMenuTrigger
+						render={<SidebarMenuButton size="lg" className="aria-expanded:bg-muted" />}
+					>
+						<Avatar className="size-8 rounded-lg grayscale">
+							<AvatarImage src={user.avatar} alt={user.name} />
+							<AvatarFallback className="rounded-lg">CN</AvatarFallback>
+						</Avatar>
+						<div className="grid flex-1 text-start text-sm leading-tight">
+							<span className="truncate font-medium">{user.name}</span>
+							<span className="text-foreground/70 truncate text-xs">{user.email}</span>
+						</div>
+						<HugeiconsIcon
+							icon={MoreVerticalCircle01Icon}
+							strokeWidth={2}
+							className="ms-auto size-4"
+						/>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent
+						className="min-w-56"
+						side={isMobile ? "bottom" : "right"}
+						align="end"
+						sideOffset={4}
+					>
+						<DropdownMenuGroup>
+							<DropdownMenuLabel className="p-0 font-normal">
+								<div className="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
+									<Avatar className="size-8">
+										<AvatarImage src={user.avatar} alt={user.name} />
+										<AvatarFallback className="rounded-lg">CN</AvatarFallback>
+									</Avatar>
+									<div className="grid flex-1 text-start text-sm leading-tight">
+										<span className="truncate font-medium">{user.name}</span>
+										<span className="text-muted-foreground truncate text-xs">{user.email}</span>
+									</div>
+								</div>
+							</DropdownMenuLabel>
+						</DropdownMenuGroup>
+						<DropdownMenuSeparator />
+						<DropdownMenuGroup>
+							<DropdownMenuItem>
+								<HugeiconsIcon icon={UserCircle02Icon} strokeWidth={2} />
+								Account
+							</DropdownMenuItem>
+							<DropdownMenuItem>
+								<HugeiconsIcon icon={CreditCardIcon} strokeWidth={2} />
+								Billing
+							</DropdownMenuItem>
+							<DropdownMenuItem>
+								<HugeiconsIcon icon={Notification03Icon} strokeWidth={2} />
+								Notifications
+							</DropdownMenuItem>
+						</DropdownMenuGroup>
+						<DropdownMenuSeparator />
+						<DropdownMenuItem>
+							<HugeiconsIcon icon={Logout01Icon} strokeWidth={2} />
+							Log out
+						</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
+			</SidebarMenuItem>
+		</SidebarMenu>
+	);
+}

@@ -1,0 +1,100 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies (root and all packages/apps)
+node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+.claude/
+# testing
+/coverage
+
+# next.js (any .next dir in repo)
+.next/
+.out/
+
+# expo / react native
+.expo/
+.expo-shared/
+*.expo.json
+
+# production / build output
+/build
+dist/
+
+# misc
+.DS_Store
+Thumbs.db
+*.pem
+*~
+*.swp
+*.swo
+*.log
+.cache/
+*.local
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# turborepo (cache – do not track)
+.turbo/
+
+# playwright
+playwright-report/
+test-results/
+
+# coverage
+coverage/
+**/coverage/
+
+# rust (Cargo)
+target/
+
+# c (build output)
+apps/c/build/
+*.o
+*.a
+*.so
+*.d
+.deps/
+
+# just (optional: local overrides / cache if any)
+.just-*
+
+# scripts – build/cache
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+# lua (if any)
+*.luac
+
+# biome (cache)
+.biome/
+
+# editor / IDE (local only)
+.idea/
+
+# root workspace generated / temp (remove from .gitignore to track)
+root.ts

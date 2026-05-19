@@ -1,0 +1,44 @@
+{
+	"name": "Personal OS (polyglot monorepo)",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=cached",
+
+	"postCreateCommand": "bun install && bun run prepare",
+	"forwardPorts": [3000],
+	"portsAttributes": {
+		"3000": {
+			"label": "Next.js",
+			"onAutoForward": "notify"
+		}
+	},
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"biomejs.biome",
+				"bradlc.vscode-tailwindcss",
+				"rust-lang.rust-analyzer",
+				"llvm-vs-code-extensions.vscode-clangd",
+				"ms-python.python",
+				"charliermarsh.ruff",
+				"timonwong.shellcheck",
+				"mkhl.shfmt",
+				"sumneko.lua",
+				"JohnnyMorganz.stylua"
+			],
+			"settings": {
+				"editor.formatOnSave": true,
+				"editor.defaultFormatter": "biomejs.biome",
+				"[rust]": {
+					"editor.defaultFormatter": "rust-lang.rust-analyzer"
+				}
+			}
+		}
+	},
+
+	"remoteUser": "vscode"
+}

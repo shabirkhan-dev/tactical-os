@@ -1,0 +1,109 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "../../../../packages/tailwind-config/theme.css";
+
+/* Scan UI package for Tailwind classes (path relative to this stylesheet) */
+@source "../../../../packages/ui/src";
+
+:root {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-geist-mono: ui-monospace, "SFMono-Regular", "SF Mono", Consolas, "Liberation Mono", monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Dashboard semantic theme tokens */
+:root {
+  --dashboard-bg: #f4f4f5;
+  --dashboard-sidebar-bg: #ffffff;
+  --dashboard-topbar-bg: #ffffff;
+  --dashboard-card-outer: #ffffff;
+  --dashboard-card-inner: #f8f8f8;
+  --dashboard-surface: #ffffff;
+  --dashboard-surface-elevated: #f4f4f5;
+  --dashboard-surface-hover: #f0f0f0;
+  --dashboard-surface-strong: #e4e4e7;
+  --dashboard-border: rgba(0, 0, 0, 0.08);
+  --dashboard-border-subtle: rgba(0, 0, 0, 0.05);
+  --dashboard-border-strong: rgba(0, 0, 0, 0.12);
+  --dashboard-border-focus: rgba(0, 0, 0, 0.15);
+  --dashboard-text-primary: #18181b;
+  --dashboard-text-secondary: #52525b;
+  --dashboard-text-muted: #a1a1aa;
+  --dashboard-text-dim: #d4d4d8;
+  --dashboard-text-faint: #e4e4e7;
+  --dashboard-hover: rgba(0, 0, 0, 0.04);
+  --dashboard-hover-strong: rgba(0, 0, 0, 0.08);
+  --dashboard-chart-grid: #e4e4e7;
+  --dashboard-chart-dot: #a1a1aa;
+  --dashboard-chart-muted-bar: #d4d4d8;
+  --dashboard-tooltip-bg: rgba(255, 255, 255, 0.98);
+  --dashboard-chart-line: rgba(0, 0, 0, 0.45);
+  --dashboard-chart-leader: rgba(0, 0, 0, 0.25);
+}
+
+.dark {
+  --dashboard-bg: #141414;
+  --dashboard-sidebar-bg: #1a1a1a;
+  --dashboard-topbar-bg: #141414;
+  --dashboard-card-outer: #181818;
+  --dashboard-card-inner: #202020;
+  --dashboard-surface: #1f1f1f;
+  --dashboard-surface-elevated: #262626;
+  --dashboard-surface-hover: #2a2a2a;
+  --dashboard-surface-strong: #2e2e2e;
+  --dashboard-border: rgba(255, 255, 255, 0.08);
+  --dashboard-border-subtle: rgba(255, 255, 255, 0.05);
+  --dashboard-border-strong: rgba(255, 255, 255, 0.15);
+  --dashboard-border-focus: rgba(255, 255, 255, 0.15);
+  --dashboard-text-primary: #f4f4f5;
+  --dashboard-text-secondary: #d4d4d8;
+  --dashboard-text-muted: #a1a1aa;
+  --dashboard-text-dim: #71717a;
+  --dashboard-text-faint: #52525b;
+  --dashboard-hover: rgba(255, 255, 255, 0.04);
+  --dashboard-hover-strong: rgba(255, 255, 255, 0.08);
+  --dashboard-chart-grid: #252525;
+  --dashboard-chart-dot: #6b6b6b;
+  --dashboard-chart-muted-bar: #3a3a3a;
+  --dashboard-tooltip-bg: rgba(28, 28, 28, 0.98);
+  --dashboard-chart-line: rgba(255, 255, 255, 0.65);
+  --dashboard-chart-leader: rgba(160, 160, 160, 0.45);
+}
+
+@theme inline {
+  --color-dashboard-bg: var(--dashboard-bg);
+  --color-dashboard-sidebar-bg: var(--dashboard-sidebar-bg);
+  --color-dashboard-topbar-bg: var(--dashboard-topbar-bg);
+  --color-dashboard-card-outer: var(--dashboard-card-outer);
+  --color-dashboard-card-inner: var(--dashboard-card-inner);
+  --color-dashboard-surface: var(--dashboard-surface);
+  --color-dashboard-surface-elevated: var(--dashboard-surface-elevated);
+  --color-dashboard-surface-hover: var(--dashboard-surface-hover);
+  --color-dashboard-surface-strong: var(--dashboard-surface-strong);
+  --color-dashboard-border: var(--dashboard-border);
+  --color-dashboard-border-subtle: var(--dashboard-border-subtle);
+  --color-dashboard-border-strong: var(--dashboard-border-strong);
+  --color-dashboard-border-focus: var(--dashboard-border-focus);
+  --color-dashboard-text-primary: var(--dashboard-text-primary);
+  --color-dashboard-text-secondary: var(--dashboard-text-secondary);
+  --color-dashboard-text-muted: var(--dashboard-text-muted);
+  --color-dashboard-text-dim: var(--dashboard-text-dim);
+  --color-dashboard-text-faint: var(--dashboard-text-faint);
+  --color-dashboard-hover: var(--dashboard-hover);
+  --color-dashboard-hover-strong: var(--dashboard-hover-strong);
+  --color-dashboard-chart-grid: var(--dashboard-chart-grid);
+  --color-dashboard-chart-dot: var(--dashboard-chart-dot);
+  --color-dashboard-chart-muted-bar: var(--dashboard-chart-muted-bar);
+  --color-dashboard-tooltip-bg: var(--dashboard-tooltip-bg);
+  --color-dashboard-chart-line: var(--dashboard-chart-line);
+  --color-dashboard-chart-leader: var(--dashboard-chart-leader);
+}

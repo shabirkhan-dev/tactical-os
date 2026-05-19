@@ -1,0 +1,11 @@
+{
+  "title": "Documentation",
+  "pages": [
+    "index",
+    "quick-start",
+    "project-structure",
+    "apps-overview",
+    "commands-and-tooling",
+    "development-workflow"
+  ]
+}

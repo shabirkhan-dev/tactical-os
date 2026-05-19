@@ -1,0 +1,25 @@
+# Postgres service — included from root docker-compose.yml
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-hono}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-hono}
+      POSTGRES_DB: ${POSTGRES_DB:-hono}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-hono} -d ${POSTGRES_DB:-hono}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

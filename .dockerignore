@@ -1,0 +1,33 @@
+# Hono API image build (context = repo root). Compose: docker/compose/hono-api.yml
+# Dependencies and build output (reinstalled in container)
+node_modules
+**/node_modules
+
+# Git and IDE
+.git
+.gitignore
+.idea
+.deps
+
+# Env and secrets
+.env
+.env.*
+!.env.example
+
+# Build and cache
+dist
+.next
+.turbo
+.biome
+*.tsbuildinfo
+
+# Apps not needed for hono-api image
+apps/web
+apps/rust
+apps/c
+packages/ui
+packages/tailwind-config
+
+# Misc
+*.log
+.DS_Store

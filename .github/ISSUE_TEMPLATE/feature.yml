@@ -1,0 +1,48 @@
+name: Feature
+description: Plan a product feature or starter-kit improvement
+title: "[Feature]: "
+labels: ["feature"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What are we building and why?
+    validations:
+      required: true
+  - type: textarea
+    id: users
+    attributes:
+      label: Users
+      description: Who is this for and what are they trying to do?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List concrete behavior that must be true before this is done.
+      placeholder: |
+        - The user can...
+        - The system prevents...
+        - The UI shows...
+    validations:
+      required: true
+  - type: textarea
+    id: uiux
+    attributes:
+      label: UI/UX requirements
+      description: Screens, states, responsive behavior, accessibility, or design references.
+      placeholder: |
+        - Desktop:
+        - Mobile:
+        - Loading:
+        - Empty:
+        - Error:
+        - Focus/keyboard:
+  - type: textarea
+    id: technical
+    attributes:
+      label: Technical notes
+      description: APIs, data model, affected apps/packages, security, migrations, or tests.
+

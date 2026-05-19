@@ -1,0 +1,58 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+:root {
+	color-scheme: dark light;
+	--bg: #0b1220;
+	--fg: #f8fafc;
+	--muted: #94a3b8;
+	--accent: #38bdf8;
+	--accent-dim: rgba(56, 189, 248, 0.14);
+	--surface: rgba(15, 23, 42, 0.72);
+	--border: rgba(148, 163, 184, 0.22);
+	--shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+	--radius: 12px;
+	--radius-lg: 16px;
+	font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+	line-height: 1.5;
+}
+
+body {
+	margin: 0;
+	min-height: 100dvh;
+	background:
+		radial-gradient(ellipse 100% 70% at 50% -15%, rgba(56, 189, 248, 0.12), transparent 50%),
+		radial-gradient(ellipse 80% 50% at 100% 0%, rgba(99, 102, 241, 0.08), transparent 45%),
+		var(--bg);
+	color: var(--fg);
+}
+
+.app {
+	max-width: 36rem;
+	margin: 0 auto;
+	padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+h1 {
+	font-size: clamp(1.75rem, 4vw, 2.25rem);
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	margin: 0 0 0.75rem;
+}
+
+.muted {
+	color: var(--muted);
+	margin: 0 0 1.5rem;
+}
+
+.status {
+	padding: 0.75rem 1rem;
+	border-radius: var(--radius);
+	background: rgba(148, 163, 184, 0.12);
+	border: 1px solid rgba(148, 163, 184, 0.25);
+	margin: 0 0 1rem;
+	font-variant-numeric: tabular-nums;
+}

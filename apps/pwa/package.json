@@ -1,0 +1,22 @@
+{
+	"name": "pwa",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "bun run build:app && bun run build:sw && bun run scripts/copy-assets.ts",
+		"build:app": "bun build src/main.ts --outdir=dist --minify --target=browser --sourcemap",
+		"build:sw": "bun build src/service-worker/sw.ts --outfile=dist/sw.js --minify --target=browser",
+		"dev": "bun --hot src/dev-server.ts",
+		"start": "bun scripts/serve-dist.ts",
+		"lint": "biome check .",
+		"lint:fix": "biome check --write .",
+		"typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.sw.json"
+	},
+	"devDependencies": {
+		"@starter/typescript-config": "workspace:*",
+		"@types/bun": "^1.3.14",
+		"@types/node": "^25.8.0",
+		"typescript": "^6.0.3"
+	}
+}

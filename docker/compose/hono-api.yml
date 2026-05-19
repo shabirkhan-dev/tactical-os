@@ -1,0 +1,17 @@
+# Hono API — build context is repo root (workspace packages). Paths relative to this file.
+services:
+  hono-api:
+    build:
+      context: ../..
+      dockerfile: apps/hono-api/Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-hono}:${POSTGRES_PASSWORD:-hono}@postgres:5432/${POSTGRES_DB:-hono}
+      PORT: 3000
+      HOST: 0.0.0.0
+      NODE_ENV: production
+    ports:
+      - "3001:3000" # host:container — 3001 avoids clashing with local dev on 3000
+    depends_on:
+      postgres:
+        condition: service_healthy

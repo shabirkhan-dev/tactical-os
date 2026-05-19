@@ -1,0 +1,28 @@
+# Git hooks: format, lint, typecheck, large-file guard, secret scan, commit message.
+# Install: bun run prepare (or lefthook install)
+
+pre-commit:
+  commands:
+    # Fix trailing whitespace in staged text files, then re-stage
+    trailing-whitespace:
+      run: bash scripts/git-hooks/fix-trailing-whitespace.sh
+      stage_fixed: true
+    format:
+      run: bun run format
+    lint:
+      run: bun run lint:fix
+    typecheck:
+      run: bun run typecheck
+    architecture:
+      run: bun run architecture:check
+    # Forbid staged files over 2MB (set MAX_SIZE_MB=1 to tighten)
+    large-files:
+      run: bash scripts/git-hooks/check-large-files.sh
+    # Detect likely secrets in staged diff
+    secrets:
+      run: bash scripts/git-hooks/check-secrets.sh
+
+commit-msg:
+  commands:
+    message-check:
+      run: bash scripts/git-hooks/commit-msg-check.sh {1}

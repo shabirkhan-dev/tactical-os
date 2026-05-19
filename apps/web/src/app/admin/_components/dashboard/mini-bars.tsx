@@ -1,0 +1,45 @@
+"use client";
+
+import { cn } from "@/lib/utils";
+
+type Props = {
+	data: number[];
+	activeIndex?: number;
+	activeColor?: string;
+	mutedColor?: string;
+	className?: string;
+};
+
+/**
+ * Small fixed-bar chart used inside stat cards.
+ * Renders one accent (orange) bar surrounded by muted bars,
+ * mirroring the picture instead of an animated sparkline.
+ */
+export function MiniBars({
+	data,
+	activeIndex,
+	activeColor = "#FF6A1A",
+	mutedColor = "var(--dashboard-chart-muted-bar)",
+	className,
+}: Props) {
+	const max = Math.max(...data, 1);
+	return (
+		<div className={cn("flex h-9 items-end gap-[3px]", className)} aria-hidden>
+			{data.map((v, i) => {
+				const isActive = i === activeIndex;
+				const heightPct = Math.max(18, (v / max) * 100);
+				return (
+					<span
+						// biome-ignore lint/suspicious/noArrayIndexKey: bar order is stable and meaningful
+						key={i}
+						className="w-[3px] rounded-[1.5px]"
+						style={{
+							height: `${heightPct}%`,
+							backgroundColor: isActive ? activeColor : mutedColor,
+						}}
+					/>
+				);
+			})}
+		</div>
+	);
+}

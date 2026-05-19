@@ -1,0 +1,42 @@
+---
+title: Commands and Tooling
+description: The command surface and toolchain used across the monorepo.
+---
+
+## Package manager
+
+Use Bun for everything:
+
+```bash
+bun install
+```
+
+Do not use npm, yarn, or pnpm in this repository.
+
+## Common root commands
+
+```bash
+bun run dev
+bun run build
+bun run lint
+bun run format
+bun run typecheck
+bun run test
+```
+
+## Toolchain
+
+- **Turborepo**: Task orchestration and caching
+- **Biome**: Formatting and linting for TS/JS
+- **Lefthook**: Git hooks (pre-commit and commit-msg)
+- **TypeScript**: Shared base config via `packages/typescript-config`
+
+## CI expectations
+
+Before opening a PR:
+
+1. Run lint and format locally.
+2. Run typecheck for TS changes.
+3. Run tests for affected apps or packages.
+
+These checks align with CI and reduce review friction.

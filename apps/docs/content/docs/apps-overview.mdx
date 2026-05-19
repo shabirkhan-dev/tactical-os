@@ -1,0 +1,34 @@
+---
+title: Apps Overview
+description: What each app does and where it fits in the platform.
+---
+
+## `apps/web`
+
+Next.js web frontend with shared design primitives and Tailwind-based styling.
+
+## `apps/mobile`
+
+Expo Router mobile app using NativeWind and shared workspace conventions.
+
+## `apps/docs`
+
+Fumadocs-powered documentation site for onboarding, architecture, and workflows.
+
+## `apps/hono-api`
+
+Hono-based API service with Prisma and PostgreSQL integration patterns.
+
+## `apps/rust`
+
+Rust service/binary area for performance-sensitive or systems-level workloads.
+
+## `apps/c`
+
+C workspace for low-level tooling and native experiments.
+
+## Cross-app strategy
+
+- Keep domain boundaries explicit.
+- Share contracts and utilities through packages.
+- Evolve each app independently while maintaining one quality bar.

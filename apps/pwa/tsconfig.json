@@ -1,0 +1,11 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"extends": "@starter/typescript-config/base.json",
+	"compilerOptions": {
+		"rootDir": ".",
+		"lib": ["esnext", "dom", "dom.iterable"],
+		"types": ["bun", "node"]
+	},
+	"include": ["src/**/*.ts", "src/**/*.d.ts", "scripts/**/*.ts"],
+	"exclude": ["src/service-worker/sw.ts"]
+}

@@ -1,0 +1,48 @@
+{
+  "name": "starter",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT OR Apache-2.0",
+  "packageManager": "bun@1.3.13",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "preflight": "bun run lint && bun run typecheck && bun run test",
+    "lint": "turbo run lint && bun run scripts:lint",
+    "lint:fix": "turbo run lint:fix",
+    "format": "biome format --write . && bun run scripts:format && (cd apps/rust && cargo fmt) && (cd apps/c && bun run format) && (cd apps/fastapi && bun run format)",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test && bun run test:scripts",
+    "test:coverage": "(cd apps/web && bun run test:coverage) && (cd apps/hono-api && bun run test:coverage) && (cd packages/logger && bun run test:coverage) && (cd apps/mobile && bun run test) && (cd apps/rust && bun run test) && (cd apps/c && bun run test) && bun run test:scripts",
+    "test:scripts": "bash scripts/bash/tests/main.test.sh && (command -v lua >/dev/null 2>&1 && lua scripts/lua/tests/main_test.lua || lua5.4 scripts/lua/tests/main_test.lua) && python -m unittest scripts/python/tests/test_main.py",
+    "test:e2e:web": "cd apps/web && bun run test:e2e",
+    "architecture:check": "bash scripts/architecture/check-boundaries.sh",
+    "ci:lint": "bun run lint && bun run architecture:check",
+    "ci:typecheck": "bun run typecheck",
+    "ci:test": "bun run test:coverage",
+    "ci:e2e:web": "bun run test:e2e:web",
+    "scripts:lint": "shellcheck scripts/bash/*.sh scripts/git-hooks/*.sh && (luacheck scripts/lua 2>/dev/null || true) && (ruff check scripts/python 2>/dev/null || true)",
+    "scripts:format": "shfmt -i 4 -w scripts/bash/*.sh scripts/git-hooks/*.sh && (stylua scripts/lua 2>/dev/null || true) && (ruff format scripts/python 2>/dev/null || true)",
+    "scripts:run": "bash scripts/bash/main.sh",
+    "scripts:run:bash": "bash scripts/bash/main.sh",
+    "scripts:run:lua": "lua scripts/lua/main.lua",
+    "scripts:run:python": "python scripts/python/main.py",
+    "prepare": "lefthook install"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.15",
+    "lefthook": "^2.1.6",
+    "lightningcss": "1.32.0",
+    "turbo": "^2.9.14"
+  },
+  "ignoreScripts": ["sharp", "unrs-resolver"],
+  "trustedDependencies": ["sharp", "unrs-resolver"],
+  "overrides": {
+    "lightningcss": "1.32.0"
+  },
+  "patchedDependencies": {
+    "react-native-css@3.0.6": "patches/react-native-css@3.0.6.patch"
+  }
+}

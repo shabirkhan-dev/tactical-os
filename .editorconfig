@@ -1,0 +1,41 @@
+# EditorConfig: https://editorconfig.org
+# Keeps line endings, indent, charset, and final newline consistent across editors/languages.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Tab-indented (Biome, Rust, C)
+[*.{ts,tsx,js,jsx,mjs,cjs,json,css,scss}]
+indent_style = tab
+indent_size = 4
+
+[*.{rs,c,h}]
+indent_style = tab
+indent_size = 4
+
+[Makefile]
+indent_style = tab
+
+[*.{sh,bash}]
+indent_style = space
+indent_size = 4
+
+[*.{py}]
+indent_style = space
+indent_size = 4
+
+[*.{lua}]
+indent_style = space
+indent_size = 4
+
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false

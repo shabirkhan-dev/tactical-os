@@ -1,0 +1,43 @@
+---
+title: Development Workflow
+description: A simple, reliable workflow for shipping high-quality changes.
+---
+
+## 1) Branch and scope
+
+- Create a focused branch.
+- Keep one concern per PR when possible.
+- Avoid mixing formatting-only changes with feature changes.
+
+## 2) Build in small steps
+
+- Prefer small commits with clear intent.
+- Extract shared logic into `packages/*` early.
+- Keep app boundaries clean and explicit.
+
+## 3) Run local quality checks
+
+```bash
+bun run lint
+bun run format
+bun run typecheck
+```
+
+Run tests for the surfaces you touched.
+
+## 4) Open a PR with context
+
+Include:
+
+- What changed
+- Why it changed
+- How it was tested
+
+Clear PR context speeds up review and reduces regressions.
+
+## 5) Merge-ready checklist
+
+- No lint/type errors
+- No dead code or unused imports
+- Docs updated for behavior/config changes
+- CI green

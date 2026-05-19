@@ -1,0 +1,28 @@
+# Starter Kit C app – Justfile
+cc := "cc"
+cflags := "-std=c17 -Wall -Wextra -pedantic"
+binary := "build/starter-c"
+src := "src/main.c src/message.c"
+
+default: build
+
+# Build release binary
+build:
+	@mkdir -p build
+	{{cc}} {{cflags}} -o {{binary}} {{src}}
+
+# Build and run
+run: build
+	./{{binary}}
+
+# Lint (requires clang-tidy)
+lint:
+	clang-tidy src/main.c src/message.c -- {{cflags}} -I.
+
+# Format (requires clang-format)
+format:
+	clang-format -i src/main.c src/message.c
+
+# Remove build output
+clean:
+	rm -rf build

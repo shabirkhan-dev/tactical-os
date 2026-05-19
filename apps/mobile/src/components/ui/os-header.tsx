@@ -1,0 +1,244 @@
+import { router, useSegments } from "expo-router";
+import { Bell, Check, ChevronDown, Scan } from "lucide-react-native";
+import * as React from "react";
+import {
+	Image,
+	Modal,
+	Pressable,
+	StyleSheet,
+	Text,
+	TouchableWithoutFeedback,
+	View,
+} from "react-native";
+import { NeonColors } from "@/constants/design-system";
+
+export type OSModule =
+	| "Dashboard"
+	| "Skincare"
+	| "Exercise"
+	| "Expenses"
+	| "Nutrition"
+	| "Mindfulness"
+	| "Focus"
+	| "Library";
+
+export function OSHeader() {
+	const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
+	const segments = useSegments();
+
+	// Determine current module from route segments
+	const currentModule: OSModule = React.useMemo(() => {
+		if (segments.includes("(skincare)")) return "Skincare";
+		if (segments.includes("(exercise)")) return "Exercise";
+		if (segments.includes("(expenses)")) return "Expenses";
+		if (segments.includes("(nutrition)")) return "Nutrition";
+		if (segments.includes("(mindfulness)")) return "Mindfulness";
+		if (segments.includes("(focus)")) return "Focus";
+		if (segments.includes("(library)")) return "Library";
+		return "Dashboard";
+	}, [segments]);
+
+	const modules: { label: OSModule; route: string }[] = [
+		{ label: "Dashboard", route: "/(modules)/(dashboard)" },
+		{ label: "Focus", route: "/(modules)/(focus)" },
+		{ label: "Library", route: "/(modules)/(library)" },
+		{ label: "Skincare", route: "/(modules)/(skincare)" },
+		{ label: "Exercise", route: "/(modules)/(exercise)" },
+		{ label: "Expenses", route: "/(modules)/(expenses)" },
+		{ label: "Nutrition", route: "/(modules)/(nutrition)" },
+		{ label: "Mindfulness", route: "/(modules)/(mindfulness)" },
+	];
+
+	const handleSelect = (route: string) => {
+		router.replace(
+			route as
+				| "/(modules)/(dashboard)"
+				| "/(modules)/(skincare)"
+				| "/(modules)/(exercise)"
+				| "/(modules)/(expenses)"
+				| "/(modules)/(nutrition)"
+				| "/(modules)/(mindfulness)"
+				| "/(modules)/(focus)"
+				| "/(modules)/(library)",
+		);
+		setIsDropdownOpen(false);
+	};
+
+	return (
+		<View style={styles.container}>
+			<View style={styles.left}>
+				<View style={styles.avatarContainer}>
+					<Image source={{ uri: "https://avatar.vercel.sh/shabir" }} style={styles.avatar} />
+					<View style={styles.onlineDot} />
+				</View>
+
+				<View style={styles.dropdownContainer}>
+					<Pressable style={styles.accountSelector} onPress={() => setIsDropdownOpen(true)}>
+						<Text style={styles.accountName}>{currentModule}</Text>
+						<ChevronDown size={16} color={NeonColors.text.secondary} />
+					</Pressable>
+
+					<Modal
+						visible={isDropdownOpen}
+						transparent={true}
+						animationType="fade"
+						onRequestClose={() => setIsDropdownOpen(false)}
+					>
+						<TouchableWithoutFeedback onPress={() => setIsDropdownOpen(false)}>
+							<View style={styles.modalOverlay}>
+								<View style={styles.dropdownMenu}>
+									{modules.map((mod) => (
+										<Pressable
+											key={mod.label}
+											style={styles.dropdownItem}
+											onPress={() => handleSelect(mod.route)}
+										>
+											<Text
+												style={[
+													styles.dropdownItemText,
+													currentModule === mod.label && styles.activeDropdownItemText,
+												]}
+											>
+												{mod.label}
+											</Text>
+											{currentModule === mod.label && (
+												<Check size={16} color={NeonColors.accent.green} strokeWidth={3} />
+											)}
+										</Pressable>
+									))}
+								</View>
+							</View>
+						</TouchableWithoutFeedback>
+					</Modal>
+				</View>
+			</View>
+
+			<View style={styles.right}>
+				<Pressable style={styles.iconButton}>
+					<Scan size={22} color={NeonColors.text.primary} strokeWidth={1.5} />
+				</Pressable>
+				<View style={styles.notificationContainer}>
+					<Pressable style={styles.iconButton}>
+						<Bell size={22} color={NeonColors.text.primary} strokeWidth={1.5} />
+					</Pressable>
+					<View style={styles.badge} />
+				</View>
+			</View>
+		</View>
+	);
+}
+
+const styles = StyleSheet.create({
+	container: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+		alignItems: "center",
+		paddingHorizontal: 16,
+		paddingVertical: 12,
+		zIndex: 100,
+	},
+	left: {
+		flexDirection: "row",
+		alignItems: "center",
+		gap: 12,
+	},
+	avatarContainer: {
+		position: "relative",
+	},
+	avatar: {
+		width: 36,
+		height: 36,
+		borderRadius: 18,
+		backgroundColor: NeonColors.surface,
+	},
+	onlineDot: {
+		position: "absolute",
+		bottom: 0,
+		right: 0,
+		width: 10,
+		height: 10,
+		borderRadius: 5,
+		backgroundColor: NeonColors.accent.green,
+		borderWidth: 2,
+		borderColor: NeonColors.background,
+	},
+	dropdownContainer: {
+		position: "relative",
+	},
+	accountSelector: {
+		flexDirection: "row",
+		alignItems: "center",
+		gap: 4,
+		backgroundColor: NeonColors.surface,
+		paddingHorizontal: 12,
+		paddingVertical: 6,
+		borderRadius: 20,
+		borderWidth: 1,
+		borderColor: "rgba(255, 255, 255, 0.05)",
+	},
+	accountName: {
+		color: NeonColors.text.primary,
+		fontSize: 14,
+		fontWeight: "700",
+		letterSpacing: 0.5,
+	},
+	modalOverlay: {
+		flex: 1,
+		backgroundColor: "rgba(0, 0, 0, 0.4)",
+		justifyContent: "flex-start",
+		paddingTop: 60,
+		paddingLeft: 64,
+	},
+	dropdownMenu: {
+		width: 180,
+		backgroundColor: NeonColors.surface,
+		borderRadius: 16,
+		padding: 8,
+		borderWidth: 1,
+		borderColor: "rgba(255, 255, 255, 0.1)",
+		shadowColor: "#000",
+		shadowOffset: { width: 0, height: 10 },
+		shadowOpacity: 0.5,
+		shadowRadius: 20,
+		elevation: 10,
+	},
+	dropdownItem: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+		alignItems: "center",
+		paddingVertical: 12,
+		paddingHorizontal: 12,
+		borderRadius: 8,
+	},
+	dropdownItemText: {
+		color: NeonColors.text.secondary,
+		fontSize: 15,
+		fontWeight: "500",
+	},
+	activeDropdownItemText: {
+		color: NeonColors.text.primary,
+		fontWeight: "700",
+	},
+	right: {
+		flexDirection: "row",
+		alignItems: "center",
+		gap: 16,
+	},
+	iconButton: {
+		padding: 4,
+	},
+	notificationContainer: {
+		position: "relative",
+	},
+	badge: {
+		position: "absolute",
+		top: 4,
+		right: 4,
+		width: 8,
+		height: 8,
+		borderRadius: 4,
+		backgroundColor: NeonColors.accent.green,
+		borderWidth: 1.5,
+		borderColor: NeonColors.background,
+	},
+});

@@ -1,0 +1,6 @@
+# C/C++ formatting – same QoL style as rest of repo (100 width, etc.)
+BasedOnStyle: LLVM
+ColumnLimit: 100
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never

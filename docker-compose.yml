@@ -1,0 +1,11 @@
+# Project entrypoint: Postgres + Hono API. Fragments live under docker/compose/.
+# Requires Docker Compose v2.20+ (include). From repo root:
+#   cp env.docker.example .env && docker compose up --build -d
+# Run without sudo: bash scripts/bash/docker-group.sh then newgrp docker
+
+name: starter
+
+include:
+  - docker/compose/postgres.yml
+  - docker/compose/hono-api.yml
+  - docker/compose/rust-api.yml

@@ -1,0 +1,10 @@
+# deps
+node_modules/
+
+# env
+.env
+.env.*
+!.env.example
+
+# prisma (generated client – run `prisma generate` to recreate)
+src/generated/
