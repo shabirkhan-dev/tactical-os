@@ -5,7 +5,7 @@ Read this file first when working in this repo.
 
 ## Project overview
 
-Monorepo School OS managed with **Turborepo + Bun**. Four apps, shared packages, and
+Monorepo School OS managed with **Turborepo + Bun**. Three apps, shared packages, and
 multi-language scripts, all wired into a single lint/format/build/test surface.
 
 
@@ -24,20 +24,19 @@ school-os/
 │   ├── web/             # Next.js (React, Tailwind, shadcn-style UI)
 │   ├── mobile/          # Expo Router + NativeWind app (TypeScript)
 │   ├── hono-api/        # Hono + Prisma + PostgreSQL REST API
-│   ├── rust/            # Rust binary (Cargo, Axum)
-│   └── c/               # C binary (clang-format, clang-tidy)
-│   └── docs/               # Documentation for the School OS
+│   └── rust/            # Rust binary (Cargo, Axum)
+│   └── docs/            # Documentation for the School OS
 
 ├── packages/
 │   ├── ui/              # Shared web UI primitives
 │   ├── tailwind-config/ # Shared Tailwind theme (theme.css)
 │   ├── typescript-config/ # Shared tsconfig bases (base.json, nextjs.json)
 │   └── logger/          # Shared logger (TS + Rust)
-├── scripts/             # Utility scripts: bash/, lua/, python/
+├── scripts/             # Utility scripts: bash/, python/
 ├── docker/              # Docker Compose fragments (see docker/README.md)
 ├── docs/                # Extra docs: docker.md, QoL.md
 ├── .cursor/rules/       # Cursor-specific rules (also summarised below)
-├── .devcontainer/       # Dev Container config (Bun, Rust, C, Python, Lua, etc.)
+├── .devcontainer/       # Dev Container config (Bun, Rust, Python, etc.)
 ├── .github/workflows/   # CI (lint, typecheck, build, test)
 └── (root config)        # biome.json, turbo.json, lefthook.yml, justfile, .editorconfig, etc.
 ```
@@ -59,10 +58,10 @@ school-os/
 | `bun install` | Install all dependencies |
 | `bun run prepare` | Install git hooks (lefthook) |
 | `bun run dev` | Start all dev servers (Turbo) |
-| `bun run build` | Build all apps (Turbo + C) |
-| `bun run lint` | Lint: Biome (TS/JS) + ShellCheck + luacheck + ruff |
+| `bun run build` | Build all apps (Turbo) |
+| `bun run lint` | Lint: Biome (TS/JS) + ShellCheck + ruff |
 | `bun run lint:fix` | Lint with auto-fix |
-| `bun run format` | Format: Biome + shfmt + stylua + ruff + cargo fmt + clang-format |
+| `bun run format` | Format: Biome + shfmt + ruff + cargo fmt |
 | `bun run typecheck` | TypeScript typecheck |
 | `bun run test` | Run tests (e.g. cargo test) |
 | `bun run test:coverage` | Run TS coverage + all language tests |
@@ -81,7 +80,7 @@ Optional: install [just](https://github.com/casey/just) and use `just lint`, `ju
 - **Naming**: PascalCase for components; files match component name. Hooks use `use*` prefix;
   utility functions are plain named exports.
 - **Imports**: Prefer workspace imports as `@school-os/<package>` (e.g. `@school-os/ui`,
-  `@school-os/tailwind-config`). Group: external → workspace → relative. No unused imports.
+  @school-os/tailwind-config). Group: external → workspace → relative. No unused imports.
 - **Types**: Explicit types for props and public APIs. Avoid `any`; use `unknown` and narrow.
 - **Errors**: Handle explicitly — log and rethrow, or use result types. No silent catches.
 - **Size**: Small, single-responsibility functions and components. Extract when complexity grows.
@@ -116,9 +115,7 @@ Optional: install [just](https://github.com/casey/just) and use `just lint`, `ju
 |----------|------|--------|------|
 | **TypeScript/JS** | Biome | Biome | Vitest/Jest (if added) |
 | **Rust** | Clippy | rustfmt | `cargo test` |
-| **C** | clang-tidy | clang-format | (manual) |
 | **Bash** | ShellCheck | shfmt | — |
-| **Lua** | luacheck | stylua | — |
 | **Python** | ruff check | ruff format | — |
 
 ### Docker

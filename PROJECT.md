@@ -7,7 +7,7 @@ For quick setup/use, start with `README.md`.
 
 Monorepo school-os managed by **Bun + Turborepo**, with:
 
-- Multiple app templates (web, mobile, API, docs, PWA, systems-language apps)
+- Multiple app templates (web, mobile, API, docs, Rust)
 - Shared workspace packages (`@school-os/*`)
 - Polyglot scripts and quality tooling
 - Architecture boundary checks
@@ -24,15 +24,13 @@ school-os/
 │   ├── hono-api/             # Hono + Prisma + PostgreSQL API
 │   ├── fastapi/              # FastAPI service (Python + uv)
 │   ├── nest-api/             # NestJS API scaffold
-│   ├── pwa/                  # PWA app (Bun + service worker)
 │   ├── docs/                 # Documentation app (Next.js + Fumadocs)
-│   ├── rust/                 # Rust binary app (Cargo)
-│   └── c/                    # C binary app (clang toolchain)
+│   └── rust/                 # Rust binary app (Cargo)
 ├── packages/
 │   ├── logger/               # Shared logger (TypeScript + Rust)
 │   ├── tailwind-config/      # Shared Tailwind theme/tokens
 │   └── typescript-config/    # Shared TS config bases
-├── scripts/                  # Bash, Lua, Python scripts and tests
+├── scripts/                  # Bash, Python scripts and tests
 ├── docs/                     # Architecture, Docker, QoL docs
 ├── docker/                   # Docker Compose fragments
 ├── .github/workflows/        # CI/CD/security workflows
@@ -53,10 +51,8 @@ school-os/
 | `apps/hono-api` | Hono, Prisma, PostgreSQL | Bun-first API with DB tooling |
 | `apps/fastapi` | FastAPI, uv, Ruff, pytest | Python API option |
 | `apps/nest-api` | NestJS 11, JWT/auth modules, Jest | TypeScript API scaffold |
-| `apps/pwa` | Bun build, TS, service worker | Lightweight browser app |
 | `apps/docs` | Next.js + Fumadocs + MDX | Project docs site |
 | `apps/rust` | Cargo, clippy, rustfmt | Rust application template |
-| `apps/c` | C17, clang-format, clang-tidy | C application template |
 
 ## Shared packages
 
@@ -78,7 +74,7 @@ Run commands from repo root:
 | `bun run start` | Start runtime targets |
 | `bun run lint` | Lint workspace + scripts |
 | `bun run lint:fix` | Apply lint autofixes |
-| `bun run format` | Format TS/JS + shell/Lua/Python + Rust + C |
+| `bun run format` | Format TS/JS + shell/Python + Rust |
 | `bun run typecheck` | TypeScript type checking |
 | `bun run test` | Run tests in workspace + scripts |
 | `bun run test:coverage` | Run full coverage-oriented pass |
@@ -102,9 +98,7 @@ Examples:
 - `bun --cwd apps/hono-api run dev`
 - `bun --cwd apps/fastapi run dev`
 - `bun --cwd apps/docs run dev`
-- `bun --cwd apps/pwa run dev`
 - `bun --cwd apps/rust run dev`
-- `bun --cwd apps/c run dev`
 
 ## Tooling and quality system
 
@@ -123,10 +117,8 @@ Examples:
 ### Language-specific tools
 
 - **Bash:** `shellcheck`, `shfmt`
-- **Lua:** `luacheck`, `stylua`
 - **Python:** `ruff`, `pytest`
 - **Rust:** `cargo fmt`, `cargo clippy`, `cargo test`
-- **C:** `clang-format`, `clang-tidy`, compiler-based tests
 
 ### Git hooks
 

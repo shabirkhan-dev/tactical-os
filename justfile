@@ -4,7 +4,7 @@
 default:
     @just --list
 
-# Lint: Turbo (Biome, etc.) + scripts (ShellCheck, luacheck, ruff)
+# Lint: Turbo (Biome, etc.) + scripts (ShellCheck, ruff)
 lint:
     bun run lint
 
@@ -12,7 +12,7 @@ lint:
 lint-fix:
     bun run lint:fix
 
-# Format: Biome + scripts (shfmt, stylua, ruff) + Rust (cargo fmt) + C (clang-format)
+# Format: Biome + scripts (shfmt, ruff) + Rust (cargo fmt)
 format:
     bun run format
 
@@ -24,10 +24,9 @@ typecheck:
 test:
     bun run test
 
-# Build all (Turbo + C app)
+# Build all (Turbo)
 build:
     bun run build
-    @cd apps/c && bun run build
 
 # Dev: start all dev servers (Turbo)
 dev:
@@ -38,7 +37,7 @@ setup:
     bun install
     bun run prepare
 
-# Scripts: lint only (bash, lua, python)
+# Scripts: lint only (bash, python)
 scripts-lint:
     bun run scripts:lint
 

@@ -10,9 +10,9 @@ AI/UI research into a practical improvement plan.
 The repo already has a strong base:
 
 - Bun workspaces with Turborepo orchestration.
-- Multiple app templates: Next.js web, Expo mobile, Hono API, FastAPI, Nest API, PWA, Rust, and C.
+- Multiple app templates: Next.js web, Expo mobile, Hono API, FastAPI, Nest API, and Rust.
 - Shared TypeScript config and Tailwind token package.
-- Polyglot quality tooling for TypeScript, Bash, Lua, Python, Rust, and C.
+- Polyglot quality tooling for TypeScript, Bash, Python, and Rust.
 - Git hooks through Lefthook.
 - GitHub Actions for CI, CD template, dependency review, CodeQL, and Dependabot.
 - Docker Compose fragments for Postgres and Hono API.
@@ -144,7 +144,7 @@ script.
 Recommendation:
 
 - Add a scaffold script later: `bun run create:app`.
-- Let it copy selected templates: web, mobile, Hono, FastAPI, docs, PWA.
+- Let it copy selected templates: web, mobile, Hono, FastAPI, docs.
 - Replace names, ports, package scopes, env files, and README placeholders.
 - Optionally remove unused apps for a lean product repo.
 
@@ -239,7 +239,6 @@ school-os/
 │   ├── hono-api/
 │   ├── fastapi/
 │   ├── nest-api/
-│   ├── pwa/
 │   └── docs/
 ├── packages/
 │   ├── ui/

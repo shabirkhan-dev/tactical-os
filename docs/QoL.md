@@ -1,6 +1,6 @@
 # Monorepo QoL stack
 
-Consistency, fast feedback, and automation across TS, Rust, C, Lua, Bash, and Python.
+Consistency, fast feedback, and automation across TS, Rust, Bash, and Python.
 
 ## Cross-repo (Tier 1)
 
@@ -11,7 +11,7 @@ Consistency, fast feedback, and automation across TS, Rust, C, Lua, Bash, and Py
 | **Editor consistency** | `.editorconfig`: LF, indent, charset, final newline |
 | **CI** | `.github/workflows/ci.yml`: split quality gates (lint, typecheck, coverage tests, web e2e) on push/PR to `main` |
 | **CD** | `.github/workflows/cd.yml`: staged deploy workflow template (staging on `main`, production on version tags) |
-| **Dev Container** | `.devcontainer/`: reproducible env (Bun, Rust, C, Python, Lua, shell tools). Reopen in Container; see `.devcontainer/README.md` |
+| **Dev Container** | `.devcontainer/`: reproducible env (Bun, Rust, Python, shell tools). Reopen in Container; see `.devcontainer/README.md` |
 
 ## Per-language
 
@@ -19,22 +19,20 @@ Consistency, fast feedback, and automation across TS, Rust, C, Lua, Bash, and Py
 |----------|----------------|--------------|
 | **TS/JS** | Biome (lint + format) | tsc (typecheck), Vitest/Jest if added |
 | **Rust** | rustfmt, clippy | cargo test (e.g. apps/rust) |
-| **C** | clang-format, clang-tidy | (manual / sanitizers optional) |
 | **Bash** | shellcheck, shfmt | (bats optional) |
-| **Lua** | luacheck, stylua | (busted optional) |
 | **Python** | ruff (check + format) | (pytest optional); scripts/python |
 
 ## One-command surface
 
 From repo root:
 
-- **`bun run format`** — Biome + scripts (shfmt, stylua, ruff) + cargo fmt + clang-format
-- **`bun run lint`** — Turbo lint + scripts (shellcheck, luacheck, ruff)
+- **`bun run format`** — Biome + scripts (shfmt, ruff) + cargo fmt
+- **`bun run lint`** — Turbo lint + scripts (shellcheck, ruff)
 - **`bun run typecheck`** — TS only
 - **`bun run test`** — Turbo tests + script tests
 - **`bun run test:coverage`** — TS coverage runs + all language tests
 - **`bun run test:e2e:web`** — Playwright browser tests for `apps/web`
-- **`bun run build`** — Turbo build + C app
+- **`bun run build`** — Turbo build
 
 Optional: install [just](https://github.com/casey/just) and use `just lint`, `just format`, `just test`, `just build`, etc.
 

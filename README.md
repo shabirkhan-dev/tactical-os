@@ -2,7 +2,7 @@
 
 Production-ready monorepo school-os built with **Bun + Turborepo**.
 
-It includes multiple runnable apps (web, mobile, APIs, docs, systems demos), shared packages,
+It includes multiple runnable apps (web, mobile, APIs, docs, Rust), shared packages,
 polyglot scripts, architecture checks, hooks, CI/CD, security workflows, Docker, and a Dev
 Container.
 
@@ -11,7 +11,7 @@ Container.
 **Prerequisites**
 
 - [Bun](https://bun.sh) `1.3.11`
-- Optional: [just](https://github.com/casey/just), Docker Compose `v2.20+`, Rust, clang toolchain
+- Optional: [just](https://github.com/casey/just), Docker Compose `v2.20+`, Rust
 
 ```bash
 git clone <this-repo>
@@ -25,9 +25,9 @@ bun run dev
 
 | Area | Purpose |
 | --- | --- |
-| `apps/` | Runnable products/services: web, mobile, APIs, docs, PWA, and language demos |
+| `apps/` | Runnable products/services: web, mobile, APIs, docs, and language demos |
 | `packages/` | Shared workspace packages used across apps (`@school-os/*`) |
-| `scripts/` | Utility + test scripts in Bash/Lua/Python |
+| `scripts/` | Utility + test scripts in Bash/Python |
 | `docs/` | Architecture, Docker, QoL, and override documentation |
 | `docker/` | Docker Compose fragments used by root `docker-compose.yml` |
 | `.github/workflows/` | CI, CD, and security automation |
@@ -42,10 +42,8 @@ bun run dev
 | `apps/hono-api` | Hono, Prisma, PostgreSQL | Bun-first REST API with DB workflows |
 | `apps/fastapi` | FastAPI, uv, Ruff, pytest | Python API variant |
 | `apps/nest-api` | NestJS 11, JWT/auth modules, Jest | Nest API scaffold (currently being added) |
-| `apps/pwa` | Bun build pipeline, TS, service worker | Lightweight browser-first PWA |
 | `apps/docs` | Next.js + Fumadocs + MDX | Documentation site |
 | `apps/rust` | Cargo, clippy, rustfmt | Rust binary app and tests |
-| `apps/c` | C17, clang-format, clang-tidy | C binary app and checks |
 
 ## Shared packages
 
@@ -67,7 +65,7 @@ Run from repo root with `bun run <task>` (or `just <task>` when available):
 | `bun run start` | Start app `start` scripts through Turbo |
 | `bun run lint` | Lint workspace + script directories |
 | `bun run lint:fix` | Auto-fix lint issues where supported |
-| `bun run format` | Format TS/JS + shell/Lua/Python + Rust + C |
+| `bun run format` | Format TS/JS + shell/Python + Rust |
 | `bun run typecheck` | Run TypeScript type checks |
 | `bun run test` | Run workspace tests + script tests |
 | `bun run test:coverage` | Run coverage/multi-language test pass |
@@ -84,10 +82,8 @@ Run from repo root with `bun run <task>` (or `just <task>` when available):
 - **Architecture guardrails:** `scripts/architecture/check-boundaries.sh`
 - **Polyglot quality tooling:**
   - Bash: ShellCheck + shfmt
-  - Lua: luacheck + stylua
   - Python: Ruff + pytest
   - Rust: rustfmt + clippy + cargo test
-  - C: clang-format + clang-tidy
 - **CI/CD + security:** GitHub Actions for CI gates, deploy template, dependency review, CodeQL, Dependabot
 - **Workspace conventions:** shared TS configs, shared Tailwind tokens, shared logger package
 
@@ -100,9 +96,7 @@ You can target one app with `bun --cwd <path> run <script>`, for example:
 - `bun --cwd apps/hono-api run dev`
 - `bun --cwd apps/fastapi run dev`
 - `bun --cwd apps/docs run dev`
-- `bun --cwd apps/pwa run dev`
 - `bun --cwd apps/rust run dev`
-- `bun --cwd apps/c run dev`
 
 ## Docker
 
@@ -112,6 +106,7 @@ Postgres + Hono API stack:
 cp env.docker.example .env
 docker compose up --build
 ```
+
 
 - Compose fragments live in `docker/compose/`
 - Root `docker-compose.yml` includes fragment files
