@@ -1,26 +1,17 @@
 import { Controller, Get } from '@nestjs/common';
 
-@Controller()
-export class HealthController {
-	@Get()
-	root() {
-		return {
-			message: 'OK',
-			data: {
-				name: 'nest-api',
-				version: '1.0.0',
-			},
-		};
-	}
+import { HealthService } from './health.service';
+import type { HealthResponse } from './health.types';
 
-	@Get('health')
-	health() {
-		return {
-			message: 'OK',
-			data: {
-				status: 'ok',
-				env: process.env.NODE_ENV ?? 'development',
-			},
-		};
+@Controller({
+	path: 'health',
+	version: '1',
+})
+export class HealthController {
+	constructor(private readonly healthService: HealthService) {}
+
+	@Get()
+	getHealth(): HealthResponse {
+		return this.healthService.getHealth();
 	}
 }

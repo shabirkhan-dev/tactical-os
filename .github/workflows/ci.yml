@@ -103,7 +103,7 @@ jobs:
           name: coverage-reports
           path: |
             apps/web/coverage
-            apps/hono-api/coverage
+            apps/nest-api/coverage
             packages/logger/coverage
           if-no-files-found: warn
 

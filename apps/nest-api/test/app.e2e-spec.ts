@@ -1,67 +1,103 @@
-import { type INestApplication, ValidationPipe } from '@nestjs/common';
-import { Test } from '@nestjs/testing';
+import { Body, Controller, INestApplication, Module, Post } from '@nestjs/common';
+import { Test, type TestingModule } from '@nestjs/testing';
 import request from 'supertest';
-import type { App } from 'supertest/types';
-import { AppModule } from '../src/app.module';
-import { HttpExceptionFilter } from '../src/common/filters/http-exception.filter';
-import { ResponseInterceptor } from '../src/common/interceptors/response.interceptor';
+import { App } from 'supertest/types';
+import { z } from 'zod';
 
-describe('Auth API (e2e)', () => {
+import { AppModule } from '../src/app.module';
+import { setupApp } from '../src/app.setup';
+import { ZodValidationPipe } from '../src/common/pipes/zod-validation.pipe';
+import { AppConfigService } from '../src/config/app-config.service';
+
+const validationTestSchema = z.object({
+	name: z.string().min(1),
+});
+
+@Controller({
+	path: 'validation-test',
+	version: '1',
+})
+class ValidationTestController {
+	@Post()
+	create(@Body(new ZodValidationPipe(validationTestSchema)) body: unknown): unknown {
+		return body;
+	}
+}
+
+@Module({
+	controllers: [ValidationTestController],
+})
+class ValidationTestModule {}
+
+describe('AppController (e2e)', () => {
 	let app: INestApplication<App>;
 
-	beforeAll(async () => {
-		const moduleFixture = await Test.createTestingModule({
-			imports: [AppModule],
+	beforeEach(async () => {
+		const moduleFixture: TestingModule = await Test.createTestingModule({
+			imports: [AppModule, ValidationTestModule],
 		}).compile();
 
 		app = moduleFixture.createNestApplication();
-		app.useGlobalPipes(
-			new ValidationPipe({
-				whitelist: true,
-				forbidNonWhitelisted: true,
-				transform: true,
-			}),
-		);
-		app.useGlobalFilters(new HttpExceptionFilter());
-		app.useGlobalInterceptors(new ResponseInterceptor());
+		setupApp(app, app.get(AppConfigService));
 		await app.init();
 	});
 
-	afterAll(async () => {
+	it('/api/v1/health (GET)', async () => {
+		const response = await request(app.getHttpServer()).get('/api/v1/health').expect(200);
+
+		expect(response.body).toEqual({
+			success: true,
+			statusCode: 200,
+			requestId: expect.any(String),
+			timestamp: expect.any(String),
+			data: {
+				status: 'ok',
+				service: 'school-os-api',
+			},
+		});
+	});
+
+	it('returns the standard not found error shape', async () => {
+		const response = await request(app.getHttpServer()).get('/api/v1/missing').expect(404);
+
+		expect(response.body).toEqual({
+			success: false,
+			statusCode: 404,
+			code: 'NOT_FOUND',
+			message: 'Cannot GET /api/v1/missing',
+			requestId: expect.any(String),
+			timestamp: expect.any(String),
+			path: '/api/v1/missing',
+			method: 'GET',
+		});
+	});
+
+	it('returns the standard validation error shape', async () => {
+		const response = await request(app.getHttpServer())
+			.post('/api/v1/validation-test')
+			.send({ name: '' })
+			.expect(400);
+
+		expect(response.body).toEqual({
+			success: false,
+			statusCode: 400,
+			code: 'VALIDATION_ERROR',
+			message: 'Request validation failed',
+			requestId: expect.any(String),
+			timestamp: expect.any(String),
+			path: '/api/v1/validation-test',
+			method: 'POST',
+			errors: [
+				{
+					code: 'too_small',
+					path: 'name',
+					message: expect.any(String),
+				},
+			],
+		});
+	});
+
+	afterEach(async () => {
 		await app.close();
-	});
-
-	it('returns health', async () => {
-		const response = await request(app.getHttpServer()).get('/health').expect(200);
-		expect(response.body.success).toBe(true);
-		expect(response.body.data.status).toBe('ok');
-	});
-
-	it('register/login/me flow', async () => {
-		const user = {
-			name: 'Test User',
-			email: 'test@example.com',
-			password: 'super-secret-password',
-		};
-
-		await request(app.getHttpServer()).post('/auth/register').send(user).expect(201);
-
-		const loginResponse = await request(app.getHttpServer())
-			.post('/auth/login')
-			.send({
-				email: user.email,
-				password: user.password,
-			})
-			.expect(201);
-
-		const accessToken = loginResponse.body.data.accessToken as string;
-		expect(accessToken).toBeTruthy();
-
-		const meResponse = await request(app.getHttpServer())
-			.get('/auth/me')
-			.set('Authorization', `Bearer ${accessToken}`)
-			.expect(200);
-
-		expect(meResponse.body.data.user.email).toBe(user.email);
 	});
 });

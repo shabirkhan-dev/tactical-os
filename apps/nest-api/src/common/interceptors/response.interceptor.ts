@@ -1,42 +1,32 @@
-import { CallHandler, ExecutionContext, Injectable, type NestInterceptor } from '@nestjs/common';
-import { map, type Observable } from 'rxjs';
+import type { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import type { Response } from 'express';
+import type { Observable } from 'rxjs';
+import { map } from 'rxjs';
 
-type ApiResponse<T> = {
-	success: true;
-	code: number;
-	message: string;
-	data?: T;
-};
+import type { ApiSuccessResponse } from '../types/api-response.type';
+import type { RequestWithId } from '../types/request-with-id.type';
 
 @Injectable()
-export class ResponseInterceptor<T>
-	implements NestInterceptor<T | { message?: string; data?: T }, ApiResponse<T>>
+export class ResponseInterceptor<TData>
+	implements NestInterceptor<TData, ApiSuccessResponse<TData>>
 {
 	intercept(
 		context: ExecutionContext,
-		next: CallHandler<T | { message?: string; data?: T }>,
-	): Observable<ApiResponse<T>> {
-		const response = context.switchToHttp().getResponse<{ statusCode: number }>();
+		next: CallHandler<TData>,
+	): Observable<ApiSuccessResponse<TData>> {
+		const http = context.switchToHttp();
+		const request = http.getRequest<RequestWithId>();
+		const response = http.getResponse<Response>();
 
 		return next.handle().pipe(
-			map((result) => {
-				if (result && typeof result === 'object' && 'message' in result && 'data' in result) {
-					const body = result as { message?: string; data?: T };
-					return {
-						success: true,
-						code: response.statusCode,
-						message: body.message ?? 'OK',
-						data: body.data,
-					};
-				}
-
-				return {
-					success: true,
-					code: response.statusCode,
-					message: 'OK',
-					data: result as T,
-				};
-			}),
+			map((data) => ({
+				success: true,
+				statusCode: response.statusCode,
+				requestId: request.requestId ?? 'req_unknown',
+				timestamp: new Date().toISOString(),
+				data,
+			})),
 		);
 	}
 }

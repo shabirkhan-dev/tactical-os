@@ -23,9 +23,9 @@ school-os/
 ├── apps/
 │   ├── web/             # Next.js (React, Tailwind, shadcn-style UI)
 │   ├── mobile/          # Expo Router + NativeWind app (TypeScript)
-│   ├── hono-api/        # Hono + Prisma + PostgreSQL REST API
+│   ├── nest-api/        # NestJS production API (PostgreSQL in later phases)
+│   ├── docs/            # Documentation for the School OS
 │   └── rust/            # Rust binary (Cargo, Axum)
-│   └── docs/            # Documentation for the School OS
 
 ├── packages/
 │   ├── ui/              # Shared web UI primitives
@@ -120,12 +120,13 @@ Optional: install [just](https://github.com/casey/just) and use `just lint`, `ju
 
 ### Docker
 
-PostgreSQL + Hono API via Docker Compose. Fragments live under `docker/compose/` and are merged by the root `docker-compose.yml` (Compose v2.20+). Setup:
+PostgreSQL via Docker Compose for local development. Fragments live under `docker/compose/` and are merged by the root `docker-compose.yml` (Compose v2.20+). Setup:
 ```bash
 cp env.docker.example .env
-docker compose up --build
+docker compose up -d
+bun --cwd apps/nest-api run dev
 ```
-Postgres on 5432, Hono API on 3001 (host). See `docs/docker.md`.
+Postgres on 5432. See `docs/docker.md`.
 
 ## Before finishing any task
 
@@ -138,6 +139,7 @@ Postgres on 5432, Hono API on 3001 (host). See `docs/docker.md`.
 
 - `PROJECT.md` — detailed layout, tooling, and commands.
 - `DESIGN.md` — design-system brief for UI generation and review.
+- `docs/school-os-production-roadmap.md` — production build phases and Nest API spine
 - `docs/ai-first-school-os-workflow.md` — school-os audit and AI-first workflow roadmap.
 - `docs/QoL.md` — full QoL stack (hooks, CI, per-language tools).
 - `docs/architecture/README.md` — architecture baseline and enforceable boundaries.

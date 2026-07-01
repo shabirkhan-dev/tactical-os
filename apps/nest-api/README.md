@@ -1,31 +1,54 @@
-# Nest API
+# School OS API (`nest-api`)
 
-NestJS API app with a modular structure and baseline auth flows inspired by the Hono API.
+Production backend for School OS, built with **NestJS 11**, **Zod**, and **Biome** (monorepo lint/format).
 
-## Folder structure
+## Phase 0 (current)
 
-`src/common`
-- `decorators/` shared decorators (for example `CurrentUser`)
-- `filters/` global error handling
-- `interceptors/` global response envelope
+- `GET /api/v1/health` with standard success envelope
+- Global prefix `/api/v1`, URI versioning
+- Config module with env validation
+- Request ID middleware
+- Response interceptor and exception filter
+- Zod validation pipe
 
-`src/modules`
-- `health/` root and health check endpoints
-- `auth/` register/login/refresh/me/logout APIs with DTOs, guard, and service
+See [docs/school-os-production-roadmap.md](../../docs/school-os-production-roadmap.md) for the full build plan.
 
-## Auth endpoints
+## Commands
 
-- `POST /auth/register`
-- `POST /auth/login`
-- `POST /auth/refresh`
-- `GET /auth/me` (Bearer token required)
-- `POST /auth/logout` (Bearer token required)
-
-## Run
+From repo root:
 
 ```bash
-bun install
-bun run start:dev
+bun --cwd apps/nest-api run dev
+bun --cwd apps/nest-api run test
+bun --cwd apps/nest-api run test:e2e
 ```
 
-Default port is `3002` (set `PORT` to override).
+## Health check
+
+```bash
+curl http://localhost:3000/api/v1/health
+```
+
+Expected shape:
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "requestId": "...",
+  "timestamp": "...",
+  "data": {
+    "status": "ok",
+    "service": "school-os-api"
+  }
+}
+```
+
+## Environment
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `PORT` | `3000` | HTTP port |
+| `NODE_ENV` | `development` | Runtime environment |
+| `API_PREFIX` | `api` | Global route prefix |
+| `API_VERSION` | `1` | Default URI version segment |

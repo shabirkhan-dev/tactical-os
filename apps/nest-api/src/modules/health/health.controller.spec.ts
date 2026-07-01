@@ -1,24 +1,26 @@
+import { Test, type TestingModule } from '@nestjs/testing';
+
+import { ConfigModule } from '../../config/config.module';
 import { HealthController } from './health.controller';
+import { HealthService } from './health.service';
 
 describe('HealthController', () => {
-	const controller = new HealthController();
+	let controller: HealthController;
 
-	it('returns root metadata', () => {
-		expect(controller.root()).toEqual({
-			message: 'OK',
-			data: {
-				name: 'nest-api',
-				version: '1.0.0',
-			},
-		});
+	beforeEach(async () => {
+		const module: TestingModule = await Test.createTestingModule({
+			imports: [ConfigModule],
+			controllers: [HealthController],
+			providers: [HealthService],
+		}).compile();
+
+		controller = module.get(HealthController);
 	});
 
-	it('returns health status', () => {
-		expect(controller.health()).toMatchObject({
-			message: 'OK',
-			data: {
-				status: 'ok',
-			},
+	it('returns the API health status', () => {
+		expect(controller.getHealth()).toEqual({
+			status: 'ok',
+			service: 'school-os-api',
 		});
 	});
 });

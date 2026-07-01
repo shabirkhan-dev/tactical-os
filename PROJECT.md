@@ -21,9 +21,7 @@ school-os/
 ├── apps/                     # Runnable applications
 │   ├── web/                  # Next.js app
 │   ├── mobile/               # Expo Router + NativeWind app
-│   ├── hono-api/             # Hono + Prisma + PostgreSQL API
-│   ├── fastapi/              # FastAPI service (Python + uv)
-│   ├── nest-api/             # NestJS API scaffold
+│   ├── nest-api/             # NestJS production API
 │   ├── docs/                 # Documentation app (Next.js + Fumadocs)
 │   └── rust/                 # Rust binary app (Cargo)
 ├── packages/
@@ -48,9 +46,7 @@ school-os/
 | --- | --- | --- |
 | `apps/web` | Next.js 16, React 19, Tailwind 4 | Includes unit/integration and Playwright e2e flow |
 | `apps/mobile` | Expo SDK 55, Expo Router, React Native, NativeWind | Mobile-first file-based routing |
-| `apps/hono-api` | Hono, Prisma, PostgreSQL | Bun-first API with DB tooling |
-| `apps/fastapi` | FastAPI, uv, Ruff, pytest | Python API option |
-| `apps/nest-api` | NestJS 11, JWT/auth modules, Jest | TypeScript API scaffold |
+| `apps/nest-api` | NestJS 11, Zod, Jest | Production API spine |
 | `apps/docs` | Next.js + Fumadocs + MDX | Project docs site |
 | `apps/rust` | Cargo, clippy, rustfmt | Rust application template |
 
@@ -95,8 +91,7 @@ Examples:
 
 - `bun --cwd apps/web run dev`
 - `bun --cwd apps/mobile run start`
-- `bun --cwd apps/hono-api run dev`
-- `bun --cwd apps/fastapi run dev`
+- `bun --cwd apps/nest-api run dev`
 - `bun --cwd apps/docs run dev`
 - `bun --cwd apps/rust run dev`
 

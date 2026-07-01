@@ -1,11 +1,10 @@
-# Project entrypoint: Postgres + Hono API. Fragments live under docker/compose/.
+# Project entrypoint: Postgres for local development. Fragments live under docker/compose/.
 # Requires Docker Compose v2.20+ (include). From repo root:
-#   cp env.docker.example .env && docker compose up --build -d
-# Run without sudo: bash scripts/bash/docker-group.sh then newgrp docker
+#   cp env.docker.example .env && docker compose up -d
+# Nest API runs on the host via `bun --cwd apps/nest-api run dev` until a compose fragment is added.
 
 name: school-os
 
 include:
   - docker/compose/postgres.yml
-  - docker/compose/hono-api.yml
   - docker/compose/rust-api.yml

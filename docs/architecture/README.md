@@ -18,11 +18,12 @@ This school-os uses a strong default architecture that is intentionally overrida
 - `src/lib/*` contains framework-agnostic helpers for the app.
 - `src/components/*` contains reusable visual components.
 
-### `apps/hono-api`
+### `apps/nest-api`
 
-- `src/modules/*` holds feature modules (routes/controller/service/validator).
-- `src/shared/*` holds cross-module primitives (errors, config, utils, middleware).
-- Route handlers should delegate business logic to services.
+- `src/modules/*` holds feature modules (controller/service/repository).
+- `src/common/*` holds cross-cutting HTTP concerns (filters, interceptors, pipes, guards).
+- `src/config/*` holds validated environment configuration.
+- Controllers stay thin; business logic lives in services; database access in repositories.
 
 ### `packages/*`
 

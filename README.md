@@ -2,7 +2,7 @@
 
 Production-ready monorepo school-os built with **Bun + Turborepo**.
 
-It includes multiple runnable apps (web, mobile, APIs, docs, Rust), shared packages,
+It includes multiple runnable apps (web, mobile, Nest API, docs, Rust), shared packages,
 polyglot scripts, architecture checks, hooks, CI/CD, security workflows, Docker, and a Dev
 Container.
 
@@ -39,9 +39,7 @@ bun run dev
 | --- | --- | --- |
 | `apps/web` | Next.js 16, React 19, Tailwind 4 | Main web app + Vitest + Playwright e2e |
 | `apps/mobile` | Expo SDK 55, Expo Router, React Native, NativeWind | Mobile app with file-based routing |
-| `apps/hono-api` | Hono, Prisma, PostgreSQL | Bun-first REST API with DB workflows |
-| `apps/fastapi` | FastAPI, uv, Ruff, pytest | Python API variant |
-| `apps/nest-api` | NestJS 11, JWT/auth modules, Jest | Nest API scaffold (currently being added) |
+| `apps/nest-api` | NestJS 11, Zod, Jest | Production API spine (REST, PostgreSQL in later phases) |
 | `apps/docs` | Next.js + Fumadocs + MDX | Documentation site |
 | `apps/rust` | Cargo, clippy, rustfmt | Rust binary app and tests |
 
@@ -93,18 +91,18 @@ You can target one app with `bun --cwd <path> run <script>`, for example:
 
 - `bun --cwd apps/web run dev`
 - `bun --cwd apps/mobile run start`
-- `bun --cwd apps/hono-api run dev`
-- `bun --cwd apps/fastapi run dev`
+- `bun --cwd apps/nest-api run dev`
 - `bun --cwd apps/docs run dev`
 - `bun --cwd apps/rust run dev`
 
 ## Docker
 
-Postgres + Hono API stack:
+Postgres for local development (Nest API runs on the host for now):
 
 ```bash
 cp env.docker.example .env
-docker compose up --build
+docker compose up -d
+bun --cwd apps/nest-api run dev
 ```
 
 
@@ -124,6 +122,7 @@ docker compose up --build
 - [DESIGN.md](DESIGN.md) - design-system brief for humans and AI agents
 - [docs/product-system-design.md](docs/product-system-design.md) - full product architecture,
   data model, service map, security model, and build roadmap
+- [docs/school-os-production-roadmap.md](docs/school-os-production-roadmap.md) - production build phases and backend spine (NestJS)
 - [docs/ai-first-school-os-workflow.md](docs/ai-first-school-os-workflow.md) - school-os audit and AI-first workflow roadmap
 - [docs/QoL.md](docs/QoL.md) - developer quality-of-life stack
 - [docs/docker.md](docs/docker.md) - Docker setup and flow
