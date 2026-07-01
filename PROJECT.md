@@ -176,6 +176,8 @@ More details: `docs/docker.md` and `docker/README.md`.
 ## Related docs
 
 - `README.md` - quick start and high-level navigation
+- `docs/product-system-design.md` - full product architecture, database model, service map,
+  route plan, security model, AI design, and phased roadmap
 - `docs/QoL.md` - quality-of-life stack details
 - `scripts/README.md` - script usage and structure
 - `apps/*/README.md` - per-app setup and workflows

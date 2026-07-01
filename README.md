@@ -122,6 +122,8 @@ docker compose up --build
 
 - [PROJECT.md](PROJECT.md) - project overview and conventions
 - [DESIGN.md](DESIGN.md) - design-system brief for humans and AI agents
+- [docs/product-system-design.md](docs/product-system-design.md) - full product architecture,
+  data model, service map, security model, and build roadmap
 - [docs/ai-first-school-os-workflow.md](docs/ai-first-school-os-workflow.md) - school-os audit and AI-first workflow roadmap
 - [docs/QoL.md](docs/QoL.md) - developer quality-of-life stack
 - [docs/docker.md](docs/docker.md) - Docker setup and flow

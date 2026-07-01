@@ -1,10 +1,10 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import authRoutes from "@/modules/auth/auth.routes";
 import { appConfig } from "@/shared/configs/app-config";
 import { HTTP_CODE } from "@/shared/configs/http-config";
 import { appErrorHandler } from "@/shared/middlewares/app-error";
 import { getEnv } from "@/shared/utils/get-env";
-import authRoutes from "@/modules/auth/auth.routes";
 
 const app = new Hono();
 
