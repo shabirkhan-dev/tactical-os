@@ -27,7 +27,7 @@ bun --cwd apps/nest-api run test:e2e
 ## Health check
 
 ```bash
-curl http://localhost:3000/api/v1/health
+curl http://localhost:4000/api/v1/health
 ```
 
 Expected shape:
@@ -49,7 +49,7 @@ Expected shape:
 
 | Variable | Default | Description |
 | --- | --- | --- |
-| `PORT` | `3000` | HTTP port |
+| `PORT` | `4000` | HTTP port |
 | `NODE_ENV` | `development` | Runtime environment |
 | `API_PREFIX` | `api` | Global route prefix |
 | `API_VERSION` | `1` | Default URI version segment |

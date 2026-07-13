@@ -6,7 +6,9 @@
   "packageManager": "bun@1.3.13",
   "workspaces": ["apps/*", "packages/*"],
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --continue --filter=!rust --concurrency=10",
+    "dev:rust": "bun --cwd apps/rust run dev",
+    "dev:all": "turbo run dev --continue --concurrency=10",
     "build": "turbo run build",
     "start": "turbo run start",
     "preflight": "bun run lint && bun run typecheck && bun run test",

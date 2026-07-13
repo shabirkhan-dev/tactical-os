@@ -135,15 +135,15 @@ bun --cwd apps/docs run dev
 
 Then open:
 
-- [/docs](http://localhost:3000/docs) — docs home
-- [/docs/quick-start](http://localhost:3000/docs/quick-start)
-- [/docs/production-roadmap](http://localhost:3000/docs/production-roadmap)
-- [/docs/product-system-design](http://localhost:3000/docs/product-system-design)
-- [/docs/architecture](http://localhost:3000/docs/architecture)
-- [/docs/docker](http://localhost:3000/docs/docker)
-- [/docs/qol](http://localhost:3000/docs/qol)
-- [/docs/ai-first-workflow](http://localhost:3000/docs/ai-first-workflow)
-- [/docs/overrides](http://localhost:3000/docs/overrides)
+- [/docs](http://localhost:3002/docs) — docs home
+- [/docs/quick-start](http://localhost:3002/docs/quick-start)
+- [/docs/production-roadmap](http://localhost:3002/docs/production-roadmap)
+- [/docs/product-system-design](http://localhost:3002/docs/product-system-design)
+- [/docs/architecture](http://localhost:3002/docs/architecture)
+- [/docs/docker](http://localhost:3002/docs/docker)
+- [/docs/qol](http://localhost:3002/docs/qol)
+- [/docs/ai-first-workflow](http://localhost:3002/docs/ai-first-workflow)
+- [/docs/overrides](http://localhost:3002/docs/overrides)
 
 Root quick refs (not migrated into the docs site):
 

@@ -8,7 +8,7 @@ All project docs live in `content/docs/` and are served from this app.
 bun --cwd apps/docs run dev
 ```
 
-Open http://localhost:3000/docs
+Open http://localhost:3002/docs
 
 ## Content map
 
