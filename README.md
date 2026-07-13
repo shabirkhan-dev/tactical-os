@@ -11,7 +11,7 @@ Container.
 **Prerequisites**
 
 - [Bun](https://bun.sh) `1.3.11`
-- Optional: [just](https://github.com/casey/just), Docker Compose `v2.20+`, Rust
+- Optional: Docker Compose `v2.20+`, Rust
 
 ```bash
 git clone <this-repo>
@@ -54,7 +54,7 @@ bun run dev
 
 ## Root commands (single interface)
 
-Run from repo root with `bun run <task>` (or `just <task>` when available):
+Run from repo root with `bun run <task>`:
 
 | Command | Purpose |
 | --- | --- |

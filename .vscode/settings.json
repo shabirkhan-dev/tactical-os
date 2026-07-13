@@ -30,7 +30,7 @@
 		"editor.defaultFormatter": "biomejs.biome"
 	},
 
-	// —— C/C++ (apps/c: .clang-format, .clang-tidy, justfile) ——
+	// —— C/C++ ——
 	"[c]": {
 		"editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
 	},

@@ -50,11 +50,10 @@ RUN set -e; \
 	echo 'export PATH="${HOME}/.local/bin:${PATH}"' >> "${HOME}/.bashrc"
 ENV PATH="/home/vscode/.local/bin:${PATH}"
 
-# stylua + luacheck (Lua); just (optional task runner)
+# stylua + luacheck (Lua)
 RUN . "${HOME}/.cargo/env" 2>/dev/null; \
 	cargo install stylua 2>/dev/null || true; \
-	luarocks install luacheck 2>/dev/null || true; \
-	cargo install just 2>/dev/null || true
+	luarocks install luacheck 2>/dev/null || true
 
 USER root
 RUN echo 'export PATH="/home/vscode/.bun/bin:/home/vscode/.cargo/bin:/home/vscode/.local/bin:${PATH}"' >> /etc/profile.d/devcontainer-path.sh

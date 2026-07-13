@@ -38,7 +38,7 @@ school-os/
 ├── .cursor/rules/       # Cursor-specific rules (also summarised below)
 ├── .devcontainer/       # Dev Container config (Bun, Rust, Python, etc.)
 ├── .github/workflows/   # CI (lint, typecheck, build, test)
-└── (root config)        # biome.json, turbo.json, lefthook.yml, justfile, .editorconfig, etc.
+└── (root config)        # biome.json, turbo.json, lefthook.yml, .editorconfig, etc.
 ```
 
 ## Tooling and commands
@@ -67,8 +67,6 @@ school-os/
 | `bun run test:coverage` | Run TS coverage + all language tests |
 | `bun run test:e2e:web` | Run web Playwright e2e tests |
 | `bun run architecture:check` | Enforce architecture import boundaries |
-
-Optional: install [just](https://github.com/casey/just) and use `just lint`, `just format`, etc.
 
 ## Conventions
 

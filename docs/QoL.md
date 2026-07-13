@@ -7,7 +7,7 @@ Consistency, fast feedback, and automation across TS, Rust, Bash, and Python.
 | Layer | What we use |
 |-------|-------------|
 | **Git hooks** | Lefthook: format, lint, typecheck, large-files, secrets, commit-msg (see `scripts/git-hooks/`) |
-| **Task runner** | Root `justfile` wraps `bun run`; use `just lint`, `just format`, `just test`, or `bun run <task>` |
+| **Task runner** | Bun scripts via `bun run <task>` (see root `package.json`) |
 | **Editor consistency** | `.editorconfig`: LF, indent, charset, final newline |
 | **CI** | `.github/workflows/ci.yml`: split quality gates (lint, typecheck, coverage tests, web e2e) on push/PR to `main` |
 | **CD** | `.github/workflows/cd.yml`: staged deploy workflow template (staging on `main`, production on version tags) |
@@ -33,8 +33,6 @@ From repo root:
 - **`bun run test:coverage`** — TS coverage runs + all language tests
 - **`bun run test:e2e:web`** — Playwright browser tests for `apps/web`
 - **`bun run build`** — Turbo build
-
-Optional: install [just](https://github.com/casey/just) and use `just lint`, `just format`, `just test`, `just build`, etc.
 
 ## Next-level (Tier 2+)
 
