@@ -49,7 +49,7 @@ export function DatePill({ date: controlled, onChange, className }: Props) {
 						type="button"
 						{...props}
 						className={cn(
-							"flex h-9 items-center gap-2 rounded-xl border border-dashboard-border-subtle bg-dashboard-surface px-3 text-[13px] text-dashboard-text-secondary transition-colors hover:border-dashboard-border hover:bg-dashboard-surface-hover data-popup-open:border-dashboard-border-strong data-popup-open:bg-dashboard-surface-elevated",
+							"flex h-9 items-center gap-2 rounded-lg border border-dashboard-border-subtle bg-dashboard-surface px-3 text-[13px] text-dashboard-text-secondary transition-colors hover:border-dashboard-border-strong hover:bg-dashboard-surface-hover data-popup-open:border-dashboard-border-strong data-popup-open:bg-dashboard-surface-elevated",
 							className,
 						)}
 					>
@@ -59,7 +59,7 @@ export function DatePill({ date: controlled, onChange, className }: Props) {
 							strokeWidth={1.8}
 							className="text-dashboard-text-muted"
 						/>
-						<span className="font-medium tracking-tight">{formatDate(value)}</span>
+						<span className="font-medium">{formatDate(value)}</span>
 					</button>
 				)}
 			/>

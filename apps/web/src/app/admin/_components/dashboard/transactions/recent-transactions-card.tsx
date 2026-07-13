@@ -14,15 +14,14 @@ export function RecentTransactionsCard({ className }: Props) {
 	return (
 		<section
 			className={cn(
-				"rounded-2xl border border-dashboard-border bg-dashboard-card-outer p-[2px] ",
+				"overflow-hidden rounded-[16px] border border-dashboard-border bg-dashboard-card-inner",
 				className,
 			)}
 			aria-label="Recent transactions"
 		>
-			{/* Outer header band */}
-			<div className="flex flex-wrap items-center justify-between gap-3 px-3 py-2">
+			<div className="flex flex-wrap items-center justify-between gap-3 border-dashboard-border border-b px-4 py-3">
 				<div className="flex items-center gap-1.5">
-					<h2 className="font-medium text-[11px] text-dashboard-text-muted uppercase tracking-[0.16em]">
+					<h2 className="font-medium text-[11px] text-dashboard-text-muted uppercase">
 						Recent Transactions
 					</h2>
 					<HugeiconsIcon
@@ -35,8 +34,7 @@ export function RecentTransactionsCard({ className }: Props) {
 				<TransactionsToolbar className="basis-full sm:basis-auto" />
 			</div>
 
-			{/* Inner card with table */}
-			<div className="rounded-xl border border-dashboard-border-subtle bg-dashboard-card-inner ">
+			<div>
 				<TransactionsTable />
 			</div>
 		</section>

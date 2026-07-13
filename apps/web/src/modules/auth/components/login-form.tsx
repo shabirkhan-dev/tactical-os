@@ -64,11 +64,12 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 		(login.error instanceof Error ? login.error.message : null) ??
 		(twoFactor.error instanceof Error ? twoFactor.error.message : null) ??
 		(passkey.error instanceof Error ? passkey.error.message : null) ??
+		(magicLink.error instanceof Error ? magicLink.error.message : null) ??
 		(google.error instanceof Error ? google.error.message : null);
 
 	return (
 		<div className={cn("flex flex-col gap-6", className)} {...props}>
-			<Card>
+			<Card className="rounded-[16px] border border-dashboard-border bg-dashboard-surface ring-0">
 				<CardHeader className="text-center">
 					<p className="text-muted-foreground text-sm font-medium">Starter</p>
 					<CardTitle className="text-2xl">
@@ -135,8 +136,8 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 							<div className="grid gap-2 border-t pt-4">
 								<Button
 									variant="outline"
-									onClick={() => passkey.mutate(email, { onSuccess: finish })}
-									disabled={!email || passkey.isPending}
+									onClick={() => passkey.mutate(email.trim() || undefined, { onSuccess: finish })}
+									disabled={passkey.isPending}
 								>
 									<HugeiconsIcon icon={FingerPrintIcon} strokeWidth={2} />
 									Sign in with a passkey

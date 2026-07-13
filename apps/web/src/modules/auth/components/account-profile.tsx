@@ -1,18 +1,23 @@
 "use client";
 
+import {
+	Calendar03Icon,
+	CheckmarkCircle02Icon,
+	Mail01Icon,
+	UserEdit01Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { Alert, AlertDescription, AlertTitle } from "@school-os/ui/components/alert";
-import { Button } from "@school-os/ui/components/button";
+import { Badge } from "@school-os/ui/components/badge";
 import { Spinner } from "@school-os/ui/components/spinner";
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import { userInitials } from "@/lib/user-display";
 import { ProfileForm } from "@/modules/users/components/profile-form";
 import { useUpdateUserProfileMutation } from "@/modules/users/hooks/use-user-mutations";
 import { useCurrentUserQuery } from "@/modules/users/hooks/use-user-queries";
 import type { UpdateUserProfileInput } from "@/modules/users/types/user.types";
+import { AccountPageLayout, AccountSection } from "./account-page-layout";
 
-export function AccountProfile() {
+export function AccountProfile({ basePath = "/admin/account" }: { basePath?: string }) {
 	const currentUser = useCurrentUserQuery();
 	const update = useUpdateUserProfileMutation();
 	const user = currentUser.data;
@@ -38,33 +43,22 @@ export function AccountProfile() {
 		);
 
 	return (
-		<div className="mx-auto grid w-full max-w-3xl gap-4 px-3 py-4 sm:px-6 sm:py-6">
-			<section className="rounded-2xl border border-dashboard-border bg-dashboard-card-outer p-[2px]">
-				<div className="rounded-xl border border-dashboard-border-subtle bg-dashboard-card-inner px-4 py-4">
-					<div className="flex items-center gap-3">
-						{user.profile?.avatarUrl ? (
-							<Image
-								src={user.profile.avatarUrl}
-								alt=""
-								width={56}
-								height={56}
-								unoptimized
-								className="size-14 rounded-2xl object-cover ring-1 ring-dashboard-border-subtle"
-							/>
-						) : (
-							<div className="flex size-14 items-center justify-center rounded-2xl bg-zinc-800 font-semibold text-[18px]">
-								{userInitials(user.profile?.displayName ?? user.username)}
-							</div>
-						)}
-						<div className="min-w-0">
-							<h1 className="truncate font-semibold text-[22px]">
-								{user.profile?.displayName ?? user.username}
-							</h1>
-							<p className="truncate text-[13px] text-dashboard-text-muted">{user.email}</p>
-						</div>
-					</div>
-				</div>
-			</section>
+		<AccountPageLayout
+			user={user}
+			basePath={basePath}
+			eyebrow="Account settings"
+			title="Profile"
+			description="Control how your identity appears across workspaces and shared activity."
+			status={
+				<Badge
+					variant="outline"
+					className="h-7 border-dashboard-border bg-dashboard-surface px-2.5 text-dashboard-text-secondary"
+				>
+					<HugeiconsIcon icon={CheckmarkCircle02Icon} className="size-3.5" strokeWidth={1.8} />
+					Profile active
+				</Badge>
+			}
+		>
 			{update.isError ? (
 				<Alert variant="destructive">
 					<AlertTitle>Could not update profile</AlertTitle>
@@ -77,38 +71,57 @@ export function AccountProfile() {
 					<AlertDescription>Your changes are now active.</AlertDescription>
 				</Alert>
 			) : null}
-			<section className="rounded-2xl border border-dashboard-border bg-dashboard-card-outer p-[2px]">
-				<div className="rounded-xl border border-dashboard-border-subtle bg-dashboard-card-inner p-4">
-					<div className="mb-4">
-						<h2 className="font-semibold text-[15px]">Profile details</h2>
-						<p className="text-[13px] text-dashboard-text-muted">
-							Presentation details are separate from your sign-in identity.
-						</p>
+			<AccountSection
+				title="Public profile"
+				description="Presentation details are separate from your sign-in identity."
+				icon={UserEdit01Icon}
+			>
+				<ProfileForm
+					value={form}
+					pending={update.isPending}
+					onChange={setForm}
+					onSubmit={(event) => {
+						event.preventDefault();
+						update.mutate(form);
+					}}
+				/>
+			</AccountSection>
+
+			<AccountSection
+				title="Account identity"
+				description="Read-only details used for authentication and account recovery."
+				icon={Mail01Icon}
+				bodyClassName="p-0 sm:p-0"
+			>
+				<dl className="divide-y divide-dashboard-border">
+					<div className="grid gap-1 px-4 py-3 sm:grid-cols-[180px_minmax(0,1fr)] sm:items-center sm:px-5">
+						<dt className="text-[12px] text-dashboard-text-muted">Email address</dt>
+						<dd className="break-all text-[13px] text-dashboard-text-primary">{user.email}</dd>
 					</div>
-					<ProfileForm
-						value={form}
-						pending={update.isPending}
-						onChange={setForm}
-						onSubmit={(event) => {
-							event.preventDefault();
-							update.mutate(form);
-						}}
-					/>
-				</div>
-			</section>
-			<section className="rounded-2xl border border-dashboard-border bg-dashboard-card-outer p-[2px]">
-				<div className="flex flex-col items-start justify-between gap-3 rounded-xl border border-dashboard-border-subtle bg-dashboard-card-inner p-4 sm:flex-row sm:items-center">
-					<div>
-						<h2 className="font-semibold text-[15px]">Account security</h2>
-						<p className="text-[13px] text-dashboard-text-muted">
-							Passwords, passkeys, 2FA, and sessions.
-						</p>
+					<div className="grid gap-1 px-4 py-3 sm:grid-cols-[180px_minmax(0,1fr)] sm:items-center sm:px-5">
+						<dt className="text-[12px] text-dashboard-text-muted">Email status</dt>
+						<dd className="flex items-center gap-1.5 text-[13px] text-dashboard-text-primary">
+							<HugeiconsIcon
+								icon={CheckmarkCircle02Icon}
+								className="size-3.5 text-emerald-500"
+								strokeWidth={1.8}
+							/>
+							{user.emailVerified ? "Verified" : "Verification required"}
+						</dd>
 					</div>
-					<Button variant="outline" size="sm" render={<Link href="/admin/account/security" />}>
-						Open security
-					</Button>
-				</div>
-			</section>
-		</div>
+					<div className="grid gap-1 px-4 py-3 sm:grid-cols-[180px_minmax(0,1fr)] sm:items-center sm:px-5">
+						<dt className="text-[12px] text-dashboard-text-muted">Member since</dt>
+						<dd className="flex items-center gap-1.5 text-[13px] text-dashboard-text-primary">
+							<HugeiconsIcon icon={Calendar03Icon} className="size-3.5" strokeWidth={1.8} />
+							{new Date(user.createdAt).toLocaleDateString(undefined, {
+								year: "numeric",
+								month: "long",
+								day: "numeric",
+							})}
+						</dd>
+					</div>
+				</dl>
+			</AccountSection>
+		</AccountPageLayout>
 	);
 }

@@ -20,22 +20,27 @@ export function DashboardHeader({ name, className, onExport }: Props) {
 	return (
 		<section
 			className={cn(
-				"rounded-2xl border border-dashboard-border bg-dashboard-card-outer p-[2px] dark:",
+				"flex flex-col gap-4 border-dashboard-border border-b pb-5 md:flex-row md:items-end md:justify-between",
 				className,
 			)}
 		>
-			<div className="rounded-xl border border-dashboard-border-subtle bg-dashboard-card-inner px-3 py-3 sm:px-4">
-				<div className="flex flex-wrap items-center justify-between gap-4">
-					<h1 className="font-semibold text-[22px] text-dashboard-text-primary tracking-tight sm:text-[28px]">
-						Welcome back, {greetingName}
-					</h1>
-
-					<div className="flex w-full flex-wrap items-center gap-2 sm:w-auto">
-						<PeriodSelect />
-						<DatePill />
-						<ExportButton onClick={onExport} />
-					</div>
+			<div className="min-w-0">
+				<div className="mb-1.5 flex items-center gap-2 text-[11px] text-dashboard-text-muted uppercase">
+					<span className="size-1.5 rounded-full bg-emerald-500" />
+					Live overview
 				</div>
+				<h1 className="font-semibold text-[24px] text-dashboard-text-primary leading-tight">
+					Welcome back, {greetingName}
+				</h1>
+				<p className="mt-1 text-[13px] text-dashboard-text-muted">
+					Monday, July 13 · All workspaces
+				</p>
+			</div>
+
+			<div className="flex w-full flex-wrap items-center gap-2 md:w-auto md:justify-end">
+				<PeriodSelect />
+				<DatePill />
+				<ExportButton onClick={onExport} />
 			</div>
 		</section>
 	);

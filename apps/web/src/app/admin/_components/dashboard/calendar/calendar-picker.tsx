@@ -82,13 +82,13 @@ export function CalendarPicker({ value, onChange, className }: Props) {
 	return (
 		<div
 			className={cn(
-				"rounded-2xl border border-dashboard-border bg-dashboard-card-outer p-3 ",
+				"rounded-xl border border-dashboard-border bg-dashboard-surface p-3",
 				className,
 			)}
 		>
 			{/* Header */}
 			<div className="mb-3 flex items-center gap-2 px-1">
-				<div className="font-semibold text-[15px] text-dashboard-text-primary tracking-tight">
+				<div className="font-semibold text-[15px] text-dashboard-text-primary">
 					{MONTH_NAMES[view.getMonth()]}, {view.getFullYear()}
 				</div>
 				<button
@@ -119,7 +119,7 @@ export function CalendarPicker({ value, onChange, className }: Props) {
 				<button
 					type="button"
 					aria-label="Add"
-					className="ml-auto flex size-8 items-center justify-center rounded-full bg-[#FF6A1A] text-white transition-all hover:bg-[#ff7a33] active:scale-95"
+					className="ml-auto flex size-8 items-center justify-center rounded-full bg-dashboard-accent text-white transition-all hover:bg-dashboard-accent-hover active:scale-95"
 				>
 					<HugeiconsIcon icon={Add01Icon} size={14} strokeWidth={2.4} />
 				</button>
@@ -130,7 +130,7 @@ export function CalendarPicker({ value, onChange, className }: Props) {
 				{WEEKDAYS.map((d) => (
 					<div
 						key={d}
-						className="rounded-md bg-dashboard-surface-hover py-1.5 text-center font-medium text-[10.5px] text-dashboard-text-muted tracking-[0.12em]"
+						className="rounded-md bg-dashboard-surface-hover py-1.5 text-center font-medium text-[10.5px] text-dashboard-text-muted"
 					>
 						{d}
 					</div>
@@ -151,7 +151,7 @@ export function CalendarPicker({ value, onChange, className }: Props) {
 							className={cn(
 								"relative flex aspect-square items-center justify-center rounded-lg border text-[12.5px] tabular-nums transition-all",
 								isSelected
-									? "border-[#FF6A1A] bg-[#FF6A1A]/10 font-semibold text-[#FF6A1A]"
+									? "border-dashboard-accent bg-dashboard-accent/10 font-semibold text-dashboard-accent"
 									: cn(
 											"border-dashboard-border-subtle bg-dashboard-surface hover:border-dashboard-border hover:bg-dashboard-surface-elevated",
 											inMonth

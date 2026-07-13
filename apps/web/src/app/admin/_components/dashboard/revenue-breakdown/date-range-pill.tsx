@@ -26,7 +26,7 @@ export function DateRangePill({ label, onClick, className }: Props) {
 				strokeWidth={1.8}
 				className="text-dashboard-text-muted"
 			/>
-			<span className="font-medium tracking-tight">{label}</span>
+			<span className="font-medium">{label}</span>
 			<HugeiconsIcon
 				icon={ArrowDown01Icon}
 				size={12}

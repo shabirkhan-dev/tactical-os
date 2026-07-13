@@ -41,46 +41,34 @@ export function StatCard({
 	return (
 		<div
 			className={cn(
-				// outer card: blends with body, holds inner card + footer row
-				"rounded-2xl border border-dashboard-border bg-dashboard-card-outer p-[2px] ",
+				"relative min-h-[142px] bg-dashboard-card-inner p-4 transition-colors hover:bg-dashboard-surface-hover",
 				className,
 			)}
 		>
-			{/* Inner elevated card */}
-			<div className="relative rounded-xl border border-dashboard-border-subtle bg-dashboard-card-inner px-4 pt-4 pb-5 ">
-				<div className="flex items-start justify-between gap-3">
-					<div className="min-w-0 space-y-3">
-						<div className="font-medium text-[11px] text-dashboard-text-muted uppercase tracking-[0.16em]">
-							{label}
-						</div>
-						<div className="flex items-baseline gap-2">
-							<span className="font-semibold text-[28px] text-dashboard-text-primary leading-none tracking-tight tabular-nums">
-								{value}
-							</span>
-							{unit && <span className="text-[13px] text-dashboard-text-muted">{unit}</span>}
-						</div>
+			<div className="flex items-start justify-between gap-4">
+				<div className="min-w-0">
+					<div className="font-medium text-[11px] text-dashboard-text-muted uppercase">{label}</div>
+					<div className="mt-4 flex items-baseline gap-2">
+						<span className="font-semibold text-[26px] text-dashboard-text-primary leading-none tabular-nums">
+							{value}
+						</span>
+						{unit && <span className="text-[12px] text-dashboard-text-muted">{unit}</span>}
 					</div>
-					<MiniBars
-						data={bars}
-						activeIndex={activeIndex}
-						activeColor={activeColor}
-						className="shrink-0 self-end"
-					/>
 				</div>
+				<MiniBars
+					data={bars}
+					activeIndex={activeIndex}
+					activeColor={activeColor}
+					className="mt-1 shrink-0"
+				/>
 			</div>
 
-			{/* Footer row in outer card */}
-			<div className="flex items-center justify-between px-3 pt-2 pb-1">
-				<button
-					type="button"
-					aria-label="Trend up"
-					className="flex size-6 items-center justify-center rounded-md bg-dashboard-hover text-dashboard-text-muted transition-colors hover:bg-dashboard-hover-strong hover:text-dashboard-text-primary"
-				>
+			<div className="mt-5 flex items-center gap-2 text-[12px] text-dashboard-text-muted tabular-nums">
+				<span className="flex size-5 items-center justify-center rounded-md bg-dashboard-hover text-dashboard-text-muted">
 					<HugeiconsIcon icon={ArrowUp01Icon} size={13} strokeWidth={2.2} />
-				</button>
-				<div className="text-[12px] text-dashboard-text-muted tabular-nums">
-					<span className={cn("font-semibold", trendColor[trend])}>{trendDelta}</span> {trendLabel}
-				</div>
+				</span>
+				<span className={cn("font-semibold", trendColor[trend])}>{trendDelta}</span>
+				<span>{trendLabel}</span>
 			</div>
 		</div>
 	);

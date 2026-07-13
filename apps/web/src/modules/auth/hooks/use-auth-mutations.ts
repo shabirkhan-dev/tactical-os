@@ -34,11 +34,10 @@ export function useGoogleLoginMutation() {
 export function usePasskeyLoginMutation() {
 	const { establishSession } = useAuth();
 	return useMutation({
-		mutationFn: async (email: string) => {
+		mutationFn: async (email?: string) => {
 			const ceremony = await authService.beginPasskeyLogin(email);
 			const response = await startAuthentication({ optionsJSON: ceremony.options });
 			const session = await authService.finishPasskeyLogin({
-				email,
 				challengeId: ceremony.challengeId,
 				response,
 			});

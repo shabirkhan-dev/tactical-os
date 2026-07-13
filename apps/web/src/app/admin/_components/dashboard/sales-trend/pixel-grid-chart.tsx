@@ -33,7 +33,7 @@ const CHART_H = ROWS * STEP - GAP + PAD_Y * 2;
 
 const COLOR_GRID = "var(--dashboard-chart-grid)";
 const COLOR_NEW = "var(--dashboard-chart-dot)";
-const COLOR_EXISTING = "#FF6A1A";
+const COLOR_EXISTING = "var(--dashboard-accent)";
 
 type Col = {
 	idx: number;
@@ -215,7 +215,7 @@ export function PixelGridChart({ highlightMonth = "JUN", className }: Props) {
 								}}
 							/>
 							<div
-								className="pointer-events-none absolute size-2.5 rounded-full border-2 border-white bg-dashboard-tooltip-bg "
+								className="pointer-events-none absolute size-2.5 rounded-full border-2 border-dashboard-surface bg-dashboard-tooltip-bg"
 								style={{
 									left: `${lineXPct}%`,
 									top: `${dotYPct}%`,
@@ -223,20 +223,16 @@ export function PixelGridChart({ highlightMonth = "JUN", className }: Props) {
 								}}
 							/>
 							<div
-								className="pointer-events-none absolute z-10 w-[230px] rounded-2xl border border-dashboard-border bg-dashboard-tooltip-bg/95 p-2.5 backdrop-blur-sm"
+								className="pointer-events-none absolute z-10 w-[230px] rounded-xl border border-dashboard-border bg-dashboard-tooltip-bg/95 p-2.5 backdrop-blur-sm"
 								style={{
 									left: `calc(${lineXPct}% + ${tipOnRight ? 18 : -18}px)`,
 									top: `${dotYPct}%`,
 									transform: tipOnRight ? "translate(0, -50%)" : "translate(-100%, -50%)",
 								}}
 							>
-								{/* Nested header pill */}
-								<div className="rounded-xl border border-dashboard-border-subtle bg-dashboard-hover px-3.5 py-2">
-									<div className="font-medium text-[15px] text-dashboard-text-secondary tracking-tight">
-										{activeMonth.charAt(0) + activeMonth.slice(1).toLowerCase()} 2025
-									</div>
+								<div className="border-dashboard-border-subtle border-b px-3.5 py-2 font-medium text-[14px] text-dashboard-text-secondary">
+									{activeMonth.charAt(0) + activeMonth.slice(1).toLowerCase()} 2025
 								</div>
-								{/* Body */}
 								<div className="space-y-2.5 px-3.5 pt-3 pb-2">
 									<div className="flex items-center gap-2.5">
 										<span
@@ -275,7 +271,7 @@ export function PixelGridChart({ highlightMonth = "JUN", className }: Props) {
 						<div key={m} className="flex items-center justify-center gap-2">
 							<span
 								className={cn(
-									"font-medium text-[11px] tracking-[0.06em]",
+									"font-medium text-[11px]",
 									isActive ? "text-dashboard-text-primary" : "text-dashboard-text-muted",
 								)}
 							>

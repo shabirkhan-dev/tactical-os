@@ -18,7 +18,7 @@ type Props = {
 export function MiniBars({
 	data,
 	activeIndex,
-	activeColor = "#FF6A1A",
+	activeColor = "var(--dashboard-accent)",
 	mutedColor = "var(--dashboard-chart-muted-bar)",
 	className,
 }: Props) {

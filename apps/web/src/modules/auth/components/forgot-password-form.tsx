@@ -41,7 +41,7 @@ export function ForgotPasswordForm() {
 	}
 
 	return (
-		<Card>
+		<Card className="rounded-[16px] border border-dashboard-border bg-dashboard-surface ring-0">
 			<CardHeader className="text-center">
 				<CardTitle className="text-2xl">Forgot your password?</CardTitle>
 				<CardDescription>We will send a reset code if an account exists.</CardDescription>

@@ -6,12 +6,12 @@ import { RecentTransactionsCard } from "./_components/dashboard/transactions/rec
 
 const AdminPage = () => {
 	return (
-		<div className="space-y-4 px-3 py-4 sm:px-6 sm:py-6">
+		<div className="mx-auto w-full max-w-[1600px] space-y-5 px-3 py-4 sm:px-6 sm:py-6 lg:space-y-6 lg:px-8">
 			<DashboardHeader />
 			<StatCardsRow />
-			<div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
-				<SalesTrendCard className="xl:col-span-2" />
-				<RevenueBreakdownCard />
+			<div className="grid grid-cols-1 gap-5 xl:grid-cols-12">
+				<SalesTrendCard className="xl:col-span-8" />
+				<RevenueBreakdownCard className="xl:col-span-4" />
 			</div>
 			<RecentTransactionsCard />
 		</div>

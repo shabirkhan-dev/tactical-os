@@ -30,7 +30,7 @@ export function MagicLinkConsumer() {
 	}, [consume, router, token]);
 
 	return (
-		<Card>
+		<Card className="rounded-[16px] border border-dashboard-border bg-dashboard-surface ring-0">
 			<CardHeader className="text-center">
 				<CardTitle>Secure sign in</CardTitle>
 				<CardDescription>Verifying your one-time link</CardDescription>

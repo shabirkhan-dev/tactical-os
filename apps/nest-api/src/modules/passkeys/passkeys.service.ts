@@ -39,7 +39,7 @@ export class PasskeysService {
 				id: passkey.credentialId,
 				transports: passkey.transports as AuthenticatorTransportFuture[],
 			})),
-			authenticatorSelection: { residentKey: 'preferred', userVerification: 'required' },
+			authenticatorSelection: { residentKey: 'required', userVerification: 'required' },
 			preferredAuthenticatorType: 'localDevice',
 		});
 		const challenge = await this.repository.createChallenge({
@@ -89,47 +89,57 @@ export class PasskeysService {
 		return toPasskeyView(passkey);
 	}
 
-	async beginAuthentication(email: string) {
-		const user = await this.users.findByEmail(email);
-		if (!user?.isActive) throw invalidPasskey();
-		const passkeys = await this.repository.listForUser(user.id);
-		if (passkeys.length === 0) throw invalidPasskey();
+	async beginAuthentication(email?: string) {
+		const user = email ? await this.users.findByEmail(email) : null;
+		if (email && !user?.isActive) throw invalidPasskey();
+		const passkeys = user ? await this.repository.listForUser(user.id) : [];
+		if (user && passkeys.length === 0) throw invalidPasskey();
 		const options = await generateAuthenticationOptions({
 			rpID: this.config.webAuthnRpId,
-			allowCredentials: passkeys.map((passkey) => ({
-				id: passkey.credentialId,
-				transports: passkey.transports as AuthenticatorTransportFuture[],
-			})),
+			...(user
+				? {
+						allowCredentials: passkeys.map((passkey) => ({
+							id: passkey.credentialId,
+							transports: passkey.transports as AuthenticatorTransportFuture[],
+						})),
+					}
+				: {}),
 			userVerification: 'required',
 		});
-		const challenge = await this.repository.createChallenge({
-			userId: user.id,
-			email: user.email,
-			purpose: 'webauthn_authentication',
-			challengeHash: this.crypto.hashOtp('webauthn_authentication', user.email, options.challenge),
+		const challengeOwner = user?.id ?? 'discoverable';
+		const challenge = await this.repository.createAuthenticationChallenge({
+			userId: user?.id ?? null,
+			challengeHash: this.crypto.hashOtp(
+				'webauthn_authentication',
+				challengeOwner,
+				options.challenge,
+			),
 			expiresAt: new Date(Date.now() + this.config.mfaChallengeTtlMinutes * 60_000),
 		});
 		return { challengeId: challenge.id, options };
 	}
 
-	async finishAuthentication(input: {
-		email: string;
-		challengeId: string;
-		response: AuthenticationResponseJSON;
-	}) {
-		const user = await this.users.findByEmail(input.email);
-		if (!user?.isActive) throw invalidPasskey();
-		const challenge = await this.requireChallenge(
-			input.challengeId,
-			user.id,
-			'webauthn_authentication',
-		);
+	async finishAuthentication(input: { challengeId: string; response: AuthenticationResponseJSON }) {
+		const challenge = await this.repository.findAuthenticationChallenge(input.challengeId);
+		if (!challenge || challenge.consumedAt || challenge.expiresAt <= new Date()) {
+			throw invalidPasskey();
+		}
 		const passkey = await this.repository.findByCredentialId(input.response.id);
-		if (!passkey || passkey.userId !== user.id) throw invalidPasskey();
+		if (!passkey || (challenge.userId && passkey.userId !== challenge.userId)) {
+			throw invalidPasskey();
+		}
+		const user = await this.users.findById(passkey.userId);
+		if (!user?.isActive) throw invalidPasskey();
+		const challengeOwner = challenge.userId ?? 'discoverable';
 		const verification = await verifyAuthenticationResponse({
 			response: input.response,
 			expectedChallenge: (value) =>
-				this.crypto.verifyOtp('webauthn_authentication', user.email, value, challenge.codeHash),
+				this.crypto.verifyOtp(
+					'webauthn_authentication',
+					challengeOwner,
+					value,
+					challenge.challengeHash,
+				),
 			expectedOrigin: this.config.webAuthnOrigin,
 			expectedRPID: this.config.webAuthnRpId,
 			requireUserVerification: true,
@@ -141,7 +151,9 @@ export class PasskeysService {
 			},
 		});
 		if (!verification.verified) throw invalidPasskey();
-		if (!(await this.repository.consumeChallenge(challenge.id))) throw invalidPasskey();
+		if (!(await this.repository.consumeAuthenticationChallenge(challenge.id))) {
+			throw invalidPasskey();
+		}
 		await this.repository.updateUsage(passkey.id, verification.authenticationInfo.newCounter);
 		return user;
 	}

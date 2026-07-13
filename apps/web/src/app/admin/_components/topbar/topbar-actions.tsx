@@ -39,7 +39,7 @@ function IconButton({ icon, label, dot, onClick, className }: IconBtnProps) {
 						{dot && (
 							<span
 								aria-hidden
-								className="absolute top-1.5 right-1.5 block size-2 rounded-full bg-[#FF6A1A] ring-2 ring-dashboard-bg"
+								className="absolute top-1.5 right-1.5 block size-2 rounded-full bg-dashboard-accent ring-2 ring-dashboard-bg"
 							/>
 						)}
 					</button>

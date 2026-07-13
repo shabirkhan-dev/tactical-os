@@ -2,7 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { and, desc, eq, isNull } from 'drizzle-orm';
 
 import { DatabaseService } from '../../database/database.service';
-import { authChallenges, type PasskeyRecord, passkeys } from '../../database/schema';
+import {
+	authChallenges,
+	type PasskeyRecord,
+	passkeys,
+	webauthnAuthenticationChallenges,
+} from '../../database/schema';
 
 @Injectable()
 export class PasskeysRepository {
@@ -29,6 +34,42 @@ export class PasskeysRepository {
 		const [passkey] = await this.database.db.insert(passkeys).values(input).returning();
 		if (!passkey) throw new Error('Passkey insert did not return a record');
 		return passkey;
+	}
+
+	async createAuthenticationChallenge(input: {
+		userId: string | null;
+		challengeHash: string;
+		expiresAt: Date;
+	}) {
+		const [challenge] = await this.database.db
+			.insert(webauthnAuthenticationChallenges)
+			.values(input)
+			.returning();
+		if (!challenge) throw new Error('WebAuthn authentication challenge insert failed');
+		return challenge;
+	}
+
+	async findAuthenticationChallenge(challengeId: string) {
+		const [challenge] = await this.database.db
+			.select()
+			.from(webauthnAuthenticationChallenges)
+			.where(eq(webauthnAuthenticationChallenges.id, challengeId))
+			.limit(1);
+		return challenge ?? null;
+	}
+
+	async consumeAuthenticationChallenge(challengeId: string): Promise<boolean> {
+		const consumed = await this.database.db
+			.update(webauthnAuthenticationChallenges)
+			.set({ consumedAt: new Date() })
+			.where(
+				and(
+					eq(webauthnAuthenticationChallenges.id, challengeId),
+					isNull(webauthnAuthenticationChallenges.consumedAt),
+				),
+			)
+			.returning({ id: webauthnAuthenticationChallenges.id });
+		return consumed.length > 0;
 	}
 
 	async updateUsage(id: string, counter: number): Promise<void> {

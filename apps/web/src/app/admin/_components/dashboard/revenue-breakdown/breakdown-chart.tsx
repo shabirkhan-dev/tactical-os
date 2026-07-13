@@ -9,7 +9,7 @@ const CHART_H = 240;
 const PAD_TOP = 14;
 const PAD_BOTTOM = 22;
 
-const COLOR_ACTIVE = "#FF6A1A";
+const COLOR_ACTIVE = "var(--dashboard-accent)";
 const COLOR_DOT = "var(--dashboard-chart-dot)";
 const DOT_SIZE = 5;
 const DASHED_BG =
@@ -94,7 +94,7 @@ export function BreakdownChart({ className }: Props) {
 			</div>
 
 			{/* X-axis: text · dot · dotted leader · dot · text */}
-			<div className="mt-3 flex items-center gap-2 font-medium text-[11px] text-dashboard-text-muted uppercase tracking-[0.08em]">
+			<div className="mt-3 flex items-center gap-2 font-medium text-[11px] text-dashboard-text-muted uppercase">
 				<span>1 JAN</span>
 				<span
 					aria-hidden

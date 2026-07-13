@@ -15,15 +15,14 @@ export function SalesTrendCard({ className }: Props) {
 	return (
 		<section
 			className={cn(
-				"rounded-2xl border border-dashboard-border bg-dashboard-card-outer p-[2px] ",
+				"overflow-hidden rounded-[16px] border border-dashboard-border bg-dashboard-card-inner",
 				className,
 			)}
 			aria-label="Sales trend"
 		>
-			{/* Outer header band */}
-			<div className="flex items-center justify-between px-2.5 py-2">
+			<div className="flex items-center justify-between border-dashboard-border border-b px-4 py-3">
 				<div className="flex items-center gap-1.5">
-					<h2 className="font-medium text-[11px] text-dashboard-text-muted uppercase tracking-[0.16em]">
+					<h2 className="font-medium text-[11px] text-dashboard-text-muted uppercase">
 						Sales Trend
 					</h2>
 					<HugeiconsIcon
@@ -42,23 +41,24 @@ export function SalesTrendCard({ className }: Props) {
 				</button>
 			</div>
 
-			{/* Inner card */}
-			<div className="overflow-x-auto rounded-xl border border-dashboard-border-subtle bg-dashboard-card-inner p-3 sm:p-4">
-				<div className="mb-4 flex flex-wrap items-center gap-3">
-					<div className="flex items-baseline gap-2">
-						<span className="text-[12px] text-dashboard-text-muted">Total Revenue:</span>
-						<span className="font-semibold text-[28px] text-dashboard-text-primary leading-none tracking-tight tabular-nums">
+			<div className="overflow-x-auto p-4 sm:p-5">
+				<div className="mb-5 flex min-w-[560px] items-start justify-between gap-5">
+					<div>
+						<span className="text-[12px] text-dashboard-text-muted">Total revenue</span>
+						<div className="mt-1 font-semibold text-[28px] text-dashboard-text-primary leading-none tabular-nums">
 							$20,320
-						</span>
+						</div>
 					</div>
-					<div className="flex flex-1 items-center justify-center gap-5">
-						<LegendDot color="var(--dashboard-chart-dot)" label="New User" />
-						<LegendDot color="#FF6A1A" label="Existing User" />
+					<div className="flex items-center gap-5">
+						<div className="flex items-center gap-4">
+							<LegendDot color="var(--dashboard-chart-dot)" label="New user" />
+							<LegendDot color="var(--dashboard-accent)" label="Existing user" />
+						</div>
+						<RangeToggle />
 					</div>
-					<RangeToggle />
 				</div>
 
-				<PixelGridChart highlightMonth="JUN" className="min-w-[620px]" />
+				<PixelGridChart highlightMonth="JUN" className="min-w-[560px]" />
 			</div>
 		</section>
 	);

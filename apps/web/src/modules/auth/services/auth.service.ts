@@ -47,13 +47,13 @@ export const authService = {
 	providers: () => apiClient.get<GoogleProviders>("/auth/methods"),
 	googleLogin: (credential: string) =>
 		apiClient.post<AuthSession>("/auth/methods/google", { credential }),
-	beginPasskeyLogin: (email: string) =>
-		apiClient.post<PasskeyAuthenticationOptions>("/auth/methods/passkeys/options", { email }),
-	finishPasskeyLogin: (input: {
-		email: string;
-		challengeId: string;
-		response: AuthenticationResponseJSON;
-	}) => apiClient.post<AuthSession>("/auth/methods/passkeys/verify", input),
+	beginPasskeyLogin: (email?: string) =>
+		apiClient.post<PasskeyAuthenticationOptions>(
+			"/auth/methods/passkeys/options",
+			email ? { email } : {},
+		),
+	finishPasskeyLogin: (input: { challengeId: string; response: AuthenticationResponseJSON }) =>
+		apiClient.post<AuthSession>("/auth/methods/passkeys/verify", input),
 	listSessions: (accessToken: string) =>
 		apiClient.get<SessionInfo[]>("/auth/sessions", { accessToken }),
 	revokeSession: (accessToken: string, sessionId: string) =>

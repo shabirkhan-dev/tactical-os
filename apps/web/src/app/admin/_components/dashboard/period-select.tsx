@@ -38,7 +38,7 @@ export function PeriodSelect({ value: controlled, onChange, className }: Props) 
 						type="button"
 						{...props}
 						className={cn(
-							"group flex h-9 items-center gap-2 rounded-xl border border-dashboard-border-subtle bg-dashboard-surface px-3 text-[13px] text-dashboard-text-secondary transition-colors hover:border-dashboard-border hover:bg-dashboard-surface-hover",
+							"group flex h-9 items-center gap-2 rounded-lg border border-dashboard-border-subtle bg-dashboard-surface px-3 text-[13px] text-dashboard-text-secondary transition-colors hover:border-dashboard-border-strong hover:bg-dashboard-surface-hover",
 							className,
 						)}
 					>

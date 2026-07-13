@@ -51,7 +51,7 @@ export function ResetPasswordForm() {
 	}
 
 	return (
-		<Card>
+		<Card className="rounded-[16px] border border-dashboard-border bg-dashboard-surface ring-0">
 			<CardHeader className="text-center">
 				<CardTitle className="text-2xl">Reset your password</CardTitle>
 				<CardDescription>Enter your reset code and choose a new password.</CardDescription>
@@ -62,7 +62,7 @@ export function ResetPasswordForm() {
 						{developmentCode ? (
 							<Alert>
 								<AlertTitle>Development code</AlertTitle>
-								<AlertDescription className="font-mono text-base tracking-widest">
+								<AlertDescription className="font-mono text-base">
 									{developmentCode}
 								</AlertDescription>
 							</Alert>

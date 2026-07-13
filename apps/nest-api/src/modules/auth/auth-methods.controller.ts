@@ -23,6 +23,7 @@ import {
 	GoogleCredentialBodyDto,
 	MagicLinkBodyDto,
 	PasskeyAuthenticationBodyDto,
+	PasskeyOptionsBodyDto,
 } from './dto/auth.dto';
 import { RefreshCookieService } from './refresh-cookie.service';
 
@@ -89,7 +90,7 @@ export class AuthMethodsController {
 
 	@Post('passkeys/options')
 	@Throttle({ default: { limit: 10, ttl: 60_000 } })
-	options(@Body() body: EmailBodyDto) {
+	options(@Body() body: PasskeyOptionsBodyDto) {
 		return this.auth.beginPasskeyLogin(body.email);
 	}
 
@@ -103,7 +104,6 @@ export class AuthMethodsController {
 	): Promise<PublicAuthSession> {
 		const result = await this.auth.finishPasskeyLogin(
 			{
-				email: body.email,
 				challengeId: body.challengeId,
 				response: body.response as unknown as AuthenticationResponseJSON,
 			},

@@ -74,7 +74,7 @@ export function TransactionsTable({ className }: Props) {
 							<th
 								key={col.id}
 								className={cn(
-									"py-2.5 pr-4 font-medium text-[11px] text-dashboard-text-muted uppercase tracking-widest",
+									"py-2.5 pr-4 font-medium text-[11px] text-dashboard-text-muted uppercase",
 									col.width,
 								)}
 							>
@@ -153,7 +153,7 @@ function Checkbox({ checked, onChange }: CheckboxProps) {
 			className={cn(
 				"flex size-4 items-center justify-center rounded-[4px] border transition-colors",
 				checked
-					? "border-[#FF6A1A] bg-[#FF6A1A]"
+					? "border-dashboard-accent bg-dashboard-accent"
 					: "border-dashboard-border-strong bg-transparent hover:border-dashboard-border-focus",
 			)}
 		>

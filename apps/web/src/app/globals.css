@@ -2,73 +2,142 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@school-os/ui/globals.css";
+@import "@fontsource-variable/inter";
 
 /* Scan UI package for Tailwind classes */
 @source "../../../../packages/ui/src";
 
 :root {
-	--font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+		sans-serif;
 	--font-geist-mono: ui-monospace, "SFMono-Regular", "SF Mono", Consolas, "Liberation Mono",
 		monospace;
-}
 
-/* App-specific dashboard tokens (not shared design-system tokens) */
-:root {
-	--dashboard-bg: #f4f4f5;
-	--dashboard-sidebar-bg: #ffffff;
+	/* Chat-derived application palette. Keep semantic names stable for future themes. */
+	--background: #ffffff;
+	--foreground: #171717;
+	--card: #ffffff;
+	--card-foreground: #171717;
+	--popover: #ffffff;
+	--popover-foreground: #171717;
+	--primary: #212121;
+	--primary-foreground: #fafafa;
+	--secondary: #f5f5f5;
+	--secondary-foreground: #212121;
+	--muted: #f5f5f5;
+	--muted-foreground: #737373;
+	--accent: #f5f5f5;
+	--accent-foreground: #212121;
+	--destructive: oklch(0.577 0.245 27.325);
+	--border: #e8e8e8;
+	--input: #e8e8e8;
+	--ring: #737373;
+	--chart-1: #dedede;
+	--chart-2: #737373;
+	--chart-3: #525252;
+	--chart-4: #404040;
+	--chart-5: #262626;
+	--radius: 0.625rem;
+	--sidebar: #fcfcfc;
+	--sidebar-foreground: #171717;
+	--sidebar-primary: #212121;
+	--sidebar-primary-foreground: #fafafa;
+	--sidebar-accent: #f5f5f5;
+	--sidebar-accent-foreground: #212121;
+	--sidebar-border: #e8e8e8;
+	--sidebar-ring: #737373;
+
+	--dashboard-bg: #fcfcfc;
+	--dashboard-sidebar-bg: #fcfcfc;
 	--dashboard-topbar-bg: #ffffff;
 	--dashboard-card-outer: #ffffff;
-	--dashboard-card-inner: #f8f8f8;
+	--dashboard-card-inner: #fcfcfc;
 	--dashboard-surface: #ffffff;
-	--dashboard-surface-elevated: #f4f4f5;
-	--dashboard-surface-hover: #f0f0f0;
-	--dashboard-surface-strong: #e4e4e7;
-	--dashboard-border: rgba(0, 0, 0, 0.08);
-	--dashboard-border-subtle: rgba(0, 0, 0, 0.05);
-	--dashboard-border-strong: rgba(0, 0, 0, 0.12);
-	--dashboard-border-focus: rgba(0, 0, 0, 0.15);
-	--dashboard-text-primary: #18181b;
-	--dashboard-text-secondary: #52525b;
-	--dashboard-text-muted: #a1a1aa;
-	--dashboard-text-dim: #d4d4d8;
-	--dashboard-text-faint: #e4e4e7;
-	--dashboard-hover: rgba(0, 0, 0, 0.04);
-	--dashboard-hover-strong: rgba(0, 0, 0, 0.08);
-	--dashboard-chart-grid: #e4e4e7;
-	--dashboard-chart-dot: #a1a1aa;
-	--dashboard-chart-muted-bar: #d4d4d8;
+	--dashboard-surface-elevated: #fcfcfc;
+	--dashboard-surface-hover: #f7f7f7;
+	--dashboard-surface-strong: #f5f5f5;
+	--dashboard-border: #e8e8e8;
+	--dashboard-border-subtle: #f1f1f1;
+	--dashboard-border-strong: #dedede;
+	--dashboard-border-focus: #737373;
+	--dashboard-text-primary: #171717;
+	--dashboard-text-secondary: #404040;
+	--dashboard-text-muted: #737373;
+	--dashboard-text-dim: #a3a3a3;
+	--dashboard-text-faint: #d4d4d4;
+	--dashboard-hover: #f7f7f7;
+	--dashboard-hover-strong: #f5f5f5;
+	--dashboard-chart-grid: #f1f1f1;
+	--dashboard-chart-dot: #737373;
+	--dashboard-chart-muted-bar: #e8e8e8;
 	--dashboard-tooltip-bg: rgba(255, 255, 255, 0.98);
-	--dashboard-chart-line: rgba(0, 0, 0, 0.45);
-	--dashboard-chart-leader: rgba(0, 0, 0, 0.25);
+	--dashboard-chart-line: #404040;
+	--dashboard-chart-leader: rgba(115, 115, 115, 0.5);
+	--dashboard-accent: #ff2f74;
+	--dashboard-accent-hover: #ff4d88;
 }
 
 .dark {
-	--dashboard-bg: #141414;
-	--dashboard-sidebar-bg: #1a1a1a;
+	--background: #141414;
+	--foreground: #ffffff;
+	--card: #141414;
+	--card-foreground: #ffffff;
+	--popover: #141414;
+	--popover-foreground: #ffffff;
+	--primary: #eeeeee;
+	--primary-foreground: #212121;
+	--secondary: #212121;
+	--secondary-foreground: #ffffff;
+	--muted: #212121;
+	--muted-foreground: #b5b5b5;
+	--accent: #212121;
+	--accent-foreground: #ffffff;
+	--destructive: oklch(0.704 0.191 22.216);
+	--border: rgba(255, 255, 255, 0.08);
+	--input: rgba(255, 255, 255, 0.15);
+	--ring: #b5b5b5;
+	--chart-1: #dedede;
+	--chart-2: #8c8c8c;
+	--chart-3: #666666;
+	--chart-4: #4d4d4d;
+	--chart-5: #333333;
+	--sidebar: #101010;
+	--sidebar-foreground: #ffffff;
+	--sidebar-primary: oklch(0.488 0.243 264.376);
+	--sidebar-primary-foreground: #ffffff;
+	--sidebar-accent: #212121;
+	--sidebar-accent-foreground: #ffffff;
+	--sidebar-border: rgba(255, 255, 255, 0.08);
+	--sidebar-ring: #b5b5b5;
+
+	--dashboard-bg: #101010;
+	--dashboard-sidebar-bg: #101010;
 	--dashboard-topbar-bg: #141414;
-	--dashboard-card-outer: #181818;
-	--dashboard-card-inner: #202020;
-	--dashboard-surface: #1f1f1f;
-	--dashboard-surface-elevated: #262626;
-	--dashboard-surface-hover: #2a2a2a;
-	--dashboard-surface-strong: #2e2e2e;
+	--dashboard-card-outer: #141414;
+	--dashboard-card-inner: #101010;
+	--dashboard-surface: #141414;
+	--dashboard-surface-elevated: #1c1c1c;
+	--dashboard-surface-hover: #1c1c1c;
+	--dashboard-surface-strong: #212121;
 	--dashboard-border: rgba(255, 255, 255, 0.08);
-	--dashboard-border-subtle: rgba(255, 255, 255, 0.05);
-	--dashboard-border-strong: rgba(255, 255, 255, 0.15);
-	--dashboard-border-focus: rgba(255, 255, 255, 0.15);
-	--dashboard-text-primary: #f4f4f5;
-	--dashboard-text-secondary: #d4d4d8;
-	--dashboard-text-muted: #a1a1aa;
-	--dashboard-text-dim: #71717a;
-	--dashboard-text-faint: #52525b;
-	--dashboard-hover: rgba(255, 255, 255, 0.04);
-	--dashboard-hover-strong: rgba(255, 255, 255, 0.08);
-	--dashboard-chart-grid: #252525;
-	--dashboard-chart-dot: #6b6b6b;
-	--dashboard-chart-muted-bar: #3a3a3a;
-	--dashboard-tooltip-bg: rgba(28, 28, 28, 0.98);
-	--dashboard-chart-line: rgba(255, 255, 255, 0.65);
-	--dashboard-chart-leader: rgba(160, 160, 160, 0.45);
+	--dashboard-border-subtle: rgba(255, 255, 255, 0.06);
+	--dashboard-border-strong: rgba(255, 255, 255, 0.12);
+	--dashboard-border-focus: #b5b5b5;
+	--dashboard-text-primary: #ffffff;
+	--dashboard-text-secondary: #eeeeee;
+	--dashboard-text-muted: #b5b5b5;
+	--dashboard-text-dim: #737373;
+	--dashboard-text-faint: #404040;
+	--dashboard-hover: #1c1c1c;
+	--dashboard-hover-strong: #212121;
+	--dashboard-chart-grid: rgba(255, 255, 255, 0.06);
+	--dashboard-chart-dot: #737373;
+	--dashboard-chart-muted-bar: #333333;
+	--dashboard-tooltip-bg: rgba(20, 20, 20, 0.98);
+	--dashboard-chart-line: #eeeeee;
+	--dashboard-chart-leader: rgba(181, 181, 181, 0.5);
+	--dashboard-accent: #ff2f74;
+	--dashboard-accent-hover: #ff4d88;
 }
 
 @theme inline {
@@ -98,4 +167,13 @@
 	--color-dashboard-tooltip-bg: var(--dashboard-tooltip-bg);
 	--color-dashboard-chart-line: var(--dashboard-chart-line);
 	--color-dashboard-chart-leader: var(--dashboard-chart-leader);
+	--color-dashboard-accent: var(--dashboard-accent);
+	--color-dashboard-accent-hover: var(--dashboard-accent-hover);
+}
+
+@layer base {
+	body {
+		font-family: var(--font-sans);
+		letter-spacing: 0;
+	}
 }

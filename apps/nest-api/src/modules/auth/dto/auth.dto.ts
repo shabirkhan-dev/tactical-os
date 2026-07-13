@@ -49,6 +49,7 @@ export const totpCodeBodySchema = z.object({ code: z.string().min(6).max(32) }).
 export const googleCredentialBodySchema = z
 	.object({ credential: z.string().min(100).max(10_000) })
 	.strict();
+export const passkeyOptionsBodySchema = z.object({ email: emailSchema.optional() }).strict();
 export const passkeyRegistrationBodySchema = z
 	.object({
 		challengeId: z.uuid(),
@@ -58,7 +59,6 @@ export const passkeyRegistrationBodySchema = z
 	.strict();
 export const passkeyAuthenticationBodySchema = z
 	.object({
-		email: emailSchema,
 		challengeId: z.uuid(),
 		response: z.record(z.string(), z.unknown()),
 	})
@@ -112,6 +112,10 @@ export class GoogleCredentialBodyDto {
 	static schema = googleCredentialBodySchema;
 	credential!: string;
 }
+export class PasskeyOptionsBodyDto {
+	static schema = passkeyOptionsBodySchema;
+	email?: string;
+}
 export class PasskeyRegistrationBodyDto {
 	static schema = passkeyRegistrationBodySchema;
 	challengeId!: string;
@@ -120,7 +124,6 @@ export class PasskeyRegistrationBodyDto {
 }
 export class PasskeyAuthenticationBodyDto {
 	static schema = passkeyAuthenticationBodySchema;
-	email!: string;
 	challengeId!: string;
 	response!: Record<string, unknown>;
 }

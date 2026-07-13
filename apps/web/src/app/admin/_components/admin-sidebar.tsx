@@ -107,7 +107,7 @@ const agencies: Agency[] = [
 	{ id: "atlas", name: "Atlas Collective", kind: "Studio", mark: "A" },
 ];
 
-const ACCENT = "#FF6A1A";
+const ACCENT = "var(--dashboard-accent)";
 
 type AdminSidebarProps = {
 	className?: string;
@@ -168,7 +168,7 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 									onClick={() => setCollapsed((v) => !v)}
 									aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
 									className={cn(
-										"absolute top-6 right-0 z-20 flex size-6 translate-x-1/2 items-center justify-center rounded-full border border-dashboard-border-strong bg-dashboard-surface-elevated text-dashboard-text-muted opacity-0 shadow-lg transition-all duration-150 group-hover/sidebar:opacity-100 hover:border-dashboard-border-focus hover:bg-dashboard-surface-strong hover:text-dashboard-text-primary focus-visible:opacity-100 active:scale-90",
+										"absolute top-6 right-0 z-20 flex size-6 translate-x-1/2 items-center justify-center rounded-full border border-dashboard-border-strong bg-dashboard-surface-elevated text-dashboard-text-muted opacity-0 transition-all duration-150 group-hover/sidebar:opacity-100 hover:border-dashboard-border-focus hover:bg-dashboard-surface-strong hover:text-dashboard-text-primary focus-visible:opacity-100 active:scale-90",
 									)}
 								>
 									<HugeiconsIcon
@@ -195,11 +195,11 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 									type="button"
 									{...props}
 									className={cn(
-										"group/trigger flex w-full items-center gap-3 rounded-xl bg-dashboard-surface px-2 py-2 text-left transition-all hover:bg-dashboard-surface-hover active:scale-[0.985]",
+										"group/trigger flex w-full items-center gap-3 rounded-lg bg-dashboard-surface px-2 py-2 text-left transition-all hover:bg-dashboard-surface-hover active:scale-[0.985]",
 										isCollapsed && "justify-center px-1",
 									)}
 								>
-									<div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white text-black shadow-sm ring-1 ring-black/5">
+									<div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-dashboard-border bg-dashboard-surface text-dashboard-text-primary">
 										<span className="font-bold text-[15px] leading-none">{agency.mark}</span>
 									</div>
 									{!isCollapsed && (
@@ -208,7 +208,7 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 												<div className="text-[11px] text-dashboard-text-dim leading-tight">
 													{agency.kind}
 												</div>
-												<div className="truncate font-semibold text-[13px] text-dashboard-text-secondary leading-tight tracking-tight">
+												<div className="truncate font-semibold text-[13px] text-dashboard-text-secondary leading-tight">
 													{agency.name}
 												</div>
 											</div>
@@ -228,7 +228,7 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 							sideOffset={8}
 							className="w-[244px] border-dashboard-border bg-dashboard-surface text-dashboard-text-secondary"
 						>
-							<DropdownMenuLabel className="text-[10.5px] text-dashboard-text-dim uppercase tracking-wider">
+							<DropdownMenuLabel className="text-[10.5px] text-dashboard-text-dim uppercase">
 								Switch workspace
 							</DropdownMenuLabel>
 							<DropdownMenuSeparator className="bg-dashboard-border" />
@@ -240,7 +240,7 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 										onClick={() => setAgencyId(a.id)}
 										className="gap-3 focus:bg-dashboard-hover-strong"
 									>
-										<div className="flex size-8 items-center justify-center rounded-md bg-white font-bold text-[13px] text-black ring-1 ring-black/5">
+										<div className="flex size-8 items-center justify-center rounded-md border border-dashboard-border bg-dashboard-surface font-bold text-[13px] text-dashboard-text-primary">
 											{a.mark}
 										</div>
 										<div className="min-w-0 flex-1">
@@ -270,7 +270,7 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 							className={cn(idx > 0 && "mt-3 border-dashboard-border-subtle border-t pt-3")}
 						>
 							{!isCollapsed ? (
-								<div className="px-2 pt-1 pb-1.5 font-medium text-[11px] text-dashboard-text-dim tracking-tight">
+								<div className="px-2 pt-1 pb-1.5 font-medium text-[11px] text-dashboard-text-dim">
 									{section.heading}
 								</div>
 							) : (
@@ -342,7 +342,7 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 									type="button"
 									{...props}
 									className={cn(
-										"flex w-full items-center gap-3 rounded-xl bg-dashboard-surface-elevated px-2 py-2 text-left transition-all hover:bg-dashboard-surface-strong active:scale-[0.985]",
+										"flex w-full items-center gap-3 rounded-lg bg-dashboard-surface-elevated px-2 py-2 text-left transition-all hover:bg-dashboard-surface-strong active:scale-[0.985]",
 										isCollapsed && "justify-center px-1",
 									)}
 								>
@@ -355,7 +355,7 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 									{!isCollapsed && (
 										<>
 											<div className="min-w-0 flex-1">
-												<div className="truncate font-semibold text-[13px] text-dashboard-text-secondary leading-tight tracking-tight">
+												<div className="truncate font-semibold text-[13px] text-dashboard-text-secondary leading-tight">
 													{displayName}
 												</div>
 												<div className="truncate text-[11px] text-dashboard-text-dim leading-tight">

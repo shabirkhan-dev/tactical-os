@@ -27,7 +27,7 @@ export function GlobalSearch({ placeholder = "Search...", className }: Props) {
 	return (
 		<div
 			className={cn(
-				"group flex h-9 items-center gap-2 rounded-xl border border-dashboard-border-subtle bg-dashboard-surface px-3 transition-colors focus-within:border-dashboard-border-strong hover:border-dashboard-border",
+				"group flex h-9 items-center gap-2 rounded-lg border border-dashboard-border-subtle bg-dashboard-surface px-3 transition-colors focus-within:border-dashboard-border-focus hover:border-dashboard-border",
 				className,
 			)}
 		>

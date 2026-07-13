@@ -198,7 +198,7 @@ export class AuthService {
 		return this.socialAuth.getProviders();
 	}
 
-	beginPasskeyLogin(email: string) {
+	beginPasskeyLogin(email?: string) {
 		return this.passkeys.beginAuthentication(email);
 	}
 

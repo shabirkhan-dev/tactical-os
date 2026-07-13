@@ -28,7 +28,7 @@ const SPECS: Record<TxStatus, StatusSpec> = {
 	refunded: {
 		label: "Refunded",
 		icon: ReloadIcon,
-		className: "border-zinc-500/25 bg-zinc-500/10 text-zinc-600 dark:text-zinc-400",
+		className: "border-dashboard-border bg-dashboard-surface-strong text-dashboard-text-secondary",
 	},
 };
 

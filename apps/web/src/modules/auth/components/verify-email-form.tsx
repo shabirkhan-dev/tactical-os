@@ -63,7 +63,7 @@ export function VerifyEmailForm() {
 	}
 
 	return (
-		<Card>
+		<Card className="rounded-[16px] border border-dashboard-border bg-dashboard-surface ring-0">
 			<CardHeader className="text-center">
 				<CardTitle className="text-2xl">Verify your email</CardTitle>
 				<CardDescription>Enter the six-digit code sent to your email address.</CardDescription>
@@ -74,7 +74,7 @@ export function VerifyEmailForm() {
 						{developmentCode ? (
 							<Alert>
 								<AlertTitle>Development code</AlertTitle>
-								<AlertDescription className="font-mono text-base tracking-widest">
+								<AlertDescription className="font-mono text-base">
 									{developmentCode}
 								</AlertDescription>
 							</Alert>

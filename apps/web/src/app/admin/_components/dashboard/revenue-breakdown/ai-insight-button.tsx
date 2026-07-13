@@ -20,15 +20,15 @@ export function AiInsightButton({
 			type="button"
 			onClick={onClick}
 			className={cn(
-				"group flex w-full items-center gap-3 rounded-xl border border-dashboard-border-strong bg-dashboard-card-inner px-2 py-2 text-left transition-all hover:border-dashboard-border-focus hover:bg-dashboard-surface-hover",
+				"group flex w-full items-center gap-3 border-dashboard-border border-t px-0 pt-4 text-left transition-colors hover:text-dashboard-text-primary",
 				className,
 			)}
 		>
-			<span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-dashboard-border-strong bg-dashboard-surface-elevated text-[#FF6A1A]">
+			<span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-dashboard-surface-elevated text-dashboard-accent">
 				<HugeiconsIcon icon={AiMagicIcon} size={16} strokeWidth={1.8} />
 			</span>
 			<span className="flex-1 truncate text-[13px] text-dashboard-text-secondary">{label}</span>
-			<span className="flex size-7 shrink-0 items-center justify-center rounded-full text-dashboard-text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-dashboard-text-primary">
+			<span className="flex size-7 shrink-0 items-center justify-center text-dashboard-text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-dashboard-text-primary">
 				<HugeiconsIcon icon={ArrowRight01Icon} size={15} strokeWidth={2} />
 			</span>
 		</button>

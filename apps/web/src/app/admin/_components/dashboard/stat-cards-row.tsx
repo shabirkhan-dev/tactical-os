@@ -26,7 +26,7 @@ const stats: Stat[] = [
 		trendLabel: "last year",
 		bars: [55, 70, 45, 80, 100, 65, 50],
 		activeIndex: 4,
-		activeColor: "#FF6A1A",
+		activeColor: "var(--dashboard-accent)",
 	},
 	{
 		id: "orders",
@@ -38,7 +38,7 @@ const stats: Stat[] = [
 		trendLabel: "last year",
 		bars: [60, 50, 78, 64, 88, 70, 55],
 		activeIndex: 4,
-		activeColor: "#FF6A1A",
+		activeColor: "var(--dashboard-accent)",
 	},
 	{
 		id: "customers",
@@ -50,7 +50,7 @@ const stats: Stat[] = [
 		trendLabel: "last year",
 		bars: [50, 65, 55, 92, 70, 60, 75],
 		activeIndex: 3,
-		activeColor: "#FF6A1A",
+		activeColor: "var(--dashboard-accent)",
 	},
 	{
 		id: "conversion",
@@ -61,7 +61,7 @@ const stats: Stat[] = [
 		trendLabel: "last year",
 		bars: [70, 55, 80, 60, 95, 65, 50],
 		activeIndex: 4,
-		activeColor: "#FF6A1A",
+		activeColor: "var(--dashboard-accent)",
 	},
 ];
 
@@ -71,7 +71,13 @@ type Props = {
 
 export function StatCardsRow({ className }: Props) {
 	return (
-		<div className={cn("grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4", className)}>
+		<section
+			aria-label="Key performance metrics"
+			className={cn(
+				"grid grid-cols-1 gap-px overflow-hidden rounded-[16px] border border-dashboard-border bg-dashboard-border sm:grid-cols-2 xl:grid-cols-4",
+				className,
+			)}
+		>
 			{stats.map((s) => (
 				<StatCard
 					key={s.id}
@@ -86,6 +92,6 @@ export function StatCardsRow({ className }: Props) {
 					activeColor={s.activeColor}
 				/>
 			))}
-		</div>
+		</section>
 	);
 }

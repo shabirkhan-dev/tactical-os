@@ -90,9 +90,9 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
 
 	return (
 		<div className={cn("flex flex-col gap-6", className)} {...props}>
-			<Card>
+			<Card className="rounded-[16px] border border-dashboard-border bg-dashboard-surface ring-0">
 				<CardHeader className="text-center">
-					<p className="text-muted-foreground text-sm font-medium tracking-wide">Starter</p>
+					<p className="text-muted-foreground text-sm font-medium">Starter</p>
 					<CardTitle className="text-2xl">Create your account</CardTitle>
 					<CardDescription>Create your secure starter account</CardDescription>
 				</CardHeader>

@@ -11,13 +11,13 @@ import { HomeClient } from "@/components/home-client";
 
 export default function Page() {
 	return (
-		<div className="flex min-h-screen flex-col items-center justify-center gap-8 p-4">
+		<div className="flex min-h-screen flex-col items-center justify-center gap-8 bg-dashboard-bg p-4">
 			<div className="text-center">
 				<h1 className="text-3xl font-bold">School OS</h1>
 				<p className="text-muted-foreground mt-2">Next.js web app backed by the NestJS API</p>
 			</div>
 			<HomeClient />
-			<Card className="w-full max-w-md">
+			<Card className="w-full max-w-md rounded-[16px] border border-dashboard-border bg-dashboard-surface ring-0">
 				<CardHeader>
 					<CardTitle>Auth</CardTitle>
 					<CardDescription>
