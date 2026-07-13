@@ -1,6 +1,9 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+	output: "standalone",
+	outputFileTracingRoot: path.join(__dirname, "../.."),
 	transpilePackages: ["@school-os/ui"],
 	allowedDevOrigins: ["127.0.0.1"],
 	images: {

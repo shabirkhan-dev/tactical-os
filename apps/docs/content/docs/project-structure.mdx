@@ -10,14 +10,13 @@ school-os/
 ├── apps/
 │   ├── web/
 │   ├── mobile/
-│   ├── docs/
+│   ├── docs/          # Fumadocs site; MDX in apps/docs/content/docs/
 │   ├── nest-api/
 │   └── rust/
 ├── packages/
 │   ├── ui/
 │   ├── typescript-config/
 │   └── logger/
-├── docs/
 ├── scripts/
 ├── docker/
 ├── turbo.json
@@ -35,7 +34,7 @@ school-os/
 
 - New product surface: `apps/<new-app>`
 - Shared UI/utilities/types: `packages/<new-package>`
-- Operational docs and architecture notes: `docs/`
+- Docs pages: `apps/docs/content/docs/` (served at `/docs/...`)
 - Automation scripts: `scripts/`
 
 ## Why this works

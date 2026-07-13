@@ -1,23 +1,35 @@
-export type AuthUser = {
+import type { PublicUser } from '../users/users.types';
+
+export type AccessTokenPayload = { sub: string; sid: string };
+
+export type RequestMetadata = {
+	ipAddress: string | null;
+	userAgent: string | null;
+};
+
+export type AuthSessionResult = {
+	accessToken: string;
+	accessTokenExpiresAt: string;
+	refreshToken: string;
+	user: PublicUser;
+};
+
+export type PublicAuthSession = Omit<AuthSessionResult, 'refreshToken'>;
+
+export type AuthChallengeResult = {
+	accepted: true;
+	message: string;
+	developmentCode?: string;
+};
+
+export type RegistrationResult = AuthChallengeResult & { user: PublicUser };
+
+export type SessionView = {
 	id: string;
-	email: string;
-	username: string;
-	is_active: boolean;
-};
-
-export type AuthUserRecord = AuthUser & {
-	passwordHash: string;
+	userAgent: string | null;
+	ipAddress: string | null;
 	createdAt: string;
-};
-
-export type AuthTokenPayload = {
-	sub: string;
-	email: string;
-	username: string;
-};
-
-export type LoginResult = {
-	access_token: string;
-	token_type: 'Bearer';
-	user: AuthUser;
+	lastUsedAt: string;
+	expiresAt: string;
+	isCurrent: boolean;
 };

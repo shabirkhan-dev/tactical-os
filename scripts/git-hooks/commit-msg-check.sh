@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Enforce Conventional Commits: type(scope)?: subject
 # Allowed types: feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert
+# Entire subject line must be lowercase (no uppercase letters).
 # Also allow: Merge / Revert / fixup! / squash!
 set -euo pipefail
 
@@ -42,21 +43,28 @@ if [[ "$FIRST" =~ ^# ]]; then
 	exit 1
 fi
 
-if [[ "$FIRST" =~ ^(WIP|wip)([[:space:]:]|$) ]]; then
-	msg "commit-msg: error - WIP commits are not allowed"
+if [[ "$FIRST" =~ ^wip([[:space:]:]|$) ]]; then
+	msg "commit-msg: error - wip commits are not allowed"
 	msg "example: feat(web): add nest-backed login form"
 	exit 1
 fi
 
+# Reject any uppercase letter in the subject line
+if [[ "$FIRST" =~ [A-Z] ]]; then
+	msg "commit-msg: error - subject must be all lowercase (no uppercase letters)"
+	msg "example: feat(auth): add nestjs login and shared ui forms"
+	exit 1
+fi
+
 # Conventional Commits: type(optional-scope)!(optional): subject
-# Types match https://www.conventionalcommits.org (common set)
-CONV_RE='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-zA-Z0-9/_.,-]+\))?(!)?:[[:space:]].+'
+# Scope and description are lowercase-only (enforced above + charset here)
+CONV_RE='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9/_.,-]+\))?(!)?:[[:space:]].+'
 
 if ! [[ "$FIRST" =~ $CONV_RE ]]; then
-	msg "commit-msg: error - subject must use Conventional Commits"
+	msg "commit-msg: error - subject must use conventional commits"
 	msg "format:   <type>(optional-scope): <description>"
 	msg "types:    feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert"
-	msg "example:  feat(auth): add NestJS login and shared UI forms"
+	msg "example:  feat(auth): add nestjs login and shared ui forms"
 	exit 1
 fi
 
@@ -71,5 +79,5 @@ if [ "$LEN" -gt "$MAX_LEN" ]; then
 	exit 1
 fi
 
-msg "commit-msg: OK (conventional commit, length ${LEN})"
+msg "commit-msg: OK (conventional lowercase commit, length ${LEN})"
 exit 0

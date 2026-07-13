@@ -2,9 +2,13 @@
 
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from "react";
 import * as api from "@/lib/api-client";
-import type { LoginRequest, RegisterRequest, User } from "@/lib/auth-types";
-
-const STORAGE_TOKEN = "school-os-auth-token";
+import type {
+	AuthSession,
+	LoginRequest,
+	RegisterRequest,
+	RegistrationResult,
+	User,
+} from "@/lib/auth-types";
 
 interface AuthState {
 	token: string | null;
@@ -15,123 +19,141 @@ interface AuthState {
 
 interface AuthContextValue extends AuthState {
 	login: (payload: LoginRequest) => Promise<void>;
-	register: (payload: RegisterRequest) => Promise<void>;
-	logout: () => void;
+	register: (payload: RegisterRequest) => Promise<RegistrationResult>;
+	logout: () => Promise<void>;
+	logoutAll: () => Promise<void>;
 	refreshUser: () => Promise<void>;
 	clearError: () => void;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-function loadStoredToken(): string | null {
-	if (typeof window === "undefined") {
-		return null;
-	}
-	return localStorage.getItem(STORAGE_TOKEN);
-}
-
 export function AuthProvider({ children }: { children: ReactNode }) {
 	const [token, setToken] = useState<string | null>(null);
+	const [tokenExpiresAt, setTokenExpiresAt] = useState<string | null>(null);
 	const [user, setUser] = useState<User | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
-	const logout = useCallback(() => {
+	const clearSession = useCallback(() => {
 		setToken(null);
+		setTokenExpiresAt(null);
 		setUser(null);
-		if (typeof window !== "undefined") {
-			localStorage.removeItem(STORAGE_TOKEN);
-		}
 	}, []);
 
-	const fetchUser = useCallback(async (accessToken: string) => {
-		const nextUser = await api.me(accessToken);
-		setUser(nextUser);
+	const applySession = useCallback((session: AuthSession) => {
+		setToken(session.accessToken);
+		setTokenExpiresAt(session.accessTokenExpiresAt);
+		setUser(session.user);
 	}, []);
 
-	const refreshUser = useCallback(async () => {
-		if (!token) {
-			return;
-		}
-		await fetchUser(token);
-	}, [fetchUser, token]);
+	const refreshSession = useCallback(async () => {
+		const session = await api.refreshSession();
+		applySession(session);
+		return session;
+	}, [applySession]);
 
 	useEffect(() => {
-		const storedToken = loadStoredToken();
-		setToken(storedToken);
-		if (!storedToken) {
-			setLoading(false);
+		refreshSession()
+			.catch(clearSession)
+			.finally(() => setLoading(false));
+	}, [clearSession, refreshSession]);
+
+	useEffect(() => {
+		if (!tokenExpiresAt) {
 			return;
 		}
-
-		api
-			.me(storedToken)
-			.then((nextUser) => setUser(nextUser))
-			.catch(() => {
-				if (typeof window !== "undefined") {
-					localStorage.removeItem(STORAGE_TOKEN);
-				}
-				setToken(null);
-			})
-			.finally(() => setLoading(false));
-	}, []);
+		const delay = Math.max(1_000, new Date(tokenExpiresAt).getTime() - Date.now() - 60_000);
+		const timer = window.setTimeout(() => {
+			refreshSession().catch(clearSession);
+		}, delay);
+		return () => window.clearTimeout(timer);
+	}, [clearSession, refreshSession, tokenExpiresAt]);
 
 	const login = useCallback(
 		async (payload: LoginRequest) => {
 			setError(null);
 			try {
-				const res = await api.login(payload);
-				const accessToken = res.access_token;
-				setToken(accessToken);
-				if (typeof window !== "undefined") {
-					localStorage.setItem(STORAGE_TOKEN, accessToken);
-				}
-				if (res.user) {
-					setUser(res.user);
-				} else {
-					await fetchUser(accessToken);
-				}
-			} catch (err) {
-				setError(err instanceof Error ? err.message : "Login failed");
-				throw err;
+				applySession(await api.login(payload));
+			} catch (caught) {
+				setError(toErrorMessage(caught, "Login failed"));
+				throw caught;
 			}
 		},
-		[fetchUser],
+		[applySession],
 	);
 
-	const register = useCallback(
-		async (payload: RegisterRequest) => {
-			setError(null);
-			try {
-				await api.register(payload);
-				await login({ email: payload.email, password: payload.password });
-			} catch (err) {
-				setError(err instanceof Error ? err.message : "Registration failed");
-				throw err;
+	const register = useCallback(async (payload: RegisterRequest) => {
+		setError(null);
+		try {
+			return await api.register(payload);
+		} catch (caught) {
+			setError(toErrorMessage(caught, "Registration failed"));
+			throw caught;
+		}
+	}, []);
+
+	const logout = useCallback(async () => {
+		try {
+			await api.logout();
+		} finally {
+			clearSession();
+		}
+	}, [clearSession]);
+
+	const logoutAll = useCallback(async () => {
+		try {
+			if (token) {
+				await api.logoutAll(token);
 			}
-		},
-		[login],
+		} finally {
+			clearSession();
+		}
+	}, [clearSession, token]);
+
+	const refreshUser = useCallback(async () => {
+		if (!token) {
+			return;
+		}
+		try {
+			setUser(await api.me(token));
+		} catch (caught) {
+			if (caught instanceof api.ApiError && caught.statusCode === 401) {
+				await refreshSession();
+				return;
+			}
+			throw caught;
+		}
+	}, [refreshSession, token]);
+
+	return (
+		<AuthContext.Provider
+			value={{
+				token,
+				user,
+				loading,
+				error,
+				login,
+				register,
+				logout,
+				logoutAll,
+				refreshUser,
+				clearError: () => setError(null),
+			}}
+		>
+			{children}
+		</AuthContext.Provider>
 	);
-
-	const value: AuthContextValue = {
-		token,
-		user,
-		loading,
-		error,
-		login,
-		register,
-		logout,
-		refreshUser,
-		clearError: () => setError(null),
-	};
-
-	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth(): AuthContextValue {
-	const ctx = useContext(AuthContext);
-	if (!ctx) {
+	const context = useContext(AuthContext);
+	if (!context) {
 		throw new Error("useAuth must be used within AuthProvider");
 	}
-	return ctx;
+	return context;
+}
+
+function toErrorMessage(error: unknown, fallback: string): string {
+	return error instanceof Error ? error.message : fallback;
 }

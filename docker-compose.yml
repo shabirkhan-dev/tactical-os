@@ -1,10 +1,14 @@
-# Project entrypoint: Postgres for local development. Fragments live under docker/compose/.
+# Project entrypoint: Postgres + Nest API + Next.js web.
+# Optional Rust API: docker compose --profile rust up -d
 # Requires Docker Compose v2.20+ (include). From repo root:
-#   cp env.docker.example .env && docker compose up -d
-# Nest API runs on the host via `bun --cwd apps/nest-api run dev` until a compose fragment is added.
+#   cp env.docker.example .env && docker compose up -d --build
+#
+# Compose file format: no top-level `version` key (obsolete since Compose Spec).
 
 name: school-os
 
 include:
-  - docker/compose/postgres.yml
-  - docker/compose/rust-api.yml
+  - path: docker/compose/postgres.yml
+  - path: docker/compose/nest-api.yml
+  - path: docker/compose/web.yml
+  - path: docker/compose/rust-api.yml

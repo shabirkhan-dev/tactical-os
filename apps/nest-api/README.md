@@ -1,55 +1,73 @@
-# School OS API (`nest-api`)
+# Starter API
 
-Production backend for School OS, built with **NestJS 11**, **Zod**, and **Biome** (monorepo lint/format).
+Production-oriented NestJS authentication and user foundation backed by PostgreSQL, Drizzle ORM,
+Zod validation, secure cookies, and explicit SQL migrations.
 
-## Phase 0 (current)
+## Included
 
-- `GET /api/v1/health` with standard success envelope
-- Global prefix `/api/v1`, URI versioning
-- Config module with env validation
-- Request ID middleware
-- Response interceptor and exception filter
-- Zod validation pipe
+- Account registration with email verification OTP
+- Login protection with failed-attempt lockout
+- Short-lived JWT access tokens
+- Rotating, hashed refresh tokens in HttpOnly cookies
+- Session listing, single-session revocation, logout, and logout-all
+- Forgot/reset password OTP flow
+- Authenticated password changes that revoke other sessions
+- Generic account responses that avoid user enumeration
+- CSRF origin/header checks, CORS allowlist, Helmet, and rate limiting
+- OpenAPI docs at `http://localhost:4000/api/docs`
 
-See the docs app page [Production Roadmap](../../apps/docs/content/docs/production-roadmap.mdx)
-(`/docs/production-roadmap` when running `bun --cwd apps/docs run dev`) for the full build plan.
+Social authentication, roles, permissions, and product-specific domain models are intentionally not
+part of this foundation.
 
-## Commands
-
-From repo root:
+## Setup
 
 ```bash
+cp apps/nest-api/.env.example apps/nest-api/.env
+bun --cwd apps/nest-api run db:migrate
 bun --cwd apps/nest-api run dev
-bun --cwd apps/nest-api run test
-bun --cwd apps/nest-api run test:e2e
 ```
 
-## Health check
+For Neon, replace `DATABASE_URL` with the Neon PostgreSQL connection string. TLS is enabled
+automatically for Neon and URLs containing `sslmode=require`.
+
+## Database commands
 
 ```bash
-curl http://localhost:4000/api/v1/health
+bun --cwd apps/nest-api run db:generate
+bun --cwd apps/nest-api run db:migrate
+bun --cwd apps/nest-api run db:studio
 ```
 
-Expected shape:
+Schema changes must be made in `src/database/schema` and committed with the generated migration.
+Do not use schema push in shared or production environments.
 
-```json
-{
-  "success": true,
-  "statusCode": 200,
-  "requestId": "...",
-  "timestamp": "...",
-  "data": {
-    "status": "ok",
-    "service": "school-os-api"
-  }
-}
-```
+## Authentication endpoints
 
-## Environment
+All routes are under `/api/v1/auth`.
 
-| Variable | Default | Description |
+| Method | Route | Purpose |
 | --- | --- | --- |
-| `PORT` | `4000` | HTTP port |
-| `NODE_ENV` | `development` | Runtime environment |
-| `API_PREFIX` | `api` | Global route prefix |
-| `API_VERSION` | `1` | Default URI version segment |
+| `POST` | `/register` | Create an unverified account and send an OTP |
+| `POST` | `/verify-email` | Verify an email OTP |
+| `POST` | `/resend-verification` | Replace the current verification OTP |
+| `POST` | `/login` | Create a secure session |
+| `POST` | `/refresh` | Rotate the refresh token and issue a new access token |
+| `POST` | `/logout` | Revoke the current refresh session |
+| `POST` | `/logout-all` | Revoke all sessions |
+| `GET` | `/me` | Return the authenticated user |
+| `POST` | `/forgot-password` | Request a reset OTP |
+| `POST` | `/reset-password` | Reset a password and revoke all sessions |
+| `POST` | `/change-password` | Change a password and revoke other sessions |
+| `GET` | `/sessions` | List active sessions |
+| `DELETE` | `/sessions/:sessionId` | Revoke an active session |
+
+Refresh tokens never appear in JSON responses. Browser clients must use `credentials: "include"`.
+Unsafe browser requests must send `X-Requested-With: XMLHttpRequest`.
+
+## Production requirements
+
+- Set unique `JWT_SECRET` and `AUTH_TOKEN_SECRET` values of at least 32 characters.
+- Configure `RESEND_API_KEY` and a verified `AUTH_EMAIL_FROM` sender.
+- Set `CORS_ORIGIN` to an explicit comma-separated allowlist.
+- Enable `TRUST_PROXY=true` behind a trusted reverse proxy.
+- Run migrations during deployment before starting new application instances.

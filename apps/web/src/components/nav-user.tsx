@@ -43,8 +43,8 @@ export function NavUser({
 	const { logout } = useAuth();
 	const fallback = user.initials ?? (user.name.slice(0, 2).toUpperCase() || "?");
 
-	function handleLogout() {
-		logout();
+	async function handleLogout() {
+		await logout();
 		router.push("/login");
 	}
 
@@ -91,7 +91,7 @@ export function NavUser({
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
 						<DropdownMenuGroup>
-							<DropdownMenuItem render={<Link href="/dashboard/profile" />}>
+							<DropdownMenuItem render={<Link href="/account/security" />}>
 								<HugeiconsIcon icon={UserCircle02Icon} strokeWidth={2} />
 								Profile
 							</DropdownMenuItem>
@@ -105,7 +105,7 @@ export function NavUser({
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem onClick={handleLogout}>
+						<DropdownMenuItem onClick={() => void handleLogout()}>
 							<HugeiconsIcon icon={Logout01Icon} strokeWidth={2} />
 							Log out
 						</DropdownMenuItem>

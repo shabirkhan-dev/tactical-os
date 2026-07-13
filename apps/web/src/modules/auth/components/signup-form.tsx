@@ -63,8 +63,8 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
 		clearError();
 		setLocalError(null);
 
-		if (password.length < 8) {
-			setLocalError("Password must be at least 8 characters.");
+		if (password.length < 12) {
+			setLocalError("Password must be at least 12 characters.");
 			return;
 		}
 		if (password !== confirmPassword) {
@@ -74,8 +74,11 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
 
 		setSubmitting(true);
 		try {
-			await register({ email, username, password });
-			router.push("/admin");
+			const result = await register({ email, username, password });
+			if (result.developmentCode) {
+				sessionStorage.setItem("starter-auth-development-code", result.developmentCode);
+			}
+			router.push(`/verify-email?email=${encodeURIComponent(email)}`);
 		} catch {
 			// error set in context
 		} finally {
@@ -89,9 +92,9 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
 		<div className={cn("flex flex-col gap-6", className)} {...props}>
 			<Card>
 				<CardHeader className="text-center">
-					<p className="text-muted-foreground text-sm font-medium tracking-wide">School OS</p>
+					<p className="text-muted-foreground text-sm font-medium tracking-wide">Starter</p>
 					<CardTitle className="text-2xl">Create your account</CardTitle>
-					<CardDescription>Register to access your school workspace</CardDescription>
+					<CardDescription>Create your secure starter account</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<form onSubmit={handleSubmit}>
@@ -158,7 +161,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
 										value={password}
 										onChange={(e) => setPassword(e.target.value)}
 										required
-										minLength={8}
+										minLength={12}
 										autoComplete="new-password"
 										disabled={submitting}
 									/>
@@ -175,7 +178,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
 										</InputGroupButton>
 									</InputGroupAddon>
 								</InputGroup>
-								<FieldDescription>Must be at least 8 characters.</FieldDescription>
+								<FieldDescription>Must be at least 12 characters.</FieldDescription>
 							</Field>
 
 							<Field data-invalid={passwordsMismatch || undefined}>
@@ -187,7 +190,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
 										value={confirmPassword}
 										onChange={(e) => setConfirmPassword(e.target.value)}
 										required
-										minLength={8}
+										minLength={12}
 										autoComplete="new-password"
 										aria-invalid={passwordsMismatch || undefined}
 										disabled={submitting}

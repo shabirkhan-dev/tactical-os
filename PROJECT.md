@@ -29,7 +29,6 @@ school-os/
 │   ├── typescript-config/    # Shared TS config bases
 │   └── ui/                   # Shared web UI primitives + design tokens
 ├── scripts/                  # Bash, Python scripts and tests
-├── docs/                     # Pointer to apps/docs (docs site is the source of truth)
 ├── docker/                   # Docker Compose fragments
 ├── .github/workflows/        # CI/CD/security workflows
 ├── .devcontainer/            # Reproducible development environment
@@ -37,9 +36,12 @@ school-os/
 ├── lefthook.yml              # Git hooks
 ├── turbo.json                # Turborepo pipeline
 ├── package.json              # Root scripts + workspaces
+├── CHANGELOG.md              # Keep a Changelog history
 └── AGENTS.md                 # Universal AI agent guidance
 ```
 
+Documentation is served by `apps/docs` (`bun --cwd apps/docs run dev` → http://localhost:3002/docs).
+There is no root `docs/` directory.
 ## Apps and stacks
 
 | App | Stack | Notes |
@@ -142,13 +144,16 @@ bun run prepare
 
 ## Docker workflow
 
-Postgres + Hono API are composed through root `docker-compose.yml` with fragment files under
-`docker/compose/`.
+Postgres, Nest API, and Next.js are composed through root `docker-compose.yml` with fragment
+files under `docker/compose/` (Compose Spec — no top-level `version` key).
 
 ```bash
 cp env.docker.example .env
-docker compose up --build
+docker compose up -d --build
 ```
+
+Defaults: web `3000`, Nest `4000`, Postgres host `5433`. Optional Rust profile:
+`docker compose --profile rust up -d --build`.
 
 More details: docs app `/docs/docker` and `docker/README.md`.
 

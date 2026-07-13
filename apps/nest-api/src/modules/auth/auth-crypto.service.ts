@@ -1,0 +1,113 @@
+import { createHash, createHmac, randomBytes, randomInt, timingSafeEqual } from 'node:crypto';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { compare, hash } from 'bcryptjs';
+import { jwtVerify, SignJWT } from 'jose';
+
+import { AppConfigService } from '../../config/app-config.service';
+import type { AuthChallengePurpose } from '../../database/schema';
+import type { AccessTokenPayload } from './auth.types';
+
+@Injectable()
+export class AuthCryptoService {
+	constructor(private readonly config: AppConfigService) {}
+
+	hashPassword(password: string): Promise<string> {
+		return hash(password, this.config.passwordBcryptRounds);
+	}
+
+	verifyPassword(password: string, passwordHash: string): Promise<boolean> {
+		return compare(password, passwordHash);
+	}
+
+	generateOtp(): string {
+		return randomInt(100_000, 1_000_000).toString();
+	}
+
+	hashOtp(purpose: AuthChallengePurpose, email: string, code: string): string {
+		return createHmac('sha256', this.config.authTokenSecret)
+			.update(`${purpose}:${email}:${code}`)
+			.digest('hex');
+	}
+
+	verifyOtp(
+		purpose: AuthChallengePurpose,
+		email: string,
+		code: string,
+		expectedHash: string,
+	): boolean {
+		return safeHashEquals(this.hashOtp(purpose, email, code), expectedHash);
+	}
+
+	createRefreshToken(sessionId: string): string {
+		return `${sessionId}.${randomBytes(48).toString('base64url')}`;
+	}
+
+	hashRefreshToken(token: string): string {
+		return createHash('sha256').update(token).digest('hex');
+	}
+
+	verifyRefreshToken(token: string, expectedHash: string): boolean {
+		return safeHashEquals(this.hashRefreshToken(token), expectedHash);
+	}
+
+	getSessionIdFromRefreshToken(token: string): string | null {
+		const [sessionId, secret, ...rest] = token.split('.');
+		return sessionId && secret && rest.length === 0 ? sessionId : null;
+	}
+
+	async signAccessToken(payload: AccessTokenPayload): Promise<{
+		token: string;
+		expiresAt: Date;
+	}> {
+		const expiresAt = new Date(Date.now() + parseDurationMs(this.config.jwtAccessExpiresIn));
+		const token = await new SignJWT({ sid: payload.sid })
+			.setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
+			.setSubject(payload.sub)
+			.setIssuedAt()
+			.setExpirationTime(Math.floor(expiresAt.getTime() / 1000))
+			.sign(this.getJwtKey());
+		return { token, expiresAt };
+	}
+
+	async verifyAccessToken(token: string): Promise<AccessTokenPayload> {
+		try {
+			const { payload } = await jwtVerify(token, this.getJwtKey(), {
+				algorithms: ['HS256'],
+			});
+			const sub = typeof payload.sub === 'string' ? payload.sub : null;
+			const sid = typeof payload.sid === 'string' ? payload.sid : null;
+			if (!sub || !sid) {
+				throw new Error('Missing token claims');
+			}
+			return { sub, sid };
+		} catch {
+			throw new UnauthorizedException({
+				code: 'AUTH_ACCESS_TOKEN_INVALID',
+				message: 'Invalid or expired access token',
+			});
+		}
+	}
+
+	private getJwtKey(): Uint8Array {
+		return new TextEncoder().encode(this.config.jwtSecret);
+	}
+}
+
+function safeHashEquals(actual: string, expected: string): boolean {
+	const actualBuffer = Buffer.from(actual, 'hex');
+	const expectedBuffer = Buffer.from(expected, 'hex');
+	return (
+		actualBuffer.length === expectedBuffer.length && timingSafeEqual(actualBuffer, expectedBuffer)
+	);
+}
+
+function parseDurationMs(value: string): number {
+	const match = /^(\d+)([smhd])$/.exec(value);
+	if (!match) {
+		throw new Error('JWT_ACCESS_EXPIRES_IN must use a duration such as 15m or 1h');
+	}
+	const amount = Number(match[1]);
+	const unit = match[2];
+	const multiplier = { s: 1_000, m: 60_000, h: 3_600_000, d: 86_400_000 }[unit as 's'];
+	return amount * multiplier;
+}

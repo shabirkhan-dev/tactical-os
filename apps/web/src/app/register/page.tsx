@@ -1,6 +1,7 @@
-"use client";
-
+import type { Metadata } from "next";
 import { SignupForm } from "@/modules/auth/components";
+
+export const metadata: Metadata = { title: "Create account" };
 
 export default function RegisterPage() {
 	return (

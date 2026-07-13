@@ -24,4 +24,4 @@ Open http://localhost:3002/docs
 | `/docs/ai-first-workflow` | AI-assisted workflow |
 | `/docs/overrides` | Architecture override policy |
 
-Agents should prefer these pages (and `AGENTS.md` / `DESIGN.md` at repo root) over the old root `docs/` folder.
+Agents should use these pages plus root `AGENTS.md` / `DESIGN.md` / `PROJECT.md`.

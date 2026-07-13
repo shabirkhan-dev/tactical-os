@@ -106,18 +106,17 @@ Import shared UI as `@school-os/ui/components/...`. See `packages/ui/README.md`.
 
 ## Docker
 
-Postgres for local development (Nest API runs on the host for now):
+Postgres + Nest API + Next.js via Compose fragments under `docker/compose/`:
 
 ```bash
 cp env.docker.example .env
-docker compose up -d
-bun --cwd apps/nest-api run dev
+docker compose up -d --build
 ```
 
-
-- Compose fragments live in `docker/compose/`
-- Root `docker-compose.yml` includes fragment files
-- See [apps/docs](apps/docs) (`/docs/docker`) for env/ports/full usage
+- Web: http://localhost:3000 — Nest: http://localhost:4000 — Postgres: localhost:5433
+- Compose fragments live in `docker/compose/` (no obsolete `version:` key)
+- Optional Rust API: `docker compose --profile rust up -d --build`
+- See [apps/docs](apps/docs) (`/docs/docker`) and [docker/README.md](docker/README.md)
 
 ## Reproducible development
 
@@ -127,13 +126,13 @@ bun --cwd apps/nest-api run dev
 
 ## Documentation map
 
-Human and agent docs live in the **docs app** (`apps/docs`). Run:
+Human and agent docs live in the **docs app** (`apps/docs`). There is **no root `docs/` folder**.
 
 ```bash
 bun --cwd apps/docs run dev
 ```
 
-Then open:
+Source MDX: `apps/docs/content/docs/`. Then open:
 
 - [/docs](http://localhost:3002/docs) — docs home
 - [/docs/quick-start](http://localhost:3002/docs/quick-start)
@@ -145,10 +144,12 @@ Then open:
 - [/docs/ai-first-workflow](http://localhost:3002/docs/ai-first-workflow)
 - [/docs/overrides](http://localhost:3002/docs/overrides)
 
-Root quick refs (not migrated into the docs site):
+Root quick refs:
 
 - [PROJECT.md](PROJECT.md) - project overview and conventions
 - [DESIGN.md](DESIGN.md) - design-system brief for humans and AI agents
+- [CHANGELOG.md](CHANGELOG.md) - notable changes
+- [AGENTS.md](AGENTS.md) - instructions for AI agents
 - [scripts/README.md](scripts/README.md) - script layout and usage
 
 ## License

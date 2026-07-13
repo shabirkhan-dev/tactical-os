@@ -1,33 +1,31 @@
-# Hono API image build (context = repo root). Compose: docker/compose/hono-api.yml
-# Dependencies and build output (reinstalled in container)
-node_modules
-**/node_modules
-
-# Git and IDE
+# Keep the build context small. Context is always the monorepo root.
 .git
-.gitignore
+.github
+.devcontainer
+.cursor
+.agents
+.vscode
 .idea
-.deps
+.turbo
+.biome
+**/.next
+**/dist
+**/coverage
+**/target
+**/node_modules
+**/*.md
+!**/*.mdx
 
-# Env and secrets
 .env
 .env.*
 !.env.example
+env.docker.example
 
-# Build and cache
-dist
-.next
-.turbo
-.biome
-*.tsbuildinfo
-
-# Apps not needed for hono-api image
-apps/web
-apps/rust
+# Host-only / unused for Nest + web images
+apps/mobile
+apps/docs
 apps/c
-packages/ui
-packages/tailwind-config
-
-# Misc
+scripts
 *.log
 .DS_Store
+Thumbs.db

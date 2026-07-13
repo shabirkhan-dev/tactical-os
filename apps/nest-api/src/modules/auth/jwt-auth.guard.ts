@@ -2,11 +2,9 @@ import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from
 
 import type { RequestWithId } from '../../common/types/request-with-id.type';
 import { AuthService } from './auth.service';
-import type { AuthTokenPayload } from './auth.types';
+import type { AccessTokenPayload } from './auth.types';
 
-export type AuthenticatedRequest = RequestWithId & {
-	user?: AuthTokenPayload;
-};
+export type AuthenticatedRequest = RequestWithId & { user?: AccessTokenPayload };
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
@@ -15,23 +13,21 @@ export class JwtAuthGuard implements CanActivate {
 	async canActivate(context: ExecutionContext): Promise<boolean> {
 		const request = context.switchToHttp().getRequest<AuthenticatedRequest>();
 		const header = request.headers.authorization;
-
 		if (!header?.startsWith('Bearer ')) {
-			throw new UnauthorizedException({
-				code: 'UNAUTHORIZED',
-				message: 'Authentication required',
-			});
+			throw authRequired();
 		}
-
 		const token = header.slice('Bearer '.length).trim();
 		if (!token) {
-			throw new UnauthorizedException({
-				code: 'UNAUTHORIZED',
-				message: 'Authentication required',
-			});
+			throw authRequired();
 		}
-
-		request.user = await this.authService.verifyAccessToken(token);
+		request.user = await this.authService.authenticateAccessToken(token);
 		return true;
 	}
+}
+
+function authRequired(): UnauthorizedException {
+	return new UnauthorizedException({
+		code: 'AUTH_REQUIRED',
+		message: 'Authentication required',
+	});
 }

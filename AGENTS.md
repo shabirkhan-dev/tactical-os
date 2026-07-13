@@ -5,9 +5,20 @@ Read this file first when working in this repo.
 
 ## Project overview
 
-Monorepo School OS managed with **Turborepo + Bun**. Three apps, shared packages, and
+Monorepo School OS managed with **Turborepo + Bun**. Apps, shared packages, and
 multi-language scripts, all wired into a single lint/format/build/test surface.
 
+## Documentation
+
+There is **no root `docs/` folder**. Project docs live in the docs app:
+
+- Source: `apps/docs/content/docs/`
+- Dev: `bun --cwd apps/docs run dev`
+- Browse: http://localhost:3002/docs
+
+Key routes: `/docs/quick-start`, `/docs/production-roadmap`, `/docs/architecture`,
+`/docs/docker`, `/docs/qol`, `/docs/ai-first-workflow`, `/docs/overrides`,
+`/docs/product-system-design`. Also see root `README.md`, `PROJECT.md`, and `DESIGN.md`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
@@ -24,7 +35,7 @@ school-os/
 │   ├── web/             # Next.js (React, Tailwind, shadcn-style UI)
 │   ├── mobile/          # Expo Router + NativeWind app (TypeScript)
 │   ├── nest-api/        # NestJS production API (PostgreSQL in later phases)
-│   ├── docs/            # Documentation for the School OS
+│   ├── docs/            # Docs site (Fumadocs); source in apps/docs/content/docs/
 │   └── rust/            # Rust binary (Cargo, Axum)
 
 ├── packages/
@@ -101,8 +112,8 @@ school-os/
 - **Pre-commit hooks** (Lefthook): auto-format, lint, typecheck, large-file guard (2 MB max),
   secret scan, architecture check. Hooks run automatically if installed via `bun run prepare`.
 - **Commit messages**: Enforced by `commit-msg` hook — Conventional Commits only
-  (`feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert`), 10–200 chars, no WIP.
-  Example: `feat(auth): add NestJS login and shared UI forms`.
+  (`feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert`), **all lowercase**,
+  10–200 chars, no WIP. Example: `feat(auth): add nestjs login and shared ui forms`.
 - **Do not commit**: build output (`.next/`, `dist/`, `target/`), `node_modules/`, `.env` files,
   cache dirs. These are in `.gitignore`.
 - **Separate concerns**: Don't mix lint/format-only fixes with feature changes in the same commit.
@@ -118,13 +129,17 @@ school-os/
 
 ### Docker
 
-PostgreSQL via Docker Compose for local development. Fragments live under `docker/compose/` and are merged by the root `docker-compose.yml` (Compose v2.20+). Setup:
+Postgres, Nest API, and Next.js via Compose fragments under `docker/compose/`
+(merged by root `docker-compose.yml`, Compose v2.20+, no `version:` key):
+
 ```bash
 cp env.docker.example .env
-docker compose up -d
-bun --cwd apps/nest-api run dev
+docker compose up -d --build
 ```
-Postgres on 5432. See the docs site: `/docs/docker` (`apps/docs`).
+
+Defaults: web `:3000`, Nest `:4000`, Postgres host `:5433`. Optional Rust:
+`docker compose --profile rust up -d --build`. Host-only API/web: start `postgres`
+only, then `bun run dev`. See `/docs/docker` and `docker/README.md`.
 
 ## Before finishing any task
 

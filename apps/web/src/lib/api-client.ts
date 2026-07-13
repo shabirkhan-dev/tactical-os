@@ -1,8 +1,15 @@
-/**
- * API client for the NestJS School OS backend.
- * Auth: POST /api/v1/auth/register|login, GET /api/v1/auth/me (Bearer JWT).
- */
-import type { LoginRequest, RegisterRequest, TokenResponse, User } from "./auth-types";
+import type {
+	AuthChallengeResult,
+	AuthSession,
+	ChangePasswordRequest,
+	LoginRequest,
+	RegisterRequest,
+	RegistrationResult,
+	ResetPasswordRequest,
+	SessionInfo,
+	User,
+	VerifyEmailRequest,
+} from "./auth-types";
 
 interface NestSuccessResponse<T> {
 	success: true;
@@ -15,90 +22,161 @@ interface NestErrorResponse {
 	statusCode: number;
 	code?: string;
 	message?: string;
+	errors?: ReadonlyArray<{ path?: string; message?: string }>;
 }
 
-function resolveApiUrl(envKey: string, fallback: string): string {
-	const raw =
-		typeof process !== "undefined" && process.env[envKey] ? process.env[envKey] : fallback;
-
-	try {
-		const url = new URL(raw);
-		return url.origin;
-	} catch {
-		throw new Error(`Invalid URL provided for ${envKey}: ${raw}`);
+export class ApiError extends Error {
+	constructor(
+		message: string,
+		readonly statusCode: number,
+		readonly code: string | undefined,
+		readonly issues: NestErrorResponse["errors"],
+	) {
+		super(message);
+		this.name = "ApiError";
 	}
 }
 
-const NEST_API = resolveApiUrl("NEXT_PUBLIC_NEST_API_URL", "http://localhost:4000");
+const NEST_API = resolveApiUrl(process.env.NEXT_PUBLIC_NEST_API_URL ?? "http://localhost:4000");
 const API_PREFIX = "/api/v1";
 
 export function getBaseUrl(): string {
 	return NEST_API;
 }
 
-function apiPath(path: string): string {
-	return `${API_PREFIX}${path.startsWith("/") ? path : `/${path}`}`;
-}
-
 async function request<T>(
 	path: string,
-	options: RequestInit & { token?: string } = {},
+	options: RequestInit & { accessToken?: string } = {},
 ): Promise<T> {
-	const { token, ...init } = options;
+	const { accessToken, ...init } = options;
 	const headers = new Headers(init.headers);
-	headers.set("Content-Type", "application/json");
-	if (token) {
-		headers.set("Authorization", `Bearer ${token}`);
+	if (init.body) {
+		headers.set("Content-Type", "application/json");
+	}
+	if (init.method && init.method !== "GET") {
+		headers.set("X-Requested-With", "XMLHttpRequest");
+	}
+	if (accessToken) {
+		headers.set("Authorization", `Bearer ${accessToken}`);
 	}
 
-	const res = await fetch(`${getBaseUrl()}${apiPath(path)}`, {
+	const response = await fetch(`${NEST_API}${API_PREFIX}${normalizePath(path)}`, {
 		...init,
 		headers,
+		credentials: "include",
 	});
 
-	const body = (await res.json().catch(() => ({}))) as
+	if (response.status === 204) {
+		return undefined as T;
+	}
+
+	const body = (await response.json().catch(() => ({}))) as
 		| NestSuccessResponse<T>
 		| NestErrorResponse
 		| Record<string, unknown>;
 
-	if (!res.ok) {
-		const message =
-			typeof (body as NestErrorResponse).message === "string"
-				? (body as NestErrorResponse).message
-				: res.statusText;
-		throw new Error(message || "Request failed");
+	if (!response.ok) {
+		const error = body as NestErrorResponse;
+		throw new ApiError(
+			typeof error.message === "string" ? error.message : response.statusText || "Request failed",
+			response.status,
+			error.code,
+			error.errors,
+		);
 	}
 
-	if (
-		typeof body === "object" &&
-		body !== null &&
-		"success" in body &&
-		(body as NestSuccessResponse<T>).success === true &&
-		"data" in body
-	) {
-		return (body as NestSuccessResponse<T>).data;
+	if (isSuccessResponse<T>(body)) {
+		return body.data;
 	}
-
 	return body as T;
 }
 
-export async function register(payload: RegisterRequest): Promise<User> {
-	return request<User>("/auth/register", {
+export function register(payload: RegisterRequest): Promise<RegistrationResult> {
+	return request("/auth/register", { method: "POST", body: JSON.stringify(payload) });
+}
+
+export function verifyEmail(payload: VerifyEmailRequest): Promise<User> {
+	return request("/auth/verify-email", { method: "POST", body: JSON.stringify(payload) });
+}
+
+export function resendVerification(email: string): Promise<AuthChallengeResult> {
+	return request("/auth/resend-verification", {
 		method: "POST",
-		body: JSON.stringify(payload),
+		body: JSON.stringify({ email }),
 	});
 }
 
-export async function login(payload: LoginRequest): Promise<TokenResponse> {
-	return request<TokenResponse>("/auth/login", {
+export function login(payload: LoginRequest): Promise<AuthSession> {
+	return request("/auth/login", { method: "POST", body: JSON.stringify(payload) });
+}
+
+export function refreshSession(): Promise<AuthSession> {
+	return request("/auth/refresh", { method: "POST" });
+}
+
+export function logout(): Promise<void> {
+	return request("/auth/logout", { method: "POST" });
+}
+
+export function logoutAll(accessToken: string): Promise<void> {
+	return request("/auth/logout-all", { method: "POST", accessToken });
+}
+
+export function me(accessToken: string): Promise<User> {
+	return request("/auth/me", { method: "GET", accessToken });
+}
+
+export function forgotPassword(email: string): Promise<AuthChallengeResult> {
+	return request("/auth/forgot-password", {
 		method: "POST",
-		body: JSON.stringify(payload),
+		body: JSON.stringify({ email }),
 	});
 }
 
-export async function me(token: string): Promise<User> {
-	return request<User>("/auth/me", {
-		method: "GET",
-		token,
+export function resetPassword(payload: ResetPasswordRequest): Promise<AuthChallengeResult> {
+	return request("/auth/reset-password", { method: "POST", body: JSON.stringify(payload) });
+}
+
+export function changePassword(
+	accessToken: string,
+	payload: ChangePasswordRequest,
+): Promise<AuthChallengeResult> {
+	return request("/auth/change-password", {
+		method: "POST",
+		body: JSON.stringify(payload),
+		accessToken,
 	});
+}
+
+export function listSessions(accessToken: string): Promise<SessionInfo[]> {
+	return request("/auth/sessions", { method: "GET", accessToken });
+}
+
+export function revokeSession(accessToken: string, sessionId: string): Promise<{ revoked: true }> {
+	return request(`/auth/sessions/${encodeURIComponent(sessionId)}`, {
+		method: "DELETE",
+		accessToken,
+	});
+}
+
+function resolveApiUrl(raw: string): string {
+	try {
+		return new URL(raw).origin;
+	} catch {
+		throw new Error(`Invalid NEXT_PUBLIC_NEST_API_URL: ${raw}`);
+	}
+}
+
+function normalizePath(path: string): string {
+	return path.startsWith("/") ? path : `/${path}`;
+}
+
+function isSuccessResponse<T>(body: unknown): body is NestSuccessResponse<T> {
+	return (
+		typeof body === "object" &&
+		body !== null &&
+		"success" in body &&
+		body.success === true &&
+		"data" in body
+	);
 }

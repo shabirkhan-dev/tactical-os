@@ -1,5 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { getBaseUrl, login, me, register } from "./api-client";
+import { ApiError, getBaseUrl, login, me, refreshSession, register } from "./api-client";
+
+const user = {
+	id: "9d3f45e6-f7df-4f64-8bd2-c20a2dd28722",
+	email: "starter@example.com",
+	username: "starter",
+	isActive: true,
+	emailVerified: true,
+	createdAt: "2026-07-13T00:00:00.000Z",
+};
 
 describe("api client", () => {
 	beforeEach(() => {
@@ -10,103 +19,59 @@ describe("api client", () => {
 		expect(getBaseUrl()).toContain("localhost:4000");
 	});
 
-	it("unwraps Nest register envelope", async () => {
+	it("unwraps the registration challenge", async () => {
 		vi.stubGlobal(
 			"fetch",
-			vi.fn(
-				async () =>
-					new Response(
-						JSON.stringify({
-							success: true,
-							statusCode: 201,
-							data: {
-								id: "u_1",
-								email: "school@example.com",
-								username: "school",
-								is_active: true,
-							},
-						}),
-						{ status: 201 },
-					),
-			),
+			vi.fn(async () => successResponse({ accepted: true, message: "Code sent", user }, 201)),
 		);
 
-		const user = await register({
-			username: "school",
-			email: "school@example.com",
-			password: "super-secret-password",
+		const result = await register({
+			username: "starter",
+			email: "starter@example.com",
+			password: "a-secure-password",
 		});
 
-		expect(user.username).toBe("school");
-		expect(user.is_active).toBe(true);
+		expect(result.user.username).toBe("starter");
+		expect(result.accepted).toBe(true);
 	});
 
-	it("unwraps Nest login envelope", async () => {
-		vi.stubGlobal(
-			"fetch",
-			vi.fn(
-				async () =>
-					new Response(
-						JSON.stringify({
-							success: true,
-							statusCode: 200,
-							data: {
-								access_token: "jwt-token",
-								token_type: "Bearer",
-								user: {
-									id: "u_1",
-									email: "school@example.com",
-									username: "school",
-									is_active: true,
-								},
-							},
-						}),
-					),
-			),
-		);
-
-		const result = await login({
-			email: "school@example.com",
-			password: "super-secret-password",
-		});
-
-		expect(result.access_token).toBe("jwt-token");
-		expect(result.user?.username).toBe("school");
-	});
-
-	it("calls me with bearer token", async () => {
-		const fetchMock = vi.fn(
-			async (_url: string, _init?: RequestInit) =>
-				new Response(
-					JSON.stringify({
-						success: true,
-						statusCode: 200,
-						data: {
-							id: "u_1",
-							email: "school@example.com",
-							username: "school",
-							is_active: true,
-						},
-					}),
-				),
+	it("uses credentialed requests for cookie-backed login and refresh", async () => {
+		const fetchMock = vi.fn(async (_input: RequestInfo | URL, _init?: RequestInit) =>
+			successResponse({
+				accessToken: "jwt-token",
+				accessTokenExpiresAt: "2026-07-13T00:15:00.000Z",
+				user,
+			}),
 		);
 		vi.stubGlobal("fetch", fetchMock);
 
-		const user = await me("jwt-token");
-		expect(user.email).toBe("school@example.com");
-		expect(fetchMock).toHaveBeenCalledWith(
-			expect.stringContaining("/api/v1/auth/me"),
-			expect.objectContaining({
-				headers: expect.any(Headers),
-			}),
+		const loginResult = await login({
+			email: "starter@example.com",
+			password: "a-secure-password",
+		});
+		await refreshSession();
+
+		expect(loginResult.accessToken).toBe("jwt-token");
+		for (const call of fetchMock.mock.calls) {
+			expect(call[1]).toEqual(expect.objectContaining({ credentials: "include" }));
+			const headers = call[1]?.headers as Headers;
+			expect(headers.get("X-Requested-With")).toBe("XMLHttpRequest");
+		}
+	});
+
+	it("adds the access token to authenticated requests", async () => {
+		const fetchMock = vi.fn(async (_input: RequestInfo | URL, _init?: RequestInit) =>
+			successResponse(user),
 		);
-		const init = fetchMock.mock.calls[0]?.[1];
-		expect(init).toBeDefined();
-		const headers = init?.headers as Headers;
+		vi.stubGlobal("fetch", fetchMock);
+
+		await me("jwt-token");
+
+		const headers = fetchMock.mock.calls[0]?.[1]?.headers as Headers;
 		expect(headers.get("Authorization")).toBe("Bearer jwt-token");
 	});
 
-	it("surfaces Nest error messages", async () => {
+	it("surfaces stable API error information", async () => {
 		vi.stubGlobal(
 			"fetch",
 			vi.fn(
@@ -115,7 +80,7 @@ describe("api client", () => {
 						JSON.stringify({
 							success: false,
 							statusCode: 401,
-							code: "INVALID_CREDENTIALS",
+							code: "AUTH_INVALID_CREDENTIALS",
 							message: "Invalid email or password",
 						}),
 						{ status: 401 },
@@ -123,8 +88,16 @@ describe("api client", () => {
 			),
 		);
 
-		await expect(
-			login({ email: "school@example.com", password: "wrong-password" }),
-		).rejects.toThrow("Invalid email or password");
+		const promise = login({ email: "starter@example.com", password: "wrong-password" });
+		await expect(promise).rejects.toMatchObject({
+			name: "ApiError",
+			statusCode: 401,
+			code: "AUTH_INVALID_CREDENTIALS",
+		});
+		await expect(promise).rejects.toBeInstanceOf(ApiError);
 	});
 });
+
+function successResponse(data: unknown, status = 200): Response {
+	return new Response(JSON.stringify({ success: true, statusCode: status, data }), { status });
+}

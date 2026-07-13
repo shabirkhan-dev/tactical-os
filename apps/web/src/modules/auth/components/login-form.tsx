@@ -70,9 +70,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 		<div className={cn("flex flex-col gap-6", className)} {...props}>
 			<Card>
 				<CardHeader className="text-center">
-					<p className="text-muted-foreground text-sm font-medium tracking-wide">School OS</p>
+					<p className="text-muted-foreground text-sm font-medium tracking-wide">Starter</p>
 					<CardTitle className="text-2xl">Welcome back</CardTitle>
-					<CardDescription>Sign in with your school account to continue</CardDescription>
+					<CardDescription>Sign in to continue to your workspace</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<form onSubmit={handleSubmit}>
@@ -107,7 +107,12 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 							<Field>
 								<div className="flex items-center justify-between gap-2">
 									<FieldLabel htmlFor="password">Password</FieldLabel>
-									<span className="text-muted-foreground text-sm">Forgot password?</span>
+									<Link
+										href="/forgot-password"
+										className="text-muted-foreground text-sm underline-offset-4 hover:underline"
+									>
+										Forgot password?
+									</Link>
 								</div>
 								<InputGroup>
 									<InputGroupInput

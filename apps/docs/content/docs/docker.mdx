@@ -1,19 +1,19 @@
 ---
 title: Docker
-description: Postgres and Compose setup for local development.
+description: Compose stack for Postgres, Nest API, and Next.js web.
 ---
-Run PostgreSQL with Docker Compose. The Nest API (`apps/nest-api`) runs on the host for now.
+Run the School OS stack with Docker Compose. Fragments live under **`docker/compose/`** and are merged by the root **`docker-compose.yml`** via [`include`](https://docs.docker.com/compose/how-tos/multiple-compose-files/include/) (Compose **v2.20+**). Compose files follow the Compose Spec (**no** top-level `version` key).
 
 ## Layout
 
-Compose is split into modular files under **`docker/compose/`** and merged by the root **`docker-compose.yml`** via [`include`](https://docs.docker.com/compose/reference/include/) (requires **Docker Compose v2.20+**).
-
 | Fragment | Contents |
 |----------|----------|
-| `docker/compose/postgres.yml` | Postgres service, named volume, healthcheck |
-| `docker/compose/rust-api.yml` | Optional Rust demo API |
+| `docker/compose/postgres.yml` | Postgres 16, named volume, healthcheck |
+| `docker/compose/nest-api.yml` | NestJS API (multi-stage Bun image) |
+| `docker/compose/web.yml` | Next.js web (standalone image) |
+| `docker/compose/rust-api.yml` | Optional Rust demo API (`--profile rust`) |
 
-See **`docker/README.md`** at the repo root for the manual `-f` fallback if your Compose build does not support `include`.
+See **`docker/README.md`** for the manual `-f` fallback.
 
 ## Setup
 
@@ -23,22 +23,32 @@ See **`docker/README.md`** at the repo root for the manual `-f` fallback if your
    cp env.docker.example .env
    ```
 
-   Edit `.env` if needed (e.g. `POSTGRES_PASSWORD`).
+   Set `JWT_SECRET` and `AUTH_TOKEN_SECRET` (32+ characters). Adjust ports if needed.
 
-2. **Start Postgres**:
-
-   ```bash
-   docker compose up -d
-   ```
-
-3. **Start the API on the host**:
+2. **Build and start the stack**:
 
    ```bash
-   bun --cwd apps/nest-api run dev
+   docker compose up -d --build
    ```
+
+3. Open:
+
+   - Web: http://localhost:3000
+   - Nest health: http://localhost:4000/api/v1/health
+   - Nest Swagger: http://localhost:4000/api/docs
 
 ## Ports
 
-| Service | Host port |
-|---------|-----------|
-| Postgres | 5432 |
+| Service | Host port (default) |
+|---------|---------------------|
+| Postgres | 5433 (container 5432) |
+| Nest API | 4000 |
+| Web | 3000 |
+| Rust API (profile) | 3002 |
+
+## Notes
+
+- Nest runs migrations on startup when `RUN_MIGRATIONS=true` (default).
+- `NEXT_PUBLIC_NEST_API_URL` is baked in at **web image build** time and must be reachable from the browser (typically `http://localhost:4000`).
+- Host-only API/web development: `docker compose up -d postgres`, then `bun run dev`.
+- Optional Rust service: `docker compose --profile rust up -d --build`.
