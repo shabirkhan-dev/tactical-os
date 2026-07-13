@@ -16,7 +16,7 @@ export const users = pgTable(
 		id: uuid('id').defaultRandom().primaryKey(),
 		email: varchar('email', { length: 320 }).notNull(),
 		username: varchar('username', { length: 64 }).notNull(),
-		passwordHash: text('password_hash').notNull(),
+		passwordHash: text('password_hash'),
 		emailVerifiedAt: timestamp('email_verified_at', { withTimezone: true }),
 		isActive: boolean('is_active').notNull().default(true),
 		failedLoginAttempts: integer('failed_login_attempts').notNull().default(0),

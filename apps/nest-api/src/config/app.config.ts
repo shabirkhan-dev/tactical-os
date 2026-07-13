@@ -6,6 +6,8 @@ export type AppConfig = {
 	apiPrefix: string;
 	apiVersion: string;
 	serviceName: string;
+	appName: string;
+	webAppUrl: string;
 	databaseUrl: string;
 	databasePoolMax: number;
 	databaseSsl: boolean;
@@ -15,6 +17,8 @@ export type AppConfig = {
 	sessionTtlDays: number;
 	otpTtlMinutes: number;
 	otpMaxAttempts: number;
+	magicLinkTtlMinutes: number;
+	mfaChallengeTtlMinutes: number;
 	passwordBcryptRounds: number;
 	maxLoginAttempts: number;
 	loginLockMinutes: number;
@@ -25,6 +29,9 @@ export type AppConfig = {
 	authDevExposeCodes: boolean;
 	resendApiKey?: string;
 	authEmailFrom: string;
+	webAuthnRpId: string;
+	webAuthnOrigin: string;
+	googleClientId?: string;
 };
 
 export function createAppConfig(env: Env = parseEnv()): AppConfig {
@@ -34,6 +41,8 @@ export function createAppConfig(env: Env = parseEnv()): AppConfig {
 		apiPrefix: env.API_PREFIX,
 		apiVersion: env.API_VERSION,
 		serviceName: env.SERVICE_NAME,
+		appName: env.APP_NAME,
+		webAppUrl: env.WEB_APP_URL.replace(/\/$/, ''),
 		databaseUrl: env.DATABASE_URL,
 		databasePoolMax: env.DATABASE_POOL_MAX,
 		databaseSsl:
@@ -46,6 +55,8 @@ export function createAppConfig(env: Env = parseEnv()): AppConfig {
 		sessionTtlDays: env.SESSION_TTL_DAYS,
 		otpTtlMinutes: env.OTP_TTL_MINUTES,
 		otpMaxAttempts: env.OTP_MAX_ATTEMPTS,
+		magicLinkTtlMinutes: env.MAGIC_LINK_TTL_MINUTES,
+		mfaChallengeTtlMinutes: env.MFA_CHALLENGE_TTL_MINUTES,
 		passwordBcryptRounds: env.PASSWORD_BCRYPT_ROUNDS,
 		maxLoginAttempts: env.MAX_LOGIN_ATTEMPTS,
 		loginLockMinutes: env.LOGIN_LOCK_MINUTES,
@@ -56,5 +67,8 @@ export function createAppConfig(env: Env = parseEnv()): AppConfig {
 		authDevExposeCodes: env.AUTH_DEV_EXPOSE_CODES,
 		...(env.RESEND_API_KEY ? { resendApiKey: env.RESEND_API_KEY } : {}),
 		authEmailFrom: env.AUTH_EMAIL_FROM,
+		webAuthnRpId: env.WEBAUTHN_RP_ID,
+		webAuthnOrigin: env.WEBAUTHN_ORIGIN.replace(/\/$/, ''),
+		...(env.GOOGLE_CLIENT_ID ? { googleClientId: env.GOOGLE_CLIENT_ID } : {}),
 	};
 }

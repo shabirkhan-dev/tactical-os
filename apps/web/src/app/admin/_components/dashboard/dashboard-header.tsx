@@ -1,5 +1,7 @@
 "use client";
 
+import { useAuth } from "@/context/auth-context";
+import { userFirstName } from "@/lib/user-display";
 import { cn } from "@/lib/utils";
 import { DatePill } from "./date-pill";
 import { ExportButton } from "./export-button";
@@ -11,7 +13,10 @@ type Props = {
 	onExport?: () => void;
 };
 
-export function DashboardHeader({ name = "Salung", className, onExport }: Props) {
+export function DashboardHeader({ name, className, onExport }: Props) {
+	const { user } = useAuth();
+	const greetingName = name ?? (user ? userFirstName(user.username) : "there");
+
 	return (
 		<section
 			className={cn(
@@ -19,13 +24,13 @@ export function DashboardHeader({ name = "Salung", className, onExport }: Props)
 				className,
 			)}
 		>
-			<div className="rounded-xl border border-dashboard-border-subtle bg-dashboard-card-inner px-4 py-3 ">
+			<div className="rounded-xl border border-dashboard-border-subtle bg-dashboard-card-inner px-3 py-3 sm:px-4">
 				<div className="flex flex-wrap items-center justify-between gap-4">
-					<h1 className="font-semibold text-[28px] text-dashboard-text-primary tracking-tight">
-						Welcome back, {name}
+					<h1 className="font-semibold text-[22px] text-dashboard-text-primary tracking-tight sm:text-[28px]">
+						Welcome back, {greetingName}
 					</h1>
 
-					<div className="flex items-center gap-2">
+					<div className="flex w-full flex-wrap items-center gap-2 sm:w-auto">
 						<PeriodSelect />
 						<DatePill />
 						<ExportButton onClick={onExport} />

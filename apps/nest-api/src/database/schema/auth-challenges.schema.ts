@@ -5,6 +5,10 @@ import { users } from './users.schema';
 export const authChallengePurpose = pgEnum('auth_challenge_purpose', [
 	'email_verification',
 	'password_reset',
+	'magic_link',
+	'mfa_login',
+	'webauthn_registration',
+	'webauthn_authentication',
 ]);
 
 export const authChallenges = pgTable(

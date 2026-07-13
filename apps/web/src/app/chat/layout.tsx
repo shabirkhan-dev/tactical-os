@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { RequireAuth } from "@/modules/auth/components";
 import "@/modules/chat/styles/chat.css";
 
 export const metadata: Metadata = {
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function ChatLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-	return children;
+	return <RequireAuth>{children}</RequireAuth>;
 }

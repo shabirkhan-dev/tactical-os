@@ -2,13 +2,15 @@
 
 import { useRouter } from "next/navigation";
 
+import { AccountProfileScreen } from "@/modules/chat/components/account/account-profile-screen";
+import { AccountSecurityScreen } from "@/modules/chat/components/account/account-security-screen";
 import { NewChatScreen } from "@/modules/chat/components/chat";
 import { AppHeader } from "@/modules/chat/components/header";
 import { AppMarketplace } from "@/modules/chat/components/marketplace";
 import { AppSidebar } from "@/modules/chat/components/sidebar";
 import { WelcomeScreen } from "@/modules/chat/components/welcome";
 
-export type ChatView = "apps" | "chat" | "welcome";
+export type ChatView = "apps" | "chat" | "welcome" | "profile" | "security";
 
 type AppShellProps = {
 	activeView?: ChatView;
@@ -37,12 +39,16 @@ export function AppShell({ activeView = "apps" }: AppShellProps) {
 		apps: "Apps",
 		chat: "New chat",
 		welcome: "Welcome",
+		profile: "",
+		security: "",
 	}[activeView];
 
 	const activeScreen = {
 		apps: <AppMarketplace />,
 		chat: <NewChatScreen />,
 		welcome: <WelcomeScreen />,
+		profile: <AccountProfileScreen />,
+		security: <AccountSecurityScreen />,
 	}[activeView];
 
 	return (

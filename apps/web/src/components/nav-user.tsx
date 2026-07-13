@@ -91,7 +91,7 @@ export function NavUser({
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
 						<DropdownMenuGroup>
-							<DropdownMenuItem render={<Link href="/account/security" />}>
+							<DropdownMenuItem render={<Link href="/admin/account/profile" />}>
 								<HugeiconsIcon icon={UserCircle02Icon} strokeWidth={2} />
 								Profile
 							</DropdownMenuItem>

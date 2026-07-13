@@ -1,6 +1,6 @@
 import { Message01Icon, Notification03Icon, UserAdd01Icon } from "@hugeicons/core-free-icons";
 import type { IconSvgElement } from "@hugeicons/react";
-
+import { HeaderUserMenu } from "@/modules/chat/components/header/header-user-menu";
 import { HeaderHugeIcon } from "@/modules/chat/components/header/huge-icon";
 import { ThemeToggle } from "@/modules/chat/components/header/theme-toggle";
 
@@ -22,9 +22,7 @@ export function HeaderActions() {
 				<HeaderHugeIcon icon={UserAdd01Icon} />
 				<span>Invite</span>
 			</button>
-			<button className="avatar-button" type="button" aria-label="Account">
-				<span />
-			</button>
+			<HeaderUserMenu />
 		</div>
 	);
 }

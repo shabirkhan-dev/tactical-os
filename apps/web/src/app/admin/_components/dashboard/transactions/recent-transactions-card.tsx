@@ -32,7 +32,7 @@ export function RecentTransactionsCard({ className }: Props) {
 						className="text-dashboard-text-faint"
 					/>
 				</div>
-				<TransactionsToolbar />
+				<TransactionsToolbar className="basis-full sm:basis-auto" />
 			</div>
 
 			{/* Inner card with table */}

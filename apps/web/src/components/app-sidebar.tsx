@@ -32,6 +32,7 @@ import { NavMain } from "@/components/nav-main";
 import { NavSecondary } from "@/components/nav-secondary";
 import { NavUser } from "@/components/nav-user";
 import { useAuth } from "@/context/auth-context";
+import { userInitials } from "@/lib/user-display";
 
 const data = {
 	navMain: [
@@ -144,12 +145,6 @@ const data = {
 		},
 	],
 };
-function initials(username: string): string {
-	const parts = username.trim().split(/\s+/);
-	if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
-	return username.slice(0, 2).toUpperCase() || "?";
-}
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const { user } = useAuth();
 	const userForNav =
@@ -158,7 +153,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			name: user.username,
 			email: user.email,
 			avatar: "",
-			initials: initials(user.username),
+			initials: userInitials(user.username),
 		} as const);
 
 	return (

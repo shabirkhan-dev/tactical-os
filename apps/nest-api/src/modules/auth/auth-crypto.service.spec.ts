@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { AppConfigService } from '../../config/app-config.service';
 import { AuthCryptoService } from './auth-crypto.service';
 
@@ -30,6 +31,24 @@ describe('AuthCryptoService', () => {
 		expect(service.getSessionIdFromRefreshToken(token)).toBe(sessionId);
 		expect(service.verifyRefreshToken(token, tokenHash)).toBe(true);
 		expect(service.verifyRefreshToken(`${sessionId}.wrong`, tokenHash)).toBe(false);
+	});
+
+	it('encrypts authenticator secrets with authenticated encryption', () => {
+		const encrypted = service.encryptSecret('BASE32-SECRET');
+		expect(encrypted).not.toContain('BASE32-SECRET');
+		expect(service.decryptSecret(encrypted)).toBe('BASE32-SECRET');
+	});
+
+	it('creates one-purpose challenge tokens', () => {
+		const token = service.createChallengeToken('84c5bd4b-2a8f-4a89-85db-c22f45dc2ab9');
+		const tokenHash = service.hashChallengeToken('magic_link', 'starter@example.com', token);
+		expect(service.getChallengeId(token)).toBe('84c5bd4b-2a8f-4a89-85db-c22f45dc2ab9');
+		expect(
+			service.verifyChallengeToken('magic_link', 'starter@example.com', token, tokenHash),
+		).toBe(true);
+		expect(service.verifyChallengeToken('mfa_login', 'starter@example.com', token, tokenHash)).toBe(
+			false,
+		);
 	});
 
 	it('signs short-lived access tokens with minimal claims', async () => {

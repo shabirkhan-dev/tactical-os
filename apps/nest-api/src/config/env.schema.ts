@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as z from 'zod';
 
 const developmentJwtSecret = 'development-only-jwt-secret-change-me';
 const developmentTokenSecret = 'development-only-auth-token-secret-change-me';
@@ -15,6 +15,8 @@ export const envSchema = z
 		API_PREFIX: z.string().min(1).default('api'),
 		API_VERSION: z.string().regex(/^\d+$/).default('1'),
 		SERVICE_NAME: z.string().min(1).default('starter-api'),
+		APP_NAME: z.string().min(1).max(80).default('Starter'),
+		WEB_APP_URL: z.url().default('http://localhost:3000'),
 		DATABASE_URL: z.url().default('postgresql://school-os:school-os@localhost:5433/school-os'),
 		DATABASE_POOL_MAX: z.coerce.number().int().min(1).max(50).default(10),
 		DATABASE_SSL: z.enum(['true', 'false']).optional(),
@@ -27,6 +29,8 @@ export const envSchema = z
 		SESSION_TTL_DAYS: z.coerce.number().int().min(1).max(365).default(30),
 		OTP_TTL_MINUTES: z.coerce.number().int().min(5).max(60).default(10),
 		OTP_MAX_ATTEMPTS: z.coerce.number().int().min(3).max(10).default(5),
+		MAGIC_LINK_TTL_MINUTES: z.coerce.number().int().min(5).max(60).default(15),
+		MFA_CHALLENGE_TTL_MINUTES: z.coerce.number().int().min(2).max(15).default(5),
 		PASSWORD_BCRYPT_ROUNDS: z.coerce.number().int().min(10).max(14).default(12),
 		MAX_LOGIN_ATTEMPTS: z.coerce.number().int().min(3).max(20).default(5),
 		LOGIN_LOCK_MINUTES: z.coerce.number().int().min(1).max(1440).default(15),
@@ -40,6 +44,9 @@ export const envSchema = z
 			.transform((value) => value === 'true'),
 		RESEND_API_KEY: z.string().min(1).optional(),
 		AUTH_EMAIL_FROM: z.string().min(3).default('Starter <auth@example.com>'),
+		WEBAUTHN_RP_ID: z.string().min(1).default('localhost'),
+		WEBAUTHN_ORIGIN: z.url().default('http://localhost:3000'),
+		GOOGLE_CLIENT_ID: z.string().min(1).optional(),
 	})
 	.superRefine((env, context) => {
 		if (env.NODE_ENV !== 'production') {

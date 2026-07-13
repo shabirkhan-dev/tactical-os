@@ -1,7 +1,7 @@
 import { ArgumentMetadata, BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
 import type { ZodIssue, ZodType } from 'zod';
 
-type ZodSchemaProvider = Function & {
+type ZodSchemaProvider = {
 	schema?: ZodType<unknown>;
 	zodSchema?: ZodType<unknown>;
 };

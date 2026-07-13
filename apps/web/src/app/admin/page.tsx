@@ -6,7 +6,7 @@ import { RecentTransactionsCard } from "./_components/dashboard/transactions/rec
 
 const AdminPage = () => {
 	return (
-		<div className="space-y-4 px-6 py-6">
+		<div className="space-y-4 px-3 py-4 sm:px-6 sm:py-6">
 			<DashboardHeader />
 			<StatCardsRow />
 			<div className="grid grid-cols-1 gap-4 xl:grid-cols-3">

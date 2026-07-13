@@ -21,6 +21,7 @@ import type {
 	AccessTokenPayload,
 	AuthChallengeResult,
 	PublicAuthSession,
+	PublicLoginResult,
 	RegistrationResult,
 	SessionView,
 } from './auth.types';
@@ -81,10 +82,12 @@ export class AuthController {
 		@Body() body: LoginBodyDto,
 		@Req() request: Request,
 		@Res({ passthrough: true }) response: Response,
-	): Promise<PublicAuthSession> {
+	): Promise<PublicLoginResult> {
 		const result = await this.authService.login(body, getRequestMetadata(request));
-		this.refreshCookie.set(response, result.refreshToken);
-		return this.authService.toPublicSession(result);
+		if (!('requiresTwoFactor' in result)) {
+			this.refreshCookie.set(response, result.refreshToken);
+		}
+		return this.authService.toPublicLoginResult(result);
 	}
 
 	@Post('refresh')

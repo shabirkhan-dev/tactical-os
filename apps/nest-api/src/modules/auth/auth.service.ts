@@ -14,6 +14,10 @@ import type {
 	SessionRecord,
 	UserRecord,
 } from '../../database/schema';
+import { EmailService } from '../email/email.service';
+import { MfaService } from '../mfa/mfa.service';
+import { PasskeysService } from '../passkeys/passkeys.service';
+import { SocialAuthService } from '../social-auth/social-auth.service';
 import { UsersService } from '../users/users.service';
 import { type PublicUser, toPublicUser } from '../users/users.types';
 import { AuthRepository } from './auth.repository';
@@ -21,14 +25,17 @@ import type {
 	AccessTokenPayload,
 	AuthChallengeResult,
 	AuthSessionResult,
+	LoginResult,
+	MfaLoginChallenge,
 	PublicAuthSession,
+	PublicLoginResult,
 	RegistrationResult,
 	RequestMetadata,
 	SessionView,
 } from './auth.types';
 import { AuthCryptoService } from './auth-crypto.service';
-import { AuthEmailService } from './auth-email.service';
 import type {
+	ChallengeTokenBody,
 	ChangePasswordBody,
 	EmailBody,
 	LoginBody,
@@ -42,9 +49,12 @@ export class AuthService {
 	constructor(
 		private readonly config: AppConfigService,
 		private readonly crypto: AuthCryptoService,
-		private readonly email: AuthEmailService,
+		private readonly email: EmailService,
 		private readonly authRepository: AuthRepository,
 		private readonly usersService: UsersService,
+		private readonly mfa: MfaService,
+		private readonly passkeys: PasskeysService,
+		private readonly socialAuth: SocialAuthService,
 	) {}
 
 	async register(body: RegisterBody): Promise<RegistrationResult> {
@@ -84,7 +94,7 @@ export class AuthService {
 		return this.issueChallenge(user, 'email_verification');
 	}
 
-	async login(body: LoginBody, metadata: RequestMetadata): Promise<AuthSessionResult> {
+	async login(body: LoginBody, metadata: RequestMetadata): Promise<LoginResult> {
 		const user = await this.usersService.findByEmail(body.email);
 		if (!user) {
 			await this.crypto.hashPassword(body.password);
@@ -101,7 +111,9 @@ export class AuthService {
 			);
 		}
 
-		const passwordValid = await this.crypto.verifyPassword(body.password, user.passwordHash);
+		const passwordValid = user.passwordHash
+			? await this.crypto.verifyPassword(body.password, user.passwordHash)
+			: await this.consumePasswordTiming(body.password);
 		if (!passwordValid) {
 			await this.usersService.recordFailedLogin(
 				user,
@@ -125,7 +137,76 @@ export class AuthService {
 		}
 
 		await this.usersService.resetFailedLogins(user.id);
+		if (await this.mfa.isTotpEnabled(user.id)) {
+			return this.createMfaChallenge(user);
+		}
 		return this.createSession(user, metadata);
+	}
+
+	async completeMfaLogin(
+		body: ChallengeTokenBody,
+		metadata: RequestMetadata,
+	): Promise<AuthSessionResult> {
+		const challenge = await this.requireTokenChallenge(body.challengeToken, 'mfa_login');
+		if (!(await this.mfa.verifyLoginCode(challenge.userId, body.code))) {
+			await this.recordInvalidChallengeAttempt(challenge);
+			throw invalidOtpException();
+		}
+		if (!(await this.authRepository.consumeChallenge(challenge.id))) throw invalidOtpException();
+		const user = await this.usersService.findById(challenge.userId);
+		if (!user?.isActive) throw invalidCredentialsException();
+		return this.createSession(user, metadata);
+	}
+
+	async requestMagicLink(body: EmailBody): Promise<AuthChallengeResult> {
+		const user = await this.usersService.findByEmail(body.email);
+		const accepted = acceptedChallenge(
+			'If an account exists, a secure sign-in link has been sent.',
+		);
+		if (!user?.isActive || !user.emailVerifiedAt) return accepted;
+		const challengeId = randomUUID();
+		const token = this.crypto.createChallengeToken(challengeId);
+		await this.authRepository.createChallenge({
+			id: challengeId,
+			userId: user.id,
+			email: user.email,
+			purpose: 'magic_link',
+			codeHash: this.crypto.hashChallengeToken('magic_link', user.email, token),
+			expiresAt: new Date(Date.now() + this.config.magicLinkTtlMinutes * 60_000),
+		});
+		const url = `${this.config.webAppUrl}/magic-link?token=${encodeURIComponent(token)}`;
+		await this.email.sendMagicLink(user.email, url);
+		return {
+			...accepted,
+			...(this.config.exposeAuthCodes ? { developmentToken: token } : {}),
+		};
+	}
+
+	async consumeMagicLink(token: string, metadata: RequestMetadata): Promise<AuthSessionResult> {
+		const challenge = await this.requireTokenChallenge(token, 'magic_link');
+		if (!(await this.authRepository.consumeChallenge(challenge.id))) throw invalidMagicLink();
+		const user = await this.usersService.findById(challenge.userId);
+		if (!user?.isActive) throw invalidMagicLink();
+		return this.createSession(user, metadata);
+	}
+
+	async googleLogin(credential: string, metadata: RequestMetadata): Promise<AuthSessionResult> {
+		return this.createSession(await this.socialAuth.authenticateGoogle(credential), metadata);
+	}
+
+	getAuthProviders() {
+		return this.socialAuth.getProviders();
+	}
+
+	beginPasskeyLogin(email: string) {
+		return this.passkeys.beginAuthentication(email);
+	}
+
+	async finishPasskeyLogin(
+		input: Parameters<PasskeysService['finishAuthentication']>[0],
+		metadata: RequestMetadata,
+	): Promise<AuthSessionResult> {
+		return this.createSession(await this.passkeys.finishAuthentication(input), metadata);
 	}
 
 	async refresh(refreshToken: string): Promise<AuthSessionResult> {
@@ -215,7 +296,10 @@ export class AuthService {
 		body: ChangePasswordBody,
 	): Promise<AuthChallengeResult> {
 		const record = await this.usersService.findById(user.sub);
-		if (!record || !(await this.crypto.verifyPassword(body.currentPassword, record.passwordHash))) {
+		if (
+			!record?.passwordHash ||
+			!(await this.crypto.verifyPassword(body.currentPassword, record.passwordHash))
+		) {
 			throw new UnauthorizedException({
 				code: 'AUTH_CURRENT_PASSWORD_INVALID',
 				message: 'Current password is incorrect',
@@ -275,6 +359,10 @@ export class AuthService {
 		};
 	}
 
+	toPublicLoginResult(result: LoginResult): PublicLoginResult {
+		return 'requiresTwoFactor' in result ? result : this.toPublicSession(result);
+	}
+
 	private async createSession(
 		user: UserRecord,
 		metadata: RequestMetadata,
@@ -289,6 +377,54 @@ export class AuthService {
 			metadata,
 		});
 		return this.buildSessionResult(user, sessionId, refreshToken);
+	}
+
+	private async createMfaChallenge(user: UserRecord): Promise<MfaLoginChallenge> {
+		const challengeId = randomUUID();
+		const token = this.crypto.createChallengeToken(challengeId);
+		const expiresAt = new Date(Date.now() + this.config.mfaChallengeTtlMinutes * 60_000);
+		await this.authRepository.createChallenge({
+			id: challengeId,
+			userId: user.id,
+			email: user.email,
+			purpose: 'mfa_login',
+			codeHash: this.crypto.hashChallengeToken('mfa_login', user.email, token),
+			expiresAt,
+		});
+		return {
+			requiresTwoFactor: true,
+			challengeToken: token,
+			expiresAt: expiresAt.toISOString(),
+			methods: ['totp', 'recovery_code'],
+		};
+	}
+
+	private async requireTokenChallenge(
+		token: string,
+		purpose: 'magic_link' | 'mfa_login',
+	): Promise<AuthChallengeRecord> {
+		const challengeId = this.crypto.getChallengeId(token);
+		const challenge = challengeId ? await this.authRepository.findChallengeById(challengeId) : null;
+		if (
+			!challenge ||
+			challenge.purpose !== purpose ||
+			challenge.consumedAt ||
+			challenge.expiresAt <= new Date() ||
+			challenge.attempts >= this.config.otpMaxAttempts ||
+			!this.crypto.verifyChallengeToken(purpose, challenge.email, token, challenge.codeHash)
+		) {
+			throw purpose === 'magic_link' ? invalidMagicLink() : invalidOtpException();
+		}
+		return challenge;
+	}
+
+	private async recordInvalidChallengeAttempt(challenge: AuthChallengeRecord): Promise<void> {
+		const attempts = challenge.attempts + 1;
+		await this.authRepository.recordChallengeAttempt(
+			challenge.id,
+			attempts,
+			attempts >= this.config.otpMaxAttempts,
+		);
 	}
 
 	private async buildSessionResult(
@@ -363,6 +499,11 @@ export class AuthService {
 	private getSessionExpiry(): Date {
 		return new Date(Date.now() + this.config.sessionTtlDays * 86_400_000);
 	}
+
+	private async consumePasswordTiming(password: string): Promise<false> {
+		await this.crypto.hashPassword(password);
+		return false;
+	}
 }
 
 function isSessionActive(session: SessionRecord | null): session is SessionRecord {
@@ -391,5 +532,12 @@ function invalidOtpException(): UnauthorizedException {
 	return new UnauthorizedException({
 		code: 'AUTH_OTP_INVALID',
 		message: 'The code is invalid or expired',
+	});
+}
+
+function invalidMagicLink(): UnauthorizedException {
+	return new UnauthorizedException({
+		code: 'MAGIC_LINK_INVALID',
+		message: 'The sign-in link is invalid or expired',
 	});
 }

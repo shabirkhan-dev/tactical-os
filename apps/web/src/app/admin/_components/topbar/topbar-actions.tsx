@@ -3,8 +3,11 @@
 import { Moon01Icon, Notification03Icon, PrinterIcon, Sun01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@school-os/ui/components/tooltip";
+import Link from "next/link";
 import { useTheme } from "next-themes";
 import { type ComponentProps, useEffect, useState } from "react";
+import { useAuth } from "@/context/auth-context";
+import { userInitials } from "@/lib/user-display";
 import { cn } from "@/lib/utils";
 
 type IconType = ComponentProps<typeof HugeiconsIcon>["icon"];
@@ -14,9 +17,10 @@ type IconBtnProps = {
 	label: string;
 	dot?: boolean;
 	onClick?: () => void;
+	className?: string;
 };
 
-function IconButton({ icon, label, dot, onClick }: IconBtnProps) {
+function IconButton({ icon, label, dot, onClick, className }: IconBtnProps) {
 	return (
 		<Tooltip>
 			<TooltipTrigger
@@ -26,7 +30,10 @@ function IconButton({ icon, label, dot, onClick }: IconBtnProps) {
 						{...props}
 						onClick={onClick}
 						aria-label={label}
-						className="relative flex size-9 items-center justify-center rounded-lg text-dashboard-text-muted transition-all hover:bg-dashboard-hover hover:text-dashboard-text-primary active:scale-95"
+						className={cn(
+							"relative flex size-9 items-center justify-center rounded-lg text-dashboard-text-muted transition-all hover:bg-dashboard-hover hover:text-dashboard-text-primary active:scale-95",
+							className,
+						)}
 					>
 						<HugeiconsIcon icon={icon} size={18} strokeWidth={1.8} />
 						{dot && (
@@ -85,28 +92,31 @@ type Props = {
 
 export function TopbarActions({
 	avatarSrc,
-	avatarFallback = "SP",
+	avatarFallback,
 	unreadNotifications = true,
 	className,
 }: Props) {
+	const { user } = useAuth();
+	const initials = avatarFallback ?? (user ? userInitials(user.username) : "?");
+
 	return (
 		<div className={cn("flex items-center gap-1", className)}>
 			<ThemeToggle />
 			<IconButton icon={Notification03Icon} label="Notifications" dot={unreadNotifications} />
-			<IconButton icon={PrinterIcon} label="Print" />
+			<IconButton icon={PrinterIcon} label="Print" className="hidden sm:flex" />
 
-			<button
-				type="button"
-				aria-label="Account"
+			<Link
+				href="/admin/account/profile"
+				aria-label="Profile"
 				className="ml-1 flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-linear-to-br from-zinc-600 to-zinc-800 font-semibold text-[12px] text-dashboard-text-primary ring-1 ring-dashboard-border-strong transition-all hover:ring-dashboard-border-focus active:scale-95"
 			>
 				{avatarSrc ? (
 					// biome-ignore lint/performance/noImgElement: simple avatar, no next/image wrap needed here
 					<img src={avatarSrc} alt="Account" className="size-full object-cover" />
 				) : (
-					<span>{avatarFallback}</span>
+					<span>{initials}</span>
 				)}
-			</button>
+			</Link>
 		</div>
 	);
 }

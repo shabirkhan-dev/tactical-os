@@ -14,7 +14,10 @@ type Props = {
 
 export function BreadcrumbTrail({ items, className }: Props) {
 	return (
-		<nav aria-label="Breadcrumb" className={cn("flex items-center gap-1.5 text-[13px]", className)}>
+		<nav
+			aria-label="Breadcrumb"
+			className={cn("flex items-center gap-1.5 overflow-hidden text-[13px]", className)}
+		>
 			{items.map((item, idx) => {
 				const isLast = idx === items.length - 1;
 				const showSeparator = idx > 0;
@@ -38,6 +41,7 @@ export function BreadcrumbTrail({ items, className }: Props) {
 						) : (
 							<span
 								className={cn(
+									"truncate",
 									isLast
 										? "font-medium text-dashboard-text-secondary"
 										: "text-dashboard-text-muted",

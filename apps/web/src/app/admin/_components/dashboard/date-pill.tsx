@@ -71,7 +71,11 @@ export function DatePill({ date: controlled, onChange, className }: Props) {
 					className="isolate z-50"
 				>
 					<PopoverPrimitive.Popup className="data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 origin-(--transform-origin) outline-none">
-						<CalendarPicker value={value} onChange={handleChange} className="w-[420px]" />
+						<CalendarPicker
+							value={value}
+							onChange={handleChange}
+							className="w-[min(420px,calc(100vw-24px))]"
+						/>
 					</PopoverPrimitive.Popup>
 				</PopoverPrimitive.Positioner>
 			</PopoverPrimitive.Portal>

@@ -24,6 +24,12 @@ export class AppConfigService {
 	get serviceName(): string {
 		return this.config.serviceName;
 	}
+	get appName(): string {
+		return this.config.appName;
+	}
+	get webAppUrl(): string {
+		return this.config.webAppUrl;
+	}
 	get databaseUrl(): string {
 		return this.config.databaseUrl;
 	}
@@ -50,6 +56,12 @@ export class AppConfigService {
 	}
 	get otpMaxAttempts(): number {
 		return this.config.otpMaxAttempts;
+	}
+	get magicLinkTtlMinutes(): number {
+		return this.config.magicLinkTtlMinutes;
+	}
+	get mfaChallengeTtlMinutes(): number {
+		return this.config.mfaChallengeTtlMinutes;
 	}
 	get passwordBcryptRounds(): number {
 		return this.config.passwordBcryptRounds;
@@ -80,5 +92,14 @@ export class AppConfigService {
 	}
 	get authEmailFrom(): string {
 		return this.config.authEmailFrom;
+	}
+	get webAuthnRpId(): string {
+		return this.config.webAuthnRpId;
+	}
+	get webAuthnOrigin(): string {
+		return this.config.webAuthnOrigin;
+	}
+	get googleClientId(): string | undefined {
+		return this.config.googleClientId;
 	}
 }

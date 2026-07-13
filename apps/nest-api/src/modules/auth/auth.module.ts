@@ -1,27 +1,30 @@
 import { Module } from '@nestjs/common';
-
+import { EmailModule } from '../email/email.module';
+import { MfaModule } from '../mfa/mfa.module';
+import { PasskeysModule } from '../passkeys/passkeys.module';
+import { SocialAuthModule } from '../social-auth/social-auth.module';
 import { UsersModule } from '../users/users.module';
 import { AuthController } from './auth.controller';
 import { AuthRepository } from './auth.repository';
 import { AuthService } from './auth.service';
-import { AuthCryptoService } from './auth-crypto.service';
-import { AuthEmailService } from './auth-email.service';
+import { AuthCryptoModule } from './auth-crypto.module';
+import { AuthMethodsController } from './auth-methods.controller';
+import { AuthSecurityController } from './auth-security.controller';
 import { CsrfGuard } from './csrf.guard';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { RefreshCookieService } from './refresh-cookie.service';
 
 @Module({
-	imports: [UsersModule],
-	controllers: [AuthController],
-	providers: [
-		AuthRepository,
-		AuthCryptoService,
-		AuthEmailService,
-		AuthService,
-		CsrfGuard,
-		JwtAuthGuard,
-		RefreshCookieService,
+	imports: [
+		UsersModule,
+		EmailModule,
+		AuthCryptoModule,
+		MfaModule,
+		PasskeysModule,
+		SocialAuthModule,
 	],
+	controllers: [AuthController, AuthMethodsController, AuthSecurityController],
+	providers: [AuthRepository, AuthService, CsrfGuard, JwtAuthGuard, RefreshCookieService],
 	exports: [AuthService, JwtAuthGuard],
 })
 export class AuthModule {}

@@ -17,6 +17,7 @@ export class AuthRepository {
 	constructor(private readonly database: DatabaseService) {}
 
 	async createChallenge(input: {
+		id?: string;
 		userId: string;
 		email: string;
 		purpose: AuthChallengePurpose;
@@ -42,6 +43,24 @@ export class AuthRepository {
 			}
 			return challenge;
 		});
+	}
+
+	async findChallengeById(challengeId: string): Promise<AuthChallengeRecord | null> {
+		const [challenge] = await this.database.db
+			.select()
+			.from(authChallenges)
+			.where(eq(authChallenges.id, challengeId))
+			.limit(1);
+		return challenge ?? null;
+	}
+
+	async consumeChallenge(challengeId: string): Promise<boolean> {
+		const [challenge] = await this.database.db
+			.update(authChallenges)
+			.set({ consumedAt: new Date() })
+			.where(and(eq(authChallenges.id, challengeId), isNull(authChallenges.consumedAt)))
+			.returning({ id: authChallenges.id });
+		return Boolean(challenge);
 	}
 
 	async findLatestChallenge(

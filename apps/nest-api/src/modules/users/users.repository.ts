@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { eq } from 'drizzle-orm';
 
 import { DatabaseService } from '../../database/database.service';
-import { type UserRecord, users } from '../../database/schema';
+import { type UserRecord, userProfiles, users } from '../../database/schema';
 
 @Injectable()
 export class UsersRepository {
@@ -11,13 +11,29 @@ export class UsersRepository {
 	async create(input: {
 		email: string;
 		username: string;
-		passwordHash: string;
+		passwordHash: string | null;
+		emailVerifiedAt?: Date;
+		displayName?: string | null;
+		avatarUrl?: string | null;
 	}): Promise<UserRecord> {
-		const [user] = await this.database.db.insert(users).values(input).returning();
-		if (!user) {
-			throw new Error('User insert did not return a record');
-		}
-		return user;
+		return this.database.db.transaction(async (transaction) => {
+			const [user] = await transaction
+				.insert(users)
+				.values({
+					email: input.email,
+					username: input.username,
+					passwordHash: input.passwordHash,
+					emailVerifiedAt: input.emailVerifiedAt,
+				})
+				.returning();
+			if (!user) throw new Error('User insert did not return a record');
+			await transaction.insert(userProfiles).values({
+				userId: user.id,
+				displayName: input.displayName,
+				avatarUrl: input.avatarUrl,
+			});
+			return user;
+		});
 	}
 
 	async findById(userId: string): Promise<UserRecord | null> {
@@ -68,5 +84,14 @@ export class UsersRepository {
 			.update(users)
 			.set({ passwordHash, passwordChangedAt: now, updatedAt: now })
 			.where(eq(users.id, userId));
+	}
+
+	async updateUsername(userId: string, username: string): Promise<UserRecord | null> {
+		const [user] = await this.database.db
+			.update(users)
+			.set({ username, updatedAt: new Date() })
+			.where(eq(users.id, userId))
+			.returning();
+		return user ?? null;
 	}
 }

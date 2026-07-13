@@ -9,6 +9,7 @@ import {
 } from "@/modules/chat/components/sidebar/sidebar.data";
 import type { SidebarItemData } from "@/modules/chat/components/sidebar/sidebar.types";
 import { SidebarSection } from "@/modules/chat/components/sidebar/sidebar-section";
+import { SidebarUserCard } from "@/modules/chat/components/sidebar/sidebar-user-card";
 
 const projectItems: SidebarItemData[] = projectSidebarItems.map((label) => ({
 	label,
@@ -31,6 +32,7 @@ export function AppSidebar({ activeItem, onPrimaryItemSelect }: AppSidebarProps)
 			<SidebarSection label="Projects" items={projectItems} />
 			<RecentSection items={recentSidebarItems} />
 			<ConnectAppsCard />
+			<SidebarUserCard />
 		</aside>
 	);
 }

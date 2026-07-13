@@ -11,8 +11,8 @@ type Props = {
 
 export function TransactionsToolbar({ className, onAdd }: Props) {
 	return (
-		<div className={cn("flex items-center gap-2", className)}>
-			<div className="group flex h-9 items-center gap-2 rounded-xl border border-dashboard-border-strong bg-dashboard-surface px-3 transition-colors focus-within:border-dashboard-border-focus hover:border-dashboard-border">
+		<div className={cn("flex w-full items-center gap-2 sm:w-auto", className)}>
+			<div className="group flex h-9 min-w-0 flex-1 items-center gap-2 rounded-xl border border-dashboard-border-strong bg-dashboard-surface px-3 transition-colors focus-within:border-dashboard-border-focus hover:border-dashboard-border sm:flex-none">
 				<HugeiconsIcon
 					icon={Search01Icon}
 					size={15}
@@ -22,7 +22,7 @@ export function TransactionsToolbar({ className, onAdd }: Props) {
 				<input
 					type="text"
 					placeholder="Search transactions..."
-					className="h-full w-[240px] bg-transparent text-[12.5px] text-dashboard-text-primary placeholder:text-dashboard-text-muted focus:outline-none"
+					className="h-full min-w-0 flex-1 bg-transparent text-[12.5px] text-dashboard-text-primary placeholder:text-dashboard-text-muted focus:outline-none sm:w-[240px] sm:flex-none"
 				/>
 			</div>
 
@@ -32,7 +32,8 @@ export function TransactionsToolbar({ className, onAdd }: Props) {
 				className="flex h-9 items-center gap-1.5 rounded-xl bg-[#FF6A1A] px-3.5 font-semibold text-[12.5px] text-white transition-all hover:bg-[#ff7a33] active:scale-[0.97]"
 			>
 				<HugeiconsIcon icon={Add01Icon} size={14} strokeWidth={2.4} />
-				<span className="tracking-tight">Add Transaction</span>
+				<span className="hidden tracking-tight sm:inline">Add Transaction</span>
+				<span className="sr-only sm:hidden">Add transaction</span>
 			</button>
 
 			<button

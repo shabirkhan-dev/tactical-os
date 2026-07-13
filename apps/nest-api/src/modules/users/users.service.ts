@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 
 import type { UserRecord } from '../../database/schema';
@@ -47,6 +48,37 @@ export class UsersService {
 		}
 	}
 
+	async createFederatedUser(input: {
+		email: string;
+		displayName?: string | null;
+		avatarUrl?: string | null;
+	}): Promise<UserRecord> {
+		const email = normalizeEmail(input.email);
+		const base = normalizeUsername(email.split('@')[0] ?? 'user')
+			.replace(/[^a-z0-9._-]/g, '')
+			.slice(0, 48);
+		for (let attempt = 0; attempt < 5; attempt += 1) {
+			const suffix = randomUUID().replaceAll('-', '').slice(0, 8);
+			const username = `${base || 'user'}-${suffix}`;
+			try {
+				return await this.usersRepository.create({
+					email,
+					username,
+					passwordHash: null,
+					emailVerifiedAt: new Date(),
+					displayName: input.displayName,
+					avatarUrl: input.avatarUrl,
+				});
+			} catch (error) {
+				if (!isUniqueConstraintError(error)) throw error;
+			}
+		}
+		throw new ConflictException({
+			code: 'USER_CREATION_CONFLICT',
+			message: 'The account could not be created',
+		});
+	}
+
 	findByEmail(email: string): Promise<UserRecord | null> {
 		return this.usersRepository.findByEmail(normalizeEmail(email));
 	}
@@ -93,6 +125,46 @@ export class UsersService {
 
 	updatePassword(userId: string, passwordHash: string): Promise<void> {
 		return this.usersRepository.updatePassword(userId, passwordHash);
+	}
+
+	async updateProfile(userId: string, input: { username: string }): Promise<PublicUser> {
+		const user = await this.usersRepository.findById(userId);
+		if (!user?.isActive) {
+			throw new UnauthorizedException({
+				code: 'AUTH_SESSION_INVALID',
+				message: 'Authentication required',
+			});
+		}
+
+		const username = normalizeUsername(input.username);
+		if (username !== user.username) {
+			const existing = await this.usersRepository.findByUsername(username);
+			if (existing && existing.id !== userId) {
+				throw new ConflictException({
+					code: 'AUTH_USERNAME_TAKEN',
+					message: 'This username is already taken',
+				});
+			}
+		}
+
+		try {
+			const updated = await this.usersRepository.updateUsername(userId, username);
+			if (!updated) {
+				throw new UnauthorizedException({
+					code: 'AUTH_SESSION_INVALID',
+					message: 'Authentication required',
+				});
+			}
+			return toPublicUser(updated);
+		} catch (error) {
+			if (isUniqueConstraintError(error)) {
+				throw new ConflictException({
+					code: 'AUTH_USERNAME_TAKEN',
+					message: 'This username is already taken',
+				});
+			}
+			throw error;
+		}
 	}
 }
 

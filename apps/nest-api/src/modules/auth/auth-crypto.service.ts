@@ -1,4 +1,12 @@
-import { createHash, createHmac, randomBytes, randomInt, timingSafeEqual } from 'node:crypto';
+import {
+	createCipheriv,
+	createDecipheriv,
+	createHash,
+	createHmac,
+	randomBytes,
+	randomInt,
+	timingSafeEqual,
+} from 'node:crypto';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { compare, hash } from 'bcryptjs';
 import { jwtVerify, SignJWT } from 'jose';
@@ -36,6 +44,62 @@ export class AuthCryptoService {
 		expectedHash: string,
 	): boolean {
 		return safeHashEquals(this.hashOtp(purpose, email, code), expectedHash);
+	}
+
+	createChallengeToken(challengeId: string): string {
+		return `${challengeId}.${randomBytes(32).toString('base64url')}`;
+	}
+
+	getChallengeId(token: string): string | null {
+		const [challengeId, secret, ...rest] = token.split('.');
+		return challengeId && secret && rest.length === 0 ? challengeId : null;
+	}
+
+	hashChallengeToken(purpose: AuthChallengePurpose, email: string, token: string): string {
+		return this.hashOtp(purpose, email, token);
+	}
+
+	verifyChallengeToken(
+		purpose: AuthChallengePurpose,
+		email: string,
+		token: string,
+		expectedHash: string,
+	): boolean {
+		return safeHashEquals(this.hashChallengeToken(purpose, email, token), expectedHash);
+	}
+
+	generateRecoveryCode(): string {
+		return `${randomBytes(4).toString('hex')}-${randomBytes(4).toString('hex')}`;
+	}
+
+	hashRecoveryCode(code: string): string {
+		return createHmac('sha256', this.config.authTokenSecret)
+			.update(`recovery:${code.trim().toLowerCase()}`)
+			.digest('hex');
+	}
+
+	encryptSecret(value: string): string {
+		const iv = randomBytes(12);
+		const cipher = createCipheriv('aes-256-gcm', this.getEncryptionKey(), iv);
+		const encrypted = Buffer.concat([cipher.update(value, 'utf8'), cipher.final()]);
+		return [iv, cipher.getAuthTag(), encrypted].map((part) => part.toString('base64url')).join('.');
+	}
+
+	decryptSecret(value: string): string {
+		const [ivValue, tagValue, encryptedValue, ...rest] = value.split('.');
+		if (!ivValue || !tagValue || !encryptedValue || rest.length > 0) {
+			throw new Error('Encrypted secret has an invalid format');
+		}
+		const decipher = createDecipheriv(
+			'aes-256-gcm',
+			this.getEncryptionKey(),
+			Buffer.from(ivValue, 'base64url'),
+		);
+		decipher.setAuthTag(Buffer.from(tagValue, 'base64url'));
+		return Buffer.concat([
+			decipher.update(Buffer.from(encryptedValue, 'base64url')),
+			decipher.final(),
+		]).toString('utf8');
 	}
 
 	createRefreshToken(sessionId: string): string {
@@ -90,6 +154,10 @@ export class AuthCryptoService {
 
 	private getJwtKey(): Uint8Array {
 		return new TextEncoder().encode(this.config.jwtSecret);
+	}
+
+	private getEncryptionKey(): Buffer {
+		return createHash('sha256').update(this.config.authTokenSecret).digest();
 	}
 }
 

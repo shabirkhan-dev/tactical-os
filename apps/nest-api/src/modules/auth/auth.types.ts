@@ -16,10 +16,21 @@ export type AuthSessionResult = {
 
 export type PublicAuthSession = Omit<AuthSessionResult, 'refreshToken'>;
 
+export type MfaLoginChallenge = {
+	requiresTwoFactor: true;
+	challengeToken: string;
+	expiresAt: string;
+	methods: ['totp', 'recovery_code'];
+};
+
+export type LoginResult = AuthSessionResult | MfaLoginChallenge;
+export type PublicLoginResult = PublicAuthSession | MfaLoginChallenge;
+
 export type AuthChallengeResult = {
 	accepted: true;
 	message: string;
 	developmentCode?: string;
+	developmentToken?: string;
 };
 
 export type RegistrationResult = AuthChallengeResult & { user: PublicUser };

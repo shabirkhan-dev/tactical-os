@@ -1,10 +1,14 @@
+import { beforeEach, describe, expect, it, type Mocked, vi } from 'vitest';
 import { AppConfigService } from '../../config/app-config.service';
 import type { AuthChallengeRecord, UserRecord } from '../../database/schema';
+import { EmailService } from '../email/email.service';
+import { MfaService } from '../mfa/mfa.service';
+import { PasskeysService } from '../passkeys/passkeys.service';
+import { SocialAuthService } from '../social-auth/social-auth.service';
 import { UsersService } from '../users/users.service';
 import { AuthRepository } from './auth.repository';
 import { AuthService } from './auth.service';
 import { AuthCryptoService } from './auth-crypto.service';
-import { AuthEmailService } from './auth-email.service';
 
 const user: UserRecord = {
 	id: 'a01a0cab-a947-44f0-bfcd-4b8e8c907534',
@@ -21,29 +25,38 @@ const user: UserRecord = {
 };
 
 describe('AuthService', () => {
-	let authRepository: jest.Mocked<AuthRepository>;
-	let crypto: jest.Mocked<AuthCryptoService>;
-	let email: jest.Mocked<AuthEmailService>;
-	let usersService: jest.Mocked<UsersService>;
+	let authRepository: Mocked<AuthRepository>;
+	let crypto: Mocked<AuthCryptoService>;
+	let email: Mocked<EmailService>;
+	let usersService: Mocked<UsersService>;
 	let service: AuthService;
 
 	beforeEach(() => {
 		authRepository = {
-			createChallenge: jest.fn(),
-		} as unknown as jest.Mocked<AuthRepository>;
+			createChallenge: vi.fn(),
+		} as unknown as Mocked<AuthRepository>;
 		crypto = {
-			hashPassword: jest.fn().mockResolvedValue('password-hash'),
-			generateOtp: jest.fn().mockReturnValue('123456'),
-			hashOtp: jest.fn().mockReturnValue('otp-hash'),
-		} as unknown as jest.Mocked<AuthCryptoService>;
+			hashPassword: vi.fn().mockResolvedValue('password-hash'),
+			generateOtp: vi.fn().mockReturnValue('123456'),
+			hashOtp: vi.fn().mockReturnValue('otp-hash'),
+		} as unknown as Mocked<AuthCryptoService>;
 		email = {
-			sendVerificationCode: jest.fn().mockResolvedValue(undefined),
-			sendPasswordResetCode: jest.fn().mockResolvedValue(undefined),
-		} as unknown as jest.Mocked<AuthEmailService>;
+			sendVerificationCode: vi.fn().mockResolvedValue(undefined),
+			sendPasswordResetCode: vi.fn().mockResolvedValue(undefined),
+		} as unknown as Mocked<EmailService>;
 		usersService = {
-			createUser: jest.fn().mockResolvedValue(user),
-		} as unknown as jest.Mocked<UsersService>;
-		service = new AuthService(new AppConfigService(), crypto, email, authRepository, usersService);
+			createUser: vi.fn().mockResolvedValue(user),
+		} as unknown as Mocked<UsersService>;
+		service = new AuthService(
+			new AppConfigService(),
+			crypto,
+			email,
+			authRepository,
+			usersService,
+			{ isTotpEnabled: vi.fn().mockResolvedValue(false) } as unknown as MfaService,
+			{} as PasskeysService,
+			{} as SocialAuthService,
+		);
 	});
 
 	it('registers a user and persists only a hashed verification code', async () => {
@@ -87,6 +100,7 @@ describe('AuthService', () => {
 				username: user.username,
 				isActive: true,
 				emailVerified: false,
+				hasPassword: true,
 				createdAt: user.createdAt.toISOString(),
 			},
 		});

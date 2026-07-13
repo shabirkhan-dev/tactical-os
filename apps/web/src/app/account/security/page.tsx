@@ -1,8 +1,5 @@
-import type { Metadata } from "next";
-import { AccountSecurity } from "@/modules/auth/components";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = { title: "Account security" };
-
-export default function AccountSecurityPage() {
-	return <AccountSecurity />;
+export default function AccountSecurityRedirectPage() {
+	redirect("/admin/account/security");
 }

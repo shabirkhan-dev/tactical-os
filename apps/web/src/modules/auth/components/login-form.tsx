@@ -1,11 +1,6 @@
 "use client";
 
-import {
-	AlertCircleIcon,
-	Mail01Icon,
-	ViewIcon,
-	ViewOffSlashIcon,
-} from "@hugeicons/core-free-icons";
+import { AlertCircleIcon, FingerPrintIcon, MailSend01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Alert, AlertDescription, AlertTitle } from "@school-os/ui/components/alert";
 import { Button } from "@school-os/ui/components/button";
@@ -16,149 +11,160 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@school-os/ui/components/card";
-import { Field, FieldDescription, FieldGroup, FieldLabel } from "@school-os/ui/components/field";
-import {
-	InputGroup,
-	InputGroupAddon,
-	InputGroupButton,
-	InputGroupInput,
-} from "@school-os/ui/components/input-group";
-import { Spinner } from "@school-os/ui/components/spinner";
+import { FieldDescription } from "@school-os/ui/components/field";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useAuth } from "@/context/auth-context";
+import { useCallback, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "../context/auth-context";
+import {
+	useGoogleLoginMutation,
+	useLoginMutation,
+	useMagicLinkRequestMutation,
+	usePasskeyLoginMutation,
+	useTwoFactorMutation,
+} from "../hooks/use-auth-mutations";
+import { useAuthProvidersQuery } from "../hooks/use-auth-queries";
+import { loginSchema } from "../schemas/auth.schemas";
+import type { TwoFactorChallenge } from "../types/auth.types";
+import { GoogleIdentityButton } from "./google-identity-button";
+import { LoginCredentialsForm } from "./presentation/login-credentials-form";
+import { TwoFactorForm } from "./presentation/two-factor-form";
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
 	const router = useRouter();
-	const { user, loading, error, clearError, login } = useAuth();
+	const { user, loading, error, clearError } = useAuth();
+	const providers = useAuthProvidersQuery();
+	const login = useLoginMutation();
+	const twoFactor = useTwoFactorMutation();
+	const passkey = usePasskeyLoginMutation();
+	const magicLink = useMagicLinkRequestMutation();
+	const google = useGoogleLoginMutation();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
-	const [submitting, setSubmitting] = useState(false);
+	const [challenge, setChallenge] = useState<TwoFactorChallenge | null>(null);
+	const [code, setCode] = useState("");
+	const [notice, setNotice] = useState<string | null>(null);
 
 	useEffect(() => {
-		if (!loading && user) {
-			router.replace("/admin");
-		}
+		if (!loading && user) router.replace("/admin");
 	}, [loading, router, user]);
 
-	if (loading || user) {
-		return (
-			<div className="flex min-h-48 items-center justify-center" aria-busy="true">
-				<Spinner className="size-6 text-muted-foreground" />
-			</div>
-		);
-	}
+	const finish = useCallback(() => router.push("/admin"), [router]);
+	const handleGoogle = useCallback(
+		(credential: string) => google.mutate(credential, { onSuccess: finish }),
+		[finish, google],
+	);
 
-	async function handleSubmit(e: React.FormEvent) {
-		e.preventDefault();
-		clearError();
-		setSubmitting(true);
-		try {
-			await login({ email, password });
-			router.push("/admin");
-		} catch {
-			// error set in context
-		} finally {
-			setSubmitting(false);
-		}
-	}
+	if (loading || user) return <div className="min-h-48" aria-busy="true" />;
+
+	const currentError =
+		error ??
+		(login.error instanceof Error ? login.error.message : null) ??
+		(twoFactor.error instanceof Error ? twoFactor.error.message : null) ??
+		(passkey.error instanceof Error ? passkey.error.message : null) ??
+		(google.error instanceof Error ? google.error.message : null);
 
 	return (
 		<div className={cn("flex flex-col gap-6", className)} {...props}>
 			<Card>
 				<CardHeader className="text-center">
-					<p className="text-muted-foreground text-sm font-medium tracking-wide">Starter</p>
-					<CardTitle className="text-2xl">Welcome back</CardTitle>
-					<CardDescription>Sign in to continue to your workspace</CardDescription>
+					<p className="text-muted-foreground text-sm font-medium">Starter</p>
+					<CardTitle className="text-2xl">
+						{challenge ? "Two-factor verification" : "Welcome back"}
+					</CardTitle>
+					<CardDescription>
+						{challenge ? "Complete the second step to continue" : "Choose a secure sign-in method"}
+					</CardDescription>
 				</CardHeader>
-				<CardContent>
-					<form onSubmit={handleSubmit}>
-						<FieldGroup>
-							{error ? (
-								<Alert variant="destructive">
-									<HugeiconsIcon icon={AlertCircleIcon} strokeWidth={2} />
-									<AlertTitle>Could not sign in</AlertTitle>
-									<AlertDescription>{error}</AlertDescription>
-								</Alert>
-							) : null}
+				<CardContent className="grid gap-4">
+					{currentError ? (
+						<Alert variant="destructive">
+							<HugeiconsIcon icon={AlertCircleIcon} strokeWidth={2} />
+							<AlertTitle>Could not sign in</AlertTitle>
+							<AlertDescription>{currentError}</AlertDescription>
+						</Alert>
+					) : null}
+					{notice ? (
+						<Alert>
+							<AlertDescription>{notice}</AlertDescription>
+						</Alert>
+					) : null}
 
-							<Field>
-								<FieldLabel htmlFor="email">Email</FieldLabel>
-								<InputGroup>
-									<InputGroupAddon>
-										<HugeiconsIcon icon={Mail01Icon} strokeWidth={2} />
-									</InputGroupAddon>
-									<InputGroupInput
-										id="email"
-										type="email"
-										placeholder="you@school.edu"
-										value={email}
-										onChange={(e) => setEmail(e.target.value)}
-										required
-										autoComplete="email"
-										disabled={submitting}
-									/>
-								</InputGroup>
-							</Field>
-
-							<Field>
-								<div className="flex items-center justify-between gap-2">
-									<FieldLabel htmlFor="password">Password</FieldLabel>
-									<Link
-										href="/forgot-password"
-										className="text-muted-foreground text-sm underline-offset-4 hover:underline"
-									>
-										Forgot password?
-									</Link>
-								</div>
-								<InputGroup>
-									<InputGroupInput
-										id="password"
-										type={showPassword ? "text" : "password"}
-										value={password}
-										onChange={(e) => setPassword(e.target.value)}
-										required
-										autoComplete="current-password"
-										disabled={submitting}
-									/>
-									<InputGroupAddon align="inline-end">
-										<InputGroupButton
-											size="icon-xs"
-											aria-label={showPassword ? "Hide password" : "Show password"}
-											onClick={() => setShowPassword((prev) => !prev)}
-										>
-											<HugeiconsIcon
-												icon={showPassword ? ViewOffSlashIcon : ViewIcon}
-												strokeWidth={2}
-											/>
-										</InputGroupButton>
-									</InputGroupAddon>
-								</InputGroup>
-							</Field>
-
-							<Field>
-								<Button type="submit" className="w-full" disabled={submitting}>
-									{submitting ? <Spinner data-icon="inline-start" /> : null}
-									{submitting ? "Signing in…" : "Sign in"}
+					{challenge ? (
+						<TwoFactorForm
+							code={code}
+							pending={twoFactor.isPending}
+							onCodeChange={setCode}
+							onCancel={() => {
+								setChallenge(null);
+								setCode("");
+								clearError();
+							}}
+							onSubmit={(event) => {
+								event.preventDefault();
+								twoFactor.mutate(
+									{ challengeToken: challenge.challengeToken, code },
+									{ onSuccess: finish },
+								);
+							}}
+						/>
+					) : (
+						<>
+							<LoginCredentialsForm
+								email={email}
+								password={password}
+								showPassword={showPassword}
+								pending={login.isPending}
+								onEmailChange={setEmail}
+								onPasswordChange={setPassword}
+								onTogglePassword={() => setShowPassword((value) => !value)}
+								onSubmit={(event) => {
+									event.preventDefault();
+									clearError();
+									const input = loginSchema.parse({ email, password });
+									login.mutate(input, {
+										onSuccess: (result) => {
+											if ("requiresTwoFactor" in result) setChallenge(result);
+											else finish();
+										},
+									});
+								}}
+							/>
+							<div className="grid gap-2 border-t pt-4">
+								<Button
+									variant="outline"
+									onClick={() => passkey.mutate(email, { onSuccess: finish })}
+									disabled={!email || passkey.isPending}
+								>
+									<HugeiconsIcon icon={FingerPrintIcon} strokeWidth={2} />
+									Sign in with a passkey
 								</Button>
-							</Field>
-
+								<Button
+									variant="outline"
+									onClick={() =>
+										magicLink.mutate(email, { onSuccess: (result) => setNotice(result.message) })
+									}
+									disabled={!email || magicLink.isPending}
+								>
+									<HugeiconsIcon icon={MailSend01Icon} strokeWidth={2} />
+									Email me a magic link
+								</Button>
+								{providers.data?.google.enabled ? (
+									<GoogleIdentityButton onCredential={handleGoogle} disabled={google.isPending} />
+								) : null}
+							</div>
 							<FieldDescription className="text-center">
 								Don&apos;t have an account?{" "}
-								<Link href="/register" className="text-primary underline underline-offset-4">
+								<Link href="/register" className="text-primary underline">
 									Create one
 								</Link>
 							</FieldDescription>
-						</FieldGroup>
-					</form>
+						</>
+					)}
 				</CardContent>
 			</Card>
-			<FieldDescription className="px-6 text-center">
-				By continuing, you agree to our Terms of Service and Privacy Policy.
-			</FieldDescription>
 		</div>
 	);
 }

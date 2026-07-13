@@ -7,6 +7,7 @@ const user = {
 	username: "starter",
 	isActive: true,
 	emailVerified: true,
+	hasPassword: true,
 	createdAt: "2026-07-13T00:00:00.000Z",
 };
 
@@ -51,7 +52,7 @@ describe("api client", () => {
 		});
 		await refreshSession();
 
-		expect(loginResult.accessToken).toBe("jwt-token");
+		expect("accessToken" in loginResult ? loginResult.accessToken : null).toBe("jwt-token");
 		for (const call of fetchMock.mock.calls) {
 			expect(call[1]).toEqual(expect.objectContaining({ credentials: "include" }));
 			const headers = call[1]?.headers as Headers;

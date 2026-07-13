@@ -43,7 +43,7 @@ export function SalesTrendCard({ className }: Props) {
 			</div>
 
 			{/* Inner card */}
-			<div className="rounded-xl border border-dashboard-border-subtle bg-dashboard-card-inner p-4 ">
+			<div className="overflow-x-auto rounded-xl border border-dashboard-border-subtle bg-dashboard-card-inner p-3 sm:p-4">
 				<div className="mb-4 flex flex-wrap items-center gap-3">
 					<div className="flex items-baseline gap-2">
 						<span className="text-[12px] text-dashboard-text-muted">Total Revenue:</span>
@@ -58,7 +58,7 @@ export function SalesTrendCard({ className }: Props) {
 					<RangeToggle />
 				</div>
 
-				<PixelGridChart highlightMonth="JUN" />
+				<PixelGridChart highlightMonth="JUN" className="min-w-[620px]" />
 			</div>
 		</section>
 	);

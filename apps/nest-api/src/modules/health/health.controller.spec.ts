@@ -1,4 +1,5 @@
 import { Test, type TestingModule } from '@nestjs/testing';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import { ConfigModule } from '../../config/config.module';
 import { HealthController } from './health.controller';
@@ -20,7 +21,7 @@ describe('HealthController', () => {
 	it('returns the API health status', () => {
 		expect(controller.getHealth()).toEqual({
 			status: 'ok',
-			service: 'school-os-api',
+			service: 'starter-api',
 		});
 	});
 });

@@ -12,12 +12,17 @@ Zod validation, secure cookies, and explicit SQL migrations.
 - Session listing, single-session revocation, logout, and logout-all
 - Forgot/reset password OTP flow
 - Authenticated password changes that revoke other sessions
+- TOTP two-factor authentication with one-time recovery codes
+- Passwordless magic-link sign in
+- Passkeys through WebAuthn (Touch ID, Face ID, Windows Hello, device PIN, or security key)
+- Google Identity Services sign in and explicit account linking
+- Separate user-profile, email-delivery, and authentication-provider modules
 - Generic account responses that avoid user enumeration
 - CSRF origin/header checks, CORS allowlist, Helmet, and rate limiting
 - OpenAPI docs at `http://localhost:4000/api/docs`
 
-Social authentication, roles, permissions, and product-specific domain models are intentionally not
-part of this foundation.
+Roles, permissions, additional social providers, and product-specific domain models are
+intentionally not part of this foundation.
 
 ## Setup
 
@@ -61,6 +66,10 @@ All routes are under `/api/v1/auth`.
 | `GET` | `/sessions` | List active sessions |
 | `DELETE` | `/sessions/:sessionId` | Revoke an active session |
 
+Additional authentication methods live under `/api/v1/auth/methods` and authenticated factor
+management lives under `/api/v1/auth/security`. User profile reads and writes use
+`/api/v1/users/me` and `/api/v1/users/me/profile`.
+
 Refresh tokens never appear in JSON responses. Browser clients must use `credentials: "include"`.
 Unsafe browser requests must send `X-Requested-With: XMLHttpRequest`.
 
@@ -71,3 +80,6 @@ Unsafe browser requests must send `X-Requested-With: XMLHttpRequest`.
 - Set `CORS_ORIGIN` to an explicit comma-separated allowlist.
 - Enable `TRUST_PROXY=true` behind a trusted reverse proxy.
 - Run migrations during deployment before starting new application instances.
+- Set `WEB_APP_URL`, `WEBAUTHN_RP_ID`, and `WEBAUTHN_ORIGIN` to the production web origin.
+- For Google sign-in, set the same web client ID in backend `GOOGLE_CLIENT_ID` and frontend
+  `NEXT_PUBLIC_GOOGLE_CLIENT_ID`.

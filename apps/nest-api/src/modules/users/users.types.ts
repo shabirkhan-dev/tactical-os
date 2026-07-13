@@ -6,6 +6,7 @@ export type PublicUser = {
 	username: string;
 	isActive: boolean;
 	emailVerified: boolean;
+	hasPassword: boolean;
 	createdAt: string;
 };
 
@@ -16,6 +17,7 @@ export function toPublicUser(user: UserRecord): PublicUser {
 		username: user.username,
 		isActive: user.isActive,
 		emailVerified: user.emailVerifiedAt !== null,
+		hasPassword: user.passwordHash !== null,
 		createdAt: user.createdAt.toISOString(),
 	};
 }

@@ -2,7 +2,8 @@ import { Body, Controller, INestApplication, Module, Post } from '@nestjs/common
 import { Test, type TestingModule } from '@nestjs/testing';
 import request from 'supertest';
 import { App } from 'supertest/types';
-import { z } from 'zod';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import * as z from 'zod';
 
 import { AppModule } from '../src/app.module';
 import { setupApp } from '../src/app.setup';
@@ -52,9 +53,20 @@ describe('AppController (e2e)', () => {
 			timestamp: expect.any(String),
 			data: {
 				status: 'ok',
-				service: 'school-os-api',
+				service: 'starter-api',
 			},
 		});
+	});
+
+	it('exposes the optional authentication method routes', async () => {
+		const providers = await request(app.getHttpServer()).get('/api/v1/auth/methods').expect(200);
+
+		expect(providers.body.data).toEqual({
+			google: { enabled: expect.any(Boolean) },
+		});
+		await request(app.getHttpServer()).get('/api/v1/auth/security').expect(401);
+		await request(app.getHttpServer()).post('/api/v1/auth/security/totp/setup').expect(401);
+		await request(app.getHttpServer()).post('/api/v1/auth/security/passkeys/options').expect(401);
 	});
 
 	it('returns the standard not found error shape', async () => {
