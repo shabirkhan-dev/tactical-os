@@ -21,7 +21,6 @@ import {
 	UserSettings01Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { type ComponentProps, useState } from "react";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -29,8 +28,14 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+} from "@school-os/ui/components/dropdown-menu";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@school-os/ui/components/tooltip";
+import { type ComponentProps, useState } from "react";
 import { cn } from "@/lib/utils";
 
 type IconType = ComponentProps<typeof HugeiconsIcon>["icon"];

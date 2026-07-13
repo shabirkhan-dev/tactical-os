@@ -1,4 +1,4 @@
-import { parseEnv, type Env } from './env.schema';
+import { type Env, parseEnv } from './env.schema';
 
 export type AppConfig = {
 	nodeEnv: Env['NODE_ENV'];

@@ -2,9 +2,9 @@
 
 import { Moon01Icon, Notification03Icon, PrinterIcon, Sun01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@school-os/ui/components/tooltip";
 import { useTheme } from "next-themes";
 import { type ComponentProps, useEffect, useState } from "react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
 type IconType = ComponentProps<typeof HugeiconsIcon>["icon"];

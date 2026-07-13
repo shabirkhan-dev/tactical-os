@@ -11,7 +11,8 @@ Production backend for School OS, built with **NestJS 11**, **Zod**, and **Biome
 - Response interceptor and exception filter
 - Zod validation pipe
 
-See [docs/school-os-production-roadmap.md](../../docs/school-os-production-roadmap.md) for the full build plan.
+See the docs app page [Production Roadmap](../../apps/docs/content/docs/production-roadmap.mdx)
+(`/docs/production-roadmap` when running `bun --cwd apps/docs run dev`) for the full build plan.
 
 ## Commands
 

@@ -19,9 +19,9 @@ import {
 	ToggleGroup,
 	ToggleGroupItem,
 } from "@school-os/ui";
+import { useIsMobile } from "@school-os/ui/hooks/use-mobile";
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 export const description = "An interactive area chart";
 

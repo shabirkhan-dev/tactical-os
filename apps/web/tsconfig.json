@@ -2,7 +2,8 @@
   "extends": "../../packages/typescript-config/nextjs.json",
   "compilerOptions": {
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@school-os/ui/*": ["../../packages/ui/src/*"]
     }
   },
   "include": [

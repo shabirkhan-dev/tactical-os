@@ -76,6 +76,7 @@ import {
 	TabsList,
 	TabsTrigger,
 } from "@school-os/ui";
+import { useIsMobile } from "@school-os/ui/hooks/use-mobile";
 import {
 	type ColumnDef,
 	type ColumnFiltersState,
@@ -95,7 +96,6 @@ import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import { toast } from "sonner";
 import { z } from "zod";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 export const schema = z.object({
 	id: z.number(),

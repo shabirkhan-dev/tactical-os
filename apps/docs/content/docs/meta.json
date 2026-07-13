@@ -1,11 +1,20 @@
 {
-  "title": "Documentation",
-  "pages": [
-    "index",
-    "quick-start",
-    "project-structure",
-    "apps-overview",
-    "commands-and-tooling",
-    "development-workflow"
-  ]
+	"title": "Documentation",
+	"pages": [
+		"index",
+		"quick-start",
+		"project-structure",
+		"apps-overview",
+		"commands-and-tooling",
+		"development-workflow",
+		"---",
+		"docker",
+		"qol",
+		"production-roadmap",
+		"product-system-design",
+		"ai-first-workflow",
+		"architecture",
+		"overrides",
+		"dependency-upgrade-report"
+	]
 }

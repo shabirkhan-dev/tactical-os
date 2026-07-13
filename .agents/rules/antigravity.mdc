@@ -24,7 +24,7 @@ I am Antigravity, an advanced agentic coding assistant. When working in this rep
 
 ## 4. Communication & Documentation
 - **Clear Intent**: Use artifacts for complex plans and walkthroughs.
-- **Explicit Decisions**: Document architectural decisions or overrides in the appropriate `docs/` files.
+- **Explicit Decisions**: Document architectural decisions or overrides in the docs app (`apps/docs/content/docs/`, especially `/docs/architecture` and `/docs/overrides`).
 - **Concise Updates**: Keep the USER informed with brief, actionable summaries.
 
 ## 5. Environment Awareness

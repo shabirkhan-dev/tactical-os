@@ -26,10 +26,10 @@ school-os/
 │   └── rust/                 # Rust binary app (Cargo)
 ├── packages/
 │   ├── logger/               # Shared logger (TypeScript + Rust)
-│   ├── tailwind-config/      # Shared Tailwind theme/tokens
-│   └── typescript-config/    # Shared TS config bases
+│   ├── typescript-config/    # Shared TS config bases
+│   └── ui/                   # Shared web UI primitives + design tokens
 ├── scripts/                  # Bash, Python scripts and tests
-├── docs/                     # Architecture, Docker, QoL docs
+├── docs/                     # Pointer to apps/docs (docs site is the source of truth)
 ├── docker/                   # Docker Compose fragments
 ├── .github/workflows/        # CI/CD/security workflows
 ├── .devcontainer/            # Reproducible development environment
@@ -45,7 +45,7 @@ school-os/
 | App | Stack | Notes |
 | --- | --- | --- |
 | `apps/web` | Next.js 16, React 19, Tailwind 4 | Includes unit/integration and Playwright e2e flow |
-| `apps/mobile` | Expo SDK 55, Expo Router, React Native, NativeWind | Mobile-first file-based routing |
+| `apps/mobile` | Expo SDK 57, Expo Router, React Native, NativeWind | Mobile-first file-based routing |
 | `apps/nest-api` | NestJS 11, Zod, Jest | Production API spine |
 | `apps/docs` | Next.js + Fumadocs + MDX | Project docs site |
 | `apps/rust` | Cargo, clippy, rustfmt | Rust application template |
@@ -54,9 +54,8 @@ school-os/
 
 | Package | Workspace import | Purpose |
 | --- | --- | --- |
-| `packages/ui` | `@school-os/ui` | Shared web UI primitives |
+| `packages/ui` | `@school-os/ui` | Shared web UI primitives + design tokens |
 | `packages/logger` | `@school-os/logger` | Shared structured logger for TypeScript and Rust |
-| `packages/tailwind-config` | `@school-os/tailwind-config` | Shared design tokens/theme |
 | `packages/typescript-config` | `@school-os/typescript-config` | Reusable TypeScript config presets |
 
 ## Root command surface
@@ -133,7 +132,7 @@ bun run prepare
 
 - Rule checks run via `bun run architecture:check`
 - Script location: `scripts/architecture/check-boundaries.sh`
-- See `docs/architecture/README.md` for boundaries and allowed dependency flow
+- See docs app `/docs/architecture` for boundaries and allowed dependency flow
 
 ## CI/CD and security
 
@@ -151,7 +150,7 @@ cp env.docker.example .env
 docker compose up --build
 ```
 
-More details: `docs/docker.md` and `docker/README.md`.
+More details: docs app `/docs/docker` and `docker/README.md`.
 
 ## Dev Container workflow
 
@@ -164,15 +163,13 @@ More details: `docs/docker.md` and `docker/README.md`.
 
 - Primary repository guidance: `AGENTS.md`
 - Cursor-specific rules: `.cursor/rules/`
-- Architecture baseline: `docs/architecture/README.md`
-- Override process: `docs/overrides.md`
+- Architecture baseline: docs app `/docs/architecture`
+- Override process: docs app `/docs/overrides`
 - Use workspace imports as `@school-os/<package>`
 
 ## Related docs
 
 - `README.md` - quick start and high-level navigation
-- `docs/product-system-design.md` - full product architecture, database model, service map,
-  route plan, security model, AI design, and phased roadmap
-- `docs/QoL.md` - quality-of-life stack details
+- Docs app (`apps/docs`): `/docs/product-system-design`, `/docs/qol`, `/docs/production-roadmap`
 - `scripts/README.md` - script usage and structure
 - `apps/*/README.md` - per-app setup and workflows

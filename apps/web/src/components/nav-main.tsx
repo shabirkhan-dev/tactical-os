@@ -2,14 +2,14 @@
 
 import { Mail01Icon, PlusSignCircleIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@school-os/ui/components/button";
 import {
 	SidebarGroup,
 	SidebarGroupContent,
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
-} from "@/components/ui/sidebar";
+} from "@school-os/ui/components/sidebar";
 
 export function NavMain({
 	items,

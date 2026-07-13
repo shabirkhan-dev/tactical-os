@@ -1,9 +1,7 @@
 import { z } from 'zod';
 
 export const envSchema = z.object({
-	NODE_ENV: z
-		.enum(['development', 'test', 'production'])
-		.default('development'),
+	NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
 	PORT: z.coerce.number().int().positive().default(3000),
 	API_PREFIX: z.string().min(1).default('api'),
 	API_VERSION: z.string().regex(/^\d+$/).default('1'),

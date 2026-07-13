@@ -1,41 +1,27 @@
 # docs
 
-This is a Next.js application generated with
-[Create Fumadocs](https://github.com/fuma-nama/fumadocs).
+School OS documentation site (Next.js + Fumadocs).
 
-Run development server:
+All project docs live in `content/docs/` and are served from this app.
 
 ```bash
-bun run dev
+bun --cwd apps/docs run dev
 ```
 
-Open http://localhost:3000 with your browser to see the result.
+Open http://localhost:3000/docs
 
-## Explore
+## Content map
 
-In the project, you can see:
+| Path | Topic |
+| --- | --- |
+| `/docs` | Home |
+| `/docs/quick-start` | Bootstrap |
+| `/docs/production-roadmap` | Nest API / product phases |
+| `/docs/product-system-design` | Architecture & data model |
+| `/docs/architecture` | Boundaries + ADRs |
+| `/docs/docker` | Compose / Postgres |
+| `/docs/qol` | Hooks, CI, tooling |
+| `/docs/ai-first-workflow` | AI-assisted workflow |
+| `/docs/overrides` | Architecture override policy |
 
-- `lib/source.ts`: Code for content source adapter, [`loader()`](https://fumadocs.dev/docs/headless/source-api) provides the interface to access your content.
-- `lib/layout.shared.tsx`: Shared options for layouts, optional but preferred to keep.
-
-| Route                     | Description                                            |
-| ------------------------- | ------------------------------------------------------ |
-| `app/(home)`              | The route group for your landing page and other pages. |
-| `app/docs`                | The documentation layout and pages.                    |
-| `app/api/search/route.ts` | The Route Handler for search.                          |
-
-### Fumadocs MDX
-
-A `source.config.ts` config file has been included, you can customise different options like frontmatter schema.
-
-Read the [Introduction](https://fumadocs.dev/docs/mdx) for further details.
-
-## Learn More
-
-To learn more about Next.js and Fumadocs, take a look at the following
-resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
-  features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [Fumadocs](https://fumadocs.dev) - learn about Fumadocs
+Agents should prefer these pages (and `AGENTS.md` / `DESIGN.md` at repo root) over the old root `docs/` folder.

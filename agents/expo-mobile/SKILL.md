@@ -95,7 +95,8 @@ Ask Cursor to follow that skill when adding or fixing Tailwind in `apps/mobile` 
 
 - Add packages with **`bun`** from the repo root (`bun install`). Do not use `npm install` inside the workspace (breaks `workspace:*`).
 - Typical files you will touch: `package.json`, `tailwind.config.*`, `global.css` (or `src/global.css`), **`src/app/_layout.tsx`** (CSS import), `metro.config.js`, `babel.config.js`, TypeScript env types for `className` (e.g. `nativewind-env.d.ts`), and `tsconfig` `include` for those types.
-- Optional: align **design tokens** with the web app by reusing or importing from **`packages/tailwind-config`** (e.g. `theme.css`) — wire paths so Metro can resolve them.
+- Optional: align **design tokens** with the web app by reusing or importing from
+  **`packages/ui/src/styles/globals.css`** — wire paths so Metro can resolve them.
 
 ### Default template vs Tailwind
 

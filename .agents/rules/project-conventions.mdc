@@ -9,7 +9,7 @@ alwaysApply: true
 - **Package manager**: Bun only. Use `bun` for install/run — never npm, yarn, or pnpm.
 - **Lint/format**: Biome only (no ESLint/Prettier). Config: root `biome.json`. Pre-commit hook (lefthook) runs `biome check --write .`.
 - **Style**: Tabs, line width 100. Biome applies to `apps/**/*.ts(x)`, `packages/**/*.ts(x)`, `*.config.ts`, `*.config.mjs`.
-- **Shared packages**: `packages/ui` (shadcn-style components), `packages/tailwind-config` (theme.css), `packages/typescript-config` (tsconfig bases), `packages/logger` (TS + Rust logger).
+- **Shared packages**: `packages/ui` (shadcn components + design tokens in `src/styles/globals.css`), `packages/typescript-config` (tsconfig bases), `packages/logger` (TS + Rust logger).
 - **Apps**: `apps/web` (Next.js), `apps/mobile` (Expo Router + NativeWind), `apps/hono-api` (Hono + Prisma + PostgreSQL), `apps/rust` (Cargo). Add new apps under `apps/` and wire in `turbo.json`.
 - **Expo mobile**: Use file-based routes in `apps/mobile/src/app`, shared logic in `apps/mobile/src`, and UI primitives in `apps/mobile/src/components/ui`.
 - **Safe area**: In React Native use `react-native-safe-area-context` (`SafeAreaProvider`, `SafeAreaView`) instead of deprecated `react-native` `SafeAreaView`.

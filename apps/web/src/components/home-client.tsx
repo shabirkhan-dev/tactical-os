@@ -1,7 +1,7 @@
 "use client";
 
+import { Button } from "@school-os/ui/components/button";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/auth-context";
 
 export function HomeClient() {

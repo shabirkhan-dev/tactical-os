@@ -1,7 +1,13 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@school-os/ui/components/button";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@school-os/ui/components/card";
 import { useAuth } from "@/context/auth-context";
 import type { ApiKind } from "@/lib/auth-types";
 import { cn } from "@/lib/utils";

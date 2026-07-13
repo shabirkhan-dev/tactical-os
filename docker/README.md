@@ -9,7 +9,7 @@ Compose is split into **fragments** under `compose/` so each stack concern stays
 
 The production Nest API (`apps/nest-api`) runs on the host during early phases. A compose fragment for it will be added when the database foundation lands.
 
-**Env:** copy `env.docker.example` from the repo root to `.env` (Compose reads it from the project directory). See `docs/docker.md`.
+**Env:** copy `env.docker.example` from the repo root to `.env` (Compose reads it from the project directory). See the docs app `/docs/docker`.
 
 **Manual merge (no `include`):**
 

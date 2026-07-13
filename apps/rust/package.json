@@ -6,7 +6,7 @@
     "build": "cargo build --release",
     "dev": "cargo run",
     "lint": "cargo clippy -- -D warnings",
-    "lint:fix": "cargo clippy --fix --allow-dirty -- -D warnings",
+    "lint:fix": "cargo fmt",
     "format": "cargo fmt",
     "test": "cargo test"
   }

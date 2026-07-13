@@ -1,6 +1,6 @@
 "use client";
 
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { TooltipProvider } from "@school-os/ui/components/tooltip";
 import { cn } from "@/lib/utils";
 import { BreadcrumbTrail, type Crumb } from "./topbar/breadcrumb-trail";
 import { GlobalSearch } from "./topbar/global-search";

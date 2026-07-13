@@ -8,9 +8,7 @@ import {
 	UserCircle02Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@school-os/ui/components/avatar";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -19,13 +17,15 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@school-os/ui/components/dropdown-menu";
 import {
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
 	useSidebar,
-} from "@/components/ui/sidebar";
+} from "@school-os/ui/components/sidebar";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/auth-context";
 
 export function NavUser({

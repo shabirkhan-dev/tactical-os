@@ -1,7 +1,13 @@
+import { Button } from "@school-os/ui/components/button";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@school-os/ui/components/card";
 import Link from "next/link";
 import { HomeClient } from "@/components/home-client";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Page() {
 	return (

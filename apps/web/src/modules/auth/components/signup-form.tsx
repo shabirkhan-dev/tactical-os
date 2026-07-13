@@ -1,20 +1,20 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { getApiDisplayName } from "@/components/api-switcher";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@school-os/ui/components/button";
+import { Card, CardContent } from "@school-os/ui/components/card";
 import {
 	Field,
 	FieldDescription,
 	FieldGroup,
 	FieldLabel,
 	FieldSeparator,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+} from "@school-os/ui/components/field";
+import { Input } from "@school-os/ui/components/input";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { getApiDisplayName } from "@/components/api-switcher";
 import { useAuth } from "@/context/auth-context";
 import { cn } from "@/lib/utils";
 

@@ -35,7 +35,7 @@ Generated UI must feel domain-specific, accessible, responsive, and built from r
 
 ## Tokens
 
-The shared Tailwind 4 token file lives at `packages/tailwind-config/theme.css`.
+The shared Tailwind 4 design tokens live at `packages/ui/src/styles/globals.css` (shadcn monorepo style).
 
 Current baseline:
 

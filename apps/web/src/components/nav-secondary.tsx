@@ -1,14 +1,13 @@
 "use client";
 
-import type * as React from "react";
-
 import {
 	SidebarGroup,
 	SidebarGroupContent,
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
-} from "@/components/ui/sidebar";
+} from "@school-os/ui/components/sidebar";
+import type * as React from "react";
 
 export function NavSecondary({
 	items,

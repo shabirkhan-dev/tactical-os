@@ -1,7 +1,12 @@
 {
 	"extends": "../typescript-config/base.json",
 	"compilerOptions": {
-		"types": ["react"]
+		"types": ["react"],
+		"ignoreDeprecations": "6.0",
+		"baseUrl": ".",
+		"paths": {
+			"@school-os/ui/*": ["./src/*"]
+		}
 	},
 	"include": ["src/**/*.ts", "src/**/*.tsx"],
 	"exclude": ["node_modules"]

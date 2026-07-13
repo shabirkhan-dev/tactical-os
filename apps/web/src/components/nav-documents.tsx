@@ -13,7 +13,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@school-os/ui/components/dropdown-menu";
 import {
 	SidebarGroup,
 	SidebarGroupLabel,
@@ -22,7 +22,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 	useSidebar,
-} from "@/components/ui/sidebar";
+} from "@school-os/ui/components/sidebar";
 
 export function NavDocuments({
 	items,

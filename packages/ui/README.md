@@ -1,29 +1,57 @@
-# @school-os/ui
+# `@school-os/ui`
 
-Shared web UI primitives for the school-os monorepo.
+Shared shadcn/ui primitives for the School OS monorepo.
 
-This package is intentionally small. It contains stable shadcn-style primitives that are safe to
-reuse across web apps. Keep complex, product-specific composed components inside each app until they
-prove reusable.
+This package follows the [shadcn monorepo](https://ui.shadcn.com/docs/monorepo) layout:
 
-## Usage
+- UI primitives live in `src/components`
+- Shared helpers in `src/lib`
+- Shared hooks in `src/hooks`
+- Design tokens + theme in `src/styles/globals.css`
+- CLI config in `components.json`
 
-```tsx
-import { Button, Card, CardContent, CardHeader, CardTitle } from "@school-os/ui";
+## Add components
+
+Run the CLI **from the app workspace** (not the package):
+
+```bash
+cd apps/web
+bunx --bun shadcn@latest add button
 ```
 
-The consuming app must include the shared Tailwind token file and scan this package for classes:
+The CLI installs primitives into `packages/ui` and app-only blocks into `apps/web`.
+
+Keep `style`, `iconLibrary`, and `baseColor` identical in:
+
+- `apps/web/components.json`
+- `packages/ui/components.json`
+
+## Importing
+
+Preferred (deep imports — matches CLI aliases):
+
+```tsx
+import { Button } from "@school-os/ui/components/button";
+import { cn } from "@school-os/ui/lib/utils";
+import { useIsMobile } from "@school-os/ui/hooks/use-mobile";
+```
+
+Barrel import (still supported):
+
+```tsx
+import { Button, Card, cn } from "@school-os/ui";
+```
+
+## Styles
+
+Apps import shared tokens from this package:
 
 ```css
-@import "../../../../packages/tailwind-config/theme.css";
+@import "tailwindcss";
+@import "@school-os/ui/globals.css";
 @source "../../../../packages/ui/src";
 ```
 
-## Migration Rule
+## Migration rule
 
-Move components into this package only when:
-
-- the component is a primitive or clearly reusable pattern,
-- it does not depend on app routing, auth, data fetching, or app-local state,
-- it uses shared tokens instead of one-off colors,
-- it has loading/disabled/focus/error states where relevant.
+Keep product-specific composed UI in `apps/web/src/components`. Move a component here only when it is a reusable primitive with no app routing/auth/data coupling.

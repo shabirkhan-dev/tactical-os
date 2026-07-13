@@ -2,13 +2,13 @@
 
 import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useState } from "react";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@school-os/ui/components/dropdown-menu";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 export type Period = "Daily" | "Weekly" | "Monthly" | "Yearly";

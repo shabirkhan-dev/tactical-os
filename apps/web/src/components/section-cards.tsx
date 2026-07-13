@@ -2,7 +2,7 @@
 
 import { ChartDownIcon, ChartUpIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@school-os/ui/components/badge";
 import {
 	Card,
 	CardAction,
@@ -10,7 +10,7 @@ import {
 	CardFooter,
 	CardHeader,
 	CardTitle,
-} from "@/components/ui/card";
+} from "@school-os/ui/components/card";
 
 export function SectionCards() {
 	return (

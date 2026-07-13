@@ -25,10 +25,9 @@ bun run dev
 
 | Area | Purpose |
 | --- | --- |
-| `apps/` | Runnable products/services: web, mobile, APIs, docs, and language demos |
+| `apps/` | Runnable products/services: web, mobile, Nest API, docs, Rust |
 | `packages/` | Shared workspace packages used across apps (`@school-os/*`) |
 | `scripts/` | Utility + test scripts in Bash/Python |
-| `docs/` | Architecture, Docker, QoL, and override documentation |
 | `docker/` | Docker Compose fragments used by root `docker-compose.yml` |
 | `.github/workflows/` | CI, CD, and security automation |
 | `.devcontainer/` | Reproducible development environment |
@@ -38,7 +37,7 @@ bun run dev
 | App | Stack | What it covers |
 | --- | --- | --- |
 | `apps/web` | Next.js 16, React 19, Tailwind 4 | Main web app + Vitest + Playwright e2e |
-| `apps/mobile` | Expo SDK 55, Expo Router, React Native, NativeWind | Mobile app with file-based routing |
+| `apps/mobile` | Expo SDK 57, Expo Router, React Native, NativeWind | Mobile app with file-based routing |
 | `apps/nest-api` | NestJS 11, Zod, Jest | Production API spine (REST, PostgreSQL in later phases) |
 | `apps/docs` | Next.js + Fumadocs + MDX | Documentation site |
 | `apps/rust` | Cargo, clippy, rustfmt | Rust binary app and tests |
@@ -47,9 +46,8 @@ bun run dev
 
 | Package | Purpose |
 | --- | --- |
-| `packages/ui` | Shared web UI primitives (`@school-os/ui`) |
+| `packages/ui` | Shared web UI primitives (`@school-os/ui`) + design tokens |
 | `packages/logger` | Shared logger for TypeScript and Rust |
-| `packages/tailwind-config` | Shared Tailwind theme/tokens |
 | `packages/typescript-config` | Shared TS config presets (`base`, `nextjs`, `expo`) |
 
 ## Root commands (single interface)
@@ -95,6 +93,17 @@ You can target one app with `bun --cwd <path> run <script>`, for example:
 - `bun --cwd apps/docs run dev`
 - `bun --cwd apps/rust run dev`
 
+### shadcn/ui (monorepo)
+
+Add components from the **app** directory so the CLI installs primitives into `packages/ui`:
+
+```bash
+cd apps/web
+bunx --bun shadcn@latest add button
+```
+
+Import shared UI as `@school-os/ui/components/...`. See `packages/ui/README.md`.
+
 ## Docker
 
 Postgres for local development (Nest API runs on the host for now):
@@ -108,7 +117,7 @@ bun --cwd apps/nest-api run dev
 
 - Compose fragments live in `docker/compose/`
 - Root `docker-compose.yml` includes fragment files
-- See [docs/docker.md](docs/docker.md) for env/ports/full usage
+- See [apps/docs](apps/docs) (`/docs/docker`) for env/ports/full usage
 
 ## Reproducible development
 
@@ -118,16 +127,28 @@ bun --cwd apps/nest-api run dev
 
 ## Documentation map
 
+Human and agent docs live in the **docs app** (`apps/docs`). Run:
+
+```bash
+bun --cwd apps/docs run dev
+```
+
+Then open:
+
+- [/docs](http://localhost:3000/docs) — docs home
+- [/docs/quick-start](http://localhost:3000/docs/quick-start)
+- [/docs/production-roadmap](http://localhost:3000/docs/production-roadmap)
+- [/docs/product-system-design](http://localhost:3000/docs/product-system-design)
+- [/docs/architecture](http://localhost:3000/docs/architecture)
+- [/docs/docker](http://localhost:3000/docs/docker)
+- [/docs/qol](http://localhost:3000/docs/qol)
+- [/docs/ai-first-workflow](http://localhost:3000/docs/ai-first-workflow)
+- [/docs/overrides](http://localhost:3000/docs/overrides)
+
+Root quick refs (not migrated into the docs site):
+
 - [PROJECT.md](PROJECT.md) - project overview and conventions
 - [DESIGN.md](DESIGN.md) - design-system brief for humans and AI agents
-- [docs/product-system-design.md](docs/product-system-design.md) - full product architecture,
-  data model, service map, security model, and build roadmap
-- [docs/school-os-production-roadmap.md](docs/school-os-production-roadmap.md) - production build phases and backend spine (NestJS)
-- [docs/ai-first-school-os-workflow.md](docs/ai-first-school-os-workflow.md) - school-os audit and AI-first workflow roadmap
-- [docs/QoL.md](docs/QoL.md) - developer quality-of-life stack
-- [docs/docker.md](docs/docker.md) - Docker setup and flow
-- [docs/architecture/README.md](docs/architecture/README.md) - architecture baseline and rules
-- [docs/overrides.md](docs/overrides.md) - override policy
 - [scripts/README.md](scripts/README.md) - script layout and usage
 
 ## License

@@ -28,13 +28,11 @@ school-os/
 │   └── rust/            # Rust binary (Cargo, Axum)
 
 ├── packages/
-│   ├── ui/              # Shared web UI primitives
-│   ├── tailwind-config/ # Shared Tailwind theme (theme.css)
 │   ├── typescript-config/ # Shared tsconfig bases (base.json, nextjs.json)
+│   ├── ui/              # Shared web UI primitives + shadcn styles/tokens
 │   └── logger/          # Shared logger (TS + Rust)
 ├── scripts/             # Utility scripts: bash/, python/
 ├── docker/              # Docker Compose fragments (see docker/README.md)
-├── docs/                # Extra docs: docker.md, QoL.md
 ├── .cursor/rules/       # Cursor-specific rules (also summarised below)
 ├── .devcontainer/       # Dev Container config (Bun, Rust, Python, etc.)
 ├── .github/workflows/   # CI (lint, typecheck, build, test)
@@ -77,8 +75,8 @@ school-os/
 - **No ESLint/Prettier**: Biome is the only lint/format tool for TS/JS in this project.
 - **Naming**: PascalCase for components; files match component name. Hooks use `use*` prefix;
   utility functions are plain named exports.
-- **Imports**: Prefer workspace imports as `@school-os/<package>` (e.g. `@school-os/ui`,
-  @school-os/tailwind-config). Group: external → workspace → relative. No unused imports.
+- **Imports**: Prefer workspace imports as `@school-os/<package>` (e.g. `@school-os/ui`).
+  Group: external → workspace → relative. No unused imports.
 - **Types**: Explicit types for props and public APIs. Avoid `any`; use `unknown` and narrow.
 - **Errors**: Handle explicitly — log and rethrow, or use result types. No silent catches.
 - **Size**: Small, single-responsibility functions and components. Extract when complexity grows.
@@ -89,8 +87,8 @@ school-os/
   prefer changing a shared package.
 - **New apps**: Add under `apps/`, wire into `turbo.json` tasks if needed.
 - **New packages**: Add under `packages/`, export via `@school-os/<name>`.
-- **Shared UI**: `packages/ui` uses shadcn-style components. Shared Tailwind theme is in
-  `packages/tailwind-config/theme.css`.
+- **Shared UI**: `packages/ui` uses shadcn-style components. Shared Tailwind tokens live in
+  `packages/ui/src/styles/globals.css`.
 - **TypeScript config**: Extend from `packages/typescript-config/base.json` (or `nextjs.json`
   for Next.js apps).
 - **Expo mobile structure**: Use `src/app` for routes, `src/components/ui` for UI primitives,
@@ -124,7 +122,7 @@ cp env.docker.example .env
 docker compose up -d
 bun --cwd apps/nest-api run dev
 ```
-Postgres on 5432. See `docs/docker.md`.
+Postgres on 5432. See the docs site: `/docs/docker` (`apps/docs`).
 
 ## Before finishing any task
 
@@ -137,15 +135,17 @@ Postgres on 5432. See `docs/docker.md`.
 
 - `PROJECT.md` — detailed layout, tooling, and commands.
 - `DESIGN.md` — design-system brief for UI generation and review.
-- `docs/school-os-production-roadmap.md` — production build phases and Nest API spine
-- `docs/ai-first-school-os-workflow.md` — school-os audit and AI-first workflow roadmap.
-- `docs/QoL.md` — full QoL stack (hooks, CI, per-language tools).
-- `docs/architecture/README.md` — architecture baseline and enforceable boundaries.
-- `docs/overrides.md` — policy for project-specific architecture overrides.
+- **Docs app** (`apps/docs`, run with `bun --cwd apps/docs run dev`):
+  - `/docs/production-roadmap` — production build phases and Nest API spine
+  - `/docs/ai-first-workflow` — school-os audit and AI-first workflow roadmap
+  - `/docs/qol` — full QoL stack (hooks, CI, per-language tools)
+  - `/docs/architecture` — architecture baseline and enforceable boundaries
+  - `/docs/overrides` — policy for project-specific architecture overrides
+  - `/docs/docker` — Docker Compose setup
+  - `/docs/product-system-design` — product architecture and security model
 - `.cursor/skills/expo-mobile/SKILL.md` — Expo Router + EAS + official Expo Skills / LLM doc links for `apps/mobile`.
 - `.cursor/rules/expo-ai-agents.mdc` — Expo remote skills URL, skill table, `llms.txt` bundles (when working under `apps/mobile/**`).
 - `apps/mobile/AGENTS.md` — Short index for agents opening the mobile app folder.
-- `docs/docker.md` — Docker Compose setup.
 - `docker/README.md` — Compose fragment layout and `-f` fallback.
 - `biome.json` — Biome config (lint rules, formatter settings).
 - `lefthook.yml` — Git hook definitions.
