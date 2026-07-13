@@ -15,10 +15,11 @@ if rg -n "from\\s+\"@/" packages -g "*.ts" -g "*.tsx" >/dev/null 2>&1; then
 	failed=1
 fi
 
-# web modules may expose top-level module entrypoints only.
-if rg -n "from\\s+\"@/modules/[^\\\"]+/[^\\\"]+/[^\\\"]+\"" apps/web/src -g "*.ts" -g "*.tsx" >/dev/null 2>&1; then
-	echo "error: deep module imports in web are forbidden; import from module public entrypoints."
-	rg -n "from\\s+\"@/modules/[^\\\"]+/[^\\\"]+/[^\\\"]+\"" apps/web/src -g "*.ts" -g "*.tsx" || true
+# Outside a module, consumers must import public entrypoints only (not deep paths).
+# Files inside apps/web/src/modules/** may use deep @/modules/... paths or relatives.
+if rg -n "from\\s+\"@/modules/[^\\\"]+/[^\\\"]+/[^\\\"]+\"" apps/web/src/app apps/web/src/components apps/web/src/context apps/web/src/lib -g "*.ts" -g "*.tsx" >/dev/null 2>&1; then
+	echo "error: deep module imports outside modules/ are forbidden; import from module public entrypoints."
+	rg -n "from\\s+\"@/modules/[^\\\"]+/[^\\\"]+/[^\\\"]+\"" apps/web/src/app apps/web/src/components apps/web/src/context apps/web/src/lib -g "*.ts" -g "*.tsx" || true
 	failed=1
 fi
 

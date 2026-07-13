@@ -15,6 +15,11 @@ export function setupApp(app: INestApplication, config: AppConfigService): void 
 		defaultVersion: config.apiVersion,
 	});
 
+	app.enableCors({
+		origin: config.corsOrigin.split(',').map((origin) => origin.trim()),
+		credentials: true,
+	});
+
 	app.use(requestIdMiddleware);
 	app.useGlobalPipes(new ZodValidationPipe());
 	app.useGlobalInterceptors(new ResponseInterceptor());

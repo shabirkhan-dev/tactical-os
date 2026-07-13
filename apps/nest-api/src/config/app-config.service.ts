@@ -25,4 +25,16 @@ export class AppConfigService {
 	get serviceName(): string {
 		return this.config.serviceName;
 	}
+
+	get jwtSecret(): string {
+		return this.config.jwtSecret;
+	}
+
+	get jwtExpiresIn(): string {
+		return this.config.jwtExpiresIn;
+	}
+
+	get corsOrigin(): string {
+		return this.config.corsOrigin;
+	}
 }

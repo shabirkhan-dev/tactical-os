@@ -1,18 +1,16 @@
-/** Shared auth types for Python, Rust, and Hono APIs. */
-
-export type ApiKind = "python" | "rust" | "hono";
+/** Shared auth types for the NestJS API. */
 
 export interface User {
-	id: number | string;
+	id: string;
 	email: string;
 	username: string;
 	is_active: boolean;
-	enable2FA?: boolean;
 }
 
 export interface TokenResponse {
 	access_token: string;
 	token_type?: string;
+	user?: User;
 }
 
 export interface LoginRequest {

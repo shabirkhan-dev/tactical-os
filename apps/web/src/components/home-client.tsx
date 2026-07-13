@@ -8,7 +8,7 @@ export function HomeClient() {
 	const { user, loading } = useAuth();
 	if (loading || !user) return null;
 	return (
-		<Link href="/dashboard">
+		<Link href="/admin">
 			<Button variant="secondary">Go to Dashboard</Button>
 		</Link>
 	);

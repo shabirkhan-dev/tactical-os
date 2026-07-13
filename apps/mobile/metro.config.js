@@ -17,9 +17,11 @@ const ignoreSiblingApps = [
 	/[\\/]apps[\\/]web[\\/].*/,
 	/[\\/]apps[\\/]rust[\\/].*/,
 	/[\\/]apps[\\/]design-system[\\/].*/,
-	/[\\/]\.next[\\/].*/,
-	/[\\/]dist[\\/].*/,
-	/[\\/]target[\\/].*/,
+	// Build output folders — but only outside node_modules, since many npm
+	// packages (e.g. whatwg-fetch) ship their code in a dist/ directory.
+	/^(?![\s\S]*[\\/]node_modules[\\/])[\s\S]*[\\/]\.next[\\/].*/,
+	/^(?![\s\S]*[\\/]node_modules[\\/])[\s\S]*[\\/]dist[\\/].*/,
+	/^(?![\s\S]*[\\/]node_modules[\\/])[\s\S]*[\\/]target[\\/].*/,
 ];
 
 const existingBlockList = config.resolver.blockList;

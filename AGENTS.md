@@ -100,7 +100,9 @@ school-os/
 
 - **Pre-commit hooks** (Lefthook): auto-format, lint, typecheck, large-file guard (2 MB max),
   secret scan, architecture check. Hooks run automatically if installed via `bun run prepare`.
-- **Commit messages**: Enforced by `commit-msg` hook — must be 10–200 chars, no WIP/fixup.
+- **Commit messages**: Enforced by `commit-msg` hook — Conventional Commits only
+  (`feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert`), 10–200 chars, no WIP.
+  Example: `feat(auth): add NestJS login and shared UI forms`.
 - **Do not commit**: build output (`.next/`, `dist/`, `target/`), `node_modules/`, `.env` files,
   cache dirs. These are in `.gitignore`.
 - **Separate concerns**: Don't mix lint/format-only fixes with feature changes in the same commit.

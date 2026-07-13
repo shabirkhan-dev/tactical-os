@@ -6,6 +6,9 @@ export type AppConfig = {
 	apiPrefix: string;
 	apiVersion: string;
 	serviceName: string;
+	jwtSecret: string;
+	jwtExpiresIn: string;
+	corsOrigin: string;
 };
 
 export function createAppConfig(env: Env = parseEnv()): AppConfig {
@@ -15,5 +18,8 @@ export function createAppConfig(env: Env = parseEnv()): AppConfig {
 		apiPrefix: env.API_PREFIX,
 		apiVersion: env.API_VERSION,
 		serviceName: env.SERVICE_NAME,
+		jwtSecret: env.JWT_SECRET,
+		jwtExpiresIn: env.JWT_EXPIRES_IN,
+		corsOrigin: env.CORS_ORIGIN,
 	};
 }

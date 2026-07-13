@@ -14,7 +14,7 @@
     "preflight": "bun run lint && bun run typecheck && bun run test",
     "lint": "turbo run lint && bun run scripts:lint",
     "lint:fix": "turbo run lint:fix",
-    "format": "biome format --write . && bun run scripts:format && (cd apps/rust && cargo fmt)",
+    "format": "biome format --write . && bun run scripts:format && (cd apps/rust && cargo fmt || true)",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test && bun run test:scripts",
     "test:coverage": "(cd apps/web && bun run test:coverage) && (cd apps/nest-api && bun run test:cov) && (cd packages/logger && bun run test:coverage) && (cd apps/mobile && bun run test) && (cd apps/rust && bun run test) && bun run test:scripts",

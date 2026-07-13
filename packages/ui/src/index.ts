@@ -1,3 +1,4 @@
+export { Alert, AlertAction, AlertDescription, AlertTitle } from "./components/alert";
 export {
 	Avatar,
 	AvatarBadge,
@@ -72,6 +73,14 @@ export {
 	FieldSeparator,
 } from "./components/field";
 export { Input } from "./components/input";
+export {
+	InputGroup,
+	InputGroupAddon,
+	InputGroupButton,
+	InputGroupInput,
+	InputGroupText,
+	InputGroupTextarea,
+} from "./components/input-group";
 export { Label } from "./components/label";
 export {
 	Select,
@@ -124,6 +133,7 @@ export {
 } from "./components/sidebar";
 export { Skeleton } from "./components/skeleton";
 export { Toaster } from "./components/sonner";
+export { Spinner } from "./components/spinner";
 export {
 	Table,
 	TableBody,

@@ -37,7 +37,8 @@ This school-os uses a strong default architecture that is intentionally overrida
 - Run `bun run architecture:check` locally and in CI.
 - Boundary checks currently validate:
   - no `@/...` imports inside `packages/*`
-  - no deep web module imports under `@/modules/*/*/*`
+  - no deep web module imports (`@/modules/*/*/*`) from outside `src/modules/`
+  - no cross-app relative imports via `../../apps/`
   - no cross-app relative imports (`../../apps/...`)
 
 ## ADRs

@@ -1,50 +1,75 @@
 #!/usr/bin/env bash
-# Enforce commit message: first line min length; allow "Merge" / "Revert" / "fixup!" / "squash!".
+# Enforce Conventional Commits: type(scope)?: subject
+# Allowed types: feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert
+# Also allow: Merge / Revert / fixup! / squash!
 set -euo pipefail
 
 msg() {
-    printf '[git-hooks] %s\n' "$*"
+	printf '[git-hooks] %s\n' "$*"
 }
 
 MSG_FILE="${1:-.git/COMMIT_EDITMSG}"
 if [ ! -f "$MSG_FILE" ]; then
-    msg "commit-msg: no message file, skipping"
-    exit 0
+	msg "commit-msg: no message file, skipping"
+	exit 0
 fi
 
-FIRST=$(head -n1 "$MSG_FILE")
+FIRST=$(head -n1 "$MSG_FILE" | tr -d '\r')
 MIN_LEN="${COMMIT_MSG_MIN_LEN:-10}"
+MAX_LEN="${COMMIT_MSG_MAX_LEN:-200}"
 
 case "$FIRST" in
 Merge\ *)
-    msg "commit-msg: OK (merge commit message allowed)"
-    exit 0
-    ;;
+	msg "commit-msg: OK (merge commit message allowed)"
+	exit 0
+	;;
 Revert\ *)
-    msg "commit-msg: OK (revert message allowed)"
-    exit 0
-    ;;
+	msg "commit-msg: OK (revert message allowed)"
+	exit 0
+	;;
 fixup!*)
-    msg "commit-msg: OK (fixup allowed)"
-    exit 0
-    ;;
+	msg "commit-msg: OK (fixup allowed)"
+	exit 0
+	;;
 squash!*)
-    msg "commit-msg: OK (squash allowed)"
-    exit 0
-    ;;
+	msg "commit-msg: OK (squash allowed)"
+	exit 0
+	;;
 esac
 
 if [[ "$FIRST" =~ ^# ]]; then
-    msg "commit-msg: error - first line looks like a comment; write a real subject line"
-    exit 1
+	msg "commit-msg: error - first line looks like a comment; write a real subject line"
+	exit 1
+fi
+
+if [[ "$FIRST" =~ ^(WIP|wip)([[:space:]:]|$) ]]; then
+	msg "commit-msg: error - WIP commits are not allowed"
+	msg "example: feat(web): add nest-backed login form"
+	exit 1
+fi
+
+# Conventional Commits: type(optional-scope)!(optional): subject
+# Types match https://www.conventionalcommits.org (common set)
+CONV_RE='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-zA-Z0-9/_.,-]+\))?(!)?:[[:space:]].+'
+
+if ! [[ "$FIRST" =~ $CONV_RE ]]; then
+	msg "commit-msg: error - subject must use Conventional Commits"
+	msg "format:   <type>(optional-scope): <description>"
+	msg "types:    feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert"
+	msg "example:  feat(auth): add NestJS login and shared UI forms"
+	exit 1
 fi
 
 LEN=${#FIRST}
 if [ "$LEN" -lt "$MIN_LEN" ]; then
-    msg "commit-msg: error - first line too short (got ${LEN} chars, min ${MIN_LEN})"
-    msg "example: feat(scope): short description of change"
-    exit 1
+	msg "commit-msg: error - first line too short (got ${LEN} chars, min ${MIN_LEN})"
+	exit 1
 fi
 
-msg "commit-msg: OK (first line length ${LEN}, min ${MIN_LEN})"
+if [ "$LEN" -gt "$MAX_LEN" ]; then
+	msg "commit-msg: error - first line too long (got ${LEN} chars, max ${MAX_LEN})"
+	exit 1
+fi
+
+msg "commit-msg: OK (conventional commit, length ${LEN})"
 exit 0
