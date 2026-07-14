@@ -1,13 +1,13 @@
 "use client";
 
-import { CodeIcon, Globe02Icon, Loading03Icon, SearchFocusIcon } from "@hugeicons/core-free-icons";
+import { CodeIcon, Globe02Icon, SearchFocusIcon, SparklesIcon } from "@hugeicons/core-free-icons";
+import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/auth-context";
-import { userFirstName } from "@/lib/user-display";
+import { userFirstName, userInitials } from "@/lib/user-display";
 import { ChatComposer } from "@/modules/chat/components/chat/chat-composer";
 import { ChatHugeIcon } from "@/modules/chat/components/chat/chat-icon";
 import { AceMarkIcon } from "@/modules/chat/components/icons";
-import { applyTheme, getPreferredTheme } from "@/modules/chat/lib/theme";
 import "@/modules/chat/styles/chat.css";
 import { type AssistMessage, aiService } from "../ai.service";
 
@@ -41,16 +41,21 @@ const QUICK_PROMPTS = [
 
 export function AiAssistScreen() {
 	const { token, user } = useAuth();
+	const { resolvedTheme } = useTheme();
+	const [theme, setTheme] = useState<"light" | "dark">("dark");
 	const [draft, setDraft] = useState("");
 	const [turns, setTurns] = useState<ChatTurn[]>([]);
 	const [busy, setBusy] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [modelLabel, setModelLabel] = useState("Assist");
 	const endRef = useRef<HTMLDivElement | null>(null);
+	const initials = user ? userInitials(user.username) : "?";
 
 	useEffect(() => {
-		applyTheme(getPreferredTheme());
-	}, []);
+		if (resolvedTheme === "light" || resolvedTheme === "dark") {
+			setTheme(resolvedTheme);
+		}
+	}, [resolvedTheme]);
 
 	useEffect(() => {
 		if (!token) return;
@@ -113,78 +118,109 @@ export function AiAssistScreen() {
 	const hasTurns = turns.length > 0;
 
 	return (
-		<main className={`new-chat-screen new-chat-screen--assist${hasTurns ? " is-threaded" : ""}`}>
-			<div className="dot-field new-chat-screen__dots" />
-			<section className="new-chat-screen__content">
-				{!hasTurns ? (
-					<>
-						<div className="new-chat-screen__intro">
-							<AceMarkIcon size={24} />
-							<h1>{greeting}</h1>
-						</div>
-						<ChatComposer
-							value={draft}
-							onChange={setDraft}
-							onSubmitPrompt={(value) => void send(value)}
-							disabled={!token}
-							busy={busy}
-							placeholder="Ask School OS Assist..."
-							modelLabel={modelLabel}
-							showUpgradeRail={false}
-						/>
-						<section className="chat-quick-actions" aria-label="Suggested prompts">
-							{QUICK_PROMPTS.map((item) => (
-								<button
-									key={item.label}
-									className="chat-quick-card"
-									type="button"
-									disabled={!token || busy}
-									onClick={() => void send(item.prompt)}
-								>
-									<ChatHugeIcon icon={item.icon} size={18} />
-									<span className="chat-quick-card__label">{item.label}</span>
-									<span className="chat-quick-card__description">{item.description}</span>
-								</button>
-							))}
-						</section>
-					</>
-				) : (
-					<>
-						<div className="assist-thread" aria-live="polite">
-							{turns.map((turn) => (
-								<article key={turn.id} className={`assist-turn assist-turn--${turn.role}`}>
-									<span className="assist-turn__role">
-										{turn.role === "user" ? "You" : "Assist"}
-									</span>
-									<p>{turn.content}</p>
-								</article>
-							))}
-							{busy ? (
-								<p className="assist-thread__pending">
-									<ChatHugeIcon icon={Loading03Icon} className="chat-send-button__spin" />
-									Thinking…
-								</p>
-							) : null}
-							<div ref={endRef} />
-						</div>
-						{error ? <p className="assist-thread__error">{error}</p> : null}
-						<div className="assist-composer-dock">
+		<div
+			className="chat-design-system chat-design-system--dashboard h-full min-h-0"
+			data-chat-design-system
+			data-theme={theme}
+		>
+			<main className={`new-chat-screen new-chat-screen--assist${hasTurns ? " is-threaded" : ""}`}>
+				<div className="dot-field new-chat-screen__dots" />
+				<section className="new-chat-screen__content">
+					{!hasTurns ? (
+						<>
+							<div className="new-chat-screen__intro">
+								<AceMarkIcon size={24} />
+								<h1>{greeting}</h1>
+							</div>
 							<ChatComposer
 								value={draft}
 								onChange={setDraft}
 								onSubmitPrompt={(value) => void send(value)}
 								disabled={!token}
 								busy={busy}
-								placeholder="Ask a follow-up..."
+								placeholder="Ask School OS Assist..."
 								modelLabel={modelLabel}
 								showUpgradeRail={false}
 							/>
-						</div>
-					</>
-				)}
-
-				{!hasTurns && error ? <p className="assist-thread__error">{error}</p> : null}
-			</section>
-		</main>
+							<section className="chat-quick-actions" aria-label="Suggested prompts">
+								{QUICK_PROMPTS.map((item) => (
+									<button
+										key={item.label}
+										className="chat-quick-card"
+										type="button"
+										disabled={!token || busy}
+										onClick={() => void send(item.prompt)}
+									>
+										<ChatHugeIcon icon={item.icon} size={18} />
+										<span className="chat-quick-card__label">{item.label}</span>
+										<span className="chat-quick-card__description">{item.description}</span>
+									</button>
+								))}
+							</section>
+							{error ? <p className="assist-thread__error">{error}</p> : null}
+						</>
+					) : (
+						<>
+							<div className="assist-thread" aria-live="polite">
+								{turns.map((turn) => (
+									<article key={turn.id} className={`assist-turn assist-turn--${turn.role}`}>
+										<div className="assist-turn__meta">
+											<span className="assist-turn__avatar" aria-hidden>
+												{turn.role === "user" ? (
+													initials
+												) : (
+													<ChatHugeIcon icon={SparklesIcon} size={14} />
+												)}
+											</span>
+											<span className="assist-turn__role">
+												{turn.role === "user" ? "You" : "Assist"}
+											</span>
+										</div>
+										<div className="assist-turn__bubble">
+											<p>{turn.content}</p>
+										</div>
+									</article>
+								))}
+								{busy ? (
+									<article className="assist-turn assist-turn--assistant assist-turn--pending">
+										<div className="assist-turn__meta">
+											<span className="assist-turn__avatar" aria-hidden>
+												<ChatHugeIcon icon={SparklesIcon} size={14} />
+											</span>
+											<span className="assist-turn__role">Assist</span>
+										</div>
+										<div
+											className="assist-turn__bubble assist-turn__bubble--pending"
+											role="status"
+											aria-label="Thinking"
+										>
+											<span className="assist-typing">
+												<span />
+												<span />
+												<span />
+											</span>
+										</div>
+									</article>
+								) : null}
+								<div ref={endRef} />
+							</div>
+							{error ? <p className="assist-thread__error">{error}</p> : null}
+							<div className="assist-composer-dock">
+								<ChatComposer
+									value={draft}
+									onChange={setDraft}
+									onSubmitPrompt={(value) => void send(value)}
+									disabled={!token}
+									busy={busy}
+									placeholder="Ask a follow-up..."
+									modelLabel={modelLabel}
+									showUpgradeRail={false}
+								/>
+							</div>
+						</>
+					)}
+				</section>
+			</main>
+		</div>
 	);
 }

@@ -2,7 +2,7 @@ import { AiAssistScreen } from "@/modules/ai";
 
 export default function AdminAiPage() {
 	return (
-		<div className="chat-design-system h-full min-h-0" data-chat-design-system data-theme="light">
+		<div className="h-full min-h-0 overflow-hidden">
 			<AiAssistScreen />
 		</div>
 	);
