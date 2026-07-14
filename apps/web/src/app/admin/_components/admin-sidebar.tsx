@@ -53,6 +53,7 @@ const sections: NavSection[] = [
 		heading: "Main Menu",
 		items: [
 			{ id: "dashboard", label: "Dashboard", icon: DashboardSquare01Icon, href: "/admin" },
+			{ id: "ai-assist", label: "AI Assist", icon: BubbleChatIcon, href: "/admin/ai" },
 			{ id: "products", label: "Products", icon: Building03Icon },
 			{ id: "transactions", label: "Transactions", icon: CreditCardIcon },
 			{ id: "reports", label: "Reports & Analytics", icon: File01Icon },
@@ -121,6 +122,9 @@ function activeNavId(pathname: string): string {
 	}
 	if (pathname.startsWith("/admin/account/security")) {
 		return "account-security";
+	}
+	if (pathname.startsWith("/admin/ai")) {
+		return "ai-assist";
 	}
 	if (pathname === "/admin" || pathname === "/admin/") {
 		return "dashboard";

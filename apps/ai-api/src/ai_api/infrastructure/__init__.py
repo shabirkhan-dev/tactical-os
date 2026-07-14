@@ -1,0 +1,1 @@
+"""Infrastructure adapters (providers, security)."""

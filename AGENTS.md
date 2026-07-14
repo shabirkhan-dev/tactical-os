@@ -36,6 +36,7 @@ school-os/
 │   ├── mobile/          # Expo Router + NativeWind app (TypeScript)
 │   ├── nest-api/        # NestJS production API (PostgreSQL in later phases)
 │   ├── docs/            # Docs site (Fumadocs); source in apps/docs/content/docs/
+│   ├── ai-api/          # FastAPI AI assist (uv); Nest proxies, never public LLM keys
 │   └── rust/            # Rust binary (Cargo, Axum)
 
 ├── packages/
