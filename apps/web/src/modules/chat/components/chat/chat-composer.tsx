@@ -3,6 +3,7 @@ import {
 	ArrowDown01Icon,
 	ArrowUp02Icon,
 	CrownIcon,
+	Loading03Icon,
 	Mic01Icon,
 	PlusSignIcon,
 	SentIcon,
@@ -12,16 +13,50 @@ import { type FormEvent, type KeyboardEvent, useState } from "react";
 
 import { ChatHugeIcon } from "@/modules/chat/components/chat/chat-icon";
 
-export function ChatComposer() {
-	const [prompt, setPrompt] = useState("");
-	const canSubmit = prompt.trim().length > 0;
+export type ChatComposerProps = {
+	value?: string;
+	onChange?: (value: string) => void;
+	onSubmitPrompt?: (value: string) => void;
+	disabled?: boolean;
+	busy?: boolean;
+	placeholder?: string;
+	modelLabel?: string;
+	showUpgradeRail?: boolean;
+};
+
+export function ChatComposer({
+	value,
+	onChange,
+	onSubmitPrompt,
+	disabled = false,
+	busy = false,
+	placeholder = "Ask anything...",
+	modelLabel = "Opus 4.7",
+	showUpgradeRail = true,
+}: ChatComposerProps = {}) {
+	const [uncontrolledPrompt, setUncontrolledPrompt] = useState("");
+	const isControlled = value !== undefined;
+	const prompt = isControlled ? value : uncontrolledPrompt;
+	const canSubmit = prompt.trim().length > 0 && !disabled && !busy;
+
+	const setPrompt = (next: string) => {
+		if (isControlled) {
+			onChange?.(next);
+			return;
+		}
+		setUncontrolledPrompt(next);
+	};
 
 	const submitPrompt = () => {
 		if (!canSubmit) {
 			return;
 		}
 
-		setPrompt("");
+		const next = prompt.trim();
+		onSubmitPrompt?.(next);
+		if (!isControlled) {
+			setUncontrolledPrompt("");
+		}
 	};
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -41,9 +76,10 @@ export function ChatComposer() {
 			<div className="chat-composer__panel">
 				<textarea
 					aria-label="Message"
-					placeholder="Ask anything..."
+					placeholder={placeholder}
 					rows={3}
 					value={prompt}
+					disabled={disabled || busy}
 					onChange={(event) => setPrompt(event.target.value)}
 					onKeyDown={handleKeyDown}
 				/>
@@ -66,7 +102,7 @@ export function ChatComposer() {
 					<div className="chat-composer__actions">
 						<button className="chat-model-button" type="button">
 							<ChatHugeIcon icon={SparklesIcon} />
-							<span>Opus 4.7</span>
+							<span>{modelLabel}</span>
 							<ChatHugeIcon icon={ArrowDown01Icon} size={14} />
 						</button>
 						<button className="chat-mic-button" type="button" aria-label="Use microphone">
@@ -78,19 +114,25 @@ export function ChatComposer() {
 							aria-label="Send message"
 							disabled={!canSubmit}
 						>
-							<ChatHugeIcon icon={ArrowUp02Icon} strokeWidth={1.8} />
+							<ChatHugeIcon
+								icon={busy ? Loading03Icon : ArrowUp02Icon}
+								strokeWidth={1.8}
+								className={busy ? "chat-send-button__spin" : undefined}
+							/>
 						</button>
 					</div>
 				</div>
 			</div>
 
-			<div className="chat-upgrade-rail">
-				<span className="chat-upgrade-rail__label">
-					<ChatHugeIcon icon={CrownIcon} />
-					<span>Upgrade to PRO</span>
-				</span>
-				<button type="button">Upgrade</button>
-			</div>
+			{showUpgradeRail ? (
+				<div className="chat-upgrade-rail">
+					<span className="chat-upgrade-rail__label">
+						<ChatHugeIcon icon={CrownIcon} />
+						<span>Upgrade to PRO</span>
+					</span>
+					<button type="button">Upgrade</button>
+				</div>
+			) : null}
 		</form>
 	);
 }

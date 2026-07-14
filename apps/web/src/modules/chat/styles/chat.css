@@ -2205,3 +2205,195 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+
+/* School OS Assist — reuse new-chat chrome inside admin / AI routes */
+.chat-design-system .new-chat-screen--assist {
+  height: 100%;
+  min-height: 100%;
+}
+
+.chat-design-system .new-chat-screen--assist .new-chat-screen__content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding-top: 72px;
+  padding-bottom: 40px;
+  box-sizing: border-box;
+}
+
+.chat-design-system .new-chat-screen--assist.is-threaded .new-chat-screen__content {
+  padding-top: 28px;
+}
+
+.chat-design-system .assist-thread {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 22px;
+  padding-right: 2px;
+}
+
+.chat-design-system .assist-turn {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-design-system .assist-turn__role {
+  color: var(--text-subtle);
+  font-size: var(--font-12);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.chat-design-system .assist-turn p {
+  margin: 0;
+  color: var(--text-default);
+  font-size: var(--font-14);
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.chat-design-system .assist-turn--user p {
+  color: var(--text-strong);
+}
+
+.chat-design-system .assist-thread__pending {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--text-subtle);
+  font-size: var(--font-13);
+}
+
+.chat-design-system .assist-thread__error {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(239, 68, 68, 0.28);
+  border-radius: 12px;
+  color: #b91c1c;
+  background: rgba(239, 68, 68, 0.06);
+  font-size: var(--font-13);
+  line-height: 1.4;
+}
+
+.chat-design-system[data-theme="dark"] .assist-thread__error {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.chat-design-system .assist-composer-dock {
+  margin-top: auto;
+}
+
+.chat-design-system .chat-send-button__spin {
+  animation: assist-spin 0.8s linear infinite;
+}
+
+@keyframes assist-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* School OS Assist — reuse new-chat chrome inside admin / AI routes */
+.chat-design-system .new-chat-screen--assist {
+  height: 100%;
+  min-height: 100%;
+}
+
+.chat-design-system .new-chat-screen--assist .new-chat-screen__content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding-top: 72px;
+  padding-bottom: 40px;
+  box-sizing: border-box;
+}
+
+.chat-design-system .new-chat-screen--assist.is-threaded .new-chat-screen__content {
+  padding-top: 28px;
+}
+
+.chat-design-system .assist-thread {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 22px;
+  padding-right: 2px;
+}
+
+.chat-design-system .assist-turn {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-design-system .assist-turn__role {
+  color: var(--text-subtle);
+  font-size: var(--font-12);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.chat-design-system .assist-turn p {
+  margin: 0;
+  color: var(--text-default);
+  font-size: var(--font-14);
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.chat-design-system .assist-turn--user p {
+  color: var(--text-strong);
+}
+
+.chat-design-system .assist-thread__pending {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--text-subtle);
+  font-size: var(--font-13);
+}
+
+.chat-design-system .assist-thread__error {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(239, 68, 68, 0.28);
+  border-radius: 12px;
+  color: #b91c1c;
+  background: rgba(239, 68, 68, 0.06);
+  font-size: var(--font-13);
+  line-height: 1.4;
+}
+
+.chat-design-system[data-theme="dark"] .assist-thread__error {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.chat-design-system .assist-composer-dock {
+  margin-top: auto;
+}
+
+.chat-design-system .chat-send-button__spin {
+  animation: assist-spin 0.8s linear infinite;
+}
+
+@keyframes assist-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+

@@ -27,11 +27,14 @@ src/ai_api/
 
 ## Commands
 
-From repo root (Turbo) or `apps/ai-api`:
+`package.json` scripts resolve `uv` via `scripts/uv.mjs` (PATH or `%USERPROFILE%\\.local\\bin`), so Turbo works even when `uv` is not on PATH.
+
+From repo root or `apps/ai-api`:
 
 ```bash
-uv sync
-bun --cwd apps/ai-api run dev
+bun run uv -- sync
+bun run dev:ai
+# or: bun --cwd apps/ai-api run dev
 bun --cwd apps/ai-api run lint
 bun --cwd apps/ai-api run test
 ```
