@@ -5,6 +5,6 @@ from ai_api.infrastructure.providers.openai_compatible import OpenAICompatiblePr
 
 
 def create_llm_provider(settings: Settings) -> LlmProvider:
-	if settings.ai_provider == "openai_compatible":
-		return OpenAICompatibleProvider(settings)
-	return MockLlmProvider()
+    if settings.ai_provider == "openai_compatible":
+        return OpenAICompatibleProvider(settings)
+    return MockLlmProvider()

@@ -11,38 +11,38 @@ from ai_api.config.settings import get_settings
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
-	get_settings()
-	yield
+    get_settings()
+    yield
 
 
 def create_app() -> FastAPI:
-	settings = get_settings()
-	app = FastAPI(
-		title=settings.app_name,
-		version=__version__,
-		lifespan=lifespan,
-	)
-	app.add_middleware(
-		CORSMiddleware,
-		allow_origins=settings.cors_origin_list,
-		allow_credentials=True,
-		allow_methods=["GET", "POST", "OPTIONS"],
-		allow_headers=["Authorization", "Content-Type", "X-AI-Service-Token", "X-User-Id"],
-	)
-	app.include_router(api_router, prefix=settings.api_prefix)
-	return app
+    settings = get_settings()
+    app = FastAPI(
+        title=settings.app_name,
+        version=__version__,
+        lifespan=lifespan,
+    )
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.cors_origin_list,
+        allow_credentials=True,
+        allow_methods=["GET", "POST", "OPTIONS"],
+        allow_headers=["Authorization", "Content-Type", "X-AI-Service-Token", "X-User-Id"],
+    )
+    app.include_router(api_router, prefix=settings.api_prefix)
+    return app
 
 
 app = create_app()
 
 
 def run() -> None:
-	import uvicorn
+    import uvicorn
 
-	settings = get_settings()
-	uvicorn.run(
-		"ai_api.main:app",
-		host="0.0.0.0",
-		port=settings.port,
-		reload=settings.environment == "development",
-	)
+    settings = get_settings()
+    uvicorn.run(
+        "ai_api.main:app",
+        host="0.0.0.0",
+        port=settings.port,
+        reload=settings.environment == "development",
+    )
