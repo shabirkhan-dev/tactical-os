@@ -8,9 +8,9 @@ import { cn } from "../lib/utils";
 import { FadeIn } from "./fade-in";
 import { MeshCanvas } from "./mesh-canvas";
 
-const MEMORY_CHIPS = ["Timezone GMT+5:30", "Default model: Claude", "Owns the deploy keys"];
+const MEMORY_CHIPS = ["apps/web + mobile", "packages/ui + logger", "Docker + Dev Container"];
 
-const CONNECTED_TOOLS = ["web-search", "code-runner", "postgres"] as const;
+const CONNECTED_TOOLS = ["next", "expo", "nestjs"] as const;
 
 export function CapabilitiesSection() {
 	return (
@@ -24,13 +24,13 @@ export function CapabilitiesSection() {
 					</FadeIn>
 					<FadeIn delay={0.08}>
 						<h2 className="mt-5 text-balance font-serif text-3xl text-foreground leading-[1.1] sm:text-4xl">
-							Everything your agent needs, wired up out of the box.
+							Everything your workspace needs, wired up out of the box.
 						</h2>
 					</FadeIn>
 					<FadeIn delay={0.12}>
 						<p className="mt-4 max-w-xl text-pretty text-muted-foreground text-sm leading-7">
-							Tools, memory, streaming, and tracing — ship a production agent without stitching the
-							plumbing together yourself.
+							Shared UI, Nest spine, Expo mobile, docs, CI, and Docker — ship a school product
+							without stitching five repos yourself.
 						</p>
 					</FadeIn>
 				</div>
@@ -161,7 +161,7 @@ function ToolsVisual() {
 				<span className="size-2.5 rounded-full bg-white/15" />
 				<span className="size-2.5 rounded-full bg-white/15" />
 			</div>
-			<p className="text-white/45">$ agent tools add</p>
+			<p className="text-white/45">$ turbo run add</p>
 			<div className="mt-2 flex flex-col gap-1.5">
 				{CONNECTED_TOOLS.map((tool, index) => (
 					<motion.div

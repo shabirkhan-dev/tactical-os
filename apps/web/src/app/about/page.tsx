@@ -23,9 +23,9 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "About — Atlas",
+	title: "About — School OS",
 	description:
-		"On-call should not mean up all night. Meet the team behind Atlas, the always-on engineering agent.",
+		"A Bun + Turborepo monorepo starter for school-scale products. Meet the team behind School OS.",
 };
 
 export default function AboutPage() {

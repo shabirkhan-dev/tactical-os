@@ -60,35 +60,35 @@ export function SiteFooter() {
 							{SITE.name}
 						</span>
 						<p className="mt-3 max-w-xs text-muted-foreground text-sm leading-6">
-							The always-on engineering agent that fixes incidents before they page you.
+							Production-ready monorepo starter for web, mobile, API, docs, and Rust.
 						</p>
 						<span className="mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-muted-foreground text-xs">
 							<span className="relative flex size-2">
 								<span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500/70" />
 								<span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
 							</span>
-							All systems operational
+							Workspace ready
 						</span>
 
 						<div className="mt-8">
-							<p className="font-medium text-foreground text-sm">Ship notes</p>
+							<p className="font-medium text-foreground text-sm">Release notes</p>
 							<p className="mt-1 text-muted-foreground text-sm">
-								What Atlas learned to fix this month. Once a month, no noise.
+								What landed in School OS this month. Once a month, no noise.
 							</p>
 							<form
 								onSubmit={handleSubmit}
 								className="mt-4 flex flex-col gap-2.5 sm:flex-row sm:items-center"
 							>
-								<label htmlFor="atlas-newsletter" className="sr-only">
+								<label htmlFor="school-os-newsletter" className="sr-only">
 									Email address
 								</label>
 								<input
-									id="atlas-newsletter"
+									id="school-os-newsletter"
 									type="email"
 									required
 									value={email}
 									onChange={(event) => setEmail(event.target.value)}
-									placeholder="you@company.com"
+									placeholder="you@school.dev"
 									className="h-12 w-full flex-1 appearance-none rounded-full border border-border bg-background px-5 text-foreground text-sm shadow-none outline-none transition-[border-color,box-shadow] placeholder:text-muted-foreground focus-visible:border-primary/50 focus-visible:ring-2 focus-visible:ring-ring/40"
 								/>
 								<button

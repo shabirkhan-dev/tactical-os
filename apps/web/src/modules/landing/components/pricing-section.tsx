@@ -42,8 +42,8 @@ export function PricingSection() {
 	const period = billing === "monthly" ? "/ month" : "/ month, billed yearly";
 	const servicesLabel =
 		tier.services === "unlimited"
-			? "Unlimited services included."
-			: `${tier.services} services included.`;
+			? "Unlimited workspaces included."
+			: `${tier.services} workspace${tier.services === 1 ? "" : "s"} included.`;
 
 	return (
 		<section id="pricing" className="w-full px-4 pt-20 pb-8 sm:px-8">
@@ -55,13 +55,13 @@ export function PricingSection() {
 				</FadeIn>
 				<FadeIn delay={0.06}>
 					<h2 className="mt-5 text-balance font-serif text-4xl text-foreground leading-tight tracking-[-0.02em] sm:text-5xl">
-						Pay for the services you watch.
+						Start free. Scale when your team grows.
 					</h2>
 				</FadeIn>
 				<FadeIn delay={0.1}>
 					<p className="mt-4 max-w-xl text-pretty text-muted-foreground leading-7">
-						Atlas is free on your first five services. Slide to your fleet size — no per-seat fees,
-						no surprise overages, cancel anytime.
+						School OS is free to clone and run. Slide for team and enterprise seats — no surprise
+						overages, cancel anytime.
 					</p>
 				</FadeIn>
 			</div>
@@ -115,14 +115,14 @@ export function PricingSection() {
 							transition={springSnappy}
 						>
 							<Link
-								href="/register"
+								href="#deploy"
 								className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90"
 							>
-								Start free
+								Get started
 							</Link>
 						</motion.div>
 						<p className="text-muted-foreground text-sm leading-5">
-							Starter is free forever — no card required.
+							Starter is free forever — clone and run, no card required.
 						</p>
 					</FadeIn>
 				</div>
@@ -322,7 +322,7 @@ function ServicesSlider({ index, onChange }: { index: number; onChange: (index: 
 					aria-valuemin={0}
 					aria-valuemax={max}
 					aria-valuenow={index}
-					aria-valuetext={`${formatServices(PRICING_TIERS[index]?.services ?? 5)} services`}
+					aria-valuetext={`${formatServices(PRICING_TIERS[index]?.services ?? 5)} workspaces`}
 					onKeyDown={onKeyDown}
 					className="absolute top-1/2 h-5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-sm bg-foreground shadow-sm outline-none ring-foreground/30 focus-visible:ring-4"
 					initial={false}

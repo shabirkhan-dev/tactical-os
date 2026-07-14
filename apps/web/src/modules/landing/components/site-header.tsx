@@ -8,7 +8,7 @@ import { NAV_ITEMS, type NavItem, type NavSubItem, SITE } from "../data/landing.
 import { ATLAS_EASE, menuItemVariants, springSnappy, springSoft } from "../lib/motion";
 import { cn } from "../lib/utils";
 
-function AtlasMark({ className }: { className?: string }) {
+function SchoolOsMark({ className }: { className?: string }) {
 	return (
 		<span
 			className={cn(
@@ -43,7 +43,7 @@ export function SiteHeader() {
 						href="/"
 						className="flex shrink-0 items-center gap-2 rounded-lg px-1 font-semibold text-foreground outline-none focus-visible:ring-2 focus-visible:ring-foreground/30"
 					>
-						<AtlasMark />
+						<SchoolOsMark />
 						{SITE.name}
 					</Link>
 
@@ -89,10 +89,10 @@ export function SiteHeader() {
 							transition={springSnappy}
 						>
 							<Link
-								href="/register"
+								href="#deploy"
 								className="hidden h-8 items-center justify-center rounded-full bg-primary px-3 text-primary-foreground text-xs font-medium transition-colors hover:bg-primary/90 sm:inline-flex"
 							>
-								Start free
+								Get started
 							</Link>
 						</motion.div>
 						<button
@@ -156,11 +156,11 @@ export function SiteHeader() {
 										Sign in
 									</Link>
 									<Link
-										href="/register"
+										href="#deploy"
 										onClick={closeMobile}
 										className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-4 text-center font-medium text-primary-foreground text-sm transition-colors hover:bg-primary/90"
 									>
-										Start free
+										Get started
 									</Link>
 								</div>
 							</nav>

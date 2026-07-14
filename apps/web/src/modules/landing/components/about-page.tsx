@@ -44,19 +44,19 @@ function AboutHero() {
 			<div className="mx-auto flex w-full max-w-3xl flex-col items-center text-center">
 				<FadeIn>
 					<span className="inline-flex items-center rounded-full border border-border bg-card px-3.5 py-1.5 font-medium text-muted-foreground text-xs">
-						About Atlas
+						About School OS
 					</span>
 				</FadeIn>
 				<FadeIn delay={0.06}>
 					<h1 className="mt-6 text-balance font-serif text-4xl text-foreground leading-[1.1] tracking-tight sm:text-5xl">
-						On-call should not mean up all night.
+						A monorepo starter built for school-scale products.
 					</h1>
 				</FadeIn>
 				<FadeIn delay={0.12}>
 					<p className="mt-6 max-w-2xl text-pretty text-muted-foreground text-base leading-8 sm:text-lg">
-						We built Atlas after one too many 3am pages for problems a machine could have caught and
-						fixed. It’s the always-on engineer we wished we had — watching every service, resolving
-						what it can, and looping us in only when it matters.
+						We built School OS after wiring the same five apps together too many times. It&apos;s
+						the Bun + Turborepo workspace we wished we had — shared UI, hooks, CI, Docker, and docs
+						included from day one.
 					</p>
 				</FadeIn>
 			</div>
@@ -71,12 +71,12 @@ function AboutStats() {
 				<div className="mx-auto max-w-2xl text-center">
 					<FadeIn>
 						<span className="inline-flex items-center rounded-full border border-border/60 bg-card px-3 py-1 font-medium text-muted-foreground text-xs">
-							Since going live
+							At a glance
 						</span>
 					</FadeIn>
 					<FadeIn delay={0.08}>
 						<h2 className="mt-5 text-balance font-serif text-3xl text-foreground leading-tight sm:text-4xl">
-							Fewer pages. Faster fixes. Calmer on-call.
+							Apps in the starter. Minutes to first dev.
 						</h2>
 					</FadeIn>
 				</div>
@@ -151,13 +151,13 @@ function AboutTeam() {
 					</FadeIn>
 					<FadeIn delay={0.06}>
 						<h2 className="mt-5 text-balance font-serif text-3xl text-foreground leading-tight sm:text-4xl">
-							The people behind Atlas.
+							The people behind School OS.
 						</h2>
 					</FadeIn>
 					<FadeIn delay={0.1}>
 						<p className="mt-4 text-pretty text-muted-foreground text-sm leading-7 sm:text-base">
-							Engineers who&apos;ve carried the pager at scale — now building the agent that carries
-							it for you.
+							Engineers who&apos;ve shipped polyglot monorepos — now packaging the starter so you
+							don&apos;t start from zero.
 						</p>
 					</FadeIn>
 				</div>

@@ -12,7 +12,7 @@ export function CustomersSection() {
 			<div className="mx-auto w-full max-w-6xl">
 				<FadeIn>
 					<p className="text-center text-sm text-muted-foreground">
-						Keeping engineering teams online at
+						Built with the stack you already know
 					</p>
 				</FadeIn>
 

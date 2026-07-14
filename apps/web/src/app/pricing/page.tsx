@@ -23,9 +23,9 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "Pricing — Atlas",
+	title: "Pricing — School OS",
 	description:
-		"Atlas is free on your first five services. Slide to your fleet size — no per-seat fees.",
+		"School OS is free to clone and run. Slide for team and enterprise seats — no surprise overages.",
 };
 
 export default function PricingPage() {

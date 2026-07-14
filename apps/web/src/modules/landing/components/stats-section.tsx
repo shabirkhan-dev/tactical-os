@@ -13,12 +13,12 @@ export function StatsSection() {
 				<div className="mx-auto max-w-2xl text-center">
 					<FadeIn>
 						<span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
-							Since going live
+							At a glance
 						</span>
 					</FadeIn>
 					<FadeIn delay={0.08}>
 						<h2 className="mt-5 text-balance font-serif text-3xl font-medium leading-tight tracking-tight sm:text-4xl">
-							Fewer pages. Faster fixes. Calmer on-call.
+							Apps in the starter. Minutes to first dev.
 						</h2>
 					</FadeIn>
 				</div>

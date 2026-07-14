@@ -1,5 +1,5 @@
 /*
- * Atlas landing page theme.
+ * School OS landing theme.
  * Scoped to [data-landing] so the marketing surface can carry its own
  * neutral shadcn-like palette + display fonts without leaking into the
  * rest of the School OS app. Dark is the default; the .dark class is
@@ -14,7 +14,7 @@
 		monospace;
 	--font-geist-mono: var(--font-mono);
 
-	/* Light palette — clean white Atlas marketing surface */
+	/* Light palette — clean white School OS marketing surface */
 	--background: #ffffff;
 	--foreground: #09090b;
 	--card: #ffffff;

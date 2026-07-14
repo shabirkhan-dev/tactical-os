@@ -12,10 +12,10 @@ import {
 } from "lucide-react";
 
 export const SITE = {
-	name: "Atlas",
-	title: "Atlas — the always-on engineering agent",
+	name: "School OS",
+	title: "School OS — production monorepo starter",
 	description:
-		"Atlas watches your services, finds the root cause, and ships the fix — before anyone files a ticket.",
+		"Bun + Turborepo starter with Next.js, Expo, NestJS, docs, and Rust — shared UI, hooks, CI, and Docker included.",
 } as const;
 
 export type NavLink = {
@@ -41,18 +41,18 @@ export const NAV_ITEMS: NavItem[] = [
 		href: "#product",
 		items: [
 			{
-				label: "Incident response",
-				description: "Detect, triage, and resolve on autopilot",
+				label: "Apps",
+				description: "Web, mobile, Nest API, docs, and Rust",
 				href: "/#product",
 			},
 			{
-				label: "Root-cause tracing",
-				description: "Every fix, fully explained and linked",
-				href: "/#product",
+				label: "Architecture",
+				description: "Workspace packages and import boundaries",
+				href: "/#why",
 			},
 			{
 				label: "Capabilities",
-				description: "Tools, memory, and approvals wired in",
+				description: "Shared UI, CI, Docker, and polyglot tooling",
 				href: "/#capabilities",
 			},
 		],
@@ -63,17 +63,17 @@ export const NAV_ITEMS: NavItem[] = [
 		items: [
 			{
 				label: "Docs",
-				description: "Connect your services",
-				href: "/#deploy",
+				description: "Quick start and deep references",
+				href: "http://localhost:3002/docs",
 			},
 			{
-				label: "Customers",
-				description: "Teams running on Atlas",
+				label: "Stack",
+				description: "What ships in the monorepo",
 				href: "/#customers",
 			},
 			{
 				label: "About",
-				description: "Who's behind Atlas",
+				description: "Why we built School OS",
 				href: "/about",
 			},
 		],
@@ -103,28 +103,28 @@ export type WorkflowStep = {
 export const WORKFLOW_STEPS: WorkflowStep[] = [
 	{
 		id: "anomaly",
-		label: "Anomaly detected",
-		detail: "p99 latency crossed 800ms on checkout-api",
+		label: "Clone the repo",
+		detail: "git clone → bun install",
 	},
 	{
 		id: "investigating",
-		label: "Agent investigating",
-		detail: "Tracing slow spans and recent deploys",
+		label: "Hooks installed",
+		detail: "lefthook prepare formats and guards commits",
 	},
 	{
 		id: "root",
-		label: "Root cause isolated",
-		detail: "Database connection pool saturated",
+		label: "Workspace ready",
+		detail: "Turbo graph links web, mobile, Nest, docs, Rust",
 	},
 	{
 		id: "fix",
-		label: "Fix applied",
-		detail: "Pool size raised, +2 replicas rolled out",
+		label: "Dev servers up",
+		detail: "bun run dev — apps online in minutes",
 	},
 	{
 		id: "notify",
-		label: "Team notified",
-		detail: "Summary posted to #incidents",
+		label: "Quality gates green",
+		detail: "lint · typecheck · architecture check pass",
 	},
 ];
 
@@ -136,19 +136,19 @@ export type ChatMessage = {
 export const AGENT_MESSAGES: ChatMessage[] = [
 	{
 		role: "user",
-		text: "checkout-api is throwing latency alerts — take a look?",
+		text: "Can we scaffold a school product with web + mobile + API?",
 	},
 	{
 		role: "agent",
-		text: "p99 latency hit 920ms — pulling traces from the last deploy now.",
+		text: "School OS already ships all three — plus docs and a Rust binary.",
 	},
 	{
 		role: "agent",
-		text: "Root cause: the connection pool is saturated under peak load.",
+		text: "Shared @school-os/ui and typescript-config keep stacks consistent.",
 	},
 	{
 		role: "agent",
-		text: "Raised the pool size and added 2 replicas — latency is back to 180ms.",
+		text: "Run bun install && bun run dev — Turbo starts the workspace.",
 	},
 ];
 
@@ -158,20 +158,20 @@ export type CustomerLogo = {
 };
 
 export const CUSTOMER_LOGOS: CustomerLogo[] = [
-	{ name: "Northwind", icon: Hexagon },
-	{ name: "Relay", icon: Triangle },
-	{ name: "Cortex", icon: Aperture },
-	{ name: "Ledger", icon: Box },
-	{ name: "Beacon", icon: Gem },
-	{ name: "Stacks", icon: Command },
-	{ name: "Mosaic", icon: Octagon },
-	{ name: "Pulse", icon: Circle },
+	{ name: "Next.js", icon: Hexagon },
+	{ name: "Expo", icon: Triangle },
+	{ name: "NestJS", icon: Aperture },
+	{ name: "Turbo", icon: Box },
+	{ name: "Bun", icon: Gem },
+	{ name: "Biome", icon: Command },
+	{ name: "Docker", icon: Octagon },
+	{ name: "Rust", icon: Circle },
 ];
 
 export const PRODUCT_BULLETS: string[] = [
-	"Reads logs, metrics, and traces across every service",
-	"Ships low-risk fixes itself, escalates the rest",
-	"Replayable timeline for every incident it touches",
+	"Five apps in one workspace — web, mobile, Nest, docs, Rust",
+	"Shared UI tokens and TypeScript configs via @school-os/*",
+	"Hooks, CI, architecture boundaries, and Compose out of the box",
 ];
 
 export type IncidentEvent = {
@@ -183,32 +183,32 @@ export type IncidentEvent = {
 
 export const INCIDENT_TIMELINE: IncidentEvent[] = [
 	{
-		title: "Detected anomaly",
-		detail: "checkout p99 latency ↑ 420ms",
+		title: "Workspace install",
+		detail: "bun install resolves apps/* and packages/*",
 		tone: "info",
 		icon: "activity",
 	},
 	{
-		title: "Found root cause",
-		detail: "N+1 query introduced in deploy a3f9c2",
+		title: "Turbo pipeline",
+		detail: "dev · build · lint · typecheck orchestrated",
 		tone: "info",
 		icon: "search",
 	},
 	{
-		title: "Opened PR #1284",
-		detail: "add index, batch the cart fetch",
+		title: "Architecture check",
+		detail: "import boundaries enforced before commit",
 		tone: "info",
 		icon: "pr",
 	},
 	{
-		title: "Verified in staging",
-		detail: "p99 back to 88ms, error rate flat",
+		title: "Test & e2e",
+		detail: "Vitest + Playwright green on web",
 		tone: "info",
 		icon: "wrench",
 	},
 	{
-		title: "Incident resolved",
-		detail: "paged no one — full trace logged",
+		title: "Ready to ship",
+		detail: "Docker Compose optional — school-os is live",
 		tone: "ok",
 		icon: "shield",
 	},
@@ -220,9 +220,9 @@ export type ToolCall = {
 };
 
 export const AGENT_TOOL_CALLS: ToolCall[] = [
-	{ name: "web_search", status: "done" },
-	{ name: "read_page", status: "done" },
-	{ name: "send_email", status: "done" },
+	{ name: "turbo run build", status: "done" },
+	{ name: "biome check", status: "done" },
+	{ name: "architecture:check", status: "done" },
 ];
 
 export type CapabilityCard = {
@@ -237,38 +237,38 @@ export type MeshPalette = "blue" | "teal" | "lime" | "amber";
 
 export const CAPABILITY_CARDS: CapabilityCard[] = [
 	{
-		title: "Watch the agent reason",
+		title: "See the monorepo reason",
 		description:
-			"It plans, calls the right tools, and reports back — the full loop, streamed step by step.",
+			"Turbo graphs tasks across apps — watch install, lint, and build fan out from one command.",
 		span: 4,
 		kind: "reasoning",
 		palette: "blue",
 	},
 	{
-		title: "Add a tool in one line",
+		title: "Add an app in one workspace",
 		description:
-			"Plug in any MCP server or function — the agent discovers and calls it automatically.",
+			"Drop a package under apps/ or packages/, export as @school-os/*, and wire it into turbo.json.",
 		span: 2,
 		kind: "tools",
 		palette: "blue",
 	},
 	{
-		title: "Remembers what matters",
-		description: "Long-term memory and retrieval, baked in across runs.",
+		title: "Shared UI that sticks",
+		description: "Design tokens and primitives live in @school-os/ui for web.",
 		span: 2,
 		kind: "memory",
 		palette: "teal",
 	},
 	{
-		title: "Returns structured output",
-		description: "Schema-valid, typed JSON every time — ready to use downstream.",
+		title: "Typed contracts end to end",
+		description: "Zod on Nest, TypeScript everywhere — schemas and configs stay honest.",
 		span: 2,
 		kind: "output",
 		palette: "lime",
 	},
 	{
-		title: "Pauses for approval",
-		description: "Asks before risky actions — approve or edit each step.",
+		title: "Gates before it merges",
+		description: "Lefthook formats, lints, typechecks, scans secrets, and checks architecture.",
 		span: 2,
 		kind: "approval",
 		palette: "blue",
@@ -286,33 +286,33 @@ export type Stat = {
 
 export const STATS: Stat[] = [
 	{
-		value: 92,
-		suffix: "%",
+		value: 5,
+		suffix: "",
 		prefix: "",
-		label: "Incidents auto-resolved",
-		detail: "no one paged",
+		label: "Runnable apps",
+		detail: "web · mobile · nest · docs · rust",
 	},
 	{
-		value: 4,
-		suffix: "min",
+		value: 3,
+		suffix: "",
 		prefix: "",
-		label: "Median time to fix",
-		detail: "down from 47",
+		label: "Shared packages",
+		detail: "ui · logger · tsconfig",
 	},
 	{
 		value: 0,
 		suffix: "",
 		prefix: "",
-		label: "Always watching",
-		display: "24/7",
-		detail: "every service",
+		label: "Time to first dev",
+		display: "<10m",
+		detail: "clone → install → run",
 	},
 	{
-		value: 3,
-		suffix: "k+",
+		value: 4,
+		suffix: "+",
 		prefix: "",
-		label: "Engineers off-call",
-		detail: "sleeping again",
+		label: "Languages wired",
+		detail: "TS · Rust · Bash · Python",
 	},
 ];
 
@@ -325,21 +325,21 @@ export type AboutPrinciple = {
 export const ABOUT_PRINCIPLES: AboutPrinciple[] = [
 	{
 		icon: "bridge",
-		title: "Reliability is the product",
+		title: "Starter, not a demo dump",
 		description:
-			"Every feature earns its place by making on-call quieter. If it doesn’t reduce toil or pages, it doesn’t ship.",
+			"Every app and package earns its place by helping you ship a real product — not a throwaway scaffold.",
 	},
 	{
 		icon: "eye",
-		title: "No black boxes",
+		title: "Boundaries you can see",
 		description:
-			"The agent narrates every step and every fix it ships. You can always see exactly what it did and why.",
+			"Architecture checks and docs make import rules explicit so AI agents and humans stay inside the lanes.",
 	},
 	{
 		icon: "shield",
-		title: "Humans stay in control",
+		title: "Quality by default",
 		description:
-			"Risky actions pause for approval, scopes are tight, and you can pull the plug on any agent at any time.",
+			"Biome, Lefthook, Turbo, and CI run before code lands — so green hooks become the habit, not a hope.",
 	},
 ];
 
@@ -357,36 +357,36 @@ export const ABOUT_TEAM: AboutTeamMember[] = [
 	{
 		id: "priya",
 		name: "Priya Nair",
-		role: "Co-founder & CEO",
+		role: "Lead maintainer",
 		seed: "PriyaNair",
-		bio: "Spent a decade on-call for global traffic. Built Atlas so no one else has to live that life.",
+		bio: "Owns the monorepo spine and docs. Wants clone-to-dev to feel boringly reliable.",
 		tone: "green",
 		profileHref: "#",
 	},
 	{
 		id: "marcus",
 		name: "Marcus Vale",
-		role: "Co-founder & CTO",
+		role: "Platform engineer",
 		seed: "MarcusVale",
-		bio: "Designs the agent runtime. Obsessed with traces that make every automated fix reviewable.",
+		bio: "Keeps Nest, Docker, and Turbo pipelines honest. Obsessed with cache-friendly task graphs.",
 		tone: "teal",
 		profileHref: "#",
 	},
 	{
 		id: "lena",
 		name: "Lena Ortiz",
-		role: "Head of Reliability",
+		role: "DX & tooling",
 		seed: "LenaOrtiz",
-		bio: "Owns approval gates and blast-radius controls. Trust is the feature she’s shipping next.",
+		bio: "Ships hooks, Biome rules, and agent guidance so every commit stays reviewable.",
 		tone: "blue",
 		profileHref: "#",
 	},
 	{
 		id: "theo",
 		name: "Theo Park",
-		role: "Head of Engineering",
+		role: "Mobile & UI",
 		seed: "TheoPark",
-		bio: "Turns messy production signals into clean, replayable traces. Believes a fix you can’t audit isn’t a fix.",
+		bio: "Expo Router + shared design tokens. Believes the starter should look production-ready on day one.",
 		tone: "amber",
 		profileHref: "#",
 	},
@@ -402,23 +402,23 @@ export type Testimonial = {
 export const TESTIMONIALS_ROW_ONE: Testimonial[] = [
 	{
 		quote:
-			"Atlas closed our first Sev-2 before the pager even finished buzzing. It's genuinely on-call now, not us.",
+			"We skipped three weeks of wiring Turbo, hooks, and Docker. School OS was already opinionated the right way.",
 		name: "Maya Chen",
-		role: "VP Engineering, Northwind",
+		role: "Staff Eng, campus product",
 		seed: "Maya",
 	},
 	{
 		quote:
-			"The root-cause writeups are better than what most of my engineers ship. Every fix comes with receipts.",
+			"One clone gave us Next, Expo, and Nest with shared UI. Architecture checks caught bad imports on day one.",
 		name: "Diego Santos",
-		role: "SRE Lead, Relay",
+		role: "Frontend lead",
 		seed: "Diego",
 	},
 	{
 		quote:
-			"We cut median resolution time from 40 minutes to under 5. Our on-call rotation finally sleeps.",
+			"Students can PR into a real monorepo without babysitting tooling. lint and typecheck just work.",
 		name: "Priya Nair",
-		role: "Platform Director, Cortex",
+		role: "CS faculty",
 		seed: "Priya",
 	},
 ];
@@ -426,23 +426,23 @@ export const TESTIMONIALS_ROW_ONE: Testimonial[] = [
 export const TESTIMONIALS_ROW_TWO: Testimonial[] = [
 	{
 		quote:
-			"Adding a new tool is one line. Atlas started using our internal deploy CLI the same afternoon.",
+			"Adding a package under packages/ and exporting @school-os/* took minutes. Turbo picked it up immediately.",
 		name: "Theo Park",
-		role: "Staff Engineer, Ledger",
+		role: "Mobile engineer",
 		seed: "Theo",
 	},
 	{
 		quote:
-			"The approval gates are the reason we trust it in prod. Risky changes always wait for a human.",
+			"Lefthook + secret scan + architecture check means I trust contributor PRs before they hit CI.",
 		name: "Lena Ortiz",
-		role: "Head of Reliability, Beacon",
+		role: "Platform engineer",
 		seed: "Lena",
 	},
 	{
 		quote:
-			"It watches everything, all the time. We stopped drowning in alerts and started shipping again.",
+			"Docs live in the same repo. New teammates read /docs/quick-start and are productive the same afternoon.",
 		name: "Maya Chen",
-		role: "VP Engineering, Northwind",
+		role: "Staff Eng, campus product",
 		seed: "MayaTwo",
 	},
 ];
@@ -453,10 +453,10 @@ export type TerminalLine = {
 };
 
 export const DEPLOY_TERMINAL: TerminalLine[] = [
-	{ text: "npx atlas connect --provider aws", tone: "prompt" },
-	{ text: "Resolving items from the beUI registry…", tone: "ok" },
-	{ text: "Added chat-input · message-stream · tool-call", tone: "ok" },
-	{ text: "Installed 3 components in 1.2s", tone: "ok" },
+	{ text: "bun install", tone: "prompt" },
+	{ text: "Resolved workspaces apps/* packages/*", tone: "ok" },
+	{ text: "bun run prepare  # lefthook hooks", tone: "prompt" },
+	{ text: "bun run dev      # turbo starts the stack", tone: "ok" },
 ];
 
 export type PricingTier = {
@@ -464,21 +464,21 @@ export type PricingTier = {
 	monthly: number;
 };
 
-/** Slider steps: free → growth → scale (matches reference $149 @ 100 services). */
+/** Slider steps: free → team → org (workspaces / projects included). */
 export const PRICING_TIERS: PricingTier[] = [
-	{ services: 5, monthly: 0 },
-	{ services: 25, monthly: 49 },
-	{ services: 100, monthly: 149 },
-	{ services: 500, monthly: 399 },
+	{ services: 1, monthly: 0 },
+	{ services: 5, monthly: 49 },
+	{ services: 15, monthly: 149 },
+	{ services: 50, monthly: 399 },
 	{ services: "unlimited", monthly: 799 },
 ];
 
 export const PRICING_FEATURES: string[] = [
-	"Detect, diagnose & auto-fix",
-	"Approval gates on risky actions",
-	"Full replayable run traces",
-	"PR + Slack + PagerDuty actions",
-	"Custom runbooks & tools",
+	"Full monorepo starter (web · mobile · Nest · docs · Rust)",
+	"Shared @school-os packages and TS configs",
+	"Lefthook, Biome, Turbo, and architecture checks",
+	"Docker Compose fragments + Dev Container",
+	"Docs site and production roadmap baked in",
 ];
 
 export type WhyCard = {
@@ -492,25 +492,25 @@ export type WhyCard = {
 export const WHY_CARDS: WhyCard[] = [
 	{
 		id: "route",
-		title: "Diagnose across every service",
+		title: "One graph for every app",
 		description:
-			"One pass reads logs, metrics, and traces across the stack — then picks the cheapest safe fix path.",
+			"Turbo orchestrates install, lint, build, and test across the workspace — no glue scripts to invent.",
 		palette: "blue",
 		kind: "route",
 	},
 	{
 		id: "keys",
-		title: "Humans stay in control",
+		title: "Boundaries you can enforce",
 		description:
-			"Risky actions pause for approval. Scopes stay tight, and you can pull the plug on any agent anytime.",
+			"Architecture checks and AGENTS.md keep apps and packages in their lanes — humans and AI included.",
 		palette: "lime",
 		kind: "keys",
 	},
 	{
 		id: "ready",
-		title: "Watching in under a minute",
+		title: "Running in under ten minutes",
 		description:
-			"Connect a provider, import your services, and Atlas starts watching — no agents on every box.",
+			"Clone, bun install, bun run prepare, bun run dev — web, API, and docs come up without a weekend of setup.",
 		palette: "amber",
 		kind: "ready",
 	},
@@ -526,44 +526,44 @@ export type FaqItem = {
 export const FAQ_ITEMS: FaqItem[] = [
 	{
 		id: "agents",
-		question: "Do I need to install agents on every host?",
+		question: "Do I need Docker to start?",
 		answer:
-			"No. Atlas connects through your cloud providers and observability stack — no agents on every box. Connect once, and it starts watching services across environments.",
+			"No. Host-only is fine: install Bun, bun install, bun run prepare, bun run dev. Compose is optional when you want Postgres or the full containerized stack.",
 		icon: Hexagon,
 	},
 	{
 		id: "approvals",
-		question: "Can humans stay in the loop for risky changes?",
+		question: "Can we keep or drop apps we do not need?",
 		answer:
-			"Yes. High-impact actions pause for approval by default. You set scopes per environment, and you can revoke an agent mid-run anytime.",
+			"Yes. Apps under apps/ are independent. Remove or ignore what you do not ship yet — keep packages you still share.",
 		icon: ShieldCheck,
 	},
 	{
 		id: "stack",
-		question: "Which tools and clouds does Atlas work with?",
+		question: "What stacks does School OS include?",
 		answer:
-			"Atlas starts with the major clouds, log and metrics providers, and your existing ticketing workflows. Bring your runbooks and tools — Atlas learns the paths your team already trusts.",
+			"Next.js web, Expo mobile, NestJS API, Fumadocs docs, and a Rust binary — plus shared UI, logger, and TypeScript configs.",
 		icon: Box,
 	},
 	{
 		id: "traces",
-		question: "How do we audit what the agent did?",
+		question: "How do architecture boundaries work?",
 		answer:
-			"Every run produces a full trace: signals read, hypotheses, actions taken, and evidence for the fix. Export it to your incident system or keep it in Atlas for postmortems.",
+			"scripts/architecture/check-boundaries.sh runs in hooks and CI so apps cannot import each other’s internals. Overrides are documented in /docs/overrides.",
 		icon: Command,
 	},
 	{
 		id: "pricing",
-		question: "How does pricing work as we scale?",
+		question: "Is the starter free to use?",
 		answer:
-			"Plans scale with seats and watched services. Start free, then upgrade when you need more environments, custom runbooks, or SSO. Annual billing includes two months free.",
+			"The monorepo starter is free to clone and run. Paid tiers are optional for team seats, support, and managed onboarding — annual billing includes two months free.",
 		icon: Gem,
 	},
 	{
 		id: "security",
-		question: "How is our data handled?",
+		question: "What quality gates run before a commit?",
 		answer:
-			"Credentials stay scoped and short-lived. Atlas never stores secrets in traces, and enterprise plans include dedicated regions, audit exports, and custom retention.",
+			"Lefthook formats with Biome, lints, typechecks, blocks large files, scans for obvious secrets, and runs the architecture check — Conventional Commits required.",
 		icon: Octagon,
 	},
 ];
@@ -577,18 +577,18 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
 	{
 		title: "Product",
 		links: [
-			{ label: "Incident agent", href: "/#product" },
-			{ label: "Run traces", href: "/#product" },
+			{ label: "Apps overview", href: "/#product" },
+			{ label: "Capabilities", href: "/#capabilities" },
 			{ label: "Pricing", href: "/pricing" },
 		],
 	},
 	{
 		title: "Resources",
 		links: [
-			{ label: "Docs", href: "/#product" },
-			{ label: "Customers", href: "/#customers" },
+			{ label: "Docs", href: "http://localhost:3002/docs" },
+			{ label: "Stack", href: "/#customers" },
 			{ label: "FAQ", href: "/#faq" },
-			{ label: "Status", href: "/#product" },
+			{ label: "Quick start", href: "/#deploy" },
 		],
 	},
 	{

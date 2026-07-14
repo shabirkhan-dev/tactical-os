@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 export default function LandingLayout({ children }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<>
-			{/* Apply the stored Atlas theme before paint to avoid a flash. */}
+			{/* Apply the stored landing theme before paint to avoid a flash. */}
 			<script
 				// biome-ignore lint/security/noDangerouslySetInnerHtml: required to run the theme script before hydration
 				dangerouslySetInnerHTML={{ __html: atlasThemeScript }}

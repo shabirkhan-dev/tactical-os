@@ -41,7 +41,7 @@ export function HeroSection() {
 								/>
 							))}
 						</span>
-						Trusted by platform teams
+						Built for teams shipping school products
 					</motion.span>
 
 					<motion.h1
@@ -50,9 +50,9 @@ export function HeroSection() {
 						transition={{ duration: 0.8, delay: 0.08, ease: EASE }}
 						className="mt-6 text-balance font-semibold text-3xl leading-[1.1] tracking-tight sm:text-5xl"
 					>
-						<span className="text-foreground">Resolve incidents before</span>
+						<span className="text-foreground">Ship a school-scale monorepo</span>
 						<br />
-						<span className="text-foreground/40">anyone files a ticket</span>
+						<span className="text-foreground/40">without starting from zero</span>
 					</motion.h1>
 
 					<motion.p
@@ -61,8 +61,8 @@ export function HeroSection() {
 						transition={{ duration: 0.8, delay: 0.16, ease: EASE }}
 						className="mx-auto mt-5 max-w-xl text-pretty text-base text-muted-foreground leading-7"
 					>
-						Atlas watches your services around the clock, finds the root cause, and ships the fix —
-						looping in humans only when it actually matters.
+						Bun + Turborepo starter with Next.js, Expo, NestJS, docs, and Rust — shared UI, hooks,
+						CI, and Docker included.
 					</motion.p>
 
 					<motion.div
@@ -73,18 +73,18 @@ export function HeroSection() {
 					>
 						<motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }}>
 							<Link
-								href="/register"
+								href="#deploy"
 								className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary px-6 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
 							>
-								Start automating
+								Get started
 							</Link>
 						</motion.div>
 						<motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }}>
 							<Link
-								href="/about"
+								href="http://localhost:3002/docs"
 								className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-border bg-transparent px-6 text-base font-medium text-foreground transition-colors hover:bg-primary/5 sm:w-auto"
 							>
-								Book a demo
+								Read the docs
 							</Link>
 						</motion.div>
 					</motion.div>
@@ -121,13 +121,13 @@ function WorkflowCard() {
 						<FileText className="size-4" aria-hidden="true" />
 					</span>
 					<div>
-						<p className="font-semibold text-neutral-900 text-sm">Latency spike detected</p>
-						<p className="text-[11px] text-neutral-500">checkout-api · 30s ago</p>
+						<p className="font-semibold text-neutral-900 text-sm">Workspace bootstrap</p>
+						<p className="text-[11px] text-neutral-500">school-os · just now</p>
 					</div>
 				</div>
 
 				<p className="mt-4 font-medium text-[10px] text-neutral-400 uppercase tracking-wider">
-					Workflow progress
+					Setup progress
 				</p>
 
 				<div className="mt-2 flex flex-col">
@@ -190,10 +190,10 @@ function AgentChatCard() {
 						<Bot className="size-4" aria-hidden="true" />
 					</span>
 					<div>
-						<p className="font-semibold text-neutral-900 text-sm">AI Agent</p>
+						<p className="font-semibold text-neutral-900 text-sm">Dev loop</p>
 						<p className="flex items-center gap-1.5 text-[11px] text-neutral-500">
 							<span className="size-1.5 rounded-full bg-emerald-500" />
-							Site reliability agent · online
+							Monorepo starter · ready
 						</p>
 					</div>
 				</div>

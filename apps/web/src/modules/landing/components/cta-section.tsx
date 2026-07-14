@@ -10,7 +10,7 @@ import { FadeIn } from "./fade-in";
 
 export function CtaSection() {
 	const [copied, setCopied] = useState(false);
-	const command = "npx atlas connect --provider aws";
+	const command = "bun install";
 
 	const handleCopy = async () => {
 		try {
@@ -27,20 +27,20 @@ export function CtaSection() {
 			<div className="relative mx-auto flex w-full max-w-3xl flex-col items-center text-center">
 				<FadeIn>
 					<span className="inline-flex items-center rounded-full border border-border bg-card/70 px-3 py-1 font-medium text-muted-foreground text-xs backdrop-blur">
-						Deploy in minutes
+						Up in minutes
 					</span>
 				</FadeIn>
 
 				<FadeIn delay={0.08}>
 					<h2 className="mt-5 max-w-2xl text-balance font-serif text-4xl text-foreground leading-[1.05] sm:text-5xl">
-						Put your ops on autopilot.
+						Clone the starter. Run the workspace.
 					</h2>
 				</FadeIn>
 
 				<FadeIn delay={0.12}>
 					<p className="mt-5 max-w-xl text-pretty text-muted-foreground text-sm leading-7 sm:text-base">
-						Connect your stack and Atlas starts watching immediately — no agents to install on every
-						box, no runbooks to rewrite.
+						Install once with Bun — Turbo brings up web, mobile, Nest, docs, and Rust without a
+						weekend of glue work.
 					</p>
 				</FadeIn>
 
@@ -54,7 +54,7 @@ export function CtaSection() {
 							<span className="size-3 rounded-full bg-[#ff5f57]" />
 							<span className="size-3 rounded-full bg-[#febc2e]" />
 							<span className="size-3 rounded-full bg-[#28c840]" />
-							<span className="ml-2 font-mono text-[11px] text-white/40">~/app</span>
+							<span className="ml-2 font-mono text-[11px] text-white/40">~/school-os</span>
 							<motion.button
 								type="button"
 								onClick={handleCopy}
@@ -104,10 +104,10 @@ export function CtaSection() {
 						transition={springSnappy}
 					>
 						<Link
-							href="/register"
+							href="#deploy"
 							className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90"
 						>
-							Start free
+							Get started
 							<ArrowRight className="size-4" aria-hidden="true" />
 						</Link>
 					</motion.div>
@@ -117,10 +117,10 @@ export function CtaSection() {
 						transition={springSnappy}
 					>
 						<Link
-							href="/about"
+							href="http://localhost:3002/docs"
 							className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-border bg-card px-6 text-base font-medium text-foreground transition-colors hover:border-border"
 						>
-							Book a demo
+							Read the docs
 						</Link>
 					</motion.div>
 				</FadeIn>

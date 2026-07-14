@@ -23,21 +23,21 @@ export function ProductSection() {
 				<div>
 					<FadeIn>
 						<span className="inline-flex items-center rounded-full border border-border bg-card px-3.5 py-1.5 font-medium text-muted-foreground text-xs">
-							Watch it work
+							See the workflow
 						</span>
 					</FadeIn>
 
 					<FadeIn delay={0.08}>
 						<h2 className="mt-6 text-balance font-serif text-3xl text-foreground leading-tight sm:text-4xl">
-							Every fix, fully traced — so you always know what it did and why.
+							From clone to running workspace — every step is wired in.
 						</h2>
 					</FadeIn>
 
 					<FadeIn delay={0.14}>
 						<p className="mt-5 text-pretty text-muted-foreground leading-8">
-							Atlas narrates its reasoning step by step: what it saw, what it suspected, and exactly
-							which change it shipped. Nothing happens in a black box, and risky actions always
-							pause for a human.
+							School OS ships a complete Turborepo loop: install once, run shared tasks, enforce
+							architecture boundaries, and stand up web, mobile, API, docs, and Rust without
+							cobbling five repos together.
 						</p>
 					</FadeIn>
 
@@ -82,7 +82,7 @@ function IncidentTimelineCard() {
 	return (
 		<div className="relative rounded-2xl border border-white/10 bg-neutral-950/85 p-4 shadow-2xl backdrop-blur-md sm:p-5">
 			<div className="flex items-center justify-between border-white/10 border-b pb-3">
-				<span className="font-medium font-mono text-white text-xs">atlas · incident #4821</span>
+				<span className="font-medium font-mono text-white text-xs">school-os · turborepo</span>
 				<span className="flex items-center gap-1.5 text-[10px] text-white/60">
 					<span className="size-1.5 rounded-full bg-emerald-400" />
 					resolving
