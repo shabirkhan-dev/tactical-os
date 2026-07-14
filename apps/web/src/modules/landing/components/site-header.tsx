@@ -37,7 +37,7 @@ export function SiteHeader() {
 					initial={reduceMotion ? false : { opacity: 0, y: -12 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.55, ease: ATLAS_EASE }}
-					className="relative flex h-14 items-center justify-between rounded-full border border-border/60 bg-background/50 px-3 backdrop-blur-md sm:px-4"
+					className="relative flex h-14 items-center justify-between rounded-full border border-border/50 bg-background/80 px-3 shadow-sm backdrop-blur-xl sm:px-4"
 				>
 					<Link
 						href="/"

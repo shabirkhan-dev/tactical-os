@@ -7,6 +7,7 @@ import {
 	Hexagon,
 	type LucideIcon,
 	Octagon,
+	ShieldCheck,
 	Triangle,
 } from "lucide-react";
 
@@ -232,7 +233,7 @@ export type CapabilityCard = {
 	palette: MeshPalette;
 };
 
-export type MeshPalette = "blue" | "teal" | "lime";
+export type MeshPalette = "blue" | "teal" | "lime" | "amber";
 
 export const CAPABILITY_CARDS: CapabilityCard[] = [
 	{
@@ -480,6 +481,93 @@ export const PRICING_FEATURES: string[] = [
 	"Custom runbooks & tools",
 ];
 
+export type WhyCard = {
+	id: string;
+	title: string;
+	description: string;
+	palette: MeshPalette;
+	kind: "route" | "keys" | "ready";
+};
+
+export const WHY_CARDS: WhyCard[] = [
+	{
+		id: "route",
+		title: "Diagnose across every service",
+		description:
+			"One pass reads logs, metrics, and traces across the stack — then picks the cheapest safe fix path.",
+		palette: "blue",
+		kind: "route",
+	},
+	{
+		id: "keys",
+		title: "Humans stay in control",
+		description:
+			"Risky actions pause for approval. Scopes stay tight, and you can pull the plug on any agent anytime.",
+		palette: "lime",
+		kind: "keys",
+	},
+	{
+		id: "ready",
+		title: "Watching in under a minute",
+		description:
+			"Connect a provider, import your services, and Atlas starts watching — no agents on every box.",
+		palette: "amber",
+		kind: "ready",
+	},
+];
+
+export type FaqItem = {
+	id: string;
+	question: string;
+	answer: string;
+	icon: LucideIcon;
+};
+
+export const FAQ_ITEMS: FaqItem[] = [
+	{
+		id: "agents",
+		question: "Do I need to install agents on every host?",
+		answer:
+			"No. Atlas connects through your cloud providers and observability stack — no agents on every box. Connect once, and it starts watching services across environments.",
+		icon: Hexagon,
+	},
+	{
+		id: "approvals",
+		question: "Can humans stay in the loop for risky changes?",
+		answer:
+			"Yes. High-impact actions pause for approval by default. You set scopes per environment, and you can revoke an agent mid-run anytime.",
+		icon: ShieldCheck,
+	},
+	{
+		id: "stack",
+		question: "Which tools and clouds does Atlas work with?",
+		answer:
+			"Atlas starts with the major clouds, log and metrics providers, and your existing ticketing workflows. Bring your runbooks and tools — Atlas learns the paths your team already trusts.",
+		icon: Box,
+	},
+	{
+		id: "traces",
+		question: "How do we audit what the agent did?",
+		answer:
+			"Every run produces a full trace: signals read, hypotheses, actions taken, and evidence for the fix. Export it to your incident system or keep it in Atlas for postmortems.",
+		icon: Command,
+	},
+	{
+		id: "pricing",
+		question: "How does pricing work as we scale?",
+		answer:
+			"Plans scale with seats and watched services. Start free, then upgrade when you need more environments, custom runbooks, or SSO. Annual billing includes two months free.",
+		icon: Gem,
+	},
+	{
+		id: "security",
+		question: "How is our data handled?",
+		answer:
+			"Credentials stay scoped and short-lived. Atlas never stores secrets in traces, and enterprise plans include dedicated regions, audit exports, and custom retention.",
+		icon: Octagon,
+	},
+];
+
 export type FooterColumn = {
 	title: string;
 	links: NavLink[];
@@ -499,6 +587,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
 		links: [
 			{ label: "Docs", href: "/#product" },
 			{ label: "Customers", href: "/#customers" },
+			{ label: "FAQ", href: "/#faq" },
 			{ label: "Status", href: "/#product" },
 		],
 	},

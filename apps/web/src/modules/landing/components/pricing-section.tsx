@@ -187,7 +187,7 @@ function BillingToggle({
 		<div
 			role="tablist"
 			aria-label="Billing period"
-			className="inline-flex items-center gap-1 rounded-full bg-secondary p-1 dark:bg-[#1a1a1f]"
+			className="inline-flex items-center gap-1 rounded-full bg-secondary p-1"
 		>
 			<LayoutGroup id="pricing-billing">
 				{(

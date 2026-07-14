@@ -14,19 +14,19 @@
 		monospace;
 	--font-geist-mono: var(--font-mono);
 
-	/* Light palette — matches Atlas reference (white + brand blue) */
+	/* Light palette — clean white Atlas marketing surface */
 	--background: #ffffff;
-	--foreground: #0a0a0a;
+	--foreground: #09090b;
 	--card: #ffffff;
-	--card-foreground: #0a0a0a;
+	--card-foreground: #09090b;
 	--popover: #ffffff;
-	--popover-foreground: #0a0a0a;
+	--popover-foreground: #09090b;
 	--primary: #2563eb;
 	--primary-foreground: #ffffff;
 	--secondary: #f4f4f5;
 	--secondary-foreground: #18181b;
 	--muted: #f4f4f5;
-	--muted-foreground: #737373;
+	--muted-foreground: #71717a;
 	--accent: #2563eb;
 	--accent-foreground: #ffffff;
 	--destructive: #e5484d;
@@ -43,6 +43,7 @@
 	font-family: var(--font-sans);
 	background-color: var(--background);
 	color: var(--foreground);
+	color-scheme: light;
 	-webkit-font-smoothing: antialiased;
 	text-rendering: optimizeLegibility;
 }
@@ -57,24 +58,64 @@
 
 .dark [data-landing],
 [data-landing].dark {
-	--background: #08080b;
-	--foreground: #f4f4f5;
-	--card: #101014;
-	--card-foreground: #f4f4f5;
-	--popover: #101014;
-	--popover-foreground: #f4f4f5;
+	/*
+	 * Meridian-like charcoal — soft dark gray, not pure black / app #141414.
+	 * Cards sit one step above so rims and frosted panels read clearly.
+	 */
+	--background: #1a1a1e;
+	--foreground: #fafafa;
+	--card: #222228;
+	--card-foreground: #fafafa;
+	--popover: #222228;
+	--popover-foreground: #fafafa;
 	--primary: #3b82f6;
 	--primary-foreground: #ffffff;
-	--secondary: #16161b;
-	--secondary-foreground: #f4f4f5;
-	--muted: #131318;
-	--muted-foreground: #9b9ba6;
+	--secondary: #2a2a32;
+	--secondary-foreground: #fafafa;
+	--muted: #2a2a32;
+	--muted-foreground: #a1a1aa;
 	--accent: #3b82f6;
 	--accent-foreground: #ffffff;
 	--destructive: #f2555a;
-	--border: rgba(255, 255, 255, 0.08);
-	--input: rgba(255, 255, 255, 0.12);
+	--border: rgba(255, 255, 255, 0.1);
+	--input: rgba(255, 255, 255, 0.14);
 	--ring: #3b82f6;
+	color-scheme: dark;
+}
+
+/*
+ * Sync html + body tokens with the landing surface so overscroll, safe-area,
+ * and any root-level bg-background never flash app #141414 against the page.
+ */
+html.dark:has([data-landing]) {
+	--background: #1a1a1e;
+	--foreground: #fafafa;
+	--card: #222228;
+	--card-foreground: #fafafa;
+	--popover: #222228;
+	--popover-foreground: #fafafa;
+	--secondary: #2a2a32;
+	--secondary-foreground: #fafafa;
+	--muted: #2a2a32;
+	--muted-foreground: #a1a1aa;
+	--border: rgba(255, 255, 255, 0.1);
+	--input: rgba(255, 255, 255, 0.14);
+	background-color: #1a1a1e;
+	color-scheme: dark;
+}
+
+html.dark:has([data-landing]) body {
+	background-color: #1a1a1e;
+}
+
+html:has([data-landing]):not(.dark) {
+	--background: #ffffff;
+	--foreground: #09090b;
+	background-color: #ffffff;
+}
+
+html:has([data-landing]):not(.dark) body {
+	background-color: #ffffff;
 }
 
 [data-landing] ::selection {

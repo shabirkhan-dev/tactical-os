@@ -52,7 +52,7 @@ export function HeroSection() {
 					>
 						<span className="text-foreground">Resolve incidents before</span>
 						<br />
-						<span className="text-muted-foreground/50">anyone files a ticket</span>
+						<span className="text-foreground/40">anyone files a ticket</span>
 					</motion.h1>
 
 					<motion.p
