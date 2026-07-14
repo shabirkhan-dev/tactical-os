@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("home page renders school-os heading", async ({ page }) => {
+test("home page renders the atlas hero heading", async ({ page }) => {
 	await page.goto("/");
-	await expect(page.getByRole("heading", { name: "School OS" })).toBeVisible();
+	await expect(page.getByRole("heading", { name: /Resolve incidents before/i })).toBeVisible();
 });
