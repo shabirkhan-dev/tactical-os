@@ -47,6 +47,20 @@ export const envSchema = z
 		WEBAUTHN_RP_ID: z.string().min(1).default('localhost'),
 		WEBAUTHN_ORIGIN: z.url().default('http://localhost:3000'),
 		GOOGLE_CLIENT_ID: z.string().min(1).optional(),
+		BILLING_DEFAULT_PROVIDER: z.enum(['stripe', 'razorpay']).default('stripe'),
+		STRIPE_SECRET_KEY: z.string().min(1).optional(),
+		STRIPE_WEBHOOK_SECRET: z.string().min(1).optional(),
+		STRIPE_PRICE_TEAM_MONTHLY: z.string().min(1).optional(),
+		STRIPE_PRICE_TEAM_YEARLY: z.string().min(1).optional(),
+		STRIPE_PRICE_ENTERPRISE_MONTHLY: z.string().min(1).optional(),
+		STRIPE_PRICE_ENTERPRISE_YEARLY: z.string().min(1).optional(),
+		RAZORPAY_KEY_ID: z.string().min(1).optional(),
+		RAZORPAY_KEY_SECRET: z.string().min(1).optional(),
+		RAZORPAY_WEBHOOK_SECRET: z.string().min(1).optional(),
+		RAZORPAY_PLAN_TEAM_MONTHLY: z.string().min(1).optional(),
+		RAZORPAY_PLAN_TEAM_YEARLY: z.string().min(1).optional(),
+		RAZORPAY_PLAN_ENTERPRISE_MONTHLY: z.string().min(1).optional(),
+		RAZORPAY_PLAN_ENTERPRISE_YEARLY: z.string().min(1).optional(),
 	})
 	.superRefine((env, context) => {
 		if (env.NODE_ENV !== 'production') {

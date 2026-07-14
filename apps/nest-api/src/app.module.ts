@@ -5,6 +5,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { ConfigModule } from './config/config.module';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { BillingModule } from './modules/billing/billing.module';
 import { HealthModule } from './modules/health/health.module';
 import { ProfilesModule } from './modules/profiles/profiles.module';
 import { UsersModule } from './modules/users/users.module';
@@ -18,6 +19,7 @@ import { UsersModule } from './modules/users/users.module';
 		UsersModule,
 		AuthModule,
 		ProfilesModule,
+		BillingModule,
 	],
 	providers: [
 		{

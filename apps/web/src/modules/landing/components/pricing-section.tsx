@@ -115,7 +115,7 @@ export function PricingSection() {
 							transition={springSnappy}
 						>
 							<Link
-								href="#deploy"
+								href="/billing"
 								className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90"
 							>
 								Get started
