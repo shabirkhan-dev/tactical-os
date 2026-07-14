@@ -7,6 +7,7 @@ import { useId, useState } from "react";
 import { NAV_ITEMS, type NavItem, type NavSubItem, SITE } from "../data/landing.data";
 import { ATLAS_EASE, menuItemVariants, springSnappy, springSoft } from "../lib/motion";
 import { cn } from "../lib/utils";
+import { LandingAuthActions } from "./landing-auth-actions";
 
 function SchoolOsMark({ className }: { className?: string }) {
 	return (
@@ -77,24 +78,7 @@ export function SiteHeader() {
 					</nav>
 
 					<div className="flex items-center gap-2">
-						<Link
-							href="/login"
-							className="hidden h-8 items-center justify-center rounded-full px-3 text-foreground/80 text-xs font-medium transition-colors hover:bg-muted hover:text-foreground sm:inline-flex"
-						>
-							Sign in
-						</Link>
-						<motion.div
-							whileHover={{ scale: 1.03 }}
-							whileTap={{ scale: 0.97 }}
-							transition={springSnappy}
-						>
-							<Link
-								href="#deploy"
-								className="hidden h-8 items-center justify-center rounded-full bg-primary px-3 text-primary-foreground text-xs font-medium transition-colors hover:bg-primary/90 sm:inline-flex"
-							>
-								Get started
-							</Link>
-						</motion.div>
+						<LandingAuthActions />
 						<button
 							type="button"
 							aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -147,22 +131,7 @@ export function SiteHeader() {
 									),
 								)}
 
-								<div className="mt-3 flex flex-col gap-2.5 px-1.5 pt-1">
-									<Link
-										href="/login"
-										onClick={closeMobile}
-										className="inline-flex h-12 items-center justify-center rounded-full border border-border bg-background px-4 text-center font-medium text-foreground text-sm transition-colors hover:bg-muted"
-									>
-										Sign in
-									</Link>
-									<Link
-										href="#deploy"
-										onClick={closeMobile}
-										className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-4 text-center font-medium text-primary-foreground text-sm transition-colors hover:bg-primary/90"
-									>
-										Get started
-									</Link>
-								</div>
+								<LandingAuthActions mobile onNavigate={closeMobile} />
 							</nav>
 						</motion.div>
 					) : null}
