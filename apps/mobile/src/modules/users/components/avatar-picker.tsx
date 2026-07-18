@@ -2,6 +2,7 @@ import { Check, ImagePlus } from "lucide-react-native";
 import { useState } from "react";
 import { ActivityIndicator, Alert, Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { NeonColors } from "@/constants/design-system";
+import { resolveMediaUrl } from "@/lib/media-url";
 import { buildAvatarTemplates } from "../lib/avatar-templates";
 
 interface AvatarPickerProps {
@@ -23,18 +24,21 @@ export function AvatarPicker({
 }: AvatarPickerProps) {
 	const templates = buildAvatarTemplates(seed);
 	const busy = pending || uploading;
-	const [previewFailed, setPreviewFailed] = useState(false);
+	const previewUri = resolveMediaUrl(value);
+	const [failedUri, setFailedUri] = useState<string | null>(null);
+	const previewFailed = previewUri != null && failedUri === previewUri;
 
 	return (
 		<View style={styles.wrap}>
 			<Text style={styles.label}>Avatar</Text>
 			<View style={styles.previewRow}>
 				<View style={styles.preview}>
-					{value && !previewFailed ? (
+					{previewUri && !previewFailed ? (
 						<Image
-							source={{ uri: value }}
+							key={previewUri}
+							source={{ uri: previewUri }}
 							style={styles.previewImage}
-							onError={() => setPreviewFailed(true)}
+							onError={() => setFailedUri(previewUri)}
 						/>
 					) : (
 						<Text style={styles.previewFallback}>None</Text>
@@ -68,10 +72,7 @@ export function AvatarPicker({
 						<Pressable
 							key={template.id}
 							disabled={busy}
-							onPress={() => {
-								setPreviewFailed(false);
-								onSelectTemplate(template.url);
-							}}
+							onPress={() => onSelectTemplate(template.url)}
 							style={({ pressed }) => [
 								styles.template,
 								selected && styles.templateSelected,

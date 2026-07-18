@@ -1,21 +1,28 @@
 import { Calendar, CheckCircle2, LogOut, Mail, ShieldOff, UserRound } from "lucide-react-native";
+import { useEffect } from "react";
 import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { NeonCard } from "@/components/ui/neon-card";
 import { OSHeader } from "@/components/ui/os-header";
 import { NeonColors } from "@/constants/design-system";
+import { resolveMediaUrl } from "@/lib/media-url";
 import { useAuth } from "@/modules/auth";
+import { AccountTabs } from "@/modules/auth/components/account-tabs";
 import { AuthButton } from "@/modules/auth/components/auth-button";
 import { ProfileForm } from "./profile-form";
 
 export function ProfileScreen() {
-	const { user, logout, logoutAll } = useAuth();
+	const { user, logout, logoutAll, refreshUser } = useAuth();
+
+	useEffect(() => {
+		void refreshUser();
+	}, [refreshUser]);
 
 	if (!user) return null;
 
 	const displayName = user.profile?.displayName?.trim() || user.username;
 	const avatarUri =
-		user.profile?.avatarUrl?.trim() ||
+		resolveMediaUrl(user.profile?.avatarUrl?.trim()) ||
 		`https://avatar.vercel.sh/${encodeURIComponent(user.username)}`;
 	const memberSince = new Date(user.createdAt).toLocaleDateString(undefined, {
 		year: "numeric",
@@ -66,6 +73,8 @@ export function ProfileScreen() {
 								Control how your identity appears across your personal OS.
 							</Text>
 						</View>
+
+						<AccountTabs active="profile" />
 
 						<NeonCard style={styles.heroCard}>
 							<View style={styles.hero}>

@@ -1,5 +1,6 @@
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from "react";
 import { ApiError } from "@/lib/api/client";
+import { usersService } from "@/modules/users/services/users.service";
 import type { User } from "@/modules/users/types/user.types";
 import { authService } from "../services/auth.service";
 import { tokenStorage } from "../services/token-storage";
@@ -50,6 +51,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 		setUser(session.user);
 		if (session.refreshToken) {
 			await tokenStorage.setRefreshToken(session.refreshToken);
+		}
+		// Auth session payloads omit profile; hydrate from /users/me like web.
+		try {
+			setUser(await usersService.getCurrent(session.accessToken));
+		} catch {
+			// Keep session.user if profile fetch fails (offline, transient errors).
 		}
 	}, []);
 
@@ -134,7 +141,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 	const refreshUser = useCallback(async () => {
 		if (!token) return;
 		try {
-			setUser(await authService.me(token));
+			setUser(await usersService.getCurrent(token));
 		} catch (caught) {
 			if (caught instanceof ApiError && caught.statusCode === 401) {
 				await refreshSession();

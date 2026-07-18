@@ -11,6 +11,7 @@ import {
 	View,
 } from "react-native";
 import { NeonColors } from "@/constants/design-system";
+import { resolveMediaUrl } from "@/lib/media-url";
 import { useAuth } from "@/modules/auth";
 
 export type OSModule =
@@ -30,7 +31,7 @@ export function OSHeader() {
 	const { user } = useAuth();
 
 	const avatarUri =
-		user?.profile?.avatarUrl?.trim() ||
+		resolveMediaUrl(user?.profile?.avatarUrl?.trim()) ||
 		(user
 			? `https://avatar.vercel.sh/${encodeURIComponent(user.username)}`
 			: "https://avatar.vercel.sh/guest");
