@@ -1,5 +1,7 @@
+import { join } from 'node:path';
 import type { INestApplication } from '@nestjs/common';
 import { VersioningType } from '@nestjs/common';
+import type { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
@@ -11,11 +13,20 @@ import { ZodValidationPipe } from './common/pipes/zod-validation.pipe';
 import type { AppConfigService } from './config/app-config.service';
 
 export function setupApp(app: INestApplication, config: AppConfigService): void {
-	app.use(helmet());
-	app.use(cookieParser());
+	const expressApp = app as NestExpressApplication;
+
+	expressApp.use(
+		helmet({
+			crossOriginResourcePolicy: { policy: 'cross-origin' },
+		}),
+	);
+	expressApp.use(cookieParser());
+	expressApp.useStaticAssets(join(process.cwd(), 'uploads'), {
+		prefix: '/uploads/',
+	});
 
 	if (config.trustProxy) {
-		app.getHttpAdapter().getInstance().set('trust proxy', 1);
+		expressApp.getHttpAdapter().getInstance().set('trust proxy', 1);
 	}
 
 	app.setGlobalPrefix(config.apiPrefix);
