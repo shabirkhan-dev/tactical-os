@@ -16,6 +16,9 @@ export type AuthSessionResult = {
 
 export type PublicAuthSession = Omit<AuthSessionResult, 'refreshToken'>;
 
+/** Web omits refreshToken (cookie); native includes it for SecureStore. */
+export type ClientAuthSession = PublicAuthSession | AuthSessionResult;
+
 export type MfaLoginChallenge = {
 	requiresTwoFactor: true;
 	challengeToken: string;
@@ -25,6 +28,7 @@ export type MfaLoginChallenge = {
 
 export type LoginResult = AuthSessionResult | MfaLoginChallenge;
 export type PublicLoginResult = PublicAuthSession | MfaLoginChallenge;
+export type ClientLoginResult = ClientAuthSession | MfaLoginChallenge;
 
 export type AuthChallengeResult = {
 	accepted: true;

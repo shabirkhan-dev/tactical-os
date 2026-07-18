@@ -15,7 +15,7 @@ import type { AuthenticationResponseJSON } from '@simplewebauthn/server';
 import type { Request, Response } from 'express';
 
 import { AuthService } from './auth.service';
-import type { PublicAuthSession } from './auth.types';
+import type { ClientAuthSession } from './auth.types';
 import { CsrfGuard } from './csrf.guard';
 import {
 	ChallengeTokenBodyDto,
@@ -26,6 +26,7 @@ import {
 	PasskeyOptionsBodyDto,
 } from './dto/auth.dto';
 import { RefreshCookieService } from './refresh-cookie.service';
+import { presentSession } from './session-response';
 
 @ApiTags('Authentication methods')
 @UseGuards(CsrfGuard)
@@ -49,10 +50,9 @@ export class AuthMethodsController {
 		@Body() body: ChallengeTokenBodyDto,
 		@Req() request: Request,
 		@Res({ passthrough: true }) response: Response,
-	): Promise<PublicAuthSession> {
+	): Promise<ClientAuthSession> {
 		const result = await this.auth.completeMfaLogin(body, metadata(request));
-		this.refreshCookie.set(response, result.refreshToken);
-		return this.auth.toPublicSession(result);
+		return presentSession(this.auth, this.refreshCookie, request, response, result);
 	}
 
 	@Post('magic-link/request')
@@ -69,10 +69,9 @@ export class AuthMethodsController {
 		@Body() body: MagicLinkBodyDto,
 		@Req() request: Request,
 		@Res({ passthrough: true }) response: Response,
-	): Promise<PublicAuthSession> {
+	): Promise<ClientAuthSession> {
 		const result = await this.auth.consumeMagicLink(body.token, metadata(request));
-		this.refreshCookie.set(response, result.refreshToken);
-		return this.auth.toPublicSession(result);
+		return presentSession(this.auth, this.refreshCookie, request, response, result);
 	}
 
 	@Post('google')
@@ -82,10 +81,9 @@ export class AuthMethodsController {
 		@Body() body: GoogleCredentialBodyDto,
 		@Req() request: Request,
 		@Res({ passthrough: true }) response: Response,
-	): Promise<PublicAuthSession> {
+	): Promise<ClientAuthSession> {
 		const result = await this.auth.googleLogin(body.credential, metadata(request));
-		this.refreshCookie.set(response, result.refreshToken);
-		return this.auth.toPublicSession(result);
+		return presentSession(this.auth, this.refreshCookie, request, response, result);
 	}
 
 	@Post('passkeys/options')
@@ -101,7 +99,7 @@ export class AuthMethodsController {
 		@Body() body: PasskeyAuthenticationBodyDto,
 		@Req() request: Request,
 		@Res({ passthrough: true }) response: Response,
-	): Promise<PublicAuthSession> {
+	): Promise<ClientAuthSession> {
 		const result = await this.auth.finishPasskeyLogin(
 			{
 				challengeId: body.challengeId,
@@ -109,8 +107,7 @@ export class AuthMethodsController {
 			},
 			metadata(request),
 		);
-		this.refreshCookie.set(response, result.refreshToken);
-		return this.auth.toPublicSession(result);
+		return presentSession(this.auth, this.refreshCookie, request, response, result);
 	}
 }
 

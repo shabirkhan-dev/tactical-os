@@ -107,4 +107,24 @@ describe('AuthService', () => {
 
 		expect(result).not.toHaveProperty('refreshToken');
 	});
+
+	it('includes the refresh token for native client session responses', () => {
+		const session = {
+			accessToken: 'access-token',
+			accessTokenExpiresAt: '2026-07-13T00:15:00.000Z',
+			refreshToken: 'refresh-token',
+			user: {
+				id: user.id,
+				email: user.email,
+				username: user.username,
+				isActive: true,
+				emailVerified: false,
+				hasPassword: true,
+				createdAt: user.createdAt.toISOString(),
+			},
+		};
+
+		expect(service.toClientSession(session, true)).toEqual(session);
+		expect(service.toClientSession(session, false)).not.toHaveProperty('refreshToken');
+	});
 });

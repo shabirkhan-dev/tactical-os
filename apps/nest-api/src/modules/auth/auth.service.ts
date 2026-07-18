@@ -25,10 +25,11 @@ import type {
 	AccessTokenPayload,
 	AuthChallengeResult,
 	AuthSessionResult,
+	ClientAuthSession,
+	ClientLoginResult,
 	LoginResult,
 	MfaLoginChallenge,
 	PublicAuthSession,
-	PublicLoginResult,
 	RegistrationResult,
 	RequestMetadata,
 	SessionView,
@@ -359,8 +360,18 @@ export class AuthService {
 		};
 	}
 
-	toPublicLoginResult(result: LoginResult): PublicLoginResult {
-		return 'requiresTwoFactor' in result ? result : this.toPublicSession(result);
+	toClientSession(result: AuthSessionResult, includeRefreshToken: boolean): ClientAuthSession {
+		return includeRefreshToken ? result : this.toPublicSession(result);
+	}
+
+	toPublicLoginResult(result: LoginResult): ClientLoginResult {
+		return this.toClientLoginResult(result, false);
+	}
+
+	toClientLoginResult(result: LoginResult, includeRefreshToken: boolean): ClientLoginResult {
+		return 'requiresTwoFactor' in result
+			? result
+			: this.toClientSession(result, includeRefreshToken);
 	}
 
 	private async createSession(

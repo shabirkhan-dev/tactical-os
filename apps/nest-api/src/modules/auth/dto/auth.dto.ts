@@ -64,6 +64,16 @@ export const passkeyAuthenticationBodySchema = z
 	})
 	.strict();
 
+/** Optional body for native clients that store the refresh token in SecureStore. */
+export const refreshBodySchema = z.preprocess(
+	(value) => (value == null || value === '' ? {} : value),
+	z
+		.object({
+			refreshToken: z.string().min(20).max(2048).optional(),
+		})
+		.strict(),
+);
+
 export class RegisterBodyDto {
 	static schema = registerBodySchema;
 	email!: string;
@@ -127,6 +137,10 @@ export class PasskeyAuthenticationBodyDto {
 	challengeId!: string;
 	response!: Record<string, unknown>;
 }
+export class RefreshBodyDto {
+	static schema = refreshBodySchema;
+	refreshToken?: string;
+}
 
 export type RegisterBody = z.infer<typeof registerBodySchema>;
 export type LoginBody = z.infer<typeof loginBodySchema>;
@@ -136,3 +150,4 @@ export type ResetPasswordBody = z.infer<typeof resetPasswordBodySchema>;
 export type ChangePasswordBody = z.infer<typeof changePasswordBodySchema>;
 export type ChallengeTokenBody = z.infer<typeof challengeTokenBodySchema>;
 export type MagicLinkBody = z.infer<typeof magicLinkBodySchema>;
+export type RefreshBody = z.infer<typeof refreshBodySchema>;

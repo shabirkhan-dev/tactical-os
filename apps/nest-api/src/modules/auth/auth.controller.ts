@@ -20,8 +20,8 @@ import { AuthService } from './auth.service';
 import type {
 	AccessTokenPayload,
 	AuthChallengeResult,
-	PublicAuthSession,
-	PublicLoginResult,
+	ClientAuthSession,
+	ClientLoginResult,
 	RegistrationResult,
 	SessionView,
 } from './auth.types';
@@ -31,12 +31,14 @@ import {
 	ChangePasswordBodyDto,
 	EmailBodyDto,
 	LoginBodyDto,
+	RefreshBodyDto,
 	RegisterBodyDto,
 	ResetPasswordBodyDto,
 	VerifyEmailBodyDto,
 } from './dto/auth.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { RefreshCookieService } from './refresh-cookie.service';
+import { presentLoginResult, presentSession, resolveRefreshToken } from './session-response';
 
 @ApiTags('Auth')
 @UseGuards(CsrfGuard)
@@ -82,25 +84,28 @@ export class AuthController {
 		@Body() body: LoginBodyDto,
 		@Req() request: Request,
 		@Res({ passthrough: true }) response: Response,
-	): Promise<PublicLoginResult> {
+	): Promise<ClientLoginResult> {
 		const result = await this.authService.login(body, getRequestMetadata(request));
-		if (!('requiresTwoFactor' in result)) {
-			this.refreshCookie.set(response, result.refreshToken);
-		}
-		return this.authService.toPublicLoginResult(result);
+		return presentLoginResult(this.authService, this.refreshCookie, request, response, result);
 	}
 
 	@Post('refresh')
 	@Throttle({ default: { limit: 30, ttl: 60_000 } })
 	@HttpCode(HttpStatus.OK)
-	@ApiOperation({ summary: 'Rotate the refresh token and issue a new access token' })
+	@ApiOperation({
+		summary: 'Rotate the refresh token and issue a new access token',
+		description:
+			'Web clients send the refresh cookie. Native clients send `refreshToken` in the JSON body and `X-Client-Platform: native`.',
+	})
 	async refresh(
 		@Req() request: Request,
 		@Res({ passthrough: true }) response: Response,
-	): Promise<PublicAuthSession> {
-		const result = await this.authService.refresh(this.refreshCookie.read(request) ?? '');
-		this.refreshCookie.set(response, result.refreshToken);
-		return this.authService.toPublicSession(result);
+		@Body() body: RefreshBodyDto,
+	): Promise<ClientAuthSession> {
+		const result = await this.authService.refresh(
+			resolveRefreshToken(this.refreshCookie, request, body.refreshToken),
+		);
+		return presentSession(this.authService, this.refreshCookie, request, response, result);
 	}
 
 	@Post('logout')
@@ -109,8 +114,11 @@ export class AuthController {
 	async logout(
 		@Req() request: Request,
 		@Res({ passthrough: true }) response: Response,
+		@Body() body: RefreshBodyDto,
 	): Promise<void> {
-		await this.authService.logout(this.refreshCookie.read(request));
+		await this.authService.logout(
+			resolveRefreshToken(this.refreshCookie, request, body.refreshToken),
+		);
 		this.refreshCookie.clear(response);
 	}
 
