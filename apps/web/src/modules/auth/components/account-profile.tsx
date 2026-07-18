@@ -12,7 +12,10 @@ import { Badge } from "@school-os/ui/components/badge";
 import { Spinner } from "@school-os/ui/components/spinner";
 import { useEffect, useState } from "react";
 import { ProfileForm } from "@/modules/users/components/profile-form";
-import { useUpdateUserProfileMutation } from "@/modules/users/hooks/use-user-mutations";
+import {
+	useUpdateUserProfileMutation,
+	useUploadAvatarMutation,
+} from "@/modules/users/hooks/use-user-mutations";
 import { useCurrentUserQuery } from "@/modules/users/hooks/use-user-queries";
 import type { UpdateUserProfileInput } from "@/modules/users/types/user.types";
 import { AccountPageLayout, AccountSection } from "./account-page-layout";
@@ -20,6 +23,7 @@ import { AccountPageLayout, AccountSection } from "./account-page-layout";
 export function AccountProfile({ basePath = "/admin/account" }: { basePath?: string }) {
 	const currentUser = useCurrentUserQuery();
 	const update = useUpdateUserProfileMutation();
+	const uploadAvatar = useUploadAvatarMutation();
 	const user = currentUser.data;
 	const [form, setForm] = useState<UpdateUserProfileInput>({});
 
@@ -59,13 +63,15 @@ export function AccountProfile({ basePath = "/admin/account" }: { basePath?: str
 				</Badge>
 			}
 		>
-			{update.isError ? (
+			{update.isError || uploadAvatar.isError ? (
 				<Alert variant="destructive">
 					<AlertTitle>Could not update profile</AlertTitle>
-					<AlertDescription>{update.error.message}</AlertDescription>
+					<AlertDescription>
+						{(update.error ?? uploadAvatar.error)?.message ?? "Something went wrong"}
+					</AlertDescription>
 				</Alert>
 			) : null}
-			{update.isSuccess ? (
+			{update.isSuccess || uploadAvatar.isSuccess ? (
 				<Alert>
 					<AlertTitle>Profile updated</AlertTitle>
 					<AlertDescription>Your changes are now active.</AlertDescription>
@@ -79,7 +85,18 @@ export function AccountProfile({ basePath = "/admin/account" }: { basePath?: str
 				<ProfileForm
 					value={form}
 					pending={update.isPending}
+					uploadingAvatar={uploadAvatar.isPending}
 					onChange={setForm}
+					onUploadAvatar={(file) => {
+						uploadAvatar.mutate(file, {
+							onSuccess: (next) => {
+								setForm((current) => ({
+									...current,
+									avatarUrl: next.profile?.avatarUrl ?? null,
+								}));
+							},
+						});
+					}}
 					onSubmit={(event) => {
 						event.preventDefault();
 						update.mutate(form);

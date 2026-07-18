@@ -6,18 +6,25 @@ import { Input } from "@school-os/ui/components/input";
 import { Spinner } from "@school-os/ui/components/spinner";
 import { Textarea } from "@school-os/ui/components/textarea";
 import type { UpdateUserProfileInput } from "../types/user.types";
+import { AvatarPicker } from "./avatar-picker";
 
 export function ProfileForm({
 	value,
 	pending,
+	uploadingAvatar,
 	onChange,
 	onSubmit,
+	onUploadAvatar,
 }: {
 	value: UpdateUserProfileInput;
 	pending: boolean;
+	uploadingAvatar?: boolean;
 	onChange: (value: UpdateUserProfileInput) => void;
 	onSubmit: (event: React.FormEvent) => void;
+	onUploadAvatar: (file: File) => void;
 }) {
+	const seed = value.username?.trim() || value.displayName?.trim() || "school-os";
+
 	return (
 		<form onSubmit={onSubmit}>
 			<FieldGroup className="gap-5">
@@ -61,19 +68,16 @@ export function ProfileForm({
 					/>
 					<FieldDescription>{(value.bio ?? "").length}/280 characters</FieldDescription>
 				</Field>
-				<Field>
-					<FieldLabel htmlFor="profile-avatar">Avatar URL</FieldLabel>
-					<Input
-						id="profile-avatar"
-						type="url"
-						className="h-9"
-						value={value.avatarUrl ?? ""}
-						onChange={(event) => onChange({ ...value, avatarUrl: event.target.value || null })}
-						maxLength={2048}
-						placeholder="https://example.com/avatar.jpg"
-					/>
-					<FieldDescription>Use a square image for the cleanest result.</FieldDescription>
-				</Field>
+
+				<AvatarPicker
+					seed={seed}
+					value={value.avatarUrl}
+					pending={pending}
+					uploading={uploadingAvatar}
+					onSelectTemplate={(url) => onChange({ ...value, avatarUrl: url })}
+					onUploadFile={onUploadAvatar}
+				/>
+
 				<div className="grid gap-5 sm:grid-cols-2">
 					<Field>
 						<FieldLabel htmlFor="profile-timezone">Timezone</FieldLabel>
@@ -102,7 +106,7 @@ export function ProfileForm({
 					<p className="text-[12px] text-dashboard-text-muted">
 						Your profile updates across every workspace.
 					</p>
-					<Button type="submit" disabled={pending} className="sm:min-w-32">
+					<Button type="submit" disabled={pending || uploadingAvatar} className="sm:min-w-32">
 						{pending ? (
 							<Spinner data-icon="inline-start" />
 						) : (

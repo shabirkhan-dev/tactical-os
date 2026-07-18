@@ -20,6 +20,18 @@ export function useUpdateUserProfileMutation() {
 	});
 }
 
+export function useUploadAvatarMutation() {
+	const { token, refreshUser } = useAuth();
+	const queryClient = useQueryClient();
+	return useMutation({
+		mutationFn: (file: File) => usersService.uploadAvatar(requireToken(token), file),
+		onSuccess: async (user) => {
+			queryClient.setQueryData(userQueryKeys.current(), user);
+			await refreshUser();
+		},
+	});
+}
+
 function requireToken(token: string | null): string {
 	if (!token) throw new Error("Authentication required");
 	return token;
