@@ -50,9 +50,50 @@ export interface ResetPasswordInput {
 	newPassword: string;
 }
 
+export interface ChangePasswordInput {
+	currentPassword: string;
+	newPassword: string;
+}
+
 export interface TwoFactorInput {
 	challengeToken: string;
 	code: string;
+}
+
+export interface SessionInfo {
+	id: string;
+	userAgent: string | null;
+	ipAddress: string | null;
+	createdAt: string;
+	lastUsedAt: string;
+	expiresAt: string;
+	isCurrent: boolean;
+}
+
+export interface PasskeyView {
+	id: string;
+	name: string;
+	deviceType: string;
+	backedUp: boolean;
+	lastUsedAt: string | null;
+	createdAt: string;
+}
+
+export interface SecurityStatus {
+	mfa: { totpEnabled: boolean; recoveryCodesRemaining: number };
+	passkeys: PasskeyView[];
+	social: { googleLinked: boolean };
+}
+
+export interface TotpSetup {
+	secret: string;
+	uri: string;
+	qrCodeDataUrl: string;
+}
+
+export interface PasskeyRegistrationOptions {
+	challengeId: string;
+	options: Record<string, unknown>;
 }
 
 export interface PasskeyAuthenticationOptions {
@@ -61,3 +102,4 @@ export interface PasskeyAuthenticationOptions {
 }
 
 export type AuthenticationResponseJSON = Record<string, unknown>;
+export type RegistrationResponseJSON = Record<string, unknown>;

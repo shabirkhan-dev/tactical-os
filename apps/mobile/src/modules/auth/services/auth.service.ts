@@ -4,12 +4,19 @@ import type {
 	AuthChallengeResult,
 	AuthenticationResponseJSON,
 	AuthSession,
+	ChangePasswordInput,
 	LoginInput,
 	LoginResult,
 	PasskeyAuthenticationOptions,
+	PasskeyRegistrationOptions,
+	PasskeyView,
 	RegisterInput,
+	RegistrationResponseJSON,
 	RegistrationResult,
 	ResetPasswordInput,
+	SecurityStatus,
+	SessionInfo,
+	TotpSetup,
 	TwoFactorInput,
 	VerifyEmailInput,
 } from "../types/auth.types";
@@ -40,6 +47,8 @@ export const authService = {
 		apiClient.post<AuthChallengeResult>("/auth/forgot-password", { email }),
 	resetPassword: (input: ResetPasswordInput) =>
 		apiClient.post<AuthChallengeResult>("/auth/reset-password", input),
+	changePassword: (accessToken: string, input: ChangePasswordInput) =>
+		apiClient.post<AuthChallengeResult>("/auth/change-password", input, { accessToken }),
 	requestMagicLink: (email: string) =>
 		apiClient.post<AuthChallengeResult>("/auth/methods/magic-link/request", { email }),
 	consumeMagicLink: (token: string) =>
@@ -51,5 +60,36 @@ export const authService = {
 		),
 	finishPasskeyLogin: (input: { challengeId: string; response: AuthenticationResponseJSON }) =>
 		apiClient.post<AuthSession>("/auth/methods/passkeys/verify", input),
+	listSessions: (accessToken: string) =>
+		apiClient.get<SessionInfo[]>("/auth/sessions", { accessToken }),
+	revokeSession: (accessToken: string, sessionId: string) =>
+		apiClient.delete<{ revoked: true }>(`/auth/sessions/${encodeURIComponent(sessionId)}`, {
+			accessToken,
+		}),
+	securityStatus: (accessToken: string) =>
+		apiClient.get<SecurityStatus>("/auth/security", { accessToken }),
+	beginTotpSetup: (accessToken: string) =>
+		apiClient.post<TotpSetup>("/auth/security/totp/setup", undefined, { accessToken }),
+	confirmTotpSetup: (accessToken: string, code: string) =>
+		apiClient.post<{ enabled: true; recoveryCodes: string[] }>(
+			"/auth/security/totp/confirm",
+			{ code },
+			{ accessToken },
+		),
+	disableTotp: (accessToken: string, code: string) =>
+		apiClient.post<{ enabled: false }>("/auth/security/totp/disable", { code }, { accessToken }),
+	beginPasskeyRegistration: (accessToken: string) =>
+		apiClient.post<PasskeyRegistrationOptions>("/auth/security/passkeys/options", undefined, {
+			accessToken,
+		}),
+	finishPasskeyRegistration: (
+		accessToken: string,
+		input: { challengeId: string; name: string; response: RegistrationResponseJSON },
+	) => apiClient.post<PasskeyView>("/auth/security/passkeys", input, { accessToken }),
+	deletePasskey: (accessToken: string, passkeyId: string) =>
+		apiClient.delete<{ deleted: true }>(
+			`/auth/security/passkeys/${encodeURIComponent(passkeyId)}`,
+			{ accessToken },
+		),
 	me: (accessToken: string) => apiClient.get<User>("/auth/me", { accessToken }),
 };
