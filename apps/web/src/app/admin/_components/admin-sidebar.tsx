@@ -26,6 +26,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
+	DropdownMenuGroup,
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
@@ -232,9 +233,11 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 							sideOffset={8}
 							className="w-[244px] border-dashboard-border bg-dashboard-surface text-dashboard-text-secondary"
 						>
-							<DropdownMenuLabel className="text-[10.5px] text-dashboard-text-dim uppercase">
-								Switch workspace
-							</DropdownMenuLabel>
+							<DropdownMenuGroup>
+								<DropdownMenuLabel className="text-[10.5px] text-dashboard-text-dim uppercase">
+									Switch workspace
+								</DropdownMenuLabel>
+							</DropdownMenuGroup>
 							<DropdownMenuSeparator className="bg-dashboard-border" />
 							{agencies.map((a) => {
 								const selected = a.id === agencyId;
@@ -383,14 +386,18 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 							sideOffset={8}
 							className="w-[244px] border-dashboard-border bg-dashboard-surface text-dashboard-text-secondary"
 						>
-							<DropdownMenuLabel className="font-normal">
-								<div className="min-w-0">
-									<div className="truncate font-medium text-[13px] text-dashboard-text-primary">
-										{displayName}
+							<DropdownMenuGroup>
+								<DropdownMenuLabel className="font-normal">
+									<div className="min-w-0">
+										<div className="truncate font-medium text-[13px] text-dashboard-text-primary">
+											{displayName}
+										</div>
+										<div className="truncate text-[11px] text-dashboard-text-dim">
+											{displayEmail}
+										</div>
 									</div>
-									<div className="truncate text-[11px] text-dashboard-text-dim">{displayEmail}</div>
-								</div>
-							</DropdownMenuLabel>
+								</DropdownMenuLabel>
+							</DropdownMenuGroup>
 							<DropdownMenuSeparator className="bg-dashboard-border" />
 							<DropdownMenuItem
 								render={<Link href="/admin/account/profile" onClick={onNavigate} />}

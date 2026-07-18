@@ -3,6 +3,7 @@
 import {
 	DropdownMenu,
 	DropdownMenuContent,
+	DropdownMenuGroup,
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
@@ -156,10 +157,12 @@ function DesktopSignedIn({
 					)}
 				/>
 				<DropdownMenuContent align="end" sideOffset={8} className="min-w-48 dark:bg-popover">
-					<DropdownMenuLabel className="px-2 py-1.5">
-						<p className="truncate font-medium text-foreground text-sm">{name}</p>
-						<p className="truncate text-muted-foreground text-xs">{user.email}</p>
-					</DropdownMenuLabel>
+					<DropdownMenuGroup>
+						<DropdownMenuLabel className="px-2 py-1.5">
+							<p className="truncate font-medium text-foreground text-sm">{name}</p>
+							<p className="truncate text-muted-foreground text-xs">{user.email}</p>
+						</DropdownMenuLabel>
+					</DropdownMenuGroup>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem render={<Link href="/admin" />} className="cursor-pointer">
 						Dashboard
