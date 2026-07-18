@@ -69,7 +69,7 @@ export class PasskeysService {
 			response: input.response,
 			expectedChallenge: (value) =>
 				this.crypto.verifyOtp('webauthn_registration', user.email, value, challenge.codeHash),
-			expectedOrigin: this.config.webAuthnOrigin,
+			expectedOrigin: this.config.webAuthnOrigins,
 			expectedRPID: this.config.webAuthnRpId,
 			requireUserVerification: true,
 		});
@@ -140,7 +140,7 @@ export class PasskeysService {
 					value,
 					challenge.challengeHash,
 				),
-			expectedOrigin: this.config.webAuthnOrigin,
+			expectedOrigin: this.config.webAuthnOrigins,
 			expectedRPID: this.config.webAuthnRpId,
 			requireUserVerification: true,
 			credential: {

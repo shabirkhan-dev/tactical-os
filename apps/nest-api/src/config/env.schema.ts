@@ -45,7 +45,8 @@ export const envSchema = z
 		RESEND_API_KEY: z.string().min(1).optional(),
 		AUTH_EMAIL_FROM: z.string().min(3).default('Starter <auth@example.com>'),
 		WEBAUTHN_RP_ID: z.string().min(1).default('localhost'),
-		WEBAUTHN_ORIGIN: z.url().default('http://localhost:3000'),
+		/** Comma-separated allowed WebAuthn origins (web + native). */
+		WEBAUTHN_ORIGIN: z.string().min(1).default('http://localhost:3000'),
 		GOOGLE_CLIENT_ID: z.string().min(1).optional(),
 		BILLING_DEFAULT_PROVIDER: z.enum(['stripe', 'razorpay']).default('stripe'),
 		STRIPE_SECRET_KEY: z.string().min(1).optional(),

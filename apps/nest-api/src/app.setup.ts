@@ -28,7 +28,13 @@ export function setupApp(app: INestApplication, config: AppConfigService): void 
 	app.enableCors({
 		origin: config.corsOrigins,
 		credentials: true,
-		allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Request-Id'],
+		allowedHeaders: [
+			'Content-Type',
+			'Authorization',
+			'X-Requested-With',
+			'X-Request-Id',
+			'X-Client-Platform',
+		],
 	});
 
 	app.use(requestIdMiddleware);

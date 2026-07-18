@@ -30,7 +30,7 @@ export type AppConfig = {
 	resendApiKey?: string;
 	authEmailFrom: string;
 	webAuthnRpId: string;
-	webAuthnOrigin: string;
+	webAuthnOrigins: string[];
 	googleClientId?: string;
 	billingDefaultProvider: 'stripe' | 'razorpay';
 	stripeSecretKey?: string;
@@ -86,7 +86,9 @@ export function createAppConfig(env: Env = parseEnv()): AppConfig {
 		...(env.RESEND_API_KEY ? { resendApiKey: env.RESEND_API_KEY } : {}),
 		authEmailFrom: env.AUTH_EMAIL_FROM,
 		webAuthnRpId: env.WEBAUTHN_RP_ID,
-		webAuthnOrigin: env.WEBAUTHN_ORIGIN.replace(/\/$/, ''),
+		webAuthnOrigins: env.WEBAUTHN_ORIGIN.split(',')
+			.map((origin) => origin.trim().replace(/\/$/, ''))
+			.filter(Boolean),
 		...(env.GOOGLE_CLIENT_ID ? { googleClientId: env.GOOGLE_CLIENT_ID } : {}),
 		billingDefaultProvider: env.BILLING_DEFAULT_PROVIDER,
 		...(env.STRIPE_SECRET_KEY ? { stripeSecretKey: env.STRIPE_SECRET_KEY } : {}),

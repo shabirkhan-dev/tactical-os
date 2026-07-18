@@ -96,8 +96,12 @@ export class AppConfigService {
 	get webAuthnRpId(): string {
 		return this.config.webAuthnRpId;
 	}
+	get webAuthnOrigins(): string[] {
+		return this.config.webAuthnOrigins;
+	}
+	/** Primary origin for backwards-compatible single-origin callers. */
 	get webAuthnOrigin(): string {
-		return this.config.webAuthnOrigin;
+		return this.config.webAuthnOrigins[0] ?? 'http://localhost:3000';
 	}
 	get googleClientId(): string | undefined {
 		return this.config.googleClientId;
