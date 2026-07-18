@@ -2,6 +2,7 @@ import { router, useSegments } from "expo-router";
 import { Bell, Check, ChevronDown, Scan } from "lucide-react-native";
 import * as React from "react";
 import {
+	Alert,
 	Image,
 	Modal,
 	Pressable,
@@ -11,6 +12,7 @@ import {
 	View,
 } from "react-native";
 import { NeonColors } from "@/constants/design-system";
+import { useAuth } from "@/modules/auth";
 
 export type OSModule =
 	| "Dashboard"
@@ -24,7 +26,25 @@ export type OSModule =
 
 export function OSHeader() {
 	const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
-	const segments = useSegments();
+	const segments = useSegments() as string[];
+	const { user, logout } = useAuth();
+
+	const avatarUri = user
+		? `https://avatar.vercel.sh/${encodeURIComponent(user.username)}`
+		: "https://avatar.vercel.sh/guest";
+
+	const handleAvatarPress = () => {
+		Alert.alert(user?.username ?? "Account", user?.email ?? undefined, [
+			{ text: "Cancel", style: "cancel" },
+			{
+				text: "Sign out",
+				style: "destructive",
+				onPress: () => {
+					void logout();
+				},
+			},
+		]);
+	};
 
 	// Determine current module from route segments
 	const currentModule: OSModule = React.useMemo(() => {
@@ -67,10 +87,10 @@ export function OSHeader() {
 	return (
 		<View style={styles.container}>
 			<View style={styles.left}>
-				<View style={styles.avatarContainer}>
-					<Image source={{ uri: "https://avatar.vercel.sh/shabir" }} style={styles.avatar} />
+				<Pressable style={styles.avatarContainer} onPress={handleAvatarPress}>
+					<Image source={{ uri: avatarUri }} style={styles.avatar} />
 					<View style={styles.onlineDot} />
-				</View>
+				</Pressable>
 
 				<View style={styles.dropdownContainer}>
 					<Pressable style={styles.accountSelector} onPress={() => setIsDropdownOpen(true)}>

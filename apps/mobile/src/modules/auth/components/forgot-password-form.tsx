@@ -1,0 +1,68 @@
+import { Link, router } from "expo-router";
+import { useState } from "react";
+import { StyleSheet, Text } from "react-native";
+import { NeonColors } from "@/constants/design-system";
+import { authService } from "@/modules/auth/services/auth.service";
+import { tokenStorage } from "@/modules/auth/services/token-storage";
+import { AuthAlert } from "./auth-alert";
+import { AuthButton } from "./auth-button";
+import { AuthField } from "./auth-field";
+import { AuthScreen } from "./auth-screen";
+
+export function ForgotPasswordForm() {
+	const [email, setEmail] = useState("");
+	const [error, setError] = useState<string | null>(null);
+	const [submitting, setSubmitting] = useState(false);
+
+	async function handleSubmit() {
+		setError(null);
+		setSubmitting(true);
+		try {
+			const result = await authService.forgotPassword(email.trim().toLowerCase());
+			if (result.developmentCode) {
+				await tokenStorage.setDevelopmentCode(result.developmentCode);
+			}
+			router.push({
+				pathname: "/reset-password",
+				params: { email: email.trim().toLowerCase() },
+			});
+		} catch (caught) {
+			setError(caught instanceof Error ? caught.message : "Request failed");
+		} finally {
+			setSubmitting(false);
+		}
+	}
+
+	return (
+		<AuthScreen
+			title="Forgot your password?"
+			description="We will send a reset code if an account exists."
+		>
+			{error ? <AuthAlert variant="destructive" title="Request failed" message={error} /> : null}
+			<AuthField
+				label="Email"
+				value={email}
+				onChangeText={setEmail}
+				keyboardType="email-address"
+				autoComplete="email"
+			/>
+			<AuthButton label="Send reset code" onPress={handleSubmit} pending={submitting} />
+			<Text style={styles.footerText}>
+				<Link href="/login" style={styles.link}>
+					Back to sign in
+				</Link>
+			</Text>
+		</AuthScreen>
+	);
+}
+
+const styles = StyleSheet.create({
+	footerText: {
+		textAlign: "center",
+		fontSize: 14,
+	},
+	link: {
+		color: NeonColors.accent.green,
+		textDecorationLine: "underline",
+	},
+});
