@@ -8,6 +8,10 @@ import { useAuth } from "@/modules/auth";
 
 SplashScreen.preventAutoHideAsync().catch(() => undefined);
 
+export const unstable_settings = {
+	initialRouteName: "(modules)",
+};
+
 export default function RootLayout() {
 	const colorScheme = useColorScheme();
 
@@ -42,7 +46,6 @@ function RootNavigator() {
 		<Stack screenOptions={{ headerShown: false }}>
 			<Stack.Protected guard={signedIn}>
 				<Stack.Screen name="(modules)" />
-				<Stack.Screen name="explore" />
 			</Stack.Protected>
 			<Stack.Protected guard={!signedIn}>
 				<Stack.Screen name="(auth)" />

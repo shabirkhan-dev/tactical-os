@@ -1,8 +1,7 @@
-import { router, useSegments } from "expo-router";
+import { type Href, router, useSegments } from "expo-router";
 import { Bell, Check, ChevronDown, Scan } from "lucide-react-native";
 import * as React from "react";
 import {
-	Alert,
 	Image,
 	Modal,
 	Pressable,
@@ -16,6 +15,7 @@ import { useAuth } from "@/modules/auth";
 
 export type OSModule =
 	| "Dashboard"
+	| "Profile"
 	| "Skincare"
 	| "Exercise"
 	| "Expenses"
@@ -27,27 +27,20 @@ export type OSModule =
 export function OSHeader() {
 	const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
 	const segments = useSegments() as string[];
-	const { user, logout } = useAuth();
+	const { user } = useAuth();
 
-	const avatarUri = user
-		? `https://avatar.vercel.sh/${encodeURIComponent(user.username)}`
-		: "https://avatar.vercel.sh/guest";
+	const avatarUri =
+		user?.profile?.avatarUrl?.trim() ||
+		(user
+			? `https://avatar.vercel.sh/${encodeURIComponent(user.username)}`
+			: "https://avatar.vercel.sh/guest");
 
 	const handleAvatarPress = () => {
-		Alert.alert(user?.username ?? "Account", user?.email ?? undefined, [
-			{ text: "Cancel", style: "cancel" },
-			{
-				text: "Sign out",
-				style: "destructive",
-				onPress: () => {
-					void logout();
-				},
-			},
-		]);
+		router.replace("/(modules)/(profile)" as Href);
 	};
 
-	// Determine current module from route segments
 	const currentModule: OSModule = React.useMemo(() => {
+		if (segments.includes("(profile)")) return "Profile";
 		if (segments.includes("(skincare)")) return "Skincare";
 		if (segments.includes("(exercise)")) return "Exercise";
 		if (segments.includes("(expenses)")) return "Expenses";
@@ -58,8 +51,9 @@ export function OSHeader() {
 		return "Dashboard";
 	}, [segments]);
 
-	const modules: { label: OSModule; route: string }[] = [
+	const modules: { label: OSModule; route: Href }[] = [
 		{ label: "Dashboard", route: "/(modules)/(dashboard)" },
+		{ label: "Profile", route: "/(modules)/(profile)" as Href },
 		{ label: "Focus", route: "/(modules)/(focus)" },
 		{ label: "Library", route: "/(modules)/(library)" },
 		{ label: "Skincare", route: "/(modules)/(skincare)" },
@@ -69,18 +63,8 @@ export function OSHeader() {
 		{ label: "Mindfulness", route: "/(modules)/(mindfulness)" },
 	];
 
-	const handleSelect = (route: string) => {
-		router.replace(
-			route as
-				| "/(modules)/(dashboard)"
-				| "/(modules)/(skincare)"
-				| "/(modules)/(exercise)"
-				| "/(modules)/(expenses)"
-				| "/(modules)/(nutrition)"
-				| "/(modules)/(mindfulness)"
-				| "/(modules)/(focus)"
-				| "/(modules)/(library)",
-		);
+	const handleSelect = (route: Href) => {
+		router.replace(route);
 		setIsDropdownOpen(false);
 	};
 

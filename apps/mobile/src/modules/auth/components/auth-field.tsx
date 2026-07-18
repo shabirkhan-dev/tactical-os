@@ -17,6 +17,8 @@ interface AuthFieldProps {
 	hint?: string;
 	errorHint?: string;
 	maxLength?: number;
+	multiline?: boolean;
+	numberOfLines?: number;
 	rightLink?: { label: string; onPress: () => void };
 }
 
@@ -35,6 +37,8 @@ export function AuthField({
 	hint,
 	errorHint,
 	maxLength,
+	multiline = false,
+	numberOfLines,
 	rightLink,
 }: AuthFieldProps) {
 	return (
@@ -47,9 +51,9 @@ export function AuthField({
 					</Pressable>
 				) : null}
 			</View>
-			<View style={styles.inputWrap}>
+			<View style={[styles.inputWrap, multiline && styles.inputWrapMultiline]}>
 				<TextInput
-					style={styles.input}
+					style={[styles.input, multiline && styles.inputMultiline]}
 					value={value}
 					onChangeText={onChangeText}
 					placeholder={placeholder}
@@ -60,6 +64,9 @@ export function AuthField({
 					autoCapitalize={autoCapitalize}
 					editable={editable}
 					maxLength={maxLength}
+					multiline={multiline}
+					numberOfLines={numberOfLines}
+					textAlignVertical={multiline ? "top" : "center"}
 				/>
 				{showPasswordToggle ? (
 					<Pressable onPress={onTogglePassword} hitSlop={8} style={styles.eye}>
@@ -105,11 +112,20 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 14,
 		minHeight: 48,
 	},
+	inputWrapMultiline: {
+		alignItems: "flex-start",
+		minHeight: 112,
+		paddingVertical: 4,
+	},
 	input: {
 		flex: 1,
 		color: NeonColors.text.primary,
 		fontSize: 16,
 		paddingVertical: 12,
+	},
+	inputMultiline: {
+		minHeight: 96,
+		paddingTop: 12,
 	},
 	eye: {
 		paddingLeft: 8,

@@ -44,6 +44,9 @@ export const apiClient = {
 			...(body === undefined ? {} : { body: JSON.stringify(body) }),
 		});
 	},
+	postForm<T>(path: string, body: FormData, options?: ApiRequestOptions): Promise<T> {
+		return request<T>(path, { ...options, method: "POST", body }, { multipart: true });
+	},
 	patch<T>(path: string, body: unknown, options?: ApiRequestOptions): Promise<T> {
 		return request<T>(path, { ...options, method: "PATCH", body: JSON.stringify(body) });
 	},
@@ -56,10 +59,14 @@ export function getApiOrigin(): string {
 	return apiOrigin;
 }
 
-async function request<T>(path: string, options: ApiRequestOptions = {}): Promise<T> {
+async function request<T>(
+	path: string,
+	options: ApiRequestOptions = {},
+	flags: { multipart?: boolean } = {},
+): Promise<T> {
 	const { accessToken, signal: outerSignal, ...init } = options;
 	const headers = new Headers(init.headers);
-	if (init.body) headers.set("Content-Type", "application/json");
+	if (init.body && !flags.multipart) headers.set("Content-Type", "application/json");
 	if (init.method && init.method !== "GET") {
 		headers.set("X-Requested-With", "XMLHttpRequest");
 	}

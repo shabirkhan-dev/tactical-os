@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import * as Passkey from "react-native-passkeys";
 import { useAuth } from "../context/auth-context";
 import { authService } from "../services/auth.service";
+import { assertPasskeysAvailable } from "../services/passkey-native";
 import type { LoginInput, TwoFactorInput } from "../types/auth.types";
 
 export function useLoginMutation() {
@@ -27,9 +27,7 @@ export function usePasskeyLoginMutation() {
 	const { establishSession } = useAuth();
 	return useMutation({
 		mutationFn: async (email?: string) => {
-			if (!Passkey.isSupported()) {
-				throw new Error("Passkeys are not supported on this device. Use a development build.");
-			}
+			const Passkey = await assertPasskeysAvailable();
 			const ceremony = await authService.beginPasskeyLogin(email);
 			const response = await Passkey.get(
 				ceremony.options as unknown as Parameters<typeof Passkey.get>[0],

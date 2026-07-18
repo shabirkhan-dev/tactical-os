@@ -16,3 +16,12 @@ export interface User {
 	createdAt: string;
 	profile?: UserProfile;
 }
+
+export interface UpdateUserProfileInput {
+	username?: string;
+	displayName?: string | null;
+	avatarUrl?: string | null;
+	bio?: string | null;
+	timezone?: string | null;
+	locale?: string | null;
+}
