@@ -156,7 +156,7 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 		<TooltipProvider delay={120}>
 			<aside
 				className={cn(
-					"group/sidebar relative flex h-full shrink-0 flex-col border-dashboard-border-subtle border-r bg-dashboard-sidebar-bg transition-[width] duration-200 ease-out",
+					"group/sidebar relative flex h-full min-h-0 shrink-0 flex-col overflow-hidden border-dashboard-border-subtle border-r bg-dashboard-sidebar-bg transition-[width] duration-200 ease-out",
 					width,
 					className,
 				)}
@@ -270,7 +270,7 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 				{/* Nav */}
 				<nav
 					className={cn(
-						"flex-1 overflow-y-auto px-3 pb-4",
+						"min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 pb-4",
 						"[&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-dashboard-border [&::-webkit-scrollbar-track]:bg-transparent",
 					)}
 				>

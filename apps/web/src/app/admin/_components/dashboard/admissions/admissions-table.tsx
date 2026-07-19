@@ -13,16 +13,17 @@ type Col = {
 	id: SortKey | "actions";
 	label: string;
 	sortable?: boolean;
-	width?: string;
+	/** Fixed layout width — keeps columns from floating apart on wide screens. */
+	width: string;
 };
 
 const COLUMNS: Col[] = [
-	{ id: "student", label: "Applicant", sortable: true },
-	{ id: "campus", label: "Campus", sortable: true, width: "w-[110px]" },
-	{ id: "guardian", label: "Guardian", sortable: true },
-	{ id: "date", label: "Applied", sortable: true, width: "w-[120px]" },
-	{ id: "status", label: "Status", sortable: true, width: "w-[130px]" },
-	{ id: "actions", label: "", width: "w-[52px]" },
+	{ id: "student", label: "Applicant", sortable: true, width: "34%" },
+	{ id: "campus", label: "Campus", sortable: true, width: "14%" },
+	{ id: "guardian", label: "Guardian", sortable: true, width: "22%" },
+	{ id: "date", label: "Applied", sortable: true, width: "14%" },
+	{ id: "status", label: "Status", sortable: true, width: "12%" },
+	{ id: "actions", label: "", width: "52px" },
 ];
 
 const SOURCE_LABEL: Record<Admission["source"], string> = {
@@ -35,7 +36,6 @@ const SOURCE_LABEL: Record<Admission["source"], string> = {
 type Props = {
 	className?: string;
 	query?: string;
-	onFilteredCount?: (count: number) => void;
 };
 
 function compareAdmissions(a: Admission, b: Admission, key: SortKey): number {
@@ -90,17 +90,23 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 	};
 
 	return (
-		<div className={cn("overflow-x-auto", className)}>
-			<table className="w-full border-separate border-spacing-0 text-[13px]">
+		<div className={cn("min-w-0 overflow-x-auto overscroll-x-contain", className)}>
+			{/*
+			  table-fixed + col widths: without this, w-full tables dump leftover
+			  width between columns on wide dashboards → huge empty middle.
+			*/}
+			<table className="w-full min-w-[760px] table-fixed border-separate border-spacing-0 text-[13px]">
+				<colgroup>
+					{COLUMNS.map((col) => (
+						<col key={col.id} style={{ width: col.width }} />
+					))}
+				</colgroup>
 				<thead>
 					<tr className="text-left">
 						{COLUMNS.map((col) => (
 							<th
 								key={col.id}
-								className={cn(
-									"py-2.5 pr-4 font-medium text-[11px] text-dashboard-text-muted uppercase tracking-[0.06em] first:pl-4 last:pr-3",
-									col.width,
-								)}
+								className="py-2.5 pr-3 font-medium text-[11px] text-dashboard-text-muted uppercase tracking-[0.06em] first:pl-4 last:pr-3"
 							>
 								{col.sortable ? (
 									<button
@@ -137,7 +143,7 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 				<tbody>
 					{rows.length === 0 ? (
 						<tr>
-							<td colSpan={COLUMNS.length} className="px-4 py-12 text-center">
+							<td colSpan={COLUMNS.length} className="px-4 py-10 text-center">
 								<p className="font-medium text-[14px] text-dashboard-text-primary">
 									No matching admissions
 								</p>
@@ -155,58 +161,58 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 									i > 0 && "border-dashboard-border-subtle [&>td]:border-t",
 								)}
 							>
-								<td className="py-3.5 pr-4 pl-4">
-									<div className="flex min-w-0 items-start gap-3">
+								<td className="py-3 pr-3 pl-4 align-top">
+									<div className="flex min-w-0 items-start gap-2.5">
 										<span
 											aria-hidden
-											className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg bg-dashboard-surface-elevated font-semibold text-[11px] text-dashboard-text-secondary ring-1 ring-dashboard-border-subtle"
+											className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg bg-dashboard-surface-strong font-semibold text-[11px] text-dashboard-text-secondary ring-1 ring-dashboard-border"
 										>
 											{initials(a.student)}
 										</span>
 										<span className="min-w-0">
-											<span className="block truncate font-medium text-[13px] text-dashboard-text-primary">
+											<span className="block truncate font-semibold text-[13px] text-dashboard-text-primary">
 												{a.student}
 											</span>
-											<span className="mt-0.5 block truncate text-[11.5px] text-dashboard-text-muted">
+											<span className="mt-0.5 block truncate text-[12px] text-dashboard-text-muted">
 												{a.id} · {a.grade} · {SOURCE_LABEL[a.source]}
 											</span>
-											<span className="mt-0.5 block truncate text-[11px] text-dashboard-text-dim">
+											<span className="mt-0.5 block truncate text-[11.5px] text-dashboard-text-secondary">
 												{a.note}
 											</span>
 										</span>
 									</div>
 								</td>
-								<td className="py-3.5 pr-4 align-top">
-									<span className="block font-medium text-[12.5px] text-dashboard-text-secondary">
+								<td className="py-3 pr-3 align-top">
+									<span className="block truncate font-medium text-[12.5px] text-dashboard-text-primary">
 										{a.campus}
 									</span>
-									<span className="mt-0.5 block text-[11px] text-dashboard-text-dim">
+									<span className="mt-0.5 block truncate text-[11.5px] text-dashboard-text-muted">
 										{a.grade}
 									</span>
 								</td>
-								<td className="py-3.5 pr-4 align-top">
-									<span className="block font-medium text-[12.5px] text-dashboard-text-secondary">
+								<td className="py-3 pr-3 align-top">
+									<span className="block truncate font-medium text-[12.5px] text-dashboard-text-primary">
 										{a.guardian}
 									</span>
-									<span className="mt-0.5 block text-[11.5px] text-dashboard-text-muted">
+									<span className="mt-0.5 block truncate text-[11.5px] text-dashboard-text-muted">
 										{a.guardianRelation} · {a.guardianPhone}
 									</span>
 								</td>
-								<td className="py-3.5 pr-4 align-top text-dashboard-text-muted tabular-nums">
-									<span className="block text-[12.5px]">{a.date}</span>
-									<span className="mt-0.5 block text-[11px] text-dashboard-text-dim">
+								<td className="py-3 pr-3 align-top tabular-nums">
+									<span className="block text-[12.5px] text-dashboard-text-primary">{a.date}</span>
+									<span className="mt-0.5 block truncate text-[11.5px] text-dashboard-text-muted">
 										{SOURCE_LABEL[a.source]}
 									</span>
 								</td>
-								<td className="py-3.5 pr-4 align-top">
+								<td className="py-3 pr-3 align-top">
 									<StatusBadge status={a.status} />
 								</td>
-								<td className="py-3.5 pr-3 align-top">
+								<td className="py-3 pr-3 align-top">
 									<button
 										type="button"
 										aria-label={`Actions for ${a.student}`}
 										title="Open admission detail"
-										className="flex size-7 items-center justify-center rounded-md border border-dashboard-border-strong bg-dashboard-surface text-dashboard-text-muted opacity-70 transition-opacity hover:opacity-100 group-hover/row:opacity-100"
+										className="flex size-7 items-center justify-center rounded-md border border-dashboard-border-strong bg-dashboard-surface text-dashboard-text-muted transition-colors hover:border-dashboard-border-focus hover:text-dashboard-text-primary"
 									>
 										<HugeiconsIcon icon={MoreHorizontalIcon} size={13} strokeWidth={2} />
 									</button>

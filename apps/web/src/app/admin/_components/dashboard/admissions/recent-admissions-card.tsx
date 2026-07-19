@@ -37,7 +37,7 @@ export function RecentAdmissionsCard({ className }: Props) {
 	return (
 		<section
 			className={cn(
-				"overflow-hidden rounded-[16px] border border-dashboard-border bg-dashboard-card-inner shadow-(--dashboard-shadow-card)",
+				"flex w-full flex-col overflow-hidden rounded-[16px] border border-dashboard-border bg-dashboard-surface shadow-(--dashboard-shadow-card)",
 				className,
 			)}
 			aria-label="Recent admissions"
@@ -52,11 +52,12 @@ export function RecentAdmissionsCard({ className }: Props) {
 				}
 			/>
 
-			<div>
+			<div className="shrink-0">
 				<AdmissionsTable query={query} />
 			</div>
 
 			<DashboardCardFooter
+				className="shrink-0"
 				action={
 					<button
 						type="button"

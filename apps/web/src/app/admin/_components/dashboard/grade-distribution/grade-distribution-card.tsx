@@ -16,7 +16,7 @@ export function GradeDistributionCard({ className }: Props) {
 	return (
 		<section
 			className={cn(
-				"overflow-hidden rounded-[16px] border border-dashboard-border bg-dashboard-card-inner shadow-(--dashboard-shadow-card)",
+				"overflow-hidden rounded-[16px] border border-dashboard-border bg-dashboard-surface shadow-(--dashboard-shadow-card)",
 				className,
 			)}
 			aria-label="Students by grade"

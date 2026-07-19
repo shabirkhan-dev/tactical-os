@@ -8,7 +8,8 @@ import { StatCardsRow } from "./_components/dashboard/stat-cards-row";
 
 const AdminPage = () => {
 	return (
-		<div className="mx-auto w-full max-w-[1600px] space-y-5 px-3 py-4 sm:px-6 sm:py-6 lg:space-y-6 lg:px-8">
+		// min-w-0: grid/flex children default to min-width:auto and can blow past the viewport
+		<div className="mx-auto w-full min-w-0 max-w-[1600px] space-y-5 px-3 py-4 sm:px-6 sm:py-6 lg:space-y-6 lg:px-8">
 			<FadeIn>
 				<DashboardHeader />
 			</FadeIn>
@@ -18,15 +19,15 @@ const AdminPage = () => {
 			<FadeIn delay={0.08}>
 				<StatCardsRow />
 			</FadeIn>
-			<div className="grid grid-cols-1 gap-5 xl:grid-cols-12">
-				<FadeIn delay={0.12} className="xl:col-span-8">
+			<div className="grid min-w-0 grid-cols-1 gap-5 xl:grid-cols-12">
+				<FadeIn delay={0.12} className="min-w-0 xl:col-span-8">
 					<EnrollmentTrendCard />
 				</FadeIn>
-				<FadeIn delay={0.16} className="xl:col-span-4">
+				<FadeIn delay={0.16} className="min-w-0 xl:col-span-4">
 					<GradeDistributionCard />
 				</FadeIn>
 			</div>
-			<FadeIn delay={0.2}>
+			<FadeIn delay={0.2} className="min-w-0">
 				<RecentAdmissionsCard />
 			</FadeIn>
 		</div>

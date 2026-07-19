@@ -16,7 +16,7 @@ export function EnrollmentTrendCard({ className }: Props) {
 	return (
 		<section
 			className={cn(
-				"overflow-hidden rounded-[16px] border border-dashboard-border bg-dashboard-card-inner shadow-(--dashboard-shadow-card)",
+				"overflow-hidden rounded-[16px] border border-dashboard-border bg-dashboard-surface shadow-(--dashboard-shadow-card)",
 				className,
 			)}
 			aria-label="Enrollment trend"
@@ -29,7 +29,7 @@ export function EnrollmentTrendCard({ className }: Props) {
 				actions={<RangeToggle />}
 			/>
 
-			<div className="overflow-x-auto p-4 sm:p-5">
+			<div className="min-w-0 overflow-x-auto overscroll-x-contain p-4 sm:p-5">
 				<div className="mb-5 flex min-w-[560px] flex-wrap items-start justify-between gap-6">
 					<div className="flex flex-wrap gap-8">
 						<InsightStat

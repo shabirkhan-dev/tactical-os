@@ -17,7 +17,7 @@ export function FadeIn({ children, delay = 0, className }: Props) {
 	const reduce = useReducedMotion();
 	return (
 		<motion.div
-			className={cn(className)}
+			className={cn("min-w-0", className)}
 			initial={reduce ? false : { opacity: 0, y: 10 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.4, ease: EASE_OUT, delay }}
