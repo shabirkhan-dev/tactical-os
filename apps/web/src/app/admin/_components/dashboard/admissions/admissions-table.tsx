@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { type Admission, admissions as seedAdmissions } from "./admissions-data";
 import { StatusBadge } from "./status-badge";
 
-type SortKey = "id" | "student" | "grade" | "guardian" | "date" | "status";
+type SortKey = "id" | "student" | "grade" | "guardian" | "date" | "status" | "campus";
 
 type Col = {
 	id: SortKey | "actions";
@@ -17,18 +17,25 @@ type Col = {
 };
 
 const COLUMNS: Col[] = [
-	{ id: "id", label: "ID", sortable: true, width: "w-[90px]" },
-	{ id: "student", label: "Student", sortable: true },
-	{ id: "grade", label: "Grade", sortable: true, width: "w-[100px]" },
+	{ id: "student", label: "Applicant", sortable: true },
+	{ id: "campus", label: "Campus", sortable: true, width: "w-[110px]" },
 	{ id: "guardian", label: "Guardian", sortable: true },
-	{ id: "date", label: "Applied", sortable: true, width: "w-[130px]" },
-	{ id: "status", label: "Status", sortable: true, width: "w-[140px]" },
-	{ id: "actions", label: "", width: "w-[56px]" },
+	{ id: "date", label: "Applied", sortable: true, width: "w-[120px]" },
+	{ id: "status", label: "Status", sortable: true, width: "w-[130px]" },
+	{ id: "actions", label: "", width: "w-[52px]" },
 ];
+
+const SOURCE_LABEL: Record<Admission["source"], string> = {
+	portal: "Online portal",
+	"walk-in": "Walk-in",
+	referral: "Referral",
+	transfer: "Transfer",
+};
 
 type Props = {
 	className?: string;
 	query?: string;
+	onFilteredCount?: (count: number) => void;
 };
 
 function compareAdmissions(a: Admission, b: Admission, key: SortKey): number {
@@ -36,6 +43,14 @@ function compareAdmissions(a: Admission, b: Admission, key: SortKey): number {
 		numeric: true,
 		sensitivity: "base",
 	});
+}
+
+function initials(name: string): string {
+	return name
+		.split(/\s+/)
+		.slice(0, 2)
+		.map((part) => part[0]?.toUpperCase() ?? "")
+		.join("");
 }
 
 export function AdmissionsTable({ className, query = "" }: Props) {
@@ -46,9 +61,17 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 		const q = query.trim().toLowerCase();
 		const filtered = q
 			? seedAdmissions.filter((row) =>
-					[row.id, row.student, row.grade, row.guardian, row.status].some((field) =>
-						field.toLowerCase().includes(q),
-					),
+					[
+						row.id,
+						row.student,
+						row.email,
+						row.grade,
+						row.campus,
+						row.guardian,
+						row.status,
+						row.source,
+						row.note,
+					].some((field) => field.toLowerCase().includes(q)),
 				)
 			: seedAdmissions;
 
@@ -114,11 +137,13 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 				<tbody>
 					{rows.length === 0 ? (
 						<tr>
-							<td
-								colSpan={COLUMNS.length}
-								className="px-4 py-10 text-center text-[13px] text-dashboard-text-muted"
-							>
-								No admissions match “{query.trim()}”.
+							<td colSpan={COLUMNS.length} className="px-4 py-12 text-center">
+								<p className="font-medium text-[14px] text-dashboard-text-primary">
+									No matching admissions
+								</p>
+								<p className="mx-auto mt-1 max-w-sm text-[12.5px] text-dashboard-text-muted leading-5">
+									Nothing matches “{query.trim()}”. Try a student name, campus, or status.
+								</p>
 							</td>
 						</tr>
 					) : (
@@ -126,27 +151,62 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 							<tr
 								key={a.id}
 								className={cn(
-									"transition-colors hover:bg-dashboard-hover",
+									"group/row transition-colors hover:bg-dashboard-hover",
 									i > 0 && "border-dashboard-border-subtle [&>td]:border-t",
 								)}
 							>
-								<td className="py-3 pr-4 pl-4 font-medium text-[12.5px] text-dashboard-text-muted tabular-nums">
-									{a.id}
+								<td className="py-3.5 pr-4 pl-4">
+									<div className="flex min-w-0 items-start gap-3">
+										<span
+											aria-hidden
+											className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg bg-dashboard-surface-elevated font-semibold text-[11px] text-dashboard-text-secondary ring-1 ring-dashboard-border-subtle"
+										>
+											{initials(a.student)}
+										</span>
+										<span className="min-w-0">
+											<span className="block truncate font-medium text-[13px] text-dashboard-text-primary">
+												{a.student}
+											</span>
+											<span className="mt-0.5 block truncate text-[11.5px] text-dashboard-text-muted">
+												{a.id} · {a.grade} · {SOURCE_LABEL[a.source]}
+											</span>
+											<span className="mt-0.5 block truncate text-[11px] text-dashboard-text-dim">
+												{a.note}
+											</span>
+										</span>
+									</div>
 								</td>
-								<td className="py-3 pr-4 font-medium text-dashboard-text-primary">{a.student}</td>
-								<td className="py-3 pr-4 text-dashboard-text-secondary">{a.grade}</td>
-								<td className="py-3 pr-4 text-dashboard-text-secondary">{a.guardian}</td>
-								<td className="py-3 pr-4 text-dashboard-text-muted tabular-nums">{a.date}</td>
-								<td className="py-3 pr-4">
+								<td className="py-3.5 pr-4 align-top">
+									<span className="block font-medium text-[12.5px] text-dashboard-text-secondary">
+										{a.campus}
+									</span>
+									<span className="mt-0.5 block text-[11px] text-dashboard-text-dim">
+										{a.grade}
+									</span>
+								</td>
+								<td className="py-3.5 pr-4 align-top">
+									<span className="block font-medium text-[12.5px] text-dashboard-text-secondary">
+										{a.guardian}
+									</span>
+									<span className="mt-0.5 block text-[11.5px] text-dashboard-text-muted">
+										{a.guardianRelation} · {a.guardianPhone}
+									</span>
+								</td>
+								<td className="py-3.5 pr-4 align-top text-dashboard-text-muted tabular-nums">
+									<span className="block text-[12.5px]">{a.date}</span>
+									<span className="mt-0.5 block text-[11px] text-dashboard-text-dim">
+										{SOURCE_LABEL[a.source]}
+									</span>
+								</td>
+								<td className="py-3.5 pr-4 align-top">
 									<StatusBadge status={a.status} />
 								</td>
-								<td className="py-3 pr-3">
+								<td className="py-3.5 pr-3 align-top">
 									<button
 										type="button"
 										aria-label={`Actions for ${a.student}`}
-										title="Row actions coming soon"
-										disabled
-										className="flex size-7 items-center justify-center rounded-md border border-dashboard-border-strong bg-dashboard-surface text-dashboard-text-muted opacity-50"
+										title="Open admission detail"
+										className="flex size-7 items-center justify-center rounded-md border border-dashboard-border-strong bg-dashboard-surface text-dashboard-text-muted opacity-70 transition-opacity hover:opacity-100 group-hover/row:opacity-100"
 									>
 										<HugeiconsIcon icon={MoreHorizontalIcon} size={13} strokeWidth={2} />
 									</button>

@@ -1,14 +1,9 @@
 "use client";
 
-import { InformationCircleIcon } from "@hugeicons/core-free-icons";
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from "@school-os/ui/components/tooltip";
 import { cn } from "@/lib/utils";
+import { DashboardCardFooter, DashboardCardHeader, FooterSep, InsightStat } from "../card-chrome";
 import { AiInsightButton } from "./ai-insight-button";
 import { DateRangePill } from "./date-range-pill";
 import { GradeChart } from "./grade-chart";
@@ -26,42 +21,29 @@ export function GradeDistributionCard({ className }: Props) {
 			)}
 			aria-label="Students by grade"
 		>
-			<div className="flex items-center justify-between border-dashboard-border border-b px-4 py-3">
-				<div className="flex items-center gap-1.5">
-					<h2 className="font-medium text-[11px] text-dashboard-text-muted uppercase tracking-[0.06em]">
-						Students by Grade
-					</h2>
-					<TooltipProvider delay={200}>
-						<Tooltip>
-							<TooltipTrigger
-								render={(props) => (
-									<button
-										type="button"
-										{...props}
-										className="rounded-md text-dashboard-text-faint transition-colors hover:text-dashboard-text-muted"
-										aria-label="About grade distribution"
-									>
-										<HugeiconsIcon icon={InformationCircleIcon} size={13} strokeWidth={1.8} />
-									</button>
-								)}
-							/>
-							<TooltipContent side="top" className="max-w-[220px]">
-								Headcount by grade level for the current term.
-							</TooltipContent>
-						</Tooltip>
-					</TooltipProvider>
-				</div>
-			</div>
+			<DashboardCardHeader
+				title="Students by Grade"
+				description="Headcount balance from G1–G12 for the active term."
+				meta="Term 1 · 2026 · all campuses"
+				info="Hover a bar for exact headcount. Lower grades carry more seats by design."
+				actions={<DateRangePill label="Term 1 · 2026" />}
+			/>
 
 			<div className="p-4 sm:p-5">
-				<div className="mb-5 flex flex-wrap items-start justify-between gap-3">
-					<div className="space-y-1">
-						<div className="text-[12.5px] text-dashboard-text-muted">Enrolled this term</div>
-						<div className="font-semibold text-[28px] text-dashboard-text-primary leading-none tracking-tight tabular-nums">
-							2,847
+				<div className="mb-5 flex flex-wrap items-start justify-between gap-4">
+					<InsightStat
+						label="Enrolled this term"
+						value="2,847"
+						hint="Peak at G3 · softest at G12"
+					/>
+					<div className="rounded-[12px] border border-dashboard-border-subtle bg-dashboard-surface/70 px-3 py-2.5 text-[12px] text-dashboard-text-muted leading-4">
+						<div className="font-medium text-[11px] text-dashboard-text-dim uppercase tracking-[0.05em]">
+							Watch
 						</div>
+						<p className="mt-1 max-w-[160px] text-dashboard-text-secondary">
+							G2 Riverside at 98% capacity — new offers route to waitlist.
+						</p>
 					</div>
-					<DateRangePill label="Term 1 · 2026" />
 				</div>
 
 				<GradeChart />
@@ -73,6 +55,26 @@ export function GradeDistributionCard({ className }: Props) {
 					title="AI insights connect after Nest AI assist is enabled"
 				/>
 			</div>
+
+			<DashboardCardFooter
+				action={
+					<button
+						type="button"
+						className="inline-flex items-center gap-1 font-medium text-[12px] text-dashboard-accent transition-colors hover:text-dashboard-accent-hover"
+					>
+						Class lists
+						<HugeiconsIcon icon={ArrowRight01Icon} size={13} strokeWidth={2} />
+					</button>
+				}
+			>
+				<span>
+					Avg <span className="font-semibold text-dashboard-text-secondary">237</span>/grade
+				</span>
+				<FooterSep />
+				<span>
+					Spread <span className="font-semibold text-dashboard-text-secondary">71</span> seats
+				</span>
+			</DashboardCardFooter>
 		</section>
 	);
 }

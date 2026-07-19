@@ -42,7 +42,7 @@ export function StatusBadge({ status, className }: Props) {
 	return (
 		<span
 			className={cn(
-				"inline-flex h-6 items-center gap-1.5 rounded-full border px-2.5 font-medium text-[11.5px]",
+				"inline-flex items-center gap-1 rounded-md border px-2 py-0.5 font-medium text-[11px]",
 				spec.className,
 				className,
 			)}

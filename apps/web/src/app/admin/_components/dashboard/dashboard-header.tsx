@@ -32,12 +32,18 @@ export function DashboardHeader({ name, className, onExport }: Props) {
 			<div className="min-w-0">
 				<div className="mb-1.5 flex items-center gap-2 text-[11px] text-dashboard-text-muted uppercase tracking-[0.08em]">
 					<span className="size-1.5 rounded-full bg-emerald-500" />
-					Live overview
+					Live overview · District
 				</div>
 				<h1 className="font-semibold text-[24px] text-dashboard-text-primary leading-tight tracking-tight">
 					Welcome back, {greetingName}
 				</h1>
-				<p className="mt-1 text-[13px] text-dashboard-text-muted">{today} · All campuses</p>
+				<p className="mt-1.5 max-w-xl text-[13px] text-dashboard-text-secondary leading-5">
+					{today} · Northwood, Riverside, and District Office in one pulse. Attendance dips and
+					admission backlog need a look before lunch.
+				</p>
+				<p className="mt-1 text-[12px] text-dashboard-text-dim">
+					Role: Campus admin · Data refreshed continuously from SIS
+				</p>
 			</div>
 
 			<div className="flex w-full flex-wrap items-center gap-2 md:w-auto md:justify-end">

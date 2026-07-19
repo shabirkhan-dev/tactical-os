@@ -3,6 +3,7 @@ import { DashboardHeader } from "./_components/dashboard/dashboard-header";
 import { EnrollmentTrendCard } from "./_components/dashboard/enrollment-trend/enrollment-trend-card";
 import { FadeIn } from "./_components/dashboard/fade-in";
 import { GradeDistributionCard } from "./_components/dashboard/grade-distribution/grade-distribution-card";
+import { OpsPulseStrip } from "./_components/dashboard/ops-pulse-strip";
 import { StatCardsRow } from "./_components/dashboard/stat-cards-row";
 
 const AdminPage = () => {
@@ -11,14 +12,17 @@ const AdminPage = () => {
 			<FadeIn>
 				<DashboardHeader />
 			</FadeIn>
-			<FadeIn delay={0.05}>
+			<FadeIn delay={0.04}>
+				<OpsPulseStrip />
+			</FadeIn>
+			<FadeIn delay={0.08}>
 				<StatCardsRow />
 			</FadeIn>
 			<div className="grid grid-cols-1 gap-5 xl:grid-cols-12">
-				<FadeIn delay={0.1} className="xl:col-span-8">
+				<FadeIn delay={0.12} className="xl:col-span-8">
 					<EnrollmentTrendCard />
 				</FadeIn>
-				<FadeIn delay={0.15} className="xl:col-span-4">
+				<FadeIn delay={0.16} className="xl:col-span-4">
 					<GradeDistributionCard />
 				</FadeIn>
 			</div>

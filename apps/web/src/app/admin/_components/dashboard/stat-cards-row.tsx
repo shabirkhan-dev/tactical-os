@@ -8,6 +8,7 @@ type Stat = {
 	label: string;
 	value: number;
 	formatValue: (n: number) => string;
+	detail: string;
 	trend: Trend;
 	trendDelta: string;
 	trendLabel: string;
@@ -24,6 +25,7 @@ const stats: Stat[] = [
 		label: "Total Students",
 		value: 2847,
 		formatValue: whole,
+		detail: "Across 3 campuses · 253 seats still open",
 		trend: "up",
 		trendDelta: "+4.2%",
 		trendLabel: "vs last term",
@@ -35,6 +37,7 @@ const stats: Stat[] = [
 		label: "Attendance Rate",
 		value: 94.6,
 		formatValue: percent,
+		detail: "Dip driven by G9–G10 absences Mon–Tue",
 		trend: "down",
 		trendDelta: "-0.8%",
 		trendLabel: "vs last week",
@@ -46,6 +49,7 @@ const stats: Stat[] = [
 		label: "Teaching Staff",
 		value: 214,
 		formatValue: whole,
+		detail: "186 checked in · 4 on leave today",
 		trend: "up",
 		trendDelta: "+6",
 		trendLabel: "vs last term",
@@ -57,6 +61,7 @@ const stats: Stat[] = [
 		label: "Fee Collection",
 		value: 87.3,
 		formatValue: percent,
+		detail: "$412k outstanding · 61 families past due",
 		trend: "up",
 		trendDelta: "+1.5%",
 		trendLabel: "vs last month",
@@ -84,6 +89,7 @@ export function StatCardsRow({ className }: Props) {
 					label={s.label}
 					value={s.value}
 					formatValue={s.formatValue}
+					detail={s.detail}
 					trend={s.trend}
 					trendDelta={s.trendDelta}
 					trendLabel={s.trendLabel}

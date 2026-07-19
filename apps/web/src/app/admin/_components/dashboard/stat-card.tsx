@@ -12,6 +12,7 @@ type Props = {
 	label: string;
 	value: number;
 	formatValue: (n: number) => string;
+	detail?: string;
 	trendLabel?: string;
 	trendDelta?: string;
 	trend?: Trend;
@@ -42,6 +43,7 @@ export function StatCard({
 	label,
 	value,
 	formatValue,
+	detail,
 	trendLabel = "vs last term",
 	trendDelta = "+0.0%",
 	trend = "up",
@@ -55,7 +57,7 @@ export function StatCard({
 	return (
 		<div
 			className={cn(
-				"relative min-h-[142px] bg-dashboard-card-inner p-4 transition-colors duration-200 hover:bg-dashboard-surface-hover",
+				"relative min-h-[158px] bg-dashboard-card-inner p-4 transition-colors duration-200 hover:bg-dashboard-surface-hover",
 				className,
 			)}
 		>
@@ -64,16 +66,21 @@ export function StatCard({
 					<div className="font-medium text-[11px] text-dashboard-text-muted uppercase tracking-[0.06em]">
 						{label}
 					</div>
-					<div className="mt-4 flex items-baseline gap-2">
+					<div className="mt-3 flex items-baseline gap-2">
 						<span className="font-semibold text-[26px] text-dashboard-text-primary leading-none tracking-tight tabular-nums">
 							{formatValue(animated)}
 						</span>
 					</div>
+					{detail ? (
+						<p className="mt-2 max-w-[180px] text-[12px] text-dashboard-text-dim leading-4">
+							{detail}
+						</p>
+					) : null}
 				</div>
 				<MiniBars data={bars} activeIndex={activeIndex} className="mt-1 shrink-0" />
 			</div>
 
-			<div className="mt-5 flex items-center gap-2 text-[12px] text-dashboard-text-muted tabular-nums">
+			<div className="mt-4 flex items-center gap-2 text-[12px] text-dashboard-text-muted tabular-nums">
 				<span className={cn("flex size-5 items-center justify-center rounded-md", spec.chip)}>
 					<HugeiconsIcon icon={spec.icon} size={13} strokeWidth={2.2} />
 				</span>

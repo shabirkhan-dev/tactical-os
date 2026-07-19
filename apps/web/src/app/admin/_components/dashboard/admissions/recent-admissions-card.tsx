@@ -1,15 +1,11 @@
 "use client";
 
-import { InformationCircleIcon } from "@hugeicons/core-free-icons";
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from "@school-os/ui/components/tooltip";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
+import { DashboardCardFooter, DashboardCardHeader, FooterSep } from "../card-chrome";
+import { admissionSummary, admissions } from "./admissions-data";
 import { AdmissionsTable } from "./admissions-table";
 import { AdmissionsToolbar } from "./admissions-toolbar";
 
@@ -19,6 +15,24 @@ type Props = {
 
 export function RecentAdmissionsCard({ className }: Props) {
 	const [query, setQuery] = useState("");
+	const summary = useMemo(() => admissionSummary(admissions), []);
+
+	const filteredCount = useMemo(() => {
+		const q = query.trim().toLowerCase();
+		if (!q) return admissions.length;
+		return admissions.filter((row) =>
+			[
+				row.id,
+				row.student,
+				row.email,
+				row.grade,
+				row.campus,
+				row.guardian,
+				row.status,
+				row.note,
+			].some((field) => field.toLowerCase().includes(q)),
+		).length;
+	}, [query]);
 
 	return (
 		<section
@@ -28,41 +42,46 @@ export function RecentAdmissionsCard({ className }: Props) {
 			)}
 			aria-label="Recent admissions"
 		>
-			<div className="flex flex-wrap items-center justify-between gap-3 border-dashboard-border border-b px-4 py-3">
-				<div className="flex items-center gap-1.5">
-					<h2 className="font-medium text-[11px] text-dashboard-text-muted uppercase tracking-[0.06em]">
-						Recent Admissions
-					</h2>
-					<TooltipProvider delay={200}>
-						<Tooltip>
-							<TooltipTrigger
-								render={(props) => (
-									<button
-										type="button"
-										{...props}
-										className="rounded-md text-dashboard-text-faint transition-colors hover:text-dashboard-text-muted"
-										aria-label="About recent admissions"
-									>
-										<HugeiconsIcon icon={InformationCircleIcon} size={13} strokeWidth={1.8} />
-									</button>
-								)}
-							/>
-							<TooltipContent side="top" className="max-w-[220px]">
-								Latest applications across campuses. Search filters this list only.
-							</TooltipContent>
-						</Tooltip>
-					</TooltipProvider>
-				</div>
-				<AdmissionsToolbar
-					query={query}
-					onQueryChange={setQuery}
-					className="basis-full sm:basis-auto"
-				/>
-			</div>
+			<DashboardCardHeader
+				title="Recent Admissions"
+				description="Applications across campuses with guardian context, source, and review notes."
+				meta={`Showing ${filteredCount} of ${summary.total} · updated a few minutes ago`}
+				info="Search filters this list only. Status updates sync once SIS webhooks confirm."
+				actions={
+					<AdmissionsToolbar query={query} onQueryChange={setQuery} className="w-full sm:w-auto" />
+				}
+			/>
 
 			<div>
 				<AdmissionsTable query={query} />
 			</div>
+
+			<DashboardCardFooter
+				action={
+					<button
+						type="button"
+						className="inline-flex items-center gap-1 font-medium text-[12px] text-dashboard-accent transition-colors hover:text-dashboard-accent-hover"
+					>
+						View all admissions
+						<HugeiconsIcon icon={ArrowRight01Icon} size={13} strokeWidth={2} />
+					</button>
+				}
+			>
+				<span>
+					<span className="font-semibold text-dashboard-text-secondary">{summary.pending}</span>{" "}
+					pending review
+				</span>
+				<FooterSep />
+				<span>
+					<span className="font-semibold text-dashboard-text-secondary">{summary.waitlisted}</span>{" "}
+					waitlisted
+				</span>
+				<FooterSep />
+				<span>
+					<span className="font-semibold text-dashboard-text-secondary">{summary.enrolled}</span>{" "}
+					enrolled this week
+				</span>
+			</DashboardCardFooter>
 		</section>
 	);
 }

@@ -1,14 +1,9 @@
 "use client";
 
-import { InformationCircleIcon } from "@hugeicons/core-free-icons";
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from "@school-os/ui/components/tooltip";
 import { cn } from "@/lib/utils";
+import { DashboardCardFooter, DashboardCardHeader, FooterSep, InsightStat } from "../card-chrome";
 import { LegendDot } from "./legend-dot";
 import { PixelGridChart } from "./pixel-grid-chart";
 import { RangeToggle } from "./range-toggle";
@@ -26,52 +21,66 @@ export function EnrollmentTrendCard({ className }: Props) {
 			)}
 			aria-label="Enrollment trend"
 		>
-			<div className="flex items-center justify-between border-dashboard-border border-b px-4 py-3">
-				<div className="flex items-center gap-1.5">
-					<h2 className="font-medium text-[11px] text-dashboard-text-muted uppercase tracking-[0.06em]">
-						Enrollment Trend
-					</h2>
-					<TooltipProvider delay={200}>
-						<Tooltip>
-							<TooltipTrigger
-								render={(props) => (
-									<button
-										type="button"
-										{...props}
-										className="rounded-md text-dashboard-text-faint transition-colors hover:text-dashboard-text-muted"
-										aria-label="About enrollment trend"
-									>
-										<HugeiconsIcon icon={InformationCircleIcon} size={13} strokeWidth={1.8} />
-									</button>
-								)}
-							/>
-							<TooltipContent side="top" className="max-w-[220px]">
-								New vs returning students by month for the selected range.
-							</TooltipContent>
-						</Tooltip>
-					</TooltipProvider>
-				</div>
-			</div>
+			<DashboardCardHeader
+				title="Enrollment Trend"
+				description="New admissions versus returning students across the academic year."
+				meta="Fall planning window · Northwood + Riverside + District"
+				info="Each column cluster is a month. Accent cells are new seats; muted cells are returning cohort."
+				actions={<RangeToggle />}
+			/>
 
 			<div className="overflow-x-auto p-4 sm:p-5">
-				<div className="mb-5 flex min-w-[560px] flex-wrap items-start justify-between gap-5">
-					<div>
-						<span className="text-[12px] text-dashboard-text-muted">Total students</span>
-						<div className="mt-1 font-semibold text-[28px] text-dashboard-text-primary leading-none tracking-tight tabular-nums">
-							2,847
-						</div>
+				<div className="mb-5 flex min-w-[560px] flex-wrap items-start justify-between gap-6">
+					<div className="flex flex-wrap gap-8">
+						<InsightStat
+							label="Total students"
+							value="2,847"
+							hint="+118 net since Jan · capacity 3,100"
+						/>
+						<InsightStat
+							label="New this month"
+							value="142"
+							hint="Jul peak week · 38 pending offers"
+						/>
+						<InsightStat label="Retention" value="96.1%" hint="Returning cohort vs prior term" />
 					</div>
-					<div className="flex flex-wrap items-center gap-4 sm:gap-5">
-						<div className="flex items-center gap-4">
-							<LegendDot color="var(--dashboard-accent)" label="New admissions" />
-							<LegendDot color="var(--dashboard-chart-dot)" label="Returning" />
-						</div>
-						<RangeToggle />
+					<div className="flex items-center gap-4 pt-1">
+						<LegendDot color="var(--dashboard-accent)" label="New admissions" />
+						<LegendDot color="var(--dashboard-chart-dot)" label="Returning" />
 					</div>
+				</div>
+
+				<div className="mb-4 rounded-[12px] border border-dashboard-border-subtle bg-dashboard-surface/70 px-3.5 py-2.5 text-[12.5px] text-dashboard-text-secondary leading-5">
+					<span className="font-medium text-dashboard-text-primary">July spike:</span> transfer
+					window + portal reopen drove +19% new seats vs June. Riverside Grade 2 is near capacity —
+					waitlist is active.
 				</div>
 
 				<PixelGridChart highlightMonth="JUL" className="min-w-[560px]" />
 			</div>
+
+			<DashboardCardFooter
+				action={
+					<button
+						type="button"
+						className="inline-flex items-center gap-1 font-medium text-[12px] text-dashboard-accent transition-colors hover:text-dashboard-accent-hover"
+					>
+						Open enrollment plan
+						<HugeiconsIcon icon={ArrowRight01Icon} size={13} strokeWidth={2} />
+					</button>
+				}
+			>
+				<span>
+					<span className="font-semibold text-dashboard-text-secondary">253</span> seats free
+				</span>
+				<FooterSep />
+				<span>
+					<span className="font-semibold text-dashboard-text-secondary">2</span> campuses near
+					capacity
+				</span>
+				<FooterSep />
+				<span>Updated 14:02</span>
+			</DashboardCardFooter>
 		</section>
 	);
 }
