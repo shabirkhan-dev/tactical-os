@@ -93,8 +93,15 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
       - name: Test
         run: bun run ci:test
+        env:
+          DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/ci
 
       - name: Upload coverage artifacts
         if: always()

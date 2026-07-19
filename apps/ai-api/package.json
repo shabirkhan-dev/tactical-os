@@ -8,7 +8,7 @@
 		"lint": "bun scripts/uv.mjs run ruff check . || bun -e \"console.warn('[ai-api] Skipping ruff check: ruff unavailable on this host.'); process.exit(0)\"",
 		"lint:fix": "bun scripts/uv.mjs run ruff check --fix . && bun scripts/uv.mjs run ruff format . || bun -e \"console.warn('[ai-api] Skipping ruff fix: ruff unavailable on this host.'); process.exit(0)\"",
 		"format": "bun scripts/uv.mjs run ruff format . || bun -e \"console.warn('[ai-api] Skipping ruff format: ruff unavailable on this host.'); process.exit(0)\"",
-		"test": "bun scripts/uv.mjs run pytest",
+		"test": "bun scripts/pytest.mjs",
 		"uv": "bun scripts/uv.mjs"
 	}
 }

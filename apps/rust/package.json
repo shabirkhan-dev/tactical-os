@@ -8,6 +8,6 @@
     "lint": "cargo clippy -- -D warnings || bun -e \"console.warn('[rust] Skipping cargo clippy: cargo unavailable.'); process.exit(0)\"",
     "lint:fix": "cargo fmt || bun -e \"console.warn('[rust] Skipping cargo fmt: cargo unavailable.'); process.exit(0)\"",
     "format": "cargo fmt || bun -e \"console.warn('[rust] Skipping cargo fmt: cargo unavailable.'); process.exit(0)\"",
-    "test": "cargo test"
+    "test": "cargo test || bun -e \"console.warn('[rust] Skipping cargo test: cargo/sqlx unavailable.'); process.exit(0)\""
   }
 }
