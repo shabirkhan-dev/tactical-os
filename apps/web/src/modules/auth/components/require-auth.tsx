@@ -17,7 +17,11 @@ export function RequireAuth({ children }: { children: ReactNode }) {
 
 	if (loading || !user) {
 		return (
-			<div className="flex min-h-svh items-center justify-center" aria-busy="true">
+			<div
+				className="flex min-h-svh items-center justify-center"
+				aria-busy="true"
+				suppressHydrationWarning
+			>
 				<Spinner className="size-6" />
 			</div>
 		);
