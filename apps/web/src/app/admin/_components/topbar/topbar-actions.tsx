@@ -1,11 +1,11 @@
 "use client";
 
-import { Moon01Icon, Notification03Icon, PrinterIcon, Sun01Icon } from "@hugeicons/core-free-icons";
+import { Notification03Icon, PrinterIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@school-os/ui/components/tooltip";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import { type ComponentProps, useEffect, useState } from "react";
+import type { ComponentProps } from "react";
+import { ThemeToggleControl } from "@/components/motion/theme-toggle";
 import { useAuth } from "@/context/auth-context";
 import { userInitials } from "@/lib/user-display";
 import { cn } from "@/lib/utils";
@@ -50,39 +50,6 @@ function IconButton({ icon, label, dot, onClick, className }: IconBtnProps) {
 	);
 }
 
-function ThemeToggle() {
-	const { theme, setTheme } = useTheme();
-	const [mounted, setMounted] = useState(false);
-	useEffect(() => setMounted(true), []);
-	if (!mounted) {
-		return (
-			<span className="flex size-9 items-center justify-center rounded-lg text-dashboard-text-muted">
-				<HugeiconsIcon icon={Moon01Icon} size={18} strokeWidth={1.8} />
-			</span>
-		);
-	}
-	const isDark = theme === "dark";
-	const toggle = () => setTheme(isDark ? "light" : "dark");
-	return (
-		<Tooltip>
-			<TooltipTrigger
-				render={(props) => (
-					<button
-						type="button"
-						{...props}
-						onClick={toggle}
-						aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-						className="relative flex size-9 items-center justify-center rounded-lg text-dashboard-text-muted transition-all hover:bg-dashboard-hover hover:text-dashboard-text-primary active:scale-95"
-					>
-						<HugeiconsIcon icon={isDark ? Sun01Icon : Moon01Icon} size={18} strokeWidth={1.8} />
-					</button>
-				)}
-			/>
-			<TooltipContent side="bottom">{isDark ? "Light mode" : "Dark mode"}</TooltipContent>
-		</Tooltip>
-	);
-}
-
 type Props = {
 	avatarSrc?: string;
 	avatarFallback?: string;
@@ -101,7 +68,16 @@ export function TopbarActions({
 
 	return (
 		<div className={cn("flex items-center gap-1", className)}>
-			<ThemeToggle />
+			<Tooltip>
+				<TooltipTrigger
+					render={(props) => (
+						<span {...props} className="inline-flex">
+							<ThemeToggleControl />
+						</span>
+					)}
+				/>
+				<TooltipContent side="bottom">Theme · pick animation from the arrow</TooltipContent>
+			</Tooltip>
 			<IconButton icon={Notification03Icon} label="Notifications" dot={unreadNotifications} />
 			<IconButton icon={PrinterIcon} label="Print" className="hidden sm:flex" />
 
