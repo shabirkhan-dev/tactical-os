@@ -1,24 +1,27 @@
 {
-	"$schema": "https://ui.shadcn.com/schema.json",
-	"style": "base-nova",
-	"rsc": true,
-	"tsx": true,
-	"tailwind": {
-		"config": "",
-		"css": "src/styles/globals.css",
-		"baseColor": "neutral",
-		"cssVariables": true,
-		"prefix": ""
-	},
-	"iconLibrary": "hugeicons",
-	"rtl": true,
-	"aliases": {
-		"components": "@school-os/ui/components",
-		"utils": "@school-os/ui/lib/utils",
-		"hooks": "@school-os/ui/hooks",
-		"lib": "@school-os/ui/lib",
-		"ui": "@school-os/ui/components"
-	},
-	"menuColor": "inverted",
-	"menuAccent": "subtle"
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "base-nova",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/styles/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "hugeicons",
+  "rtl": true,
+  "menuColor": "inverted",
+  "menuAccent": "subtle",
+  "aliases": {
+    "components": "@school-os/ui/components",
+    "utils": "@school-os/ui/lib/utils",
+    "ui": "@school-os/ui/components",
+    "lib": "@school-os/ui/lib",
+    "hooks": "@school-os/ui/hooks"
+  },
+  "registries": {
+    "@beui": "https://beui.dev/r/{name}.json"
+  }
 }

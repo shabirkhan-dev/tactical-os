@@ -1,5 +1,6 @@
 "use client";
 
+import { ToastProvider } from "@school-os/ui/components/toaster";
 import type { ReactNode } from "react";
 import { ThemeProvider } from "@/components/theme";
 import { AuthProvider } from "@/modules/auth/context";
@@ -9,7 +10,9 @@ export function Providers({ children }: { children: ReactNode }) {
 	return (
 		<ThemeProvider>
 			<QueryProvider>
-				<AuthProvider>{children}</AuthProvider>
+				<AuthProvider>
+					<ToastProvider>{children}</ToastProvider>
+				</AuthProvider>
 			</QueryProvider>
 		</ThemeProvider>
 	);

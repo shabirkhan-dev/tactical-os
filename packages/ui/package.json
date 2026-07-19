@@ -26,14 +26,15 @@
 		"@hugeicons/react": "^1.1.6",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
+		"motion": "^12.42.2",
 		"recharts": "^3.9.2",
-		"sonner": "^2.0.7",
 		"tailwind-merge": "^3.6.0",
 		"vaul": "^1.1.2"
 	},
 	"devDependencies": {
 		"@school-os/typescript-config": "workspace:*",
 		"@types/react": "^19.2.14",
+		"@types/react-dom": "^19.2.3",
 		"typescript": "^6.0.3"
 	},
 	"peerDependencies": {

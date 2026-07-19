@@ -132,7 +132,6 @@ export {
 	useSidebar,
 } from "./components/sidebar";
 export { Skeleton } from "./components/skeleton";
-export { Toaster } from "./components/sonner";
 export { Spinner } from "./components/spinner";
 export {
 	Table,
@@ -146,6 +145,17 @@ export {
 } from "./components/table";
 export { Tabs, TabsContent, TabsList, TabsTrigger, tabsListVariants } from "./components/tabs";
 export { Textarea } from "./components/textarea";
+export {
+	type AnimatedToast,
+	AnimatedToastStack,
+	Toaster,
+	type ToastInput,
+	type ToastPosition,
+	ToastProvider,
+	type ToastStatus,
+	useAnimatedToastStack,
+	useToast,
+} from "./components/toaster";
 export { Toggle, toggleVariants } from "./components/toggle";
 export { ToggleGroup, ToggleGroupItem } from "./components/toggle-group";
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./components/tooltip";
