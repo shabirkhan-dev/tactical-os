@@ -17,35 +17,45 @@ export function BreadcrumbTrail({ items, className }: Props) {
 	return (
 		<nav
 			aria-label="Breadcrumb"
-			className={cn("flex items-center gap-1.5 overflow-hidden text-[13px]", className)}
+			className={cn("flex min-w-0 items-center gap-1.5 overflow-hidden text-[13px]", className)}
 		>
 			{items.map((item, idx) => {
 				const isLast = idx === items.length - 1;
 				const showSeparator = idx > 0;
+				// On phones only show the current page; parents clutter the topbar.
+				const hideOnMobile = !isLast;
+				const key = item.href ?? `${item.label}-${isLast ? "current" : "crumb"}`;
 				return (
-					<Fragment key={item.label}>
+					<Fragment key={key}>
 						{showSeparator && (
 							<HugeiconsIcon
 								icon={ArrowRight01Icon}
 								size={14}
 								strokeWidth={2}
-								className="text-dashboard-text-faint"
+								className={cn(
+									"shrink-0 text-dashboard-text-faint",
+									hideOnMobile && "hidden sm:block",
+								)}
 							/>
 						)}
 						{item.href && !isLast ? (
 							<Link
 								href={item.href}
-								className="text-dashboard-text-muted transition-colors hover:text-dashboard-text-secondary"
+								className={cn(
+									"shrink-0 text-dashboard-text-muted transition-colors hover:text-dashboard-text-secondary",
+									hideOnMobile && "hidden sm:inline",
+								)}
 							>
 								{item.label}
 							</Link>
 						) : (
 							<span
 								className={cn(
-									"truncate",
+									"min-w-0 truncate",
 									isLast
 										? "font-medium text-dashboard-text-secondary"
 										: "text-dashboard-text-muted",
+									hideOnMobile && "hidden sm:inline",
 								)}
 							>
 								{item.label}

@@ -59,7 +59,10 @@ export function DatePill({ date: controlled, onChange, className }: Props) {
 							strokeWidth={1.8}
 							className="text-dashboard-text-muted"
 						/>
-						<span className="font-medium">{formatDate(value)}</span>
+						<span className="font-medium tabular-nums sm:hidden">
+							{value.getDate()} {MONTHS_SHORT[value.getMonth()]}
+						</span>
+						<span className="hidden font-medium sm:inline">{formatDate(value)}</span>
 					</button>
 				)}
 			/>

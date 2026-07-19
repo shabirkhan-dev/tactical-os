@@ -9,7 +9,7 @@ import { StatCardsRow } from "./_components/dashboard/stat-cards-row";
 const AdminPage = () => {
 	return (
 		// min-w-0: grid/flex children default to min-width:auto and can blow past the viewport
-		<div className="mx-auto w-full min-w-0 max-w-[1600px] space-y-5 px-3 py-4 sm:px-6 sm:py-6 lg:space-y-6 lg:px-8">
+		<div className="mx-auto w-full min-w-0 max-w-[1600px] space-y-4 px-3 py-3 sm:space-y-5 sm:px-6 sm:py-6 lg:space-y-6 lg:px-8">
 			<FadeIn>
 				<DashboardHeader />
 			</FadeIn>

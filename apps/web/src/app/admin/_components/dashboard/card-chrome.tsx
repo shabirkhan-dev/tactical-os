@@ -32,7 +32,7 @@ export function DashboardCardHeader({
 	return (
 		<div
 			className={cn(
-				"flex flex-wrap items-start justify-between gap-3 border-dashboard-border border-b px-4 py-3.5",
+				"flex flex-col gap-3 border-dashboard-border border-b px-3 py-3 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:gap-3 sm:px-4 sm:py-3.5",
 				className,
 			)}
 		>
@@ -64,13 +64,17 @@ export function DashboardCardHeader({
 					) : null}
 				</div>
 				{description ? (
-					<p className="max-w-xl text-[12.5px] text-dashboard-text-secondary leading-4">
+					<p className="hidden max-w-xl text-[12.5px] text-dashboard-text-secondary leading-4 sm:block">
 						{description}
 					</p>
 				) : null}
 				{meta ? <p className="text-[11px] text-dashboard-text-dim tabular-nums">{meta}</p> : null}
 			</div>
-			{actions ? <div className="flex shrink-0 flex-wrap items-center gap-2">{actions}</div> : null}
+			{actions ? (
+				<div className="flex w-full min-w-0 flex-wrap items-center gap-2 sm:w-auto sm:shrink-0">
+					{actions}
+				</div>
+			) : null}
 		</div>
 	);
 }
@@ -86,14 +90,14 @@ export function DashboardCardFooter({ children, action, className }: FooterProps
 	return (
 		<div
 			className={cn(
-				"flex flex-wrap items-center justify-between gap-3 border-dashboard-border border-t bg-dashboard-surface/60 px-4 py-2.5",
+				"flex flex-col gap-2 border-dashboard-border border-t bg-dashboard-surface/60 px-3 py-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-3 sm:px-4",
 				className,
 			)}
 		>
 			<div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-dashboard-text-muted">
 				{children}
 			</div>
-			{action}
+			{action ? <div className="shrink-0">{action}</div> : null}
 		</div>
 	);
 }

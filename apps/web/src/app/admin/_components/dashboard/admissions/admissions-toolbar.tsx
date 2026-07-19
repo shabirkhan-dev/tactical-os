@@ -36,11 +36,11 @@ export function AdmissionsToolbar({ className, query, onQueryChange, onAdd }: Pr
 				onClick={onAdd}
 				disabled={!onAdd}
 				title={onAdd ? "Create admission" : "Admissions workflow coming soon"}
-				className="flex h-9 items-center gap-1.5 rounded-lg bg-dashboard-accent px-3.5 font-semibold text-[12.5px] text-dashboard-accent-fg transition-all hover:bg-dashboard-accent-hover enabled:active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-55"
+				className="flex h-9 shrink-0 items-center gap-1.5 rounded-lg bg-dashboard-accent px-3 font-semibold text-[12.5px] text-dashboard-accent-fg transition-all hover:bg-dashboard-accent-hover enabled:active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-55 sm:px-3.5"
 			>
 				<HugeiconsIcon icon={Add01Icon} size={14} strokeWidth={2.4} />
+				<span className="sm:hidden">Add</span>
 				<span className="hidden sm:inline">New admission</span>
-				<span className="sr-only sm:hidden">New admission</span>
 			</button>
 		</div>
 	);

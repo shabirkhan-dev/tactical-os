@@ -57,22 +57,22 @@ export function StatCard({
 	return (
 		<div
 			className={cn(
-				"relative min-h-[158px] bg-dashboard-card-inner p-4 transition-colors duration-200 hover:bg-dashboard-surface-hover",
+				"relative min-h-[140px] bg-dashboard-card-inner p-3.5 transition-colors duration-200 hover:bg-dashboard-surface-hover sm:min-h-[158px] sm:p-4",
 				className,
 			)}
 		>
-			<div className="flex items-start justify-between gap-4">
+			<div className="flex items-start justify-between gap-3 sm:gap-4">
 				<div className="min-w-0">
 					<div className="font-medium text-[11px] text-dashboard-text-muted uppercase tracking-[0.06em]">
 						{label}
 					</div>
-					<div className="mt-3 flex items-baseline gap-2">
-						<span className="font-semibold text-[26px] text-dashboard-text-primary leading-none tracking-tight tabular-nums">
+					<div className="mt-2.5 flex items-baseline gap-2 sm:mt-3">
+						<span className="font-semibold text-[24px] text-dashboard-text-primary leading-none tracking-tight tabular-nums sm:text-[26px]">
 							{formatValue(animated)}
 						</span>
 					</div>
 					{detail ? (
-						<p className="mt-2 max-w-[180px] text-[12px] text-dashboard-text-dim leading-4">
+						<p className="mt-2 max-w-[200px] text-[12px] text-dashboard-text-dim leading-4">
 							{detail}
 						</p>
 					) : null}
@@ -80,7 +80,7 @@ export function StatCard({
 				<MiniBars data={bars} activeIndex={activeIndex} className="mt-1 shrink-0" />
 			</div>
 
-			<div className="mt-4 flex items-center gap-2 text-[12px] text-dashboard-text-muted tabular-nums">
+			<div className="mt-3.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] text-dashboard-text-muted tabular-nums sm:mt-4">
 				<span className={cn("flex size-5 items-center justify-center rounded-md", spec.chip)}>
 					<HugeiconsIcon icon={spec.icon} size={13} strokeWidth={2.2} />
 				</span>

@@ -24,39 +24,45 @@ export function EnrollmentTrendCard({ className }: Props) {
 			<DashboardCardHeader
 				title="Enrollment Trend"
 				description="New admissions versus returning students across the academic year."
-				meta="Fall planning window · Northwood + Riverside + District"
+				meta="Fall planning · all campuses"
 				info="Each column cluster is a month. Accent cells are new seats; muted cells are returning cohort."
-				actions={<RangeToggle />}
+				actions={<RangeToggle className="w-full sm:w-auto" />}
 			/>
 
-			<div className="min-w-0 overflow-x-auto overscroll-x-contain p-4 sm:p-5">
-				<div className="mb-5 flex min-w-[560px] flex-wrap items-start justify-between gap-6">
-					<div className="flex flex-wrap gap-8">
+			<div className="min-w-0 p-3 sm:p-5">
+				<div className="mb-4 grid grid-cols-2 gap-4 sm:mb-5 sm:flex sm:flex-wrap sm:items-start sm:justify-between sm:gap-6">
+					<div className="col-span-2 grid grid-cols-2 gap-4 sm:flex sm:flex-wrap sm:gap-8 lg:grid-cols-none">
 						<InsightStat
 							label="Total students"
 							value="2,847"
 							hint="+118 net since Jan · capacity 3,100"
 						/>
+						<InsightStat label="New this month" value="142" hint="Jul peak · 38 pending offers" />
 						<InsightStat
-							label="New this month"
-							value="142"
-							hint="Jul peak week · 38 pending offers"
+							label="Retention"
+							value="96.1%"
+							hint="Returning vs prior term"
+							className="col-span-2 sm:col-span-1"
 						/>
-						<InsightStat label="Retention" value="96.1%" hint="Returning cohort vs prior term" />
 					</div>
-					<div className="flex items-center gap-4 pt-1">
+					<div className="col-span-2 flex flex-wrap items-center gap-3 sm:gap-4 sm:pt-1">
 						<LegendDot color="var(--dashboard-accent)" label="New admissions" />
 						<LegendDot color="var(--dashboard-chart-dot)" label="Returning" />
 					</div>
 				</div>
 
-				<div className="mb-4 rounded-[12px] border border-dashboard-border-subtle bg-dashboard-surface/70 px-3.5 py-2.5 text-[12.5px] text-dashboard-text-secondary leading-5">
+				<div className="mb-3 rounded-[12px] border border-dashboard-border-subtle bg-dashboard-surface/70 px-3 py-2.5 text-[12.5px] text-dashboard-text-secondary leading-5 sm:mb-4 sm:px-3.5">
 					<span className="font-medium text-dashboard-text-primary">July spike:</span> transfer
 					window + portal reopen drove +19% new seats vs June. Riverside Grade 2 is near capacity —
 					waitlist is active.
 				</div>
 
-				<PixelGridChart highlightMonth="JUL" className="min-w-[560px]" />
+				<p className="mb-2 text-[11px] text-dashboard-text-dim md:hidden">
+					Swipe chart horizontally
+				</p>
+				<div className="min-w-0 overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
+					<PixelGridChart highlightMonth="JUL" className="min-w-[520px] sm:min-w-[560px]" />
+				</div>
 			</div>
 
 			<DashboardCardFooter
@@ -75,11 +81,10 @@ export function EnrollmentTrendCard({ className }: Props) {
 				</span>
 				<FooterSep />
 				<span>
-					<span className="font-semibold text-dashboard-text-secondary">2</span> campuses near
-					capacity
+					<span className="font-semibold text-dashboard-text-secondary">2</span> near capacity
 				</span>
 				<FooterSep />
-				<span>Updated 14:02</span>
+				<span className="hidden sm:inline">Updated 14:02</span>
 			</DashboardCardFooter>
 		</section>
 	);

@@ -67,7 +67,7 @@ export function TopbarActions({
 	const initials = avatarFallback ?? (user ? userInitials(user.username) : "?");
 
 	return (
-		<div className={cn("flex items-center gap-1", className)}>
+		<div className={cn("flex items-center gap-0.5 sm:gap-1", className)}>
 			{/* Do not wrap the menu control in Tooltip — Base UI tooltip + menu fight for focus. */}
 			<ThemeToggleControl />
 			<IconButton icon={Notification03Icon} label="Notifications" dot={unreadNotifications} />

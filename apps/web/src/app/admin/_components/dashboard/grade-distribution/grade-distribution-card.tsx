@@ -29,24 +29,31 @@ export function GradeDistributionCard({ className }: Props) {
 				actions={<DateRangePill label="Term 1 · 2026" />}
 			/>
 
-			<div className="p-4 sm:p-5">
-				<div className="mb-5 flex flex-wrap items-start justify-between gap-4">
+			<div className="p-3 sm:p-5">
+				<div className="mb-4 flex flex-col gap-3 sm:mb-5 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:gap-4">
 					<InsightStat
 						label="Enrolled this term"
 						value="2,847"
 						hint="Peak at G3 · softest at G12"
 					/>
-					<div className="rounded-[12px] border border-dashboard-border-subtle bg-dashboard-surface/70 px-3 py-2.5 text-[12px] text-dashboard-text-muted leading-4">
+					<div className="w-full rounded-[12px] border border-dashboard-border-subtle bg-dashboard-surface/70 px-3 py-2.5 text-[12px] text-dashboard-text-muted leading-4 sm:w-auto sm:max-w-[200px]">
 						<div className="font-medium text-[11px] text-dashboard-text-dim uppercase tracking-[0.05em]">
 							Watch
 						</div>
-						<p className="mt-1 max-w-[160px] text-dashboard-text-secondary">
+						<p className="mt-1 text-dashboard-text-secondary">
 							G2 Riverside at 98% capacity — new offers route to waitlist.
 						</p>
 					</div>
 				</div>
 
-				<GradeChart />
+				<p className="mb-2 text-[11px] text-dashboard-text-dim sm:hidden">
+					Swipe chart horizontally
+				</p>
+				<div className="min-w-0 overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
+					<div className="min-w-[300px]">
+						<GradeChart />
+					</div>
+				</div>
 
 				<AiInsightButton
 					label="Get AI insight on grade distribution"

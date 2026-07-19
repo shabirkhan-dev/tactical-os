@@ -47,9 +47,7 @@ export function RecentAdmissionsCard({ className }: Props) {
 				description="Applications across campuses with guardian context, source, and review notes."
 				meta={`Showing ${filteredCount} of ${summary.total} · updated a few minutes ago`}
 				info="Search filters this list only. Status updates sync once SIS webhooks confirm."
-				actions={
-					<AdmissionsToolbar query={query} onQueryChange={setQuery} className="w-full sm:w-auto" />
-				}
+				actions={<AdmissionsToolbar query={query} onQueryChange={setQuery} className="w-full" />}
 			/>
 
 			<div className="shrink-0">

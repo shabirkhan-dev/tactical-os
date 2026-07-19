@@ -13,7 +13,6 @@ type Col = {
 	id: SortKey | "actions";
 	label: string;
 	sortable?: boolean;
-	/** Fixed layout width — keeps columns from floating apart on wide screens. */
 	width: string;
 };
 
@@ -53,11 +52,8 @@ function initials(name: string): string {
 		.join("");
 }
 
-export function AdmissionsTable({ className, query = "" }: Props) {
-	const [sortKey, setSortKey] = useState<SortKey>("date");
-	const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
-
-	const rows = useMemo(() => {
+function useAdmissionRows(query: string, sortKey: SortKey, sortDir: "asc" | "desc") {
+	return useMemo(() => {
 		const q = query.trim().toLowerCase();
 		const filtered = q
 			? seedAdmissions.filter((row) =>
@@ -79,6 +75,12 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 		if (sortDir === "desc") sorted.reverse();
 		return sorted;
 	}, [query, sortDir, sortKey]);
+}
+
+export function AdmissionsTable({ className, query = "" }: Props) {
+	const [sortKey, setSortKey] = useState<SortKey>("date");
+	const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
+	const rows = useAdmissionRows(query, sortKey, sortDir);
 
 	const toggleSort = (key: SortKey) => {
 		if (sortKey === key) {
@@ -89,71 +91,79 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 		setSortDir(key === "date" ? "desc" : "asc");
 	};
 
+	if (rows.length === 0) {
+		return (
+			<div className={cn("px-4 py-10 text-center", className)}>
+				<p className="font-medium text-[14px] text-dashboard-text-primary">
+					No matching admissions
+				</p>
+				<p className="mx-auto mt-1 max-w-sm text-[12.5px] text-dashboard-text-muted leading-5">
+					Nothing matches “{query.trim()}”. Try a student name, campus, or status.
+				</p>
+			</div>
+		);
+	}
+
 	return (
-		<div className={cn("min-w-0 overflow-x-auto overscroll-x-contain", className)}>
-			{/*
-			  table-fixed + col widths: without this, w-full tables dump leftover
-			  width between columns on wide dashboards → huge empty middle.
-			*/}
-			<table className="w-full min-w-[760px] table-fixed border-separate border-spacing-0 text-[13px]">
-				<colgroup>
-					{COLUMNS.map((col) => (
-						<col key={col.id} style={{ width: col.width }} />
-					))}
-				</colgroup>
-				<thead>
-					<tr className="text-left">
+		<div className={cn("min-w-0", className)}>
+			{/* Phone: stacked cards — avoids 760px min-width table scroll */}
+			<ul className="divide-y divide-dashboard-border-subtle md:hidden">
+				{rows.map((a) => (
+					<li key={a.id} className="px-4 py-3.5">
+						<AdmissionMobileCard admission={a} />
+					</li>
+				))}
+			</ul>
+
+			{/* Tablet+: fixed table */}
+			<div className="hidden min-w-0 overflow-x-auto overscroll-x-contain md:block">
+				<table className="w-full min-w-[720px] table-fixed border-separate border-spacing-0 text-[13px]">
+					<colgroup>
 						{COLUMNS.map((col) => (
-							<th
-								key={col.id}
-								className="py-2.5 pr-3 font-medium text-[11px] text-dashboard-text-muted uppercase tracking-[0.06em] first:pl-4 last:pr-3"
-							>
-								{col.sortable ? (
-									<button
-										type="button"
-										onClick={() => toggleSort(col.id as SortKey)}
-										className="inline-flex items-center gap-1 rounded-md transition-colors hover:text-dashboard-text-secondary"
-										aria-label={`Sort by ${col.label}`}
-									>
-										{col.label}
-										<HugeiconsIcon
-											icon={
-												sortKey === col.id
-													? sortDir === "asc"
-														? ArrowUp01Icon
-														: ArrowDown01Icon
-													: ArrowDown01Icon
-											}
-											size={12}
-											strokeWidth={2}
-											className={cn(
-												sortKey === col.id
-													? "text-dashboard-text-secondary"
-													: "text-dashboard-text-faint opacity-50",
-											)}
-										/>
-									</button>
-								) : (
-									<span className="sr-only">{col.label || "Actions"}</span>
-								)}
-							</th>
+							<col key={col.id} style={{ width: col.width }} />
 						))}
-					</tr>
-				</thead>
-				<tbody>
-					{rows.length === 0 ? (
-						<tr>
-							<td colSpan={COLUMNS.length} className="px-4 py-10 text-center">
-								<p className="font-medium text-[14px] text-dashboard-text-primary">
-									No matching admissions
-								</p>
-								<p className="mx-auto mt-1 max-w-sm text-[12.5px] text-dashboard-text-muted leading-5">
-									Nothing matches “{query.trim()}”. Try a student name, campus, or status.
-								</p>
-							</td>
+					</colgroup>
+					<thead>
+						<tr className="text-left">
+							{COLUMNS.map((col) => (
+								<th
+									key={col.id}
+									className="py-2.5 pr-3 font-medium text-[11px] text-dashboard-text-muted uppercase tracking-[0.06em] first:pl-4 last:pr-3"
+								>
+									{col.sortable ? (
+										<button
+											type="button"
+											onClick={() => toggleSort(col.id as SortKey)}
+											className="inline-flex items-center gap-1 rounded-md transition-colors hover:text-dashboard-text-secondary"
+											aria-label={`Sort by ${col.label}`}
+										>
+											{col.label}
+											<HugeiconsIcon
+												icon={
+													sortKey === col.id
+														? sortDir === "asc"
+															? ArrowUp01Icon
+															: ArrowDown01Icon
+														: ArrowDown01Icon
+												}
+												size={12}
+												strokeWidth={2}
+												className={cn(
+													sortKey === col.id
+														? "text-dashboard-text-secondary"
+														: "text-dashboard-text-faint opacity-50",
+												)}
+											/>
+										</button>
+									) : (
+										<span className="sr-only">{col.label || "Actions"}</span>
+									)}
+								</th>
+							))}
 						</tr>
-					) : (
-						rows.map((a, i) => (
+					</thead>
+					<tbody>
+						{rows.map((a, i) => (
 							<tr
 								key={a.id}
 								className={cn(
@@ -218,10 +228,70 @@ export function AdmissionsTable({ className, query = "" }: Props) {
 									</button>
 								</td>
 							</tr>
-						))
-					)}
-				</tbody>
-			</table>
+						))}
+					</tbody>
+				</table>
+			</div>
 		</div>
+	);
+}
+
+function AdmissionMobileCard({ admission: a }: { admission: Admission }) {
+	return (
+		<article className="flex gap-3">
+			<span
+				aria-hidden
+				className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-xl bg-dashboard-surface-strong font-semibold text-[12px] text-dashboard-text-secondary ring-1 ring-dashboard-border"
+			>
+				{initials(a.student)}
+			</span>
+			<div className="min-w-0 flex-1 space-y-2">
+				<div className="flex items-start justify-between gap-2">
+					<div className="min-w-0">
+						<p className="truncate font-semibold text-[14px] text-dashboard-text-primary">
+							{a.student}
+						</p>
+						<p className="mt-0.5 text-[12px] text-dashboard-text-muted">
+							{a.id} · {a.grade}
+						</p>
+					</div>
+					<StatusBadge status={a.status} className="shrink-0" />
+				</div>
+
+				<dl className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-[12px]">
+					<div>
+						<dt className="text-[10.5px] text-dashboard-text-dim uppercase tracking-[0.05em]">
+							Campus
+						</dt>
+						<dd className="mt-0.5 font-medium text-dashboard-text-secondary">{a.campus}</dd>
+					</div>
+					<div>
+						<dt className="text-[10.5px] text-dashboard-text-dim uppercase tracking-[0.05em]">
+							Applied
+						</dt>
+						<dd className="mt-0.5 font-medium text-dashboard-text-secondary tabular-nums">
+							{a.date}
+						</dd>
+					</div>
+					<div className="col-span-2">
+						<dt className="text-[10.5px] text-dashboard-text-dim uppercase tracking-[0.05em]">
+							Guardian
+						</dt>
+						<dd className="mt-0.5 text-dashboard-text-secondary">
+							<span className="font-medium">{a.guardian}</span>
+							<span className="text-dashboard-text-muted">
+								{" "}
+								· {a.guardianRelation} · {a.guardianPhone}
+							</span>
+						</dd>
+					</div>
+				</dl>
+
+				<p className="text-[12px] text-dashboard-text-secondary leading-4">
+					<span className="text-dashboard-text-muted">{SOURCE_LABEL[a.source]} · </span>
+					{a.note}
+				</p>
+			</div>
+		</article>
 	);
 }

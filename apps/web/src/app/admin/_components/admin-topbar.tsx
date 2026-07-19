@@ -72,7 +72,7 @@ export function AdminTopbar({ crumbs, className }: Props) {
 					</SheetContent>
 				</Sheet>
 
-				<BreadcrumbTrail items={items} className="min-w-0 shrink truncate" />
+				<BreadcrumbTrail items={items} className="min-w-0 flex-1 sm:flex-none" />
 
 				<div className="hidden flex-1 justify-center md:flex">
 					<GlobalSearch className="w-full max-w-[420px]" />
