@@ -1,8 +1,8 @@
 "use client";
 
 import { CodeIcon, Globe02Icon, SearchFocusIcon, SparklesIcon } from "@hugeicons/core-free-icons";
-import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
+import { useTheme } from "@/components/theme";
 import { useAuth } from "@/context/auth-context";
 import { userFirstName, userInitials } from "@/lib/user-display";
 import { ChatComposer } from "@/modules/chat/components/chat/chat-composer";

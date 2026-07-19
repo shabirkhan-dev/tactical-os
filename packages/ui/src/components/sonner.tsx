@@ -8,16 +8,34 @@ import {
 	MultiplicationSignCircleIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useTheme } from "next-themes";
 import type * as React from "react";
+import { useEffect, useState } from "react";
 import { Toaster as Sonner, type ToasterProps } from "sonner";
 
-const Toaster = ({ ...props }: ToasterProps) => {
-	const { theme = "system" } = useTheme();
+function useDocumentTheme(): NonNullable<ToasterProps["theme"]> {
+	const [theme, setTheme] = useState<NonNullable<ToasterProps["theme"]>>("system");
+
+	useEffect(() => {
+		const root = document.documentElement;
+		const sync = () => {
+			setTheme(root.classList.contains("dark") ? "dark" : "light");
+		};
+		sync();
+		const observer = new MutationObserver(sync);
+		observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+		return () => observer.disconnect();
+	}, []);
+
+	return theme;
+}
+
+const Toaster = ({ theme: themeProp, ...props }: ToasterProps) => {
+	const documentTheme = useDocumentTheme();
+	const theme = themeProp ?? documentTheme;
 
 	return (
 		<Sonner
-			theme={theme as ToasterProps["theme"]}
+			theme={theme}
 			className="toaster group"
 			icons={{
 				success: <HugeiconsIcon icon={CheckmarkCircle02Icon} strokeWidth={2} className="size-4" />,

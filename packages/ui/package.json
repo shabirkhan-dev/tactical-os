@@ -37,7 +37,6 @@
 		"typescript": "^6.0.3"
 	},
 	"peerDependencies": {
-		"next-themes": ">=0.4",
 		"react": ">=19",
 		"react-dom": ">=19"
 	}

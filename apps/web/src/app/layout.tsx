@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Providers } from "@/components/providers";
+import { themeInitScript } from "@/components/theme";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,6 +18,10 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
+			<head>
+				{/* biome-ignore lint/security/noDangerouslySetInnerHtml: static FOUC bootstrap, not user input */}
+				<script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+			</head>
 			<body className="antialiased" suppressHydrationWarning>
 				<Providers>{children}</Providers>
 			</body>
