@@ -156,7 +156,7 @@ function DesktopSignedIn({
 						</button>
 					)}
 				/>
-				<DropdownMenuContent align="end" sideOffset={8} className="min-w-48 dark:bg-popover">
+				<DropdownMenuContent align="end" sideOffset={8} className="min-w-48">
 					<DropdownMenuGroup>
 						<DropdownMenuLabel className="px-2 py-1.5">
 							<p className="truncate font-medium text-foreground text-sm">{name}</p>
