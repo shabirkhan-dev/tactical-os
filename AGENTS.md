@@ -162,6 +162,7 @@ only, then `bun run dev`. See `/docs/docker` and `docker/README.md`.
   - `/docs/docker` — Docker Compose setup
   - `/docs/product-system-design` — product architecture and security model
 - `.cursor/skills/expo-mobile/SKILL.md` — Expo Router + EAS + official Expo Skills / LLM doc links for `apps/mobile`.
+- `.agents/skills/browser-ui-test/SKILL.md` — Browser UI/UX verification via Playwright MCP + `apps/web` e2e after interactive web changes.
 - `.cursor/rules/expo-ai-agents.mdc` — Expo remote skills URL, skill table, `llms.txt` bundles (when working under `apps/mobile/**`).
 - `apps/mobile/AGENTS.md` — Short index for agents opening the mobile app folder.
 - `docker/README.md` — Compose fragment layout and `-f` fallback.

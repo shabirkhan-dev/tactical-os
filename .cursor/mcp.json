@@ -1,0 +1,12 @@
+{
+	"mcpServers": {
+		"beui": {
+			"type": "http",
+			"url": "https://mcp.beui.dev/mcp"
+		},
+		"playwright": {
+			"command": "npx",
+			"args": ["-y", "@playwright/mcp@latest"]
+		}
+	}
+}
