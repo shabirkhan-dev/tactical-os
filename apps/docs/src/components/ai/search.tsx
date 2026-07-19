@@ -15,8 +15,8 @@ import {
 	useRef,
 	useState,
 } from "react";
-import type { ChatUIMessage, SearchTool } from "../../app/api/chat/route";
-import { cn } from "../../lib/cn";
+import type { ChatUIMessage, SearchTool } from "@/app/api/chat/route";
+import { cn } from "@/lib/cn";
 import { Markdown } from "../markdown";
 import { buttonVariants } from "../ui/button";
 
