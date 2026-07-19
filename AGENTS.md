@@ -76,7 +76,8 @@ school-os/
 | `bun run test` | Run tests (e.g. cargo test) |
 | `bun run test:coverage` | Run TS coverage + all language tests |
 | `bun run test:e2e:web` | Run web Playwright e2e tests |
-| `bun run architecture:check` | Enforce architecture import boundaries |
+| `bun run architecture:check` | Enforce architecture import boundaries + kebab-case naming |
+| `bun run naming:check` | Enforce kebab-case (dotted Nest-style) file/folder names |
 
 ## Conventions
 

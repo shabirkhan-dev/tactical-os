@@ -22,6 +22,7 @@
     "test:scripts": "bash scripts/bash/tests/main.test.sh && python -m unittest scripts/python/tests/test_main.py",
     "test:e2e:web": "cd apps/web && bun run test:e2e",
     "architecture:check": "bash scripts/architecture/check-boundaries.sh",
+    "naming:check": "bash scripts/architecture/check-naming.sh",
     "ci:lint": "bun run lint && bun run architecture:check",
     "ci:typecheck": "bun run typecheck",
     "ci:test": "bun run test:coverage",

@@ -12,7 +12,7 @@ Each shell hook prints lines prefixed with **`[git-hooks]`** so you always see w
 | **format** | `bun run format` |
 | **lint** | `bun run lint:fix` |
 | **typecheck** | `bun run typecheck` |
-| **architecture** | `bun run architecture:check` |
+| **architecture** | `bun run architecture:check` (boundaries + kebab-case naming) |
 | **large-files** | Fails if any staged file is larger than `MAX_SIZE_MB` (default **2**); reports OK when under limit |
 | **secrets** | Scans **added** lines in the staged diff for common secret patterns (private keys, AWS-style keys, long `api_key` / `password` assignments, etc.). The diff of `scripts/git-hooks/check-secrets.sh` itself is excluded so regex literals in that file do not false-positive. |
 

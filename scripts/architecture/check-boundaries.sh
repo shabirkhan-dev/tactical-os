@@ -36,3 +36,6 @@ if [[ "$failed" -ne 0 ]]; then
 fi
 
 echo "Architecture checks passed."
+
+echo "Running kebab-case naming checks..."
+bash scripts/architecture/check-naming.sh

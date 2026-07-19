@@ -76,7 +76,7 @@ Run commands from repo root:
 | `bun run test` | Run tests in workspace + scripts |
 | `bun run test:coverage` | Run full coverage-oriented pass |
 | `bun run test:e2e:web` | Web Playwright e2e |
-| `bun run architecture:check` | Enforce architecture boundaries |
+| `bun run architecture:check` | Enforce architecture boundaries + kebab-case naming |
 | `bun run preflight` | Lint + typecheck + test |
 | `bun run prepare` | Install git hooks (Lefthook) |
 

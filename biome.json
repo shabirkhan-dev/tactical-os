@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.4.10/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.4.15/schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -25,7 +25,27 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"correctness": {
+				"useExhaustiveDependencies": "error",
+				"useHookAtTopLevel": "error"
+			},
+			"performance": {
+				"noImgElement": "warn"
+			},
+			"style": {
+				"noHeadElement": "warn",
+				"useNodejsImportProtocol": "warn"
+			},
+			"suspicious": {
+				"noDocumentImportInPage": "error",
+				"noHeadImportInDocument": "error",
+				"useGoogleFontDisplay": "warn"
+			}
+		},
+		"domains": {
+			"next": "recommended",
+			"react": "recommended"
 		}
 	},
 	"overrides": [
@@ -41,15 +61,55 @@
 				}
 			},
 			"linter": {
+				"domains": {
+					"next": "none",
+					"react": "none"
+				},
 				"rules": {
 					"style": {
-						"useImportType": "off"
+						"useImportType": "off",
+						"useNodejsImportProtocol": "error"
 					},
 					"suspicious": {
-						"noExplicitAny": "off"
+						"noExplicitAny": "off",
+						"noDocumentImportInPage": "off",
+						"noHeadImportInDocument": "off",
+						"useGoogleFontDisplay": "off"
+					},
+					"performance": {
+						"noImgElement": "off"
+					},
+					"correctness": {
+						"useExhaustiveDependencies": "off",
+						"useHookAtTopLevel": "off",
+						"noNextAsyncClientComponent": "off"
 					},
 					"nursery": {
-						"noFloatingPromises": "warn"
+						"noFloatingPromises": "warn",
+						"noMisusedPromises": "warn",
+						"noBeforeInteractiveScriptOutsideDocument": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				"apps/web/**/*.ts",
+				"apps/web/**/*.tsx",
+				"apps/docs/**/*.ts",
+				"apps/docs/**/*.tsx"
+			],
+			"linter": {
+				"domains": {
+					"next": "recommended",
+					"react": "recommended"
+				},
+				"rules": {
+					"correctness": {
+						"noNextAsyncClientComponent": "warn"
+					},
+					"nursery": {
+						"noBeforeInteractiveScriptOutsideDocument": "warn"
 					}
 				}
 			}
@@ -57,9 +117,26 @@
 		{
 			"includes": ["apps/mobile/**/*.ts", "apps/mobile/**/*.tsx"],
 			"linter": {
+				"domains": {
+					"next": "none"
+				},
 				"rules": {
 					"suspicious": {
-						"noArrayIndexKey": "off"
+						"noArrayIndexKey": "off",
+						"noDocumentImportInPage": "off",
+						"noHeadImportInDocument": "off"
+					},
+					"performance": {
+						"noImgElement": "off"
+					},
+					"style": {
+						"noHeadElement": "off"
+					},
+					"correctness": {
+						"noNextAsyncClientComponent": "off"
+					},
+					"nursery": {
+						"noBeforeInteractiveScriptOutsideDocument": "off"
 					}
 				}
 			}

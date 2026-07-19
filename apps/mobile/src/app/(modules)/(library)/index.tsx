@@ -6,7 +6,7 @@ import { FloatingActionButton } from "@/components/ui/floating-action-button";
 import { OSHeader } from "@/components/ui/os-header";
 import { LibraryWidget } from "@/components/widgets/library-widget";
 import { NeonColors } from "@/constants/design-system";
-import { useAppStore } from "@/store/useAppStore";
+import { useAppStore } from "@/store/use-app-store";
 
 export default function LibraryIndex() {
 	const [modalVisible, setModalVisible] = useState(false);
