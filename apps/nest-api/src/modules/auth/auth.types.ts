@@ -1,4 +1,4 @@
-import type { PublicUser } from '../users/users.types';
+import type { PublicUser } from '@/modules/users/users.types';
 
 export type AccessTokenPayload = { sub: string; sid: string };
 

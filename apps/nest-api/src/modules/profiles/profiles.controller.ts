@@ -15,9 +15,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
 import type { Request } from 'express';
 
-import type { AccessTokenPayload } from '../auth/auth.types';
-import { CurrentUser } from '../auth/current-user.decorator';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import type { AccessTokenPayload } from '@/modules/auth/auth.types';
+import { CurrentUser } from '@/modules/auth/current-user.decorator';
+import { JwtAuthGuard } from '@/modules/auth/jwt-auth.guard';
 import { createAvatarMulterOptions, resolveRequestOrigin } from './avatar-upload';
 import { UpdateProfileDto } from './profiles.dto';
 import { ProfilesService } from './profiles.service';

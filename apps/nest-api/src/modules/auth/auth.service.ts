@@ -14,12 +14,12 @@ import type {
 	SessionRecord,
 	UserRecord,
 } from '@/database/schema';
-import { EmailService } from '../email/email.service';
-import { MfaService } from '../mfa/mfa.service';
-import { PasskeysService } from '../passkeys/passkeys.service';
-import { SocialAuthService } from '../social-auth/social-auth.service';
-import { UsersService } from '../users/users.service';
-import { type PublicUser, toPublicUser } from '../users/users.types';
+import { EmailService } from '@/modules/email/email.service';
+import { MfaService } from '@/modules/mfa/mfa.service';
+import { PasskeysService } from '@/modules/passkeys/passkeys.service';
+import { SocialAuthService } from '@/modules/social-auth/social-auth.service';
+import { UsersService } from '@/modules/users/users.service';
+import { type PublicUser, toPublicUser } from '@/modules/users/users.types';
 import { AuthRepository } from './auth.repository';
 import type {
 	AccessTokenPayload,

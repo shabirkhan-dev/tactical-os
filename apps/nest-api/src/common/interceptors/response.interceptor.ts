@@ -4,8 +4,8 @@ import type { Response } from 'express';
 import type { Observable } from 'rxjs';
 import { map } from 'rxjs';
 
-import type { ApiSuccessResponse } from '../types/api-response.type';
-import type { RequestWithId } from '../types/request-with-id.type';
+import type { ApiSuccessResponse } from '@/common/types/api-response.type';
+import type { RequestWithId } from '@/common/types/request-with-id.type';
 
 @Injectable()
 export class ResponseInterceptor<TData>

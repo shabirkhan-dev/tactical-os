@@ -3,8 +3,8 @@ import { generateSecret, generateURI, verify } from 'otplib';
 import QRCode from 'qrcode';
 
 import { AppConfigService } from '@/config/app-config.service';
-import { AuthCryptoService } from '../auth/auth-crypto.service';
-import { UsersService } from '../users/users.service';
+import { AuthCryptoService } from '@/modules/auth/auth-crypto.service';
+import { UsersService } from '@/modules/users/users.service';
 import { MfaRepository } from './mfa.repository';
 
 @Injectable()

@@ -4,18 +4,18 @@ import { randomUUID } from 'node:crypto';
 import { eq } from 'drizzle-orm';
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 
-import { AppConfigService } from '../src/config/app-config.service';
-import { DatabaseService } from '../src/database/database.service';
-import { users } from '../src/database/schema';
-import { AuthRepository } from '../src/modules/auth/auth.repository';
-import { AuthService } from '../src/modules/auth/auth.service';
-import { AuthCryptoService } from '../src/modules/auth/auth-crypto.service';
-import { EmailService } from '../src/modules/email/email.service';
-import { MfaService } from '../src/modules/mfa/mfa.service';
-import { PasskeysService } from '../src/modules/passkeys/passkeys.service';
-import { SocialAuthService } from '../src/modules/social-auth/social-auth.service';
-import { UsersRepository } from '../src/modules/users/users.repository';
-import { UsersService } from '../src/modules/users/users.service';
+import { AppConfigService } from '@/config/app-config.service';
+import { DatabaseService } from '@/database/database.service';
+import { users } from '@/database/schema';
+import { AuthRepository } from '@/modules/auth/auth.repository';
+import { AuthService } from '@/modules/auth/auth.service';
+import { AuthCryptoService } from '@/modules/auth/auth-crypto.service';
+import { EmailService } from '@/modules/email/email.service';
+import { MfaService } from '@/modules/mfa/mfa.service';
+import { PasskeysService } from '@/modules/passkeys/passkeys.service';
+import { SocialAuthService } from '@/modules/social-auth/social-auth.service';
+import { UsersRepository } from '@/modules/users/users.repository';
+import { UsersService } from '@/modules/users/users.service';
 
 describe('database-backed authentication', () => {
 	const config = new AppConfigService();

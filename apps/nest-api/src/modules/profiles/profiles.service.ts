@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { UsersService } from '../users/users.service';
+import { UsersService } from '@/modules/users/users.service';
 import { AvatarStorageService } from './avatar-storage.service';
 import type { UpdateProfileInput } from './profiles.dto';
 import { ProfilesRepository } from './profiles.repository';

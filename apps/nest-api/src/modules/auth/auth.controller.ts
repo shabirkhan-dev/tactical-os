@@ -15,7 +15,7 @@ import {
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
 import type { Request, Response } from 'express';
-import type { PublicUser } from '../users/users.types';
+import type { PublicUser } from '@/modules/users/users.types';
 import { AuthService } from './auth.service';
 import type {
 	AccessTokenPayload,

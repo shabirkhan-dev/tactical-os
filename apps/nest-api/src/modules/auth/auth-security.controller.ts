@@ -11,9 +11,9 @@ import {
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import type { RegistrationResponseJSON } from '@simplewebauthn/server';
 
-import { MfaService } from '../mfa/mfa.service';
-import { PasskeysService } from '../passkeys/passkeys.service';
-import { SocialAuthService } from '../social-auth/social-auth.service';
+import { MfaService } from '@/modules/mfa/mfa.service';
+import { PasskeysService } from '@/modules/passkeys/passkeys.service';
+import { SocialAuthService } from '@/modules/social-auth/social-auth.service';
 import type { AccessTokenPayload } from './auth.types';
 import { CurrentUser } from './current-user.decorator';
 import {

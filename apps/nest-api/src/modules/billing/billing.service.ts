@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 
 import { AppConfigService } from '@/config/app-config.service';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '@/modules/users/users.service';
 import type { CreateCheckoutInput, CreatePortalInput } from './billing.dto';
 import { BillingRepository } from './billing.repository';
 import type {

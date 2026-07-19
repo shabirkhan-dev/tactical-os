@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { UsersModule } from '../users/users.module';
+import { UsersModule } from '@/modules/users/users.module';
 import { SocialAuthRepository } from './social-auth.repository';
 import { SocialAuthService } from './social-auth.service';
 

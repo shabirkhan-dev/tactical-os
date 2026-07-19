@@ -11,8 +11,8 @@ import {
 
 import { AppConfigService } from '@/config/app-config.service';
 import type { AuthChallengeRecord } from '@/database/schema';
-import { AuthCryptoService } from '../auth/auth-crypto.service';
-import { UsersService } from '../users/users.service';
+import { AuthCryptoService } from '@/modules/auth/auth-crypto.service';
+import { UsersService } from '@/modules/users/users.service';
 import { PasskeysRepository } from './passkeys.repository';
 
 @Injectable()

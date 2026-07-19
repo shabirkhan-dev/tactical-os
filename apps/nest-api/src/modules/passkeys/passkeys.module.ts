@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AuthCryptoModule } from '../auth/auth-crypto.module';
-import { UsersModule } from '../users/users.module';
+import { AuthCryptoModule } from '@/modules/auth/auth-crypto.module';
+import { UsersModule } from '@/modules/users/users.module';
 import { PasskeysRepository } from './passkeys.repository';
 import { PasskeysService } from './passkeys.service';
 

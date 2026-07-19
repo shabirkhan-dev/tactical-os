@@ -1,8 +1,8 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
 import type { Request, Response } from 'express';
 
-import type { ApiErrorResponse } from '../types/api-response.type';
-import type { RequestWithId } from '../types/request-with-id.type';
+import type { ApiErrorResponse } from '@/common/types/api-response.type';
+import type { RequestWithId } from '@/common/types/request-with-id.type';
 
 type HttpExceptionPayload = {
 	code?: string;

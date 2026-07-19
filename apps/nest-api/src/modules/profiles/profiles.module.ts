@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
-import { AuthModule } from '../auth/auth.module';
-import { UsersModule } from '../users/users.module';
+import { AuthModule } from '@/modules/auth/auth.module';
+import { UsersModule } from '@/modules/users/users.module';
 import { AvatarStorageService } from './avatar-storage.service';
 import { ProfilesController } from './profiles.controller';
 import { ProfilesRepository } from './profiles.repository';

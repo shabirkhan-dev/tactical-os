@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 
 import type { NextFunction, Response } from 'express';
 
-import type { RequestWithId } from '../types/request-with-id.type';
+import type { RequestWithId } from '@/common/types/request-with-id.type';
 
 const requestIdHeader = 'x-request-id';
 

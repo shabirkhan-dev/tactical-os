@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { AppConfigService } from '@/config/app-config.service';
-import type { AuthCryptoService } from '../auth/auth-crypto.service';
-import type { UsersService } from '../users/users.service';
+import type { AuthCryptoService } from '@/modules/auth/auth-crypto.service';
+import type { UsersService } from '@/modules/users/users.service';
 import type { PasskeysRepository } from './passkeys.repository';
 
 const { generateAuthenticationOptionsMock } = vi.hoisted(() => ({

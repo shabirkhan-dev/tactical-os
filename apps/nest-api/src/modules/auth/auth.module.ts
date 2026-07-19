@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { EmailModule } from '../email/email.module';
-import { MfaModule } from '../mfa/mfa.module';
-import { PasskeysModule } from '../passkeys/passkeys.module';
-import { SocialAuthModule } from '../social-auth/social-auth.module';
-import { UsersModule } from '../users/users.module';
+import { EmailModule } from '@/modules/email/email.module';
+import { MfaModule } from '@/modules/mfa/mfa.module';
+import { PasskeysModule } from '@/modules/passkeys/passkeys.module';
+import { SocialAuthModule } from '@/modules/social-auth/social-auth.module';
+import { UsersModule } from '@/modules/users/users.module';
 import { AuthController } from './auth.controller';
 import { AuthRepository } from './auth.repository';
 import { AuthService } from './auth.service';

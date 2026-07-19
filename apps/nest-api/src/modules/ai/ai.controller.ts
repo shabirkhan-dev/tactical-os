@@ -2,9 +2,9 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@n
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { ZodValidationPipe } from '@/common/pipes/zod-validation.pipe';
-import type { AccessTokenPayload } from '../auth/auth.types';
-import { CurrentUser } from '../auth/current-user.decorator';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import type { AccessTokenPayload } from '@/modules/auth/auth.types';
+import { CurrentUser } from '@/modules/auth/current-user.decorator';
+import { JwtAuthGuard } from '@/modules/auth/jwt-auth.guard';
 import { AssistRequestDto, assistRequestSchema } from './ai.dto';
 import { AiService } from './ai.service';
 

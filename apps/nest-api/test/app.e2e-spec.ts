@@ -5,10 +5,10 @@ import { App } from 'supertest/types';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import * as z from 'zod';
 
-import { AppModule } from '../src/app.module';
-import { setupApp } from '../src/app.setup';
-import { ZodValidationPipe } from '../src/common/pipes/zod-validation.pipe';
-import { AppConfigService } from '../src/config/app-config.service';
+import { AppModule } from '@/app.module';
+import { setupApp } from '@/app.setup';
+import { ZodValidationPipe } from '@/common/pipes/zod-validation.pipe';
+import { AppConfigService } from '@/config/app-config.service';
 
 const validationTestSchema = z.object({
 	name: z.string().min(1),
