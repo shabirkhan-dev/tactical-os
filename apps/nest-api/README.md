@@ -98,5 +98,9 @@ Unsafe browser requests must send `X-Requested-With: XMLHttpRequest`.
 - Enable `TRUST_PROXY=true` behind a trusted reverse proxy.
 - Run migrations during deployment before starting new application instances.
 - Set `WEB_APP_URL`, `WEBAUTHN_RP_ID`, and `WEBAUTHN_ORIGIN` to the production web origin.
+- When the web app and API are on different sites (Vercel ↔ Render), set
+  `COOKIE_SAME_SITE=none` so refresh cookies are sent cross-origin (HTTPS required).
 - For Google sign-in, set the same web client ID in backend `GOOGLE_CLIENT_ID` and frontend
   `NEXT_PUBLIC_GOOGLE_CLIENT_ID`.
+
+Hosted deploy walkthrough: `/docs/deploy` (Vercel + Render + Neon).

@@ -78,6 +78,9 @@ export class AppConfigService {
 	get cookieDomain(): string | undefined {
 		return this.config.cookieDomain;
 	}
+	get cookieSameSite(): AppConfig['cookieSameSite'] {
+		return this.config.cookieSameSite;
+	}
 	get corsOrigins(): string[] {
 		return this.config.corsOrigin.split(',').map((origin) => origin.trim());
 	}

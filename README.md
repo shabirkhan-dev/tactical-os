@@ -118,6 +118,12 @@ docker compose up -d --build
 - Optional Rust API: `docker compose --profile rust up -d --build`
 - See [apps/docs](apps/docs) (`/docs/docker`) and [docker/README.md](docker/README.md)
 
+## Deploy (Vercel + Render + Neon)
+
+- **Web** and **docs** → Vercel (`apps/web/vercel.json`, `apps/docs/vercel.json`)
+- **Nest API** → Render Blueprint (`render.yaml`) with **Neon** `DATABASE_URL`
+- Step-by-step: docs app route `/docs/deploy` (source `apps/docs/content/docs/deploy.mdx`)
+
 ## Reproducible development
 
 - **Dev Container:** `.devcontainer/` includes Bun, Rust, C, Python, Lua toolchain
@@ -140,6 +146,7 @@ Source MDX: `apps/docs/content/docs/`. Then open:
 - [/docs/product-system-design](http://localhost:3002/docs/product-system-design)
 - [/docs/architecture](http://localhost:3002/docs/architecture)
 - [/docs/docker](http://localhost:3002/docs/docker)
+- [/docs/deploy](http://localhost:3002/docs/deploy)
 - [/docs/qol](http://localhost:3002/docs/qol)
 - [/docs/ai-first-workflow](http://localhost:3002/docs/ai-first-workflow)
 - [/docs/overrides](http://localhost:3002/docs/overrides)

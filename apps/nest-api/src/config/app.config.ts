@@ -24,6 +24,7 @@ export type AppConfig = {
 	loginLockMinutes: number;
 	refreshCookieName: string;
 	cookieDomain?: string;
+	cookieSameSite: 'lax' | 'strict' | 'none';
 	corsOrigin: string;
 	trustProxy: boolean;
 	authDevExposeCodes: boolean;
@@ -80,6 +81,7 @@ export function createAppConfig(env: Env = parseEnv()): AppConfig {
 		loginLockMinutes: env.LOGIN_LOCK_MINUTES,
 		refreshCookieName: env.REFRESH_COOKIE_NAME,
 		...(env.COOKIE_DOMAIN ? { cookieDomain: env.COOKIE_DOMAIN } : {}),
+		cookieSameSite: env.COOKIE_SAME_SITE,
 		corsOrigin: env.CORS_ORIGIN,
 		trustProxy: env.TRUST_PROXY,
 		authDevExposeCodes: env.AUTH_DEV_EXPOSE_CODES,

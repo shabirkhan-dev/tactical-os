@@ -9,6 +9,7 @@
 		"development-workflow",
 		"---",
 		"docker",
+		"deploy",
 		"qol",
 		"production-roadmap",
 		"product-system-design",

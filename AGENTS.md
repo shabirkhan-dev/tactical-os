@@ -17,7 +17,7 @@ There is **no root `docs/` folder**. Project docs live in the docs app:
 - Browse: http://localhost:3002/docs
 
 Key routes: `/docs/quick-start`, `/docs/production-roadmap`, `/docs/architecture`,
-`/docs/docker`, `/docs/qol`, `/docs/ai-first-workflow`, `/docs/overrides`,
+`/docs/docker`, `/docs/deploy`, `/docs/qol`, `/docs/ai-first-workflow`, `/docs/overrides`,
 `/docs/product-system-design`. Also see root `README.md`, `PROJECT.md`, and `DESIGN.md`.
 
 <!-- BEGIN:nextjs-agent-rules -->
@@ -161,6 +161,7 @@ only, then `bun run dev`. See `/docs/docker` and `docker/README.md`.
   - `/docs/architecture` — architecture baseline and enforceable boundaries
   - `/docs/overrides` — policy for project-specific architecture overrides
   - `/docs/docker` — Docker Compose setup
+  - `/docs/deploy` — Vercel (web/docs) + Render (Nest) + Neon
   - `/docs/product-system-design` — product architecture and security model
 - `.cursor/skills/expo-mobile/SKILL.md` — Expo Router + EAS + official Expo Skills / LLM doc links for `apps/mobile`.
 - `.agents/skills/browser-ui-test/SKILL.md` — Browser UI/UX verification via Playwright MCP + `apps/web` e2e after interactive web changes.

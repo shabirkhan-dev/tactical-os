@@ -24,10 +24,12 @@ export class RefreshCookieService {
 	}
 
 	private options(): CookieOptions {
+		const sameSite = this.config.cookieSameSite;
 		return {
 			httpOnly: true,
-			secure: this.config.isProduction,
-			sameSite: 'lax',
+			// SameSite=None requires Secure; always enable Secure in production.
+			secure: this.config.isProduction || sameSite === 'none',
+			sameSite,
 			path: `/${this.config.apiPrefix}/v${this.config.apiVersion}/auth`,
 			...(this.config.cookieDomain ? { domain: this.config.cookieDomain } : {}),
 		};

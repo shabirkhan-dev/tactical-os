@@ -36,6 +36,11 @@ export const envSchema = z
 		LOGIN_LOCK_MINUTES: z.coerce.number().int().min(1).max(1440).default(15),
 		REFRESH_COOKIE_NAME: z.string().min(1).default('starter_refresh_token'),
 		COOKIE_DOMAIN: z.string().min(1).optional(),
+		/**
+		 * Use `none` when the web app and API are on different sites
+		 * (e.g. Vercel ↔ Render). Requires Secure cookies (production HTTPS).
+		 */
+		COOKIE_SAME_SITE: z.enum(['lax', 'strict', 'none']).default('lax'),
 		CORS_ORIGIN: z.string().min(1).default('http://localhost:3000,http://127.0.0.1:3000'),
 		TRUST_PROXY: booleanFromString,
 		AUTH_DEV_EXPOSE_CODES: z
