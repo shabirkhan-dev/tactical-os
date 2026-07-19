@@ -77,7 +77,7 @@ export function ProfileForm({ user }: ProfileFormProps) {
 			{saved && (update.isSuccess || uploadAvatar.isSuccess) ? (
 				<AuthAlert
 					title="Profile updated"
-					message="Your changes are now active across School OS."
+					message="Your changes are now active across Starter."
 				/>
 			) : null}
 

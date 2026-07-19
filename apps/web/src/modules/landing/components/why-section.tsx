@@ -48,7 +48,7 @@ export function WhySection() {
 					<div className="max-w-xl">
 						<FadeIn>
 							<span className="inline-flex items-center rounded-full border border-border/70 bg-muted/50 px-3 py-1 font-medium text-foreground/85 text-xs">
-								Why School OS
+								Why Starter
 							</span>
 						</FadeIn>
 						<FadeIn delay={0.06}>

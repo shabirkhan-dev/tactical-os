@@ -1,6 +1,6 @@
 # Dev Container
 
-Reproducible environment for School OS: **Bun**, **Rust**, **Python** (script tooling), and Bash lint/format helpers.
+Reproducible environment for Starter: **Bun**, **Rust**, **Python** (script tooling), and Bash lint/format helpers.
 
 ## How to use
 

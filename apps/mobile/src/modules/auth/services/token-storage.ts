@@ -1,8 +1,8 @@
 import * as SecureStore from "expo-secure-store";
 import { Platform } from "react-native";
 
-const REFRESH_TOKEN_KEY = "schoolos.auth.refreshToken";
-const DEVELOPMENT_CODE_KEY = "schoolos.auth.developmentCode";
+const REFRESH_TOKEN_KEY = "starter.auth.refreshToken";
+const DEVELOPMENT_CODE_KEY = "starter.auth.developmentCode";
 
 async function setItem(key: string, value: string | null): Promise<void> {
 	if (Platform.OS === "web") {

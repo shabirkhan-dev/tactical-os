@@ -1,10 +1,10 @@
 ---
 title: AI-First Workflow
-description: School OS audit notes and AI-assisted development roadmap.
+description: Starter audit notes and AI-assisted development roadmap.
 ---
 Last updated: May 6, 2026
 
-This document audits the school-os monorepo as a reusable personal School OS and turns the recent
+This document audits the starter monorepo as a reusable personal Starter and turns the recent
 AI/UI research into a practical improvement plan.
 
 ## Current Strengths
@@ -23,7 +23,7 @@ The repo already has a strong base:
 - Shared `@school-os/ui` package for stable web primitives.
 - Web app already has shadcn-style primitives, dashboard examples, Vitest, and Playwright.
 
-This is already beyond a normal School OS. The next phase should make it easier to turn into a
+This is already beyond a normal Starter. The next phase should make it easier to turn into a
 real product quickly while keeping design quality, security, and agent workflow consistent.
 
 ## High-Priority Gaps
@@ -111,7 +111,7 @@ Recommendation:
 
 Why it matters:
 
-- School OS kits must clone cleanly.
+- Starter kits must clone cleanly.
 - CI and new machines should not depend on local-only nested repo state.
 
 ### 6. Security Coverage Is JS-Heavy
@@ -140,7 +140,7 @@ Recommendation:
 
 ### 8. App Provisioning Is Manual
 
-The repo is a School OS, but it does not yet have a first-class "create a new product from this"
+The repo is a Starter, but it does not yet have a first-class "create a new product from this"
 script.
 
 Recommendation:
@@ -228,7 +228,7 @@ Minimum before merge:
 - secret scan
 - PR review
 
-## School OS Target Architecture
+## Starter Target Architecture
 
 Recommended eventual layout:
 
@@ -320,7 +320,7 @@ Agents should follow this pattern:
 
 ## Final Recommendation
 
-Do not turn this repo into a huge framework. Keep it as a practical School OS with strong
+Do not turn this repo into a huge framework. Keep it as a practical Starter with strong
 defaults, clear escape hatches, and first-class AI-agent instructions.
 
 The best next investment is:
@@ -331,5 +331,5 @@ The best next investment is:
 4. Add visual QA.
 5. Add scaffold automation.
 
-That combination will make this School OS useful for real upcoming projects, not just a collection
+That combination will make this Starter useful for real upcoming projects, not just a collection
 of templates.

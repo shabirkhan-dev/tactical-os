@@ -1,9 +1,12 @@
-# School OS
+﻿# Starter
 
-Production-ready school platform monorepo built with **Bun + Turborepo**.
+Production-ready monorepo starter built with **Bun + Turborepo**.
 
 Apps: Next.js web, Expo mobile, NestJS API, Fumadocs docs, optional Rust demo. Shared UI,
 hooks, CI, Docker Compose, and a slim Dev Container.
+
+> Workspace packages use the `@school-os/*` npm scope (technical imports). Product naming
+> in docs and UI is **Starter**.
 
 ## Quick start
 
@@ -13,8 +16,8 @@ hooks, CI, Docker Compose, and a slim Dev Container.
 - Optional: Docker Compose `v2.20+`, Rust toolchain (for `apps/rust`)
 
 ```bash
-git clone https://github.com/shabirkhan-dev/school-os.git
-cd school-os
+git clone https://github.com/shabirkhan-dev/starter.git
+cd starter
 bun install
 bun run prepare
 bun run dev
@@ -43,73 +46,31 @@ bun run dev
 
 ## Root commands
 
-| Command | Purpose |
+| Command | What it does |
 | --- | --- |
-| `bun run dev` | Start workspace dev servers (Turbo) |
+| `bun install` | Install workspace deps |
+| `bun run prepare` | Install Lefthook git hooks |
+| `bun run dev` | Start all app dev servers (Turbo) |
 | `bun run build` | Build all apps |
-| `bun run lint` / `lint:fix` | Biome + script linters |
-| `bun run format` | Format TS/JS, shell, Python, Rust |
-| `bun run typecheck` | TypeScript across workspaces |
-| `bun run test` / `test:coverage` | Unit + coverage gates |
+| `bun run lint` / `bun run format` | Biome + ShellCheck + ruff (+ cargo fmt) |
+| `bun run typecheck` | TypeScript across packages |
+| `bun run test` / `bun run test:coverage` | Unit/coverage gates |
 | `bun run test:e2e:web` | Playwright e2e for web |
-| `bun run architecture:check` | Import boundary rules |
-| `bun run preflight` | Lint + typecheck + test |
+| `bun run architecture:check` | Import boundary enforcement |
 
-Target one app: `bun --cwd apps/web run dev` (same pattern for mobile, nest-api, docs, rust).
+## Deploy
 
-## Tooling
+See `/docs/deploy` in the docs app. Short version:
 
-- **Bun** workspaces + **Turborepo**
-- **Biome** for TS/JS (tabs, line width 100)
-- **Lefthook** pre-commit / commit-msg (Conventional Commits)
-- Bash: ShellCheck + shfmt · Python: Ruff · Rust: rustfmt + clippy
-
-## Docker
+- **Web / Docs** — Vercel (`apps/web`, `apps/docs` each have `vercel.json`)
+- **Nest API** — Render Blueprint (`render.yaml`) + Neon Postgres
+- Cross-origin cookies: set `COOKIE_SAME_SITE=none` when web and API are on different sites
 
 ```bash
 cp env.docker.example .env
 docker compose up -d --build
 ```
 
-- Web `:3000` · Nest `:4000` · Postgres host `:5433`
-- Optional: `docker compose --profile rust up -d --build` · `--profile ai` for FastAPI
-- Details: `/docs/docker` and [docker/README.md](docker/README.md)
-
-## Deploy
-
-| Piece | Host |
-| --- | --- |
-| Web + docs | [Vercel](https://vercel.com) (`apps/*/vercel.json`) |
-| Nest API | [Render](https://render.com) (`render.yaml`) |
-| Database | [Neon](https://neon.tech) (`DATABASE_URL`) |
-
-Guide: `/docs/deploy` (`apps/docs/content/docs/deploy.mdx`).
-
-## Dev Container
-
-`.devcontainer/` installs **Bun**, **Rust**, **Python/Ruff**, and Bash lint tools. C and Lua are not included.
-
-```text
-Reopen in Container → bun run prepare → bun run dev
-```
-
-See [.devcontainer/README.md](.devcontainer/README.md).
-
-## Docs
-
-```bash
-bun --cwd apps/docs run dev
-```
-
-- [/docs/quick-start](http://localhost:3002/docs/quick-start)
-- [/docs/deploy](http://localhost:3002/docs/deploy)
-- [/docs/docker](http://localhost:3002/docs/docker)
-- [/docs/architecture](http://localhost:3002/docs/architecture)
-- [/docs/production-roadmap](http://localhost:3002/docs/production-roadmap)
-
-Also: [PROJECT.md](PROJECT.md), [DESIGN.md](DESIGN.md), [AGENTS.md](AGENTS.md), [CHANGELOG.md](CHANGELOG.md).
-
 ## License
 
-Dual-licensed under **MIT** or **Apache-2.0**:
-[LICENSE-MIT](LICENSE-MIT), [LICENSE-Apache-2.0](LICENSE-Apache-2.0).
+MIT

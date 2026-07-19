@@ -29,7 +29,7 @@ export function FaqSection() {
 					</FadeIn>
 					<FadeIn delay={0.1}>
 						<p className="mx-auto mt-4 max-w-xl text-pretty text-muted-foreground text-sm leading-7 sm:text-base">
-							How School OS is structured, what ships in the starter, and how quality gates keep the
+							How Starter is structured, what ships in the starter, and how quality gates keep the
 							workspace honest.
 						</p>
 					</FadeIn>

@@ -5,7 +5,7 @@ description: Product architecture, data model, services, and security model.
 Last updated: 2026-05-21
 
 Status: working architecture blueprint. This is the target design for turning the current
-school-os monorepo into the product described in the portfolio/spec notes: a mobile-first trust
+starter monorepo into the product described in the portfolio/spec notes: a mobile-first trust
 engine for schools, starting with smart attendance and growing into an AI-first operating system.
 
 ## Inputs Read
@@ -14,7 +14,7 @@ Product inputs:
 
 - `/home/shabir/Documents/Portfolio/School Management OS.md`
 - `/home/shabir/Documents/Portfolio/School Management OS - Spec.md`
-- `/home/shabir/Documents/School OS AI-First Smart System README.md`
+- `/home/shabir/Documents/Starter AI-First Smart System README.md`
 
 Repo inputs:
 
@@ -29,7 +29,7 @@ External research was refreshed on 2026-05-21. References are listed at the end.
 
 ## Executive Direction
 
-School OS should be built as a secure modular monolith first, with event-driven seams and clear
+Starter should be built as a secure modular monolith first, with event-driven seams and clear
 module boundaries, then split into independent services only when load, team ownership, or
 compliance pressure justifies it.
 
@@ -64,7 +64,7 @@ best initial production stack is:
 
 ## Product Boundaries
 
-School OS is not a full ERP, LMS content marketplace, social network, or accounting system. It is a
+Starter is not a full ERP, LMS content marketplace, social network, or accounting system. It is a
 school trust, communication, attendance, operations, finance, and intelligence platform.
 
 Primary personas:
@@ -511,7 +511,7 @@ apps/web/src/app
 
 Next.js guidance from the installed docs supports route groups for organization without changing
 URLs, route handlers for backend-for-frontend endpoints, and a dedicated data access layer for
-server-side authorization and minimal DTOs. For School OS, use direct Hono API calls through a
+server-side authorization and minimal DTOs. For Starter, use direct Hono API calls through a
 small DAL/client and do not pass full database objects into client components.
 
 ### Expo Mobile
@@ -786,7 +786,7 @@ Do not let AI tools call unrestricted product APIs. Each tool must have:
 
 ## Security And Privacy Design
 
-School OS handles minors, location, attendance, education records, parent contact data, and payment
+Starter handles minors, location, attendance, education records, parent contact data, and payment
 events. Treat it as high-sensitivity software from the start.
 
 ### Security Baseline

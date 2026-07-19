@@ -2,7 +2,7 @@
 name = "school-os-rust"
 version = "0.1.0"
 edition = "2021"
-description = "Rust app for school-os monorepo"
+description = "Rust app for starter monorepo"
 rust-version = "1.86"
 
 [dependencies]

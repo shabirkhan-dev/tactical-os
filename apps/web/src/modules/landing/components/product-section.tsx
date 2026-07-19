@@ -43,7 +43,7 @@ export function ProductSection() {
 
 					<FadeIn delay={0.14}>
 						<p className="mt-5 text-pretty text-muted-foreground leading-8">
-							School OS ships a complete Turborepo loop: install once, run shared tasks, enforce
+							Starter ships a complete Turborepo loop: install once, run shared tasks, enforce
 							architecture boundaries, and stand up web, mobile, API, docs, and Rust without
 							cobbling five repos together.
 						</p>

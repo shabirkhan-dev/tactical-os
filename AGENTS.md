@@ -1,11 +1,11 @@
-# Agent instructions (School OS)
+# Agent instructions (Starter)
 
 Universal instructions for AI agents (Cursor, Copilot, Claude Code, Windsurf, Cline, Aider, etc.).
 Read this file first when working in this repo.
 
 ## Project overview
 
-Monorepo School OS managed with **Turborepo + Bun**. Apps, shared packages, and
+Monorepo Starter managed with **Turborepo + Bun**. Apps, shared packages, and
 multi-language scripts, all wired into a single lint/format/build/test surface.
 
 ## Documentation

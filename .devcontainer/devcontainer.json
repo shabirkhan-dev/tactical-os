@@ -1,5 +1,5 @@
 {
-	"name": "School OS",
+	"name": "Starter",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": ".."

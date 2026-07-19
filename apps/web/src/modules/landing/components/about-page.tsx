@@ -50,7 +50,7 @@ function AboutHero() {
 			<div className="mx-auto flex w-full max-w-3xl flex-col items-center text-center">
 				<FadeIn>
 					<span className="inline-flex items-center rounded-full border border-border bg-card px-3.5 py-1.5 font-medium text-muted-foreground text-xs">
-						About School OS
+						About Starter
 					</span>
 				</FadeIn>
 				<FadeIn delay={0.06}>
@@ -60,7 +60,7 @@ function AboutHero() {
 				</FadeIn>
 				<FadeIn delay={0.12}>
 					<p className="mt-6 max-w-2xl text-pretty text-muted-foreground text-base leading-8 sm:text-lg">
-						We built School OS after wiring the same five apps together too many times. It&apos;s
+						We built Starter after wiring the same five apps together too many times. It&apos;s
 						the Bun + Turborepo workspace we wished we had — shared UI, hooks, CI, Docker, and docs
 						included from day one.
 					</p>
@@ -162,7 +162,7 @@ function AboutTeam() {
 					</FadeIn>
 					<FadeIn delay={0.06}>
 						<h2 className="mt-5 text-balance font-serif text-3xl text-foreground leading-tight sm:text-4xl">
-							The people behind School OS.
+							The people behind Starter.
 						</h2>
 					</FadeIn>
 					<FadeIn delay={0.1}>
