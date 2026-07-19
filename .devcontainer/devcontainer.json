@@ -1,5 +1,5 @@
 {
-	"name": "Personal OS (polyglot monorepo)",
+	"name": "School OS",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": ".."
@@ -8,11 +8,19 @@
 	"workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=cached",
 
 	"postCreateCommand": "bun install && bun run prepare",
-	"forwardPorts": [3000],
+	"forwardPorts": [3000, 3002, 4000],
 	"portsAttributes": {
 		"3000": {
-			"label": "Next.js",
+			"label": "Web (Next.js)",
 			"onAutoForward": "notify"
+		},
+		"3002": {
+			"label": "Docs",
+			"onAutoForward": "silent"
+		},
+		"4000": {
+			"label": "Nest API",
+			"onAutoForward": "silent"
 		}
 	},
 
@@ -22,19 +30,19 @@
 				"biomejs.biome",
 				"bradlc.vscode-tailwindcss",
 				"rust-lang.rust-analyzer",
-				"llvm-vs-code-extensions.vscode-clangd",
 				"ms-python.python",
 				"charliermarsh.ruff",
 				"timonwong.shellcheck",
-				"mkhl.shfmt",
-				"sumneko.lua",
-				"JohnnyMorganz.stylua"
+				"mkhl.shfmt"
 			],
 			"settings": {
 				"editor.formatOnSave": true,
 				"editor.defaultFormatter": "biomejs.biome",
 				"[rust]": {
 					"editor.defaultFormatter": "rust-lang.rust-analyzer"
+				},
+				"[python]": {
+					"editor.defaultFormatter": "charliermarsh.ruff"
 				}
 			}
 		}
