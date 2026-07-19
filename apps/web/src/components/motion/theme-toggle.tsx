@@ -7,6 +7,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
+	DropdownMenuGroup,
 	DropdownMenuLabel,
 	DropdownMenuRadioGroup,
 	DropdownMenuRadioItem,
@@ -287,24 +288,25 @@ export function ThemeToggleControl({
 				>
 					<HugeiconsIcon icon={ArrowDown01Icon} size={14} strokeWidth={2} />
 				</DropdownMenuTrigger>
-				<DropdownMenuContent align="end" sideOffset={8} className="min-w-48 dark:bg-popover">
-					<DropdownMenuLabel>Animation effect</DropdownMenuLabel>
-					<DropdownMenuSeparator />
-					<DropdownMenuRadioGroup
-						value={variant}
-						onValueChange={(value) => {
-							if (isThemeVariant(value)) setVariant(value);
-						}}
-					>
-						{THEME_VARIANT_OPTIONS.map((option) => (
-							<DropdownMenuRadioItem key={option.id} value={option.id} className="items-start">
-								<span className="flex flex-col gap-0.5">
-									<span>{option.label}</span>
-									<span className="text-[11px] text-muted-foreground">{option.description}</span>
-								</span>
-							</DropdownMenuRadioItem>
-						))}
-					</DropdownMenuRadioGroup>
+				<DropdownMenuContent align="end" sideOffset={8} className="min-w-48">
+					<DropdownMenuGroup>
+						<DropdownMenuLabel>Animation effect</DropdownMenuLabel>
+						<DropdownMenuRadioGroup
+							value={variant}
+							onValueChange={(value) => {
+								if (isThemeVariant(value)) setVariant(value);
+							}}
+						>
+							{THEME_VARIANT_OPTIONS.map((option) => (
+								<DropdownMenuRadioItem key={option.id} value={option.id} className="items-start">
+									<span className="flex flex-col gap-0.5">
+										<span>{option.label}</span>
+										<span className="text-[11px] text-muted-foreground">{option.description}</span>
+									</span>
+								</DropdownMenuRadioItem>
+							))}
+						</DropdownMenuRadioGroup>
+					</DropdownMenuGroup>
 					{mounted ? (
 						<>
 							<DropdownMenuSeparator />

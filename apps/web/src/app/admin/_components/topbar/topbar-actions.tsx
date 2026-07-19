@@ -68,16 +68,8 @@ export function TopbarActions({
 
 	return (
 		<div className={cn("flex items-center gap-1", className)}>
-			<Tooltip>
-				<TooltipTrigger
-					render={(props) => (
-						<span {...props} className="inline-flex">
-							<ThemeToggleControl />
-						</span>
-					)}
-				/>
-				<TooltipContent side="bottom">Theme · pick animation from the arrow</TooltipContent>
-			</Tooltip>
+			{/* Do not wrap the menu control in Tooltip — Base UI tooltip + menu fight for focus. */}
+			<ThemeToggleControl />
 			<IconButton icon={Notification03Icon} label="Notifications" dot={unreadNotifications} />
 			<IconButton icon={PrinterIcon} label="Print" className="hidden sm:flex" />
 
