@@ -32,8 +32,8 @@ const CHART_W = COLS * STEP - GAP + PAD_X * 2;
 const CHART_H = ROWS * STEP - GAP + PAD_Y * 2;
 
 const COLOR_GRID = "var(--dashboard-chart-grid)";
-const COLOR_NEW = "var(--dashboard-chart-dot)";
-const COLOR_EXISTING = "var(--dashboard-accent)";
+const COLOR_NEW = "var(--dashboard-accent)";
+const COLOR_EXISTING = "var(--dashboard-chart-dot)";
 
 type Col = {
 	idx: number;
@@ -82,7 +82,7 @@ type Props = {
 	className?: string;
 };
 
-export function PixelGridChart({ highlightMonth = "JUN", className }: Props) {
+export function PixelGridChart({ highlightMonth = "JUL", className }: Props) {
 	const cols = useMemo(buildColumns, []);
 	const [hoverCol, setHoverCol] = useState<number | null>(null);
 
@@ -93,11 +93,11 @@ export function PixelGridChart({ highlightMonth = "JUN", className }: Props) {
 	const activeMonth = activeCol?.month ?? highlightMonth;
 
 	const monthTotals = useMemo(() => {
-		const map = new Map<string, { newUser: number; existingUser: number }>();
+		const map = new Map<string, { newAdmissions: number; returning: number }>();
 		for (const c of cols) {
-			const cur = map.get(c.month) ?? { newUser: 0, existingUser: 0 };
-			cur.newUser += c.newCells * PER_ROW;
-			cur.existingUser += c.existingCells * PER_ROW;
+			const cur = map.get(c.month) ?? { newAdmissions: 0, returning: 0 };
+			cur.newAdmissions += c.newCells * PER_ROW;
+			cur.returning += c.existingCells * PER_ROW;
 			map.set(c.month, cur);
 		}
 		return map;
@@ -145,7 +145,7 @@ export function PixelGridChart({ highlightMonth = "JUN", className }: Props) {
 						preserveAspectRatio="xMidYMid meet"
 						className="block h-auto w-full"
 						role="img"
-						aria-label="Sales trend pixel chart"
+						aria-label="Enrollment trend pixel chart"
 					>
 						{Array.from({ length: ROWS * COLS }).map((_, idx) => {
 							const r = Math.floor(idx / COLS);
@@ -231,7 +231,7 @@ export function PixelGridChart({ highlightMonth = "JUN", className }: Props) {
 								}}
 							>
 								<div className="border-dashboard-border-subtle border-b px-3.5 py-2 font-medium text-[14px] text-dashboard-text-secondary">
-									{activeMonth.charAt(0) + activeMonth.slice(1).toLowerCase()} 2025
+									{activeMonth.charAt(0) + activeMonth.slice(1).toLowerCase()} 2026
 								</div>
 								<div className="space-y-2.5 px-3.5 pt-3 pb-2">
 									<div className="flex items-center gap-2.5">
@@ -240,9 +240,9 @@ export function PixelGridChart({ highlightMonth = "JUN", className }: Props) {
 											className="size-1.5 rounded-full"
 											style={{ backgroundColor: COLOR_NEW }}
 										/>
-										<span className="text-[13.5px] text-dashboard-text-muted">New User</span>
+										<span className="text-[13.5px] text-dashboard-text-muted">New admissions</span>
 										<span className="ml-auto font-semibold text-[15px] text-dashboard-text-primary tabular-nums">
-											{Math.round(tip.newUser / 1000)}k
+											{Math.round(tip.newAdmissions / 1000)}k
 										</span>
 									</div>
 									<div className="flex items-center gap-2.5">
@@ -251,9 +251,9 @@ export function PixelGridChart({ highlightMonth = "JUN", className }: Props) {
 											className="size-1.5 rounded-full"
 											style={{ backgroundColor: COLOR_EXISTING }}
 										/>
-										<span className="text-[13.5px] text-dashboard-text-muted">Existing User</span>
+										<span className="text-[13.5px] text-dashboard-text-muted">Returning</span>
 										<span className="ml-auto font-semibold text-[15px] text-dashboard-text-primary tabular-nums">
-											{Math.round(tip.existingUser / 1000)}k
+											{Math.round(tip.returning / 1000)}k
 										</span>
 									</div>
 								</div>

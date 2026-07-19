@@ -2,22 +2,24 @@
 
 import {
 	BubbleChatIcon,
-	Building03Icon,
+	Calendar03Icon,
 	ClipboardIcon,
-	ComputerIcon,
-	CreditCardIcon,
 	DashboardSquare01Icon,
 	File01Icon,
-	HeadsetIcon,
 	HelpCircleIcon,
 	Invoice01Icon,
 	Logout01Icon,
 	Megaphone01Icon,
+	Mortarboard01Icon,
 	PuzzleIcon,
+	SecurityIcon,
 	Settings02Icon,
 	SidebarLeftIcon,
+	StudentIcon,
+	TeacherIcon,
 	Tick02Icon,
 	UnfoldMoreIcon,
+	UserAdd01Icon,
 	UserCircle02Icon,
 	UserMultiple02Icon,
 	UserSettings01Icon,
@@ -55,34 +57,33 @@ const sections: NavSection[] = [
 		items: [
 			{ id: "dashboard", label: "Dashboard", icon: DashboardSquare01Icon, href: "/admin" },
 			{ id: "ai-assist", label: "AI Assist", icon: BubbleChatIcon, href: "/admin/ai" },
-			{ id: "products", label: "Products", icon: Building03Icon },
-			{ id: "transactions", label: "Transactions", icon: CreditCardIcon },
-			{ id: "reports", label: "Reports & Analytics", icon: File01Icon },
-			{ id: "messages", label: "Messages", icon: BubbleChatIcon },
-			{ id: "team", label: "Team Performance", icon: ComputerIcon },
-			{ id: "campaigns", label: "Campaigns", icon: Megaphone01Icon },
+			{ id: "attendance", label: "Attendance", icon: ClipboardIcon },
+			{ id: "timetable", label: "Timetable", icon: Calendar03Icon },
+			{ id: "exams", label: "Exams", icon: File01Icon },
+			{ id: "announcements", label: "Announcements", icon: Megaphone01Icon },
 		],
 	},
 	{
-		heading: "Customers",
+		heading: "People",
 		items: [
-			{ id: "customer-list", label: "Customer List", icon: UserMultiple02Icon },
-			{ id: "channels", label: "Channels", icon: ComputerIcon },
-			{ id: "orders", label: "Order Management", icon: Invoice01Icon },
+			{ id: "students", label: "Students", icon: StudentIcon },
+			{ id: "teachers", label: "Teachers", icon: TeacherIcon },
+			{ id: "guardians", label: "Guardians", icon: UserMultiple02Icon },
 		],
 	},
 	{
 		heading: "Management",
 		items: [
+			{ id: "admissions", label: "Admissions", icon: UserAdd01Icon },
+			{ id: "fees", label: "Fees & Invoices", icon: Invoice01Icon },
+			{ id: "academics", label: "Academics", icon: Mortarboard01Icon },
 			{ id: "roles", label: "Roles & Permissions", icon: UserSettings01Icon },
-			{ id: "billing", label: "Billing & Subscription", icon: ClipboardIcon },
 			{ id: "integrations", label: "Integrations", icon: PuzzleIcon },
 		],
 	},
 	{
 		heading: "Settings",
 		items: [
-			{ id: "support", label: "Customer Support", icon: HeadsetIcon },
 			{ id: "help", label: "Help Center", icon: HelpCircleIcon },
 			{ id: "system", label: "System Settings", icon: Settings02Icon },
 			{
@@ -94,22 +95,20 @@ const sections: NavSection[] = [
 			{
 				id: "account-security",
 				label: "Account Security",
-				icon: UserSettings01Icon,
+				icon: SecurityIcon,
 				href: "/admin/account/security",
 			},
 		],
 	},
 ];
 
-type Agency = { id: string; name: string; kind: string; mark: string };
+type School = { id: string; name: string; kind: string; mark: string };
 
-const agencies: Agency[] = [
-	{ id: "spark", name: "Spark Pixel Team", kind: "Agency", mark: "S" },
-	{ id: "north", name: "Northwind Studio", kind: "Agency", mark: "N" },
-	{ id: "atlas", name: "Atlas Collective", kind: "Studio", mark: "A" },
+const schools: School[] = [
+	{ id: "northwood", name: "Northwood High School", kind: "Grades 9–12", mark: "N" },
+	{ id: "riverside", name: "Riverside Elementary", kind: "Grades K–5", mark: "R" },
+	{ id: "district", name: "District Office", kind: "All campuses", mark: "D" },
 ];
-
-const ACCENT = "var(--dashboard-accent)";
 
 type AdminSidebarProps = {
 	className?: string;
@@ -138,9 +137,9 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 	const router = useRouter();
 	const { user, logout } = useAuth();
 	const [collapsed, setCollapsed] = useState(false);
-	const [agencyId, setAgencyId] = useState(agencies[0].id);
+	const [schoolId, setSchoolId] = useState(schools[0].id);
 
-	const agency = agencies.find((a) => a.id === agencyId) ?? agencies[0];
+	const school = schools.find((s) => s.id === schoolId) ?? schools[0];
 	const isCollapsed = !mobile && collapsed;
 	const width = mobile ? "w-full" : isCollapsed ? "w-[76px]" : "w-[260px]";
 	const activeId = activeNavId(pathname);
@@ -204,17 +203,17 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 										isCollapsed && "justify-center px-1",
 									)}
 								>
-									<div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-dashboard-border bg-dashboard-surface text-dashboard-text-primary">
-										<span className="font-bold text-[15px] leading-none">{agency.mark}</span>
+									<div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-dashboard-accent-soft text-dashboard-accent">
+										<span className="font-bold text-[15px] leading-none">{school.mark}</span>
 									</div>
 									{!isCollapsed && (
 										<>
 											<div className="min-w-0 flex-1">
 												<div className="text-[11px] text-dashboard-text-dim leading-tight">
-													{agency.kind}
+													{school.kind}
 												</div>
 												<div className="truncate font-semibold text-[13px] text-dashboard-text-secondary leading-tight">
-													{agency.name}
+													{school.name}
 												</div>
 											</div>
 											<HugeiconsIcon
@@ -235,27 +234,31 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 						>
 							<DropdownMenuGroup>
 								<DropdownMenuLabel className="text-[10.5px] text-dashboard-text-dim uppercase">
-									Switch workspace
+									Switch campus
 								</DropdownMenuLabel>
 							</DropdownMenuGroup>
 							<DropdownMenuSeparator className="bg-dashboard-border" />
-							{agencies.map((a) => {
-								const selected = a.id === agencyId;
+							{schools.map((s) => {
+								const selected = s.id === schoolId;
 								return (
 									<DropdownMenuItem
-										key={a.id}
-										onClick={() => setAgencyId(a.id)}
+										key={s.id}
+										onClick={() => setSchoolId(s.id)}
 										className="gap-3 focus:bg-dashboard-hover-strong"
 									>
-										<div className="flex size-8 items-center justify-center rounded-md border border-dashboard-border bg-dashboard-surface font-bold text-[13px] text-dashboard-text-primary">
-											{a.mark}
+										<div className="flex size-8 items-center justify-center rounded-md bg-dashboard-accent-soft font-bold text-[13px] text-dashboard-accent">
+											{s.mark}
 										</div>
 										<div className="min-w-0 flex-1">
-											<div className="truncate font-medium text-[13px]">{a.name}</div>
-											<div className="text-[11px] text-dashboard-text-dim">{a.kind}</div>
+											<div className="truncate font-medium text-[13px]">{s.name}</div>
+											<div className="text-[11px] text-dashboard-text-dim">{s.kind}</div>
 										</div>
 										{selected && (
-											<HugeiconsIcon icon={Tick02Icon} size={16} style={{ color: ACCENT }} />
+											<HugeiconsIcon
+												icon={Tick02Icon}
+												size={16}
+												className="text-dashboard-accent"
+											/>
 										)}
 									</DropdownMenuItem>
 								);
@@ -277,7 +280,7 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 							className={cn(idx > 0 && "mt-3 border-dashboard-border-subtle border-t pt-3")}
 						>
 							{!isCollapsed ? (
-								<div className="px-2 pt-1 pb-1.5 font-medium text-[11px] text-dashboard-text-dim">
+								<div className="px-2 pt-1 pb-1.5 font-medium text-[11px] text-dashboard-text-dim uppercase tracking-[0.06em]">
 									{section.heading}
 								</div>
 							) : (
@@ -287,13 +290,18 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 								{section.items.map((item) => {
 									const active = item.id === activeId;
 									const className = cn(
-										"group/item flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-left text-[13px] transition-all duration-150",
+										"group/item relative flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-left text-[13px] transition-all duration-150",
 										isCollapsed && "justify-center px-0",
 										active
-											? "bg-dashboard-hover-strong font-medium hover:bg-dashboard-hover-strong"
+											? "bg-dashboard-accent-soft font-medium text-dashboard-accent hover:bg-dashboard-accent-soft"
 											: "font-normal text-dashboard-text-muted hover:bg-dashboard-hover hover:text-dashboard-text-secondary active:scale-[0.985]",
 									);
-									const style = active ? { color: ACCENT } : undefined;
+									const indicator = active ? (
+										<span
+											aria-hidden
+											className="absolute top-1/2 left-0.5 h-4 w-0.5 -translate-y-1/2 rounded-full bg-dashboard-accent"
+										/>
+									) : null;
 									const icon = (
 										<HugeiconsIcon
 											icon={item.icon}
@@ -301,22 +309,24 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 											strokeWidth={active ? 2 : 1.7}
 											className={cn(
 												"shrink-0 transition-colors",
-												!active &&
-													"text-dashboard-text-dim group-hover/item:text-dashboard-text-secondary",
+												active
+													? "text-dashboard-accent"
+													: "text-dashboard-text-dim group-hover/item:text-dashboard-text-secondary",
 											)}
-											style={active ? { color: ACCENT } : undefined}
 										/>
 									);
 									const label = !isCollapsed ? (
 										<span className="truncate">{item.label}</span>
 									) : null;
 									const button = item.href ? (
-										<Link href={item.href} className={className} style={style} onClick={onNavigate}>
+										<Link href={item.href} className={className} onClick={onNavigate}>
+											{indicator}
 											{icon}
 											{label}
 										</Link>
 									) : (
-										<button type="button" className={className} style={style}>
+										<button type="button" className={className}>
+											{indicator}
 											{icon}
 											{label}
 										</button>
@@ -410,7 +420,7 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 								render={<Link href="/admin/account/security" onClick={onNavigate} />}
 								className="gap-2 focus:bg-dashboard-hover-strong"
 							>
-								<HugeiconsIcon icon={UserSettings01Icon} size={16} strokeWidth={1.8} />
+								<HugeiconsIcon icon={SecurityIcon} size={16} strokeWidth={1.8} />
 								Account security
 							</DropdownMenuItem>
 							<DropdownMenuSeparator className="bg-dashboard-border" />

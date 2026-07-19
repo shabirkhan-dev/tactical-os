@@ -40,7 +40,7 @@ function Tab({ label, active, onPress }: { label: string; active: boolean; onPre
 const styles = StyleSheet.create({
 	row: {
 		flexDirection: "row",
-		gap: 8,
+		gap: 6,
 		padding: 4,
 		borderRadius: 14,
 		borderWidth: 1,
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		alignItems: "center",
 		justifyContent: "center",
+		paddingHorizontal: 4,
 	},
 	tabActive: {
 		backgroundColor: "rgba(0, 230, 118, 0.12)",
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
 	},
 	label: {
 		color: NeonColors.text.secondary,
-		fontSize: 14,
+		fontSize: 13,
 		fontWeight: "600",
 	},
 	labelActive: {

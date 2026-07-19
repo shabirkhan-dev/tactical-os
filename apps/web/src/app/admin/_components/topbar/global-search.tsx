@@ -10,7 +10,10 @@ type Props = {
 	className?: string;
 };
 
-export function GlobalSearch({ placeholder = "Search...", className }: Props) {
+export function GlobalSearch({
+	placeholder = "Search students, staff, pages...",
+	className,
+}: Props) {
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {

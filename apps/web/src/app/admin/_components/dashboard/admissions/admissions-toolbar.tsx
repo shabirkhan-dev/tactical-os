@@ -1,15 +1,17 @@
 "use client";
 
-import { Add01Icon, MoreHorizontalIcon, Search01Icon } from "@hugeicons/core-free-icons";
+import { Add01Icon, Search01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { cn } from "@/lib/utils";
 
 type Props = {
 	className?: string;
+	query: string;
+	onQueryChange: (value: string) => void;
 	onAdd?: () => void;
 };
 
-export function TransactionsToolbar({ className, onAdd }: Props) {
+export function AdmissionsToolbar({ className, query, onQueryChange, onAdd }: Props) {
 	return (
 		<div className={cn("flex w-full items-center gap-2 sm:w-auto", className)}>
 			<div className="group flex h-9 min-w-0 flex-1 items-center gap-2 rounded-lg border border-dashboard-border bg-dashboard-surface px-3 transition-colors focus-within:border-dashboard-border-focus hover:border-dashboard-border-strong sm:flex-none">
@@ -20,8 +22,11 @@ export function TransactionsToolbar({ className, onAdd }: Props) {
 					className="text-dashboard-text-muted transition-colors group-focus-within:text-dashboard-text-secondary"
 				/>
 				<input
-					type="text"
-					placeholder="Search transactions..."
+					type="search"
+					value={query}
+					onChange={(e) => onQueryChange(e.target.value)}
+					placeholder="Search admissions..."
+					aria-label="Search admissions"
 					className="h-full min-w-0 flex-1 bg-transparent text-[12.5px] text-dashboard-text-primary placeholder:text-dashboard-text-muted focus:outline-none sm:w-[240px] sm:flex-none"
 				/>
 			</div>
@@ -29,19 +34,13 @@ export function TransactionsToolbar({ className, onAdd }: Props) {
 			<button
 				type="button"
 				onClick={onAdd}
-				className="flex h-9 items-center gap-1.5 rounded-lg bg-dashboard-accent px-3.5 font-semibold text-[12.5px] text-white transition-all hover:bg-dashboard-accent-hover active:scale-[0.97]"
+				disabled={!onAdd}
+				title={onAdd ? "Create admission" : "Admissions workflow coming soon"}
+				className="flex h-9 items-center gap-1.5 rounded-lg bg-dashboard-accent px-3.5 font-semibold text-[12.5px] text-dashboard-accent-fg transition-all hover:bg-dashboard-accent-hover enabled:active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-55"
 			>
 				<HugeiconsIcon icon={Add01Icon} size={14} strokeWidth={2.4} />
-				<span className="hidden sm:inline">Add Transaction</span>
-				<span className="sr-only sm:hidden">Add transaction</span>
-			</button>
-
-			<button
-				type="button"
-				aria-label="More"
-				className="flex size-9 items-center justify-center rounded-full border border-dashboard-border-strong bg-dashboard-surface text-dashboard-text-muted transition-colors hover:border-dashboard-border-focus hover:text-dashboard-text-primary"
-			>
-				<HugeiconsIcon icon={MoreHorizontalIcon} size={15} strokeWidth={2} />
+				<span className="hidden sm:inline">New admission</span>
+				<span className="sr-only sm:hidden">New admission</span>
 			</button>
 		</div>
 	);

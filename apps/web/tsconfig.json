@@ -13,5 +13,5 @@
     ".next/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "src/components/component-example.tsx", "src/modules/dashboard"]
+  "exclude": ["node_modules", "src/components/component-example.tsx"]
 }

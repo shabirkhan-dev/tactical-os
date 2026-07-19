@@ -140,8 +140,9 @@ export function BillingScreen() {
 			const outcome = await openHostedCheckout(result.checkoutUrl);
 			if (outcome === "success") {
 				await loadBilling();
+				router.replace("/(modules)/(profile)/billing-success");
 			} else if (outcome === "cancel") {
-				setError("Checkout cancelled. You can try again anytime.");
+				router.replace("/(modules)/(profile)/billing-cancel");
 			}
 		} catch (err) {
 			setError(err instanceof Error ? err.message : "Checkout failed");
@@ -240,9 +241,11 @@ export function BillingScreen() {
 													</Text>
 													{billingInterval === "yearly" ? (
 														<Text style={styles.planBilled}>
-															Billed {formatMoney(plan.monthly * 10)}/yr
+															Billed {formatMoney(plan.monthly * 10)}/yr · 2 months free
 														</Text>
-													) : null}
+													) : (
+														<Text style={styles.planBilled}>Billed monthly</Text>
+													)}
 													<Text style={styles.planTagline}>{plan.tagline}</Text>
 													{plan.features.map((feature) => (
 														<View key={feature} style={styles.featureRow}>
@@ -263,23 +266,33 @@ export function BillingScreen() {
 								<NeonCard style={styles.sectionCard}>
 									<Text style={styles.sectionTitle}>Payment method</Text>
 									<Text style={styles.sectionHint}>
-										Hosted checkout in the system browser — same Nest billing APIs as web.
+										{providers.length > 1
+											? "Same plan price — pick where payment is processed."
+											: providers.length === 1
+												? `Checkout opens in your browser via ${PROVIDER_COPY[provider].label}.`
+												: "Configure a payment provider on the API to enable checkout."}
 									</Text>
 									{providers.length === 0 ? (
-										<AuthAlert
-											title="No providers configured"
-											message="Set Stripe or Razorpay keys on the Nest API, then pull to refresh."
-											variant="info"
-										/>
+										<View style={styles.providerGap}>
+											<AuthAlert
+												title="Checkout not configured"
+												message="Add Stripe and/or Razorpay keys to the Nest API, then reopen this screen."
+												variant="info"
+											/>
+										</View>
 									) : (
 										<View style={styles.providerRow}>
 											{providers.map((name) => {
 												const selected = provider === name;
 												const copy = PROVIDER_COPY[name];
+												const selectable = providers.length > 1;
 												return (
 													<Pressable
 														key={name}
-														onPress={() => setProvider(name)}
+														onPress={() => {
+															if (selectable) setProvider(name);
+														}}
+														disabled={!selectable}
 														style={[styles.providerCard, selected && styles.providerCardSelected]}
 													>
 														<CreditCard
@@ -573,6 +586,9 @@ const styles = StyleSheet.create({
 	},
 	providerRow: {
 		gap: 10,
+		marginTop: 14,
+	},
+	providerGap: {
 		marginTop: 14,
 	},
 	providerCard: {

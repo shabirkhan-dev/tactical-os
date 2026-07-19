@@ -6,62 +6,62 @@ import { StatCard, type Trend } from "./stat-card";
 type Stat = {
 	id: string;
 	label: string;
-	value: string;
-	unit?: string;
+	value: number;
+	formatValue: (n: number) => string;
 	trend: Trend;
 	trendDelta: string;
 	trendLabel: string;
 	bars: number[];
 	activeIndex: number;
-	activeColor?: string;
 };
+
+const whole = (n: number) => Math.round(n).toLocaleString("en-US");
+const percent = (n: number) => `${n.toFixed(1)}%`;
 
 const stats: Stat[] = [
 	{
-		id: "revenue",
-		label: "Total Revenue",
-		value: "$20,320",
+		id: "students",
+		label: "Total Students",
+		value: 2847,
+		formatValue: whole,
 		trend: "up",
-		trendDelta: "+0,94",
-		trendLabel: "last year",
-		bars: [55, 70, 45, 80, 100, 65, 50],
+		trendDelta: "+4.2%",
+		trendLabel: "vs last term",
+		bars: [55, 70, 45, 80, 100, 65, 78],
 		activeIndex: 4,
-		activeColor: "var(--dashboard-accent)",
 	},
 	{
-		id: "orders",
-		label: "Total Orders",
-		value: "10,320",
-		unit: "Orders",
-		trend: "up",
-		trendDelta: "+0,94",
-		trendLabel: "last year",
+		id: "attendance",
+		label: "Attendance Rate",
+		value: 94.6,
+		formatValue: percent,
+		trend: "down",
+		trendDelta: "-0.8%",
+		trendLabel: "vs last week",
 		bars: [60, 50, 78, 64, 88, 70, 55],
 		activeIndex: 4,
-		activeColor: "var(--dashboard-accent)",
 	},
 	{
-		id: "customers",
-		label: "New Customers",
-		value: "4,305",
-		unit: "New Users",
+		id: "staff",
+		label: "Teaching Staff",
+		value: 214,
+		formatValue: whole,
 		trend: "up",
-		trendDelta: "+0,94",
-		trendLabel: "last year",
+		trendDelta: "+6",
+		trendLabel: "vs last term",
 		bars: [50, 65, 55, 92, 70, 60, 75],
 		activeIndex: 3,
-		activeColor: "var(--dashboard-accent)",
 	},
 	{
-		id: "conversion",
-		label: "Conversion Rate",
-		value: "3.9%",
+		id: "fees",
+		label: "Fee Collection",
+		value: 87.3,
+		formatValue: percent,
 		trend: "up",
-		trendDelta: "+0,94",
-		trendLabel: "last year",
+		trendDelta: "+1.5%",
+		trendLabel: "vs last month",
 		bars: [70, 55, 80, 60, 95, 65, 50],
 		activeIndex: 4,
-		activeColor: "var(--dashboard-accent)",
 	},
 ];
 
@@ -74,7 +74,7 @@ export function StatCardsRow({ className }: Props) {
 		<section
 			aria-label="Key performance metrics"
 			className={cn(
-				"grid grid-cols-1 gap-px overflow-hidden rounded-[16px] border border-dashboard-border bg-dashboard-border sm:grid-cols-2 xl:grid-cols-4",
+				"grid grid-cols-1 gap-px overflow-hidden rounded-[16px] border border-dashboard-border bg-dashboard-border shadow-(--dashboard-shadow-card) sm:grid-cols-2 xl:grid-cols-4",
 				className,
 			)}
 		>
@@ -83,13 +83,12 @@ export function StatCardsRow({ className }: Props) {
 					key={s.id}
 					label={s.label}
 					value={s.value}
-					unit={s.unit}
+					formatValue={s.formatValue}
 					trend={s.trend}
 					trendDelta={s.trendDelta}
 					trendLabel={s.trendLabel}
 					bars={s.bars}
 					activeIndex={s.activeIndex}
-					activeColor={s.activeColor}
 				/>
 			))}
 		</section>

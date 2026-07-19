@@ -12,8 +12,7 @@ type Props = {
 
 /**
  * Small fixed-bar chart used inside stat cards.
- * Renders one accent (orange) bar surrounded by muted bars,
- * mirroring the picture instead of an animated sparkline.
+ * Renders one accent bar surrounded by muted bars.
  */
 export function MiniBars({
 	data,

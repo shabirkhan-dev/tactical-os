@@ -2,6 +2,7 @@
 
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import Link from "next/link";
 import { Fragment } from "react";
 import { cn } from "@/lib/utils";
 
@@ -32,12 +33,12 @@ export function BreadcrumbTrail({ items, className }: Props) {
 							/>
 						)}
 						{item.href && !isLast ? (
-							<a
+							<Link
 								href={item.href}
 								className="text-dashboard-text-muted transition-colors hover:text-dashboard-text-secondary"
 							>
 								{item.label}
-							</a>
+							</Link>
 						) : (
 							<span
 								className={cn(
