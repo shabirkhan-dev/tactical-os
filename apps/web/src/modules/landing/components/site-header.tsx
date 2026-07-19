@@ -1,6 +1,7 @@
 "use client";
 
-import { ChevronDown, Hexagon, Menu, X } from "lucide-react";
+import { ArrowDown01Icon, Cancel01Icon, HexagonIcon, Menu01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { useId, useState } from "react";
@@ -17,7 +18,7 @@ function SchoolOsMark({ className }: { className?: string }) {
 				className,
 			)}
 		>
-			<Hexagon className="size-4" strokeWidth={2.25} aria-hidden="true" />
+			<HugeiconsIcon icon={HexagonIcon} className="size-4" strokeWidth={2.25} aria-hidden={true} />
 			<span className="pointer-events-none absolute size-1.5 rounded-full bg-background" />
 		</span>
 	);
@@ -87,9 +88,9 @@ export function SiteHeader() {
 							className="grid size-9 place-items-center rounded-lg border border-border/60 bg-card text-foreground outline-none focus-visible:ring-2 focus-visible:ring-foreground/30 lg:hidden"
 						>
 							{mobileOpen ? (
-								<X className="size-4" strokeWidth={2} />
+								<HugeiconsIcon icon={Cancel01Icon} className="size-4" strokeWidth={2} />
 							) : (
-								<Menu className="size-4" strokeWidth={2} />
+								<HugeiconsIcon icon={Menu01Icon} className="size-4" strokeWidth={2} />
 							)}
 						</button>
 					</div>
@@ -175,7 +176,12 @@ function MobileAccordion({
 					transition={springSnappy}
 					className="inline-flex text-muted-foreground"
 				>
-					<ChevronDown className="size-4" strokeWidth={2} aria-hidden="true" />
+					<HugeiconsIcon
+						icon={ArrowDown01Icon}
+						className="size-4"
+						strokeWidth={2}
+						aria-hidden={true}
+					/>
 				</motion.span>
 			</button>
 
@@ -273,7 +279,12 @@ function DesktopDropdown({
 					transition={springSnappy}
 					className="inline-flex"
 				>
-					<ChevronDown className="size-3.5" strokeWidth={2} aria-hidden="true" />
+					<HugeiconsIcon
+						icon={ArrowDown01Icon}
+						className="size-3.5"
+						strokeWidth={2}
+						aria-hidden={true}
+					/>
 				</motion.span>
 			</motion.button>
 

@@ -1,5 +1,5 @@
+import { Switch } from "@base-ui/react/switch";
 import { Moon01Icon, Sun01Icon } from "@hugeicons/core-free-icons";
-import { Switch } from "radix-ui";
 import { useEffect, useState } from "react";
 
 import { HeaderHugeIcon } from "@/modules/chat/components/header/huge-icon";
@@ -41,10 +41,10 @@ export function ThemeToggle() {
 			aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
 			title={isDark ? "Light mode" : "Dark mode"}
 		>
-			<span className="theme-toggle__track" data-checked={isDark}>
-				<span className="theme-toggle__thumb">
+			<span className="theme-toggle__track">
+				<Switch.Thumb className="theme-toggle__thumb">
 					<HeaderHugeIcon icon={isDark ? Moon01Icon : Sun01Icon} size={12} />
-				</span>
+				</Switch.Thumb>
 			</span>
 		</Switch.Root>
 	);

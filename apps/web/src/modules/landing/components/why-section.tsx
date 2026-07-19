@@ -1,17 +1,18 @@
 "use client";
 
 import {
-	Activity,
-	ArrowRight,
-	Check,
-	Fingerprint,
-	Hexagon,
-	KeyRound,
-	Lock,
-	ShieldCheck,
-	Triangle,
-	Waypoints,
-} from "lucide-react";
+	Activity01Icon,
+	ArrowRight01Icon,
+	FingerPrintIcon,
+	HexagonIcon,
+	HierarchyIcon,
+	Key01Icon,
+	LockIcon,
+	SecurityCheckIcon,
+	Tick02Icon,
+	TriangleIcon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import {
 	motion,
 	useInView,
@@ -155,7 +156,7 @@ function RoutePreview() {
 					transition={springSoft}
 				>
 					<span className="grid size-7 place-items-center rounded-full bg-[#2a2a32] text-sky-300">
-						<Activity className="size-3.5" aria-hidden="true" />
+						<HugeiconsIcon icon={Activity01Icon} className="size-3.5" aria-hidden={true} />
 					</span>
 					<span className="pr-1 font-medium text-white">p99 420ms</span>
 				</motion.div>
@@ -251,7 +252,7 @@ function KeysPreview() {
 						viewport={viewport}
 						transition={{ ...springSnappy, delay: 0.22 + i * 0.08 }}
 					>
-						<KeyRound className="size-3 text-white/55" aria-hidden="true" />
+						<HugeiconsIcon icon={Key01Icon} className="size-3 text-white/55" aria-hidden={true} />
 						{share.label}
 					</motion.span>
 				))}
@@ -263,7 +264,7 @@ function KeysPreview() {
 					viewport={viewport}
 					transition={springSnappy}
 				>
-					<Fingerprint className="size-7" aria-hidden="true" />
+					<HugeiconsIcon icon={FingerPrintIcon} className="size-7" aria-hidden={true} />
 				</motion.span>
 			</div>
 
@@ -275,7 +276,12 @@ function KeysPreview() {
 				transition={{ duration: 0.4, delay: 0.45, ease: ATLAS_EASE }}
 			>
 				<span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-emerald-400 text-neutral-950">
-					<ShieldCheck className="size-3" strokeWidth={2.5} aria-hidden="true" />
+					<HugeiconsIcon
+						icon={SecurityCheckIcon}
+						className="size-3"
+						strokeWidth={2.5}
+						aria-hidden={true}
+					/>
 				</span>
 				<div>
 					<p className="font-medium text-[12px] text-white">Nothing ships unchecked</p>
@@ -327,9 +333,9 @@ function AnimatedMoney({ value }: { value: number }) {
 function ReadyPreview() {
 	const reduce = useReducedMotion();
 	const rows = [
-		{ name: "checkout-api", value: 9180, Icon: Hexagon, tone: "text-sky-300" },
-		{ name: "payments-worker", value: 6420, Icon: Triangle, tone: "text-violet-300" },
-		{ name: "edge-gateway", value: 2840, Icon: Waypoints, tone: "text-amber-300" },
+		{ name: "checkout-api", value: 9180, Icon: HexagonIcon, tone: "text-sky-300" },
+		{ name: "payments-worker", value: 6420, Icon: TriangleIcon, tone: "text-violet-300" },
+		{ name: "edge-gateway", value: 2840, Icon: HierarchyIcon, tone: "text-amber-300" },
 	] as const;
 
 	return (
@@ -346,7 +352,12 @@ function ReadyPreview() {
 					viewport={viewport}
 					transition={springSnappy}
 				>
-					<Check className="size-3.5" strokeWidth={3} aria-hidden="true" />
+					<HugeiconsIcon
+						icon={Tick02Icon}
+						className="size-3.5"
+						strokeWidth={3}
+						aria-hidden={true}
+					/>
 				</motion.span>
 			</div>
 
@@ -373,7 +384,7 @@ function ReadyPreview() {
 								row.tone,
 							)}
 						>
-							<row.Icon className="size-3.5" aria-hidden="true" />
+							<HugeiconsIcon icon={row.Icon} className="size-3.5" aria-hidden={true} />
 						</span>
 						<span className="min-w-0 flex-1 truncate text-[12px] text-white">{row.name}</span>
 						<span className="font-medium text-[12px] text-white/80 tabular-nums">
@@ -389,7 +400,11 @@ function ReadyPreview() {
 							viewport={viewport}
 							transition={{ ...springSnappy, delay: 0.32 + i * 0.09 }}
 						>
-							<Check className="size-3.5 text-emerald-400" aria-hidden="true" />
+							<HugeiconsIcon
+								icon={Tick02Icon}
+								className="size-3.5 text-emerald-400"
+								aria-hidden={true}
+							/>
 						</motion.span>
 					</motion.li>
 				))}
@@ -402,9 +417,9 @@ function ReadyPreview() {
 				viewport={viewport}
 				transition={{ ...springSnappy, delay: 0.5 }}
 			>
-				<Lock className="size-3.5" aria-hidden="true" />
+				<HugeiconsIcon icon={LockIcon} className="size-3.5" aria-hidden={true} />
 				Clone & run
-				<ArrowRight className="size-3.5" aria-hidden="true" />
+				<HugeiconsIcon icon={ArrowRight01Icon} className="size-3.5" aria-hidden={true} />
 			</motion.div>
 		</div>
 	);

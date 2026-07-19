@@ -1,6 +1,7 @@
 "use client";
 
-import { Braces, Check, Sparkles, TriangleAlert } from "lucide-react";
+import { Alert02Icon, BracesIcon, SparklesIcon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
 import { AGENT_TOOL_CALLS, CAPABILITY_CARDS, type CapabilityCard } from "../data/landing.data";
 import { ATLAS_EASE, hoverLift, hoverTap, springSnappy } from "../lib/motion";
@@ -117,7 +118,7 @@ function ReasoningVisual() {
 				<div className="self-start rounded-2xl rounded-bl-sm border border-white/20 bg-white/15 p-3 shadow-[0_20px_40px_-28px_rgba(0,0,0,0.5)] backdrop-blur-md">
 					<div className="mb-2 flex items-center gap-2 text-white text-xs">
 						<span className="grid size-4 place-items-center rounded-full bg-white/25">
-							<Sparkles className="size-2.5" aria-hidden="true" />
+							<HugeiconsIcon icon={SparklesIcon} className="size-2.5" aria-hidden={true} />
 						</span>
 						<span className="font-medium">Working</span>
 						<span className="flex gap-1">
@@ -138,7 +139,7 @@ function ReasoningVisual() {
 							>
 								<span className="flex-1 font-mono text-[11px]">{call.name}</span>
 								<span className="grid size-4 shrink-0 place-items-center rounded-full bg-emerald-400 text-neutral-900">
-									<Check className="size-2.5" aria-hidden="true" />
+									<HugeiconsIcon icon={Tick02Icon} className="size-2.5" aria-hidden={true} />
 								</span>
 							</motion.div>
 						))}
@@ -173,7 +174,7 @@ function ToolsVisual() {
 						className="flex items-center gap-2 text-emerald-300"
 					>
 						<span className="grid size-3.5 shrink-0 place-items-center rounded-full bg-emerald-400 text-neutral-900">
-							<Check className="size-2.5" aria-hidden="true" />
+							<HugeiconsIcon icon={Tick02Icon} className="size-2.5" aria-hidden={true} />
 						</span>
 						<span className="text-white/80">connected</span>
 						<span className="font-medium text-white">{tool}</span>
@@ -207,10 +208,10 @@ function OutputVisual() {
 		<div className="relative mx-auto w-full max-w-[15rem] rounded-2xl border border-white/10 bg-neutral-950/85 p-3.5 backdrop-blur-md">
 			<div className="flex items-center justify-between">
 				<span className="flex items-center gap-1.5 font-mono text-white text-xs">
-					<Braces className="size-3" aria-hidden="true" /> output.json
+					<HugeiconsIcon icon={BracesIcon} className="size-3" aria-hidden={true} /> output.json
 				</span>
 				<span className="inline-flex items-center gap-1 rounded-md bg-emerald-400 px-1.5 py-0.5 text-[10px] text-neutral-900">
-					<Check className="size-2.5" aria-hidden="true" /> schema
+					<HugeiconsIcon icon={Tick02Icon} className="size-2.5" aria-hidden={true} /> schema
 				</span>
 			</div>
 			<div className="mt-2.5 font-mono text-[11px] leading-5">
@@ -242,7 +243,7 @@ function ApprovalVisual() {
 	return (
 		<div className="relative mx-auto w-full max-w-[15rem] rounded-2xl border border-white/20 bg-white/15 p-3.5 shadow-[0_20px_40px_-28px_rgba(0,0,0,0.5)] backdrop-blur-md">
 			<div className="flex items-center gap-1.5 text-[11px] text-white/80">
-				<TriangleAlert className="size-3 text-amber-300" aria-hidden="true" />
+				<HugeiconsIcon icon={Alert02Icon} className="size-3 text-amber-300" aria-hidden={true} />
 				<span className="font-medium">Approval needed</span>
 			</div>
 			<p className="mt-2 font-mono text-white text-xs">deploy → production?</p>
@@ -251,7 +252,7 @@ function ApprovalVisual() {
 					type="button"
 					className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-emerald-400 py-2 font-medium text-[11px] text-neutral-900"
 				>
-					<Check className="size-3" aria-hidden="true" />
+					<HugeiconsIcon icon={Tick02Icon} className="size-3" aria-hidden={true} />
 					Approve
 				</button>
 				<button

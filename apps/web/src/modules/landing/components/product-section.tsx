@@ -1,6 +1,14 @@
 "use client";
 
-import { Activity, Check, GitPullRequest, Search, ShieldCheck, Wrench } from "lucide-react";
+import {
+	Activity01Icon,
+	GitPullRequestIcon,
+	Search01Icon,
+	SecurityCheckIcon,
+	Tick02Icon,
+	Wrench01Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
 import type { IncidentEvent } from "../data/landing.data";
 import { INCIDENT_TIMELINE, PRODUCT_BULLETS } from "../data/landing.data";
@@ -9,11 +17,11 @@ import { FadeIn } from "./fade-in";
 import { MeshCanvas } from "./mesh-canvas";
 
 const EVENT_ICONS = {
-	activity: Activity,
-	search: Search,
-	pr: GitPullRequest,
-	wrench: Wrench,
-	shield: ShieldCheck,
+	activity: Activity01Icon,
+	search: Search01Icon,
+	pr: GitPullRequestIcon,
+	wrench: Wrench01Icon,
+	shield: SecurityCheckIcon,
 } as const;
 
 export function ProductSection() {
@@ -53,7 +61,12 @@ export function ProductSection() {
 								className="flex items-start gap-3"
 							>
 								<span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-primary/15 text-primary">
-									<Check className="size-3" strokeWidth={3} aria-hidden="true" />
+									<HugeiconsIcon
+										icon={Tick02Icon}
+										className="size-3"
+										strokeWidth={3}
+										aria-hidden={true}
+									/>
 								</span>
 								<span className="text-foreground/80 text-sm leading-6">{bullet}</span>
 							</motion.li>
@@ -99,7 +112,7 @@ function IncidentTimelineCard() {
 }
 
 function TimelineRow({ event, index }: { event: IncidentEvent; index: number }) {
-	const Icon = EVENT_ICONS[event.icon];
+	const icon = EVENT_ICONS[event.icon];
 	const isOk = event.tone === "ok";
 
 	return (
@@ -116,7 +129,7 @@ function TimelineRow({ event, index }: { event: IncidentEvent; index: number }) 
 				whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.18)" }}
 				transition={springSnappy}
 			>
-				<Icon className="size-3.5" aria-hidden="true" />
+				<HugeiconsIcon icon={icon} className="size-3.5" aria-hidden={true} />
 			</motion.span>
 			<div className="min-w-0 flex-1 pt-0.5">
 				<div className="flex items-center gap-2">

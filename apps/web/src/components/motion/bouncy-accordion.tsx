@@ -2,8 +2,9 @@
 
 // beui.dev/components/motion/bouncy-accordion
 
+import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { cn } from "@school-os/ui/lib/utils";
-import { ChevronDown } from "lucide-react";
 import { motion, type Transition, useReducedMotion } from "motion/react";
 import { type ReactNode, useCallback, useId, useLayoutEffect, useRef, useState } from "react";
 import { EASE_OUT } from "@/lib/ease";
@@ -205,7 +206,7 @@ function BouncyAccordionRow({
 							classNames?.chevron,
 						)}
 					>
-						<ChevronDown className="h-4 w-4" />
+						<HugeiconsIcon icon={ArrowDown01Icon} className="h-4 w-4" strokeWidth={2} />
 					</motion.span>
 				</button>
 

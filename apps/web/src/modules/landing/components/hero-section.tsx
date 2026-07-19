@@ -1,6 +1,7 @@
 "use client";
 
-import { Bot, Check, FileText, Send } from "lucide-react";
+import { File01Icon, Robot01Icon, SentIcon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { AGENT_MESSAGES, dicebearUrl, HERO_AVATARS, WORKFLOW_STEPS } from "../data/landing.data";
@@ -118,7 +119,7 @@ function WorkflowCard() {
 			<div className="rounded-2xl border border-black/[0.06] bg-white/95 p-4">
 				<div className="flex items-center gap-2.5">
 					<span className="grid size-8 place-items-center rounded-full bg-neutral-100 text-neutral-600">
-						<FileText className="size-4" aria-hidden="true" />
+						<HugeiconsIcon icon={File01Icon} className="size-4" aria-hidden={true} />
 					</span>
 					<div>
 						<p className="font-semibold text-neutral-900 text-sm">Workspace bootstrap</p>
@@ -150,7 +151,7 @@ function WorkflowCard() {
 								<div className="flex items-center justify-between gap-2">
 									<p className="font-medium text-neutral-800 text-xs">{step.label}</p>
 									<span className="grid size-4 place-items-center rounded-full bg-emerald-500 text-white">
-										<Check className="size-2.5" aria-hidden="true" />
+										<HugeiconsIcon icon={Tick02Icon} className="size-2.5" aria-hidden={true} />
 									</span>
 								</div>
 								<p className="text-[11px] text-neutral-500">{step.detail}</p>
@@ -167,7 +168,7 @@ function WorkflowCard() {
 					className="mt-2 flex items-center gap-2 rounded-xl bg-emerald-50 px-3 py-2.5"
 				>
 					<span className="grid size-5 place-items-center rounded-full bg-emerald-500 text-white">
-						<Check className="size-3" aria-hidden="true" />
+						<HugeiconsIcon icon={Tick02Icon} className="size-3" aria-hidden={true} />
 					</span>
 					<span className="font-medium text-emerald-700 text-xs">Incident resolved</span>
 					<span className="ml-auto text-[10px] text-emerald-600/70">09:42</span>
@@ -187,7 +188,7 @@ function AgentChatCard() {
 			<div className="flex flex-col rounded-2xl border border-black/[0.06] bg-white/95 p-4">
 				<div className="flex items-center gap-2.5 border-neutral-100 border-b pb-3">
 					<span className="grid size-8 place-items-center rounded-full bg-sky-100 text-sky-600">
-						<Bot className="size-4" aria-hidden="true" />
+						<HugeiconsIcon icon={Robot01Icon} className="size-4" aria-hidden={true} />
 					</span>
 					<div>
 						<p className="font-semibold text-neutral-900 text-sm">Dev loop</p>
@@ -215,7 +216,7 @@ function AgentChatCard() {
 							{message.role === "agent" ? (
 								<>
 									<span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-sky-100 text-sky-600">
-										<Bot className="size-3" aria-hidden="true" />
+										<HugeiconsIcon icon={Robot01Icon} className="size-3" aria-hidden={true} />
 									</span>
 									<p className="rounded-2xl rounded-bl-sm border border-neutral-100 bg-neutral-50 px-3 py-2 text-[11px] text-neutral-700 leading-5">
 										{message.text}
@@ -231,7 +232,7 @@ function AgentChatCard() {
 				<div className="flex items-center gap-2 rounded-xl border border-neutral-200 px-3 py-2">
 					<span className="text-[11px] text-neutral-400">Ask anything or type a command…</span>
 					<span className="ml-auto grid size-6 place-items-center rounded-full bg-[var(--atlas-blue)] text-white">
-						<Send className="size-3" aria-hidden="true" />
+						<HugeiconsIcon icon={SentIcon} className="size-3" aria-hidden={true} />
 					</span>
 				</div>
 			</div>

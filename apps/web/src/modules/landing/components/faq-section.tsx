@@ -1,19 +1,17 @@
 "use client";
 
+import { HugeiconsIcon } from "@hugeicons/react";
 import { BouncyAccordion } from "@/components/motion/bouncy-accordion";
 import { FAQ_ITEMS } from "../data/landing.data";
 import { FadeIn } from "./fade-in";
 
 export function FaqSection() {
-	const items = FAQ_ITEMS.map((item) => {
-		const Icon = item.icon;
-		return {
-			id: item.id,
-			title: item.question,
-			description: item.answer,
-			icon: <Icon className="h-4 w-4" />,
-		};
-	});
+	const items = FAQ_ITEMS.map((item) => ({
+		id: item.id,
+		title: item.question,
+		description: item.answer,
+		icon: <HugeiconsIcon icon={item.icon} className="h-4 w-4" strokeWidth={2} />,
+	}));
 
 	return (
 		<section id="faq" className="w-full px-4 py-20 sm:px-8 sm:py-28">

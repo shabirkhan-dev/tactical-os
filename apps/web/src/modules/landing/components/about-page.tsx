@@ -1,6 +1,12 @@
 "use client";
 
-import { ArrowUpRight, Eye, ShieldCheck, Waypoints } from "lucide-react";
+import {
+	ArrowUpRight01Icon,
+	EyeIcon,
+	HierarchyIcon,
+	SecurityCheckIcon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import {
@@ -15,9 +21,9 @@ import { cn } from "../lib/utils";
 import { FadeIn } from "./fade-in";
 
 const PRINCIPLE_ICONS = {
-	bridge: Waypoints,
-	eye: Eye,
-	shield: ShieldCheck,
+	bridge: HierarchyIcon,
+	eye: EyeIcon,
+	shield: SecurityCheckIcon,
 } as const;
 
 const TONE_BG: Record<AboutTeamMember["tone"], string> = {
@@ -111,7 +117,7 @@ function AboutPrinciples() {
 
 				<div className="mt-10 grid gap-4 md:grid-cols-3">
 					{ABOUT_PRINCIPLES.map((principle, index) => {
-						const Icon = PRINCIPLE_ICONS[principle.icon];
+						const icon = PRINCIPLE_ICONS[principle.icon];
 						return (
 							<FadeIn key={principle.title} delay={index * 0.06} y={28}>
 								<motion.article
@@ -120,7 +126,12 @@ function AboutPrinciples() {
 									transition={springSnappy}
 								>
 									<span className="grid size-10 place-items-center rounded-2xl border border-border/60 bg-muted/40 text-foreground">
-										<Icon className="size-5" strokeWidth={1.75} aria-hidden="true" />
+										<HugeiconsIcon
+											icon={icon}
+											className="size-5"
+											strokeWidth={1.75}
+											aria-hidden={true}
+										/>
 									</span>
 									<h3 className="mt-5 font-medium text-foreground text-lg">{principle.title}</h3>
 									<p className="mt-3 text-pretty text-muted-foreground text-sm leading-7">
@@ -247,7 +258,11 @@ function TeamCard({
 									</button>
 									<span className="ml-1 inline-flex items-center gap-1 font-medium text-foreground text-sm">
 										Profile
-										<ArrowUpRight className="size-3.5" aria-hidden="true" />
+										<HugeiconsIcon
+											icon={ArrowUpRight01Icon}
+											className="size-3.5"
+											aria-hidden={true}
+										/>
 									</span>
 								</div>
 								<p className="mt-4 font-medium text-foreground text-sm">{member.name}</p>

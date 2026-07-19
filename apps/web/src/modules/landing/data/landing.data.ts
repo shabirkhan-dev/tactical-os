@@ -1,15 +1,15 @@
 import {
-	Aperture,
-	Box,
-	Circle,
-	Command,
-	Gem,
-	Hexagon,
-	type LucideIcon,
-	Octagon,
-	ShieldCheck,
-	Triangle,
-} from "lucide-react";
+	ApertureIcon,
+	CircleIcon,
+	CommandIcon,
+	GemIcon,
+	HexagonIcon,
+	OctagonIcon,
+	Package01Icon,
+	SecurityCheckIcon,
+	TriangleIcon,
+} from "@hugeicons/core-free-icons";
+import type { IconSvgElement } from "@hugeicons/react";
 
 export const SITE = {
 	name: "School OS",
@@ -154,18 +154,18 @@ export const AGENT_MESSAGES: ChatMessage[] = [
 
 export type CustomerLogo = {
 	name: string;
-	icon: LucideIcon;
+	icon: IconSvgElement;
 };
 
 export const CUSTOMER_LOGOS: CustomerLogo[] = [
-	{ name: "Next.js", icon: Hexagon },
-	{ name: "Expo", icon: Triangle },
-	{ name: "NestJS", icon: Aperture },
-	{ name: "Turbo", icon: Box },
-	{ name: "Bun", icon: Gem },
-	{ name: "Biome", icon: Command },
-	{ name: "Docker", icon: Octagon },
-	{ name: "Rust", icon: Circle },
+	{ name: "Next.js", icon: HexagonIcon },
+	{ name: "Expo", icon: TriangleIcon },
+	{ name: "NestJS", icon: ApertureIcon },
+	{ name: "Turbo", icon: Package01Icon },
+	{ name: "Bun", icon: GemIcon },
+	{ name: "Biome", icon: CommandIcon },
+	{ name: "Docker", icon: OctagonIcon },
+	{ name: "Rust", icon: CircleIcon },
 ];
 
 export const PRODUCT_BULLETS: string[] = [
@@ -520,7 +520,7 @@ export type FaqItem = {
 	id: string;
 	question: string;
 	answer: string;
-	icon: LucideIcon;
+	icon: IconSvgElement;
 };
 
 export const FAQ_ITEMS: FaqItem[] = [
@@ -529,42 +529,42 @@ export const FAQ_ITEMS: FaqItem[] = [
 		question: "Do I need Docker to start?",
 		answer:
 			"No. Host-only is fine: install Bun, bun install, bun run prepare, bun run dev. Compose is optional when you want Postgres or the full containerized stack.",
-		icon: Hexagon,
+		icon: HexagonIcon,
 	},
 	{
 		id: "approvals",
 		question: "Can we keep or drop apps we do not need?",
 		answer:
 			"Yes. Apps under apps/ are independent. Remove or ignore what you do not ship yet — keep packages you still share.",
-		icon: ShieldCheck,
+		icon: SecurityCheckIcon,
 	},
 	{
 		id: "stack",
 		question: "What stacks does School OS include?",
 		answer:
 			"Next.js web, Expo mobile, NestJS API, Fumadocs docs, and a Rust binary — plus shared UI, logger, and TypeScript configs.",
-		icon: Box,
+		icon: Package01Icon,
 	},
 	{
 		id: "traces",
 		question: "How do architecture boundaries work?",
 		answer:
 			"scripts/architecture/check-boundaries.sh runs in hooks and CI so apps cannot import each other’s internals. Overrides are documented in /docs/overrides.",
-		icon: Command,
+		icon: CommandIcon,
 	},
 	{
 		id: "pricing",
 		question: "Is the starter free to use?",
 		answer:
 			"The monorepo starter is free to clone and run. Paid tiers are optional for team seats, support, and managed onboarding — annual billing includes two months free.",
-		icon: Gem,
+		icon: GemIcon,
 	},
 	{
 		id: "security",
 		question: "What quality gates run before a commit?",
 		answer:
 			"Lefthook formats with Biome, lints, typechecks, blocks large files, scans for obvious secrets, and runs the architecture check — Conventional Commits required.",
-		icon: Octagon,
+		icon: OctagonIcon,
 	},
 ];
 

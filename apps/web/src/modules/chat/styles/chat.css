@@ -305,7 +305,7 @@
     border-color 150ms ease;
 }
 
-.chat-design-system .theme-toggle__track[data-checked="true"] {
+.chat-design-system .theme-toggle[data-checked] .theme-toggle__track {
   background: var(--surface-subtle);
 }
 
@@ -324,7 +324,7 @@
   transition: transform 150ms ease;
 }
 
-.chat-design-system .theme-toggle__track[data-checked="true"] .theme-toggle__thumb {
+.chat-design-system .theme-toggle[data-checked] .theme-toggle__thumb {
   transform: translateX(18px);
 }
 

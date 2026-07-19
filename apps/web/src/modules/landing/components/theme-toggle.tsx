@@ -1,6 +1,7 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { Moon01Icon, Sun01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import type { AtlasTheme } from "../lib/theme";
 import { cn } from "../lib/utils";
 
@@ -23,11 +24,11 @@ export function ThemeToggle({ theme, onToggle, className }: ThemeToggleProps) {
 				className,
 			)}
 		>
-			{isDark ? (
-				<Sun className="h-4 w-4" strokeWidth={1.75} />
-			) : (
-				<Moon className="h-4 w-4" strokeWidth={1.75} />
-			)}
+			<HugeiconsIcon
+				icon={isDark ? Sun01Icon : Moon01Icon}
+				className="h-4 w-4"
+				strokeWidth={1.75}
+			/>
 		</button>
 	);
 }

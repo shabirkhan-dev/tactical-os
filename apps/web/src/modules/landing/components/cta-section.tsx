@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowRight, Check, Copy } from "lucide-react";
+import { ArrowRight01Icon, Copy01Icon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { useState } from "react";
@@ -62,7 +63,7 @@ export function CtaSection() {
 								whileTap={hoverTap}
 								className="ml-auto inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-2 py-1 font-medium text-[11px] text-white/70 transition-colors hover:bg-white/10"
 							>
-								<Copy className="size-3" aria-hidden="true" />
+								<HugeiconsIcon icon={Copy01Icon} className="size-3" aria-hidden={true} />
 								{copied ? "Copied" : "Copy"}
 							</motion.button>
 						</div>
@@ -84,7 +85,8 @@ export function CtaSection() {
 										</>
 									) : (
 										<>
-											<Check
+											<HugeiconsIcon
+												icon={Tick02Icon}
 												className="mt-0.5 size-3.5 shrink-0 text-emerald-400"
 												aria-hidden="true"
 											/>
@@ -108,7 +110,7 @@ export function CtaSection() {
 							className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90"
 						>
 							Get started
-							<ArrowRight className="size-4" aria-hidden="true" />
+							<HugeiconsIcon icon={ArrowRight01Icon} className="size-4" aria-hidden={true} />
 						</Link>
 					</motion.div>
 					<motion.div
