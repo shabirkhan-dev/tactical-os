@@ -1,7 +1,7 @@
 import { Test, type TestingModule } from '@nestjs/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { ConfigModule } from '../../config/config.module';
+import { ConfigModule } from '@/config/config.module';
 import { HealthController } from './health.controller';
 import { HealthService } from './health.service';
 

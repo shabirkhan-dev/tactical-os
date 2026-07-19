@@ -1,7 +1,7 @@
 import { ServiceUnavailableException } from '@nestjs/common';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import type { AppConfigService } from '../../config/app-config.service';
+import type { AppConfigService } from '@/config/app-config.service';
 import { EmailService } from './email.service';
 
 describe('EmailService', () => {

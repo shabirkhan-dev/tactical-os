@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, type Mocked, vi } from 'vitest';
-import { AppConfigService } from '../../config/app-config.service';
-import type { AuthChallengeRecord, UserRecord } from '../../database/schema';
+import { AppConfigService } from '@/config/app-config.service';
+import type { AuthChallengeRecord, UserRecord } from '@/database/schema';
 import { EmailService } from '../email/email.service';
 import { MfaService } from '../mfa/mfa.service';
 import { PasskeysService } from '../passkeys/passkeys.service';

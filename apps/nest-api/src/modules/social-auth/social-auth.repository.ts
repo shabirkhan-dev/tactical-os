@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { and, eq } from 'drizzle-orm';
 
-import { DatabaseService } from '../../database/database.service';
+import { DatabaseService } from '@/database/database.service';
 import {
 	type AuthIdentityProvider,
 	type AuthIdentityRecord,
 	authIdentities,
-} from '../../database/schema';
+} from '@/database/schema';
 
 @Injectable()
 export class SocialAuthRepository {

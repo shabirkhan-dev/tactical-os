@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { OAuth2Client } from 'google-auth-library';
 
-import { AppConfigService } from '../../config/app-config.service';
+import { AppConfigService } from '@/config/app-config.service';
 import { UsersService } from '../users/users.service';
 import { SocialAuthRepository } from './social-auth.repository';
 

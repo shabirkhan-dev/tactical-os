@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import type { CookieOptions, Request, Response } from 'express';
 
-import { AppConfigService } from '../../config/app-config.service';
+import { AppConfigService } from '@/config/app-config.service';
 
 @Injectable()
 export class RefreshCookieService {

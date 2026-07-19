@@ -11,8 +11,8 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { compare, hash } from 'bcryptjs';
 import { jwtVerify, SignJWT } from 'jose';
 
-import { AppConfigService } from '../../config/app-config.service';
-import type { AuthChallengePurpose } from '../../database/schema';
+import { AppConfigService } from '@/config/app-config.service';
+import type { AuthChallengePurpose } from '@/database/schema';
 import type { AccessTokenPayload } from './auth.types';
 
 @Injectable()

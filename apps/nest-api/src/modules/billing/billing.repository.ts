@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { and, desc, eq, isNotNull } from 'drizzle-orm';
 
-import { DatabaseService } from '../../database/database.service';
+import { DatabaseService } from '@/database/database.service';
 import {
 	type NewSubscriptionRecord,
 	type SubscriptionRecord,
 	subscriptions,
-} from '../../database/schema';
+} from '@/database/schema';
 import type {
 	BillingInterval,
 	PaymentProviderName,

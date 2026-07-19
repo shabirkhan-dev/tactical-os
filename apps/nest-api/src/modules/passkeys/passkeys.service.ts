@@ -9,8 +9,8 @@ import {
 	verifyRegistrationResponse,
 } from '@simplewebauthn/server';
 
-import { AppConfigService } from '../../config/app-config.service';
-import type { AuthChallengeRecord } from '../../database/schema';
+import { AppConfigService } from '@/config/app-config.service';
+import type { AuthChallengeRecord } from '@/database/schema';
 import { AuthCryptoService } from '../auth/auth-crypto.service';
 import { UsersService } from '../users/users.service';
 import { PasskeysRepository } from './passkeys.repository';

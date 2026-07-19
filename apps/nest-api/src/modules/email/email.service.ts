@@ -1,6 +1,6 @@
 import { Injectable, Logger, ServiceUnavailableException } from '@nestjs/common';
 
-import { AppConfigService } from '../../config/app-config.service';
+import { AppConfigService } from '@/config/app-config.service';
 import { magicLinkEmail, passwordResetEmail, verificationEmail } from './email.templates';
 
 @Injectable()

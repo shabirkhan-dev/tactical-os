@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { and, eq, isNull } from 'drizzle-orm';
 
-import { DatabaseService } from '../../database/database.service';
-import { totpFactors, totpRecoveryCodes } from '../../database/schema';
+import { DatabaseService } from '@/database/database.service';
+import { totpFactors, totpRecoveryCodes } from '@/database/schema';
 
 @Injectable()
 export class MfaRepository {

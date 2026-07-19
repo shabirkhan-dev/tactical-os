@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { and, desc, eq, isNull } from 'drizzle-orm';
 
-import { DatabaseService } from '../../database/database.service';
+import { DatabaseService } from '@/database/database.service';
 import {
 	authChallenges,
 	type PasskeyRecord,
 	passkeys,
 	webauthnAuthenticationChallenges,
-} from '../../database/schema';
+} from '@/database/schema';
 
 @Injectable()
 export class PasskeysRepository {

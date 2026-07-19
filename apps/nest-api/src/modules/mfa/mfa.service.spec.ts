@@ -1,8 +1,8 @@
 import { generate } from 'otplib';
 import { beforeEach, describe, expect, it, type Mocked, vi } from 'vitest';
 
-import { AppConfigService } from '../../config/app-config.service';
-import type { TotpFactorRecord } from '../../database/schema';
+import { AppConfigService } from '@/config/app-config.service';
+import type { TotpFactorRecord } from '@/database/schema';
 import { AuthCryptoService } from '../auth/auth-crypto.service';
 import { UsersService } from '../users/users.service';
 import { MfaRepository } from './mfa.repository';

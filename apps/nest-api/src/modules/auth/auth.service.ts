@@ -7,13 +7,13 @@ import {
 	UnauthorizedException,
 } from '@nestjs/common';
 
-import { AppConfigService } from '../../config/app-config.service';
+import { AppConfigService } from '@/config/app-config.service';
 import type {
 	AuthChallengePurpose,
 	AuthChallengeRecord,
 	SessionRecord,
 	UserRecord,
-} from '../../database/schema';
+} from '@/database/schema';
 import { EmailService } from '../email/email.service';
 import { MfaService } from '../mfa/mfa.service';
 import { PasskeysService } from '../passkeys/passkeys.service';

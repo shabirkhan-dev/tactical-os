@@ -6,7 +6,7 @@ import {
 	ServiceUnavailableException,
 } from '@nestjs/common';
 
-import { AppConfigService } from '../../config/app-config.service';
+import { AppConfigService } from '@/config/app-config.service';
 import { UsersService } from '../users/users.service';
 import type { CreateCheckoutInput, CreatePortalInput } from './billing.dto';
 import { BillingRepository } from './billing.repository';

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { AppConfigService } from '../../config/app-config.service';
+import { AppConfigService } from '@/config/app-config.service';
 import { AuthCryptoService } from './auth-crypto.service';
 
 describe('AuthCryptoService', () => {

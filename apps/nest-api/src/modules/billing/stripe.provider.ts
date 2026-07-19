@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import Stripe from 'stripe';
 
-import { AppConfigService } from '../../config/app-config.service';
+import { AppConfigService } from '@/config/app-config.service';
 import {
 	type CheckoutInput,
 	type CheckoutResult,

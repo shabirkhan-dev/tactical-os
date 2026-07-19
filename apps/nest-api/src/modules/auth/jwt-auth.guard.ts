@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 
-import type { RequestWithId } from '../../common/types/request-with-id.type';
+import type { RequestWithId } from '@/common/types/request-with-id.type';
 import { AuthService } from './auth.service';
 import type { AccessTokenPayload } from './auth.types';
 

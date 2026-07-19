@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 
-import type { UserRecord } from '../../database/schema';
+import type { UserRecord } from '@/database/schema';
 import { UsersRepository } from './users.repository';
 import { type PublicUser, toPublicUser } from './users.types';
 

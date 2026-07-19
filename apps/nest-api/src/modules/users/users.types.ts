@@ -1,4 +1,4 @@
-import type { UserRecord } from '../../database/schema';
+import type { UserRecord } from '@/database/schema';
 
 export type PublicUser = {
 	id: string;

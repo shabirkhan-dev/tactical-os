@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { and, desc, eq, gt, isNull, ne } from 'drizzle-orm';
 
-import { DatabaseService } from '../../database/database.service';
+import { DatabaseService } from '@/database/database.service';
 import {
 	type AuthChallengePurpose,
 	type AuthChallengeRecord,
@@ -9,7 +9,7 @@ import {
 	type SessionRecord,
 	sessions,
 	users,
-} from '../../database/schema';
+} from '@/database/schema';
 import type { RequestMetadata } from './auth.types';
 
 @Injectable()
