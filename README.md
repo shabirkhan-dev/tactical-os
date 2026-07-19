@@ -1,165 +1,115 @@
 # School OS
 
-Production-ready monorepo school-os built with **Bun + Turborepo**.
+Production-ready school platform monorepo built with **Bun + Turborepo**.
 
-It includes multiple runnable apps (web, mobile, Nest API, docs, Rust), shared packages,
-polyglot scripts, architecture checks, hooks, CI/CD, security workflows, Docker, and a Dev
-Container.
+Apps: Next.js web, Expo mobile, NestJS API, Fumadocs docs, optional Rust demo. Shared UI,
+hooks, CI, Docker Compose, and a slim Dev Container.
 
 ## Quick start
 
 **Prerequisites**
 
-- [Bun](https://bun.sh) `1.3.11`
-- Optional: Docker Compose `v2.20+`, Rust
+- [Bun](https://bun.sh) `1.3.13`
+- Optional: Docker Compose `v2.20+`, Rust toolchain (for `apps/rust`)
 
 ```bash
-git clone <this-repo>
-cd <repo>
+git clone https://github.com/shabirkhan-dev/school-os.git
+cd school-os
 bun install
 bun run prepare
 bun run dev
 ```
 
-## Monorepo at a glance
+| App | URL (dev) |
+| --- | --- |
+| Web | http://localhost:3000 |
+| Nest API | http://localhost:4000 (`/api/v1/health`, `/api/docs`) |
+| Docs | http://localhost:3002/docs |
+
+## Monorepo layout
 
 | Area | Purpose |
 | --- | --- |
-| `apps/` | Runnable products/services: web, mobile, Nest API, docs, Rust |
-| `packages/` | Shared workspace packages used across apps (`@school-os/*`) |
-| `scripts/` | Utility + test scripts in Bash/Python |
-| `docker/` | Docker Compose fragments used by root `docker-compose.yml` |
-| `.github/workflows/` | CI, CD, and security automation |
-| `.devcontainer/` | Reproducible development environment |
+| `apps/web` | Next.js 16 admin + marketing + auth/billing |
+| `apps/mobile` | Expo SDK 57 (auth, billing via hosted checkout) |
+| `apps/nest-api` | NestJS API spine (Drizzle + Postgres/Neon) |
+| `apps/docs` | Fumadocs documentation site |
+| `apps/ai-api` | Optional FastAPI AI assist (Nest proxies; not public) |
+| `apps/rust` | Optional Rust/Axum demo |
+| `packages/*` | Shared `@school-os/ui`, logger, TypeScript configs |
+| `docker/` | Compose fragments (Postgres, Nest, web, optional profiles) |
+| `.github/workflows/` | CI, CD, Security |
+| `.devcontainer/` | Bun + Rust + Python/Bash tooling |
 
-## Apps (each piece)
-
-| App | Stack | What it covers |
-| --- | --- | --- |
-| `apps/web` | Next.js 16, React 19, Tailwind 4 | Main web app + Vitest + Playwright e2e |
-| `apps/mobile` | Expo SDK 57, Expo Router, React Native, NativeWind | Mobile app with file-based routing |
-| `apps/nest-api` | NestJS 11, Zod, Jest | Production API spine (REST, PostgreSQL in later phases) |
-| `apps/docs` | Next.js + Fumadocs + MDX | Documentation site |
-| `apps/rust` | Cargo, clippy, rustfmt | Rust binary app and tests |
-
-## Shared packages
-
-| Package | Purpose |
-| --- | --- |
-| `packages/ui` | Shared web UI primitives (`@school-os/ui`) + design tokens |
-| `packages/logger` | Shared logger for TypeScript and Rust |
-| `packages/typescript-config` | Shared TS config presets (`base`, `nextjs`, `expo`) |
-
-## Root commands (single interface)
-
-Run from repo root with `bun run <task>`:
+## Root commands
 
 | Command | Purpose |
 | --- | --- |
-| `bun run dev` | Start workspace development servers with Turbo |
-| `bun run build` | Build all apps/packages |
-| `bun run start` | Start app `start` scripts through Turbo |
-| `bun run lint` | Lint workspace + script directories |
-| `bun run lint:fix` | Auto-fix lint issues where supported |
-| `bun run format` | Format TS/JS + shell/Python + Rust |
-| `bun run typecheck` | Run TypeScript type checks |
-| `bun run test` | Run workspace tests + script tests |
-| `bun run test:coverage` | Run coverage/multi-language test pass |
-| `bun run test:e2e:web` | Run Playwright e2e for web app |
-| `bun run architecture:check` | Enforce import boundary rules |
+| `bun run dev` | Start workspace dev servers (Turbo) |
+| `bun run build` | Build all apps |
+| `bun run lint` / `lint:fix` | Biome + script linters |
+| `bun run format` | Format TS/JS, shell, Python, Rust |
+| `bun run typecheck` | TypeScript across workspaces |
+| `bun run test` / `test:coverage` | Unit + coverage gates |
+| `bun run test:e2e:web` | Playwright e2e for web |
+| `bun run architecture:check` | Import boundary rules |
 | `bun run preflight` | Lint + typecheck + test |
 
-## Tooling and features
+Target one app: `bun --cwd apps/web run dev` (same pattern for mobile, nest-api, docs, rust).
 
-- **Package manager:** Bun workspaces (`apps/*`, `packages/*`)
-- **Monorepo orchestration:** Turborepo task pipeline
-- **TS/JS lint + format:** Biome (`biome.json`, tabs, line width 100)
-- **Git hooks:** Lefthook (format/lint/typecheck/architecture + file-size + secret scan + commit message checks)
-- **Architecture guardrails:** `scripts/architecture/check-boundaries.sh`
-- **Polyglot quality tooling:**
-  - Bash: ShellCheck + shfmt
-  - Python: Ruff + pytest
-  - Rust: rustfmt + clippy + cargo test
-- **CI/CD + security:** GitHub Actions for CI gates, deploy template, dependency review, CodeQL, Dependabot
-- **Workspace conventions:** shared TS configs, shared Tailwind tokens, shared logger package
+## Tooling
 
-## Running apps directly
-
-You can target one app with `bun --cwd <path> run <script>`, for example:
-
-- `bun --cwd apps/web run dev`
-- `bun --cwd apps/mobile run start`
-- `bun --cwd apps/nest-api run dev`
-- `bun --cwd apps/docs run dev`
-- `bun --cwd apps/rust run dev`
-
-### shadcn/ui (monorepo)
-
-Add components from the **app** directory so the CLI installs primitives into `packages/ui`:
-
-```bash
-cd apps/web
-bunx --bun shadcn@latest add button
-```
-
-Import shared UI as `@school-os/ui/components/...`. See `packages/ui/README.md`.
+- **Bun** workspaces + **Turborepo**
+- **Biome** for TS/JS (tabs, line width 100)
+- **Lefthook** pre-commit / commit-msg (Conventional Commits)
+- Bash: ShellCheck + shfmt · Python: Ruff · Rust: rustfmt + clippy
 
 ## Docker
-
-Postgres + Nest API + Next.js via Compose fragments under `docker/compose/`:
 
 ```bash
 cp env.docker.example .env
 docker compose up -d --build
 ```
 
-- Web: http://localhost:3000 — Nest: http://localhost:4000 — Postgres: localhost:5433
-- Compose fragments live in `docker/compose/` (no obsolete `version:` key)
-- Optional Rust API: `docker compose --profile rust up -d --build`
-- See [apps/docs](apps/docs) (`/docs/docker`) and [docker/README.md](docker/README.md)
+- Web `:3000` · Nest `:4000` · Postgres host `:5433`
+- Optional: `docker compose --profile rust up -d --build` · `--profile ai` for FastAPI
+- Details: `/docs/docker` and [docker/README.md](docker/README.md)
 
-## Deploy (Vercel + Render + Neon)
+## Deploy
 
-- **Web** and **docs** → Vercel (`apps/web/vercel.json`, `apps/docs/vercel.json`)
-- **Nest API** → Render Blueprint (`render.yaml`) with **Neon** `DATABASE_URL`
-- Step-by-step: docs app route `/docs/deploy` (source `apps/docs/content/docs/deploy.mdx`)
+| Piece | Host |
+| --- | --- |
+| Web + docs | [Vercel](https://vercel.com) (`apps/*/vercel.json`) |
+| Nest API | [Render](https://render.com) (`render.yaml`) |
+| Database | [Neon](https://neon.tech) (`DATABASE_URL`) |
 
-## Reproducible development
+Guide: `/docs/deploy` (`apps/docs/content/docs/deploy.mdx`).
 
-- **Dev Container:** `.devcontainer/` includes Bun, Rust, C, Python, Lua toolchain
-- **Agent guidance:** `AGENTS.md` + `.cursor/rules/`
-- **Project standards:** EditorConfig + Biome + Lefthook + architecture checks
+## Dev Container
 
-## Documentation map
+`.devcontainer/` installs **Bun**, **Rust**, **Python/Ruff**, and Bash lint tools. C and Lua are not included.
 
-Human and agent docs live in the **docs app** (`apps/docs`). There is **no root `docs/` folder**.
+```text
+Reopen in Container → bun run prepare → bun run dev
+```
+
+See [.devcontainer/README.md](.devcontainer/README.md).
+
+## Docs
 
 ```bash
 bun --cwd apps/docs run dev
 ```
 
-Source MDX: `apps/docs/content/docs/`. Then open:
-
-- [/docs](http://localhost:3002/docs) — docs home
 - [/docs/quick-start](http://localhost:3002/docs/quick-start)
-- [/docs/production-roadmap](http://localhost:3002/docs/production-roadmap)
-- [/docs/product-system-design](http://localhost:3002/docs/product-system-design)
-- [/docs/architecture](http://localhost:3002/docs/architecture)
-- [/docs/docker](http://localhost:3002/docs/docker)
 - [/docs/deploy](http://localhost:3002/docs/deploy)
-- [/docs/qol](http://localhost:3002/docs/qol)
-- [/docs/ai-first-workflow](http://localhost:3002/docs/ai-first-workflow)
-- [/docs/overrides](http://localhost:3002/docs/overrides)
+- [/docs/docker](http://localhost:3002/docs/docker)
+- [/docs/architecture](http://localhost:3002/docs/architecture)
+- [/docs/production-roadmap](http://localhost:3002/docs/production-roadmap)
 
-Root quick refs:
-
-- [PROJECT.md](PROJECT.md) - project overview and conventions
-- [DESIGN.md](DESIGN.md) - design-system brief for humans and AI agents
-- [CHANGELOG.md](CHANGELOG.md) - notable changes
-- [AGENTS.md](AGENTS.md) - instructions for AI agents
-- [scripts/README.md](scripts/README.md) - script layout and usage
+Also: [PROJECT.md](PROJECT.md), [DESIGN.md](DESIGN.md), [AGENTS.md](AGENTS.md), [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
-Dual-licensed under **MIT** or **Apache-2.0** at your option:
+Dual-licensed under **MIT** or **Apache-2.0**:
 [LICENSE-MIT](LICENSE-MIT), [LICENSE-Apache-2.0](LICENSE-Apache-2.0).

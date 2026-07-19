@@ -46,7 +46,7 @@ school-os/
 ├── scripts/             # Utility scripts: bash/, python/
 ├── docker/              # Docker Compose fragments (see docker/README.md)
 ├── .cursor/rules/       # Cursor-specific rules (also summarised below)
-├── .devcontainer/       # Dev Container config (Bun, Rust, Python, etc.)
+├── .devcontainer/       # Dev Container (Bun, Rust, Python, Bash tooling)
 ├── .github/workflows/   # CI (lint, typecheck, build, test)
 └── (root config)        # biome.json, turbo.json, lefthook.yml, .editorconfig, etc.
 ```
