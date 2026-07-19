@@ -34,10 +34,10 @@
     "prepare": "lefthook install"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.15",
-    "lefthook": "^2.1.6",
+    "@biomejs/biome": "2.4.15",
+    "lefthook": "2.1.6",
     "lightningcss": "1.32.0",
-    "turbo": "^2.9.14"
+    "turbo": "^2.10.5"
   },
   "ignoreScripts": ["sharp", "unrs-resolver"],
   "trustedDependencies": ["sharp", "unrs-resolver"],
@@ -45,12 +45,12 @@
     "lightningcss": "1.32.0",
     "@expo/dom-webview": "57.0.0",
     "@expo/log-box": "57.0.0",
-    "@expo/metro-runtime": "57.0.3",
-    "expo": "57.0.4",
-    "expo-constants": "57.0.3",
-    "expo-font": "57.0.0",
-    "expo-glass-effect": "57.0.0",
-    "expo-linking": "57.0.2",
-    "expo-symbols": "57.0.0"
+    "@expo/metro-runtime": "57.0.6",
+    "expo": "57.0.7",
+    "expo-constants": "57.0.6",
+    "expo-font": "57.0.1",
+    "expo-glass-effect": "57.0.1",
+    "expo-linking": "57.0.3",
+    "expo-symbols": "57.0.1"
   }
 }
