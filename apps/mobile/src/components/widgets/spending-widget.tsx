@@ -4,19 +4,19 @@ import { NeonColors } from "@/constants/design-system";
 
 export function SpendingWidget() {
 	const categories = [
-		{ name: "Groceries", amount: 78.46, color: NeonColors.accent.orange },
-		{ name: "Entertainment", amount: 56.2, color: NeonColors.accent.purple },
-		{ name: "Transportation", amount: 33.58, color: NeonColors.accent.blue },
-		{ name: "Utilities", amount: 24.21, color: NeonColors.accent.green },
+		{ name: "9mm FMJ", amount: 240, color: NeonColors.accent.orange },
+		{ name: "5.56 NATO", amount: 180, color: NeonColors.accent.purple },
+		{ name: "Shotgun", amount: 48, color: NeonColors.accent.blue },
+		{ name: "Dry Fire", amount: 0, color: NeonColors.accent.green },
 	];
 
 	return (
 		<Pressable style={({ pressed }) => [{ opacity: pressed ? 0.9 : 1 }]}>
 			<NeonCard>
-				<Text style={styles.label}>TODAY SPENDING</Text>
+				<Text style={styles.label}>ROUNDS FIRED — TODAY</Text>
 				<View style={styles.amountContainer}>
 					<Text style={styles.amount}>
-						$192<Text style={styles.decimal}>.45</Text>
+						468<Text style={styles.decimal}> rnd</Text>
 					</Text>
 					<Text style={styles.percentage}>78%</Text>
 				</View>
@@ -47,7 +47,7 @@ export function SpendingWidget() {
 								<View style={[styles.dot, { backgroundColor: cat.color }]} />
 								<Text style={styles.categoryName}>{cat.name}</Text>
 							</View>
-							<Text style={styles.categoryAmount}>${cat.amount.toFixed(2)}</Text>
+							<Text style={styles.categoryAmount}>{cat.amount} rnd</Text>
 						</View>
 					))}
 				</View>

@@ -19,16 +19,18 @@ export default function MindfulnessIndex() {
 				>
 					<View style={styles.viewContainer}>
 						<View style={styles.viewHeader}>
-							<Text style={styles.viewTitle}>Mindfulness</Text>
-							<Text style={styles.viewSubtitle}>Tracking mental clarity and emotional state.</Text>
+							<Text style={styles.viewTitle}>Debrief</Text>
+							<Text style={styles.viewSubtitle}>
+								Post-drill notes, lessons learned, and focus review.
+							</Text>
 						</View>
 						<MindfulnessWidget />
 						<View style={styles.logsList}>
 							<LogListItem
 								icon={HeartPulse}
 								iconColor={NeonColors.accent.cyan}
-								title="Morning Meditation"
-								subtitle="Guided breathing exercise"
+								title="Bill Drill review"
+								subtitle="Grip reset and draw consistency notes"
 								value="DONE"
 								delta="07:30 AM"
 								deltaColor={NeonColors.text.secondary}

@@ -17,7 +17,7 @@ describe("api client", () => {
 	});
 
 	it("points at the Nest API by default", () => {
-		expect(getBaseUrl()).toContain("localhost:4000");
+		expect(getBaseUrl()).toMatch(/127\.0\.0\.1:4000|localhost:4000/);
 	});
 
 	it("unwraps the registration challenge", async () => {

@@ -21,7 +21,7 @@ export default function DashboardLayout() {
 			<Tabs.Screen
 				name="index"
 				options={{
-					title: "Home",
+					title: "Command",
 					tabBarIcon: ({ color, focused }) => (
 						<LayoutDashboard color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),
@@ -30,7 +30,7 @@ export default function DashboardLayout() {
 			<Tabs.Screen
 				name="insights"
 				options={{
-					title: "Insights",
+					title: "Analytics",
 					tabBarIcon: ({ color, focused }) => (
 						<Zap color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),

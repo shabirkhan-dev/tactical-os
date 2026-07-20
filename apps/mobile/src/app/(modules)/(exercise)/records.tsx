@@ -30,13 +30,13 @@ export default function RecordsScreen() {
 				>
 					<View style={styles.viewContainer}>
 						<View style={styles.viewHeader}>
-							<Text style={styles.viewTitle}>Records</Text>
-							<Text style={styles.viewSubtitle}>Personal bests and exercise history.</Text>
+							<Text style={styles.viewTitle}>Drill Log</Text>
+							<Text style={styles.viewSubtitle}>Personal bests and qualification history.</Text>
 						</View>
 
 						<View style={styles.logsList}>
 							{records.length === 0 ? (
-								<Text style={styles.emptyText}>No exercise records yet.</Text>
+								<Text style={styles.emptyText}>No drill logs yet.</Text>
 							) : (
 								records.map((item) => (
 									<LogListItem

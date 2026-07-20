@@ -36,8 +36,8 @@ export function RecorderWidget() {
 						<Text style={styles.time}>01:49</Text>
 					</View>
 					<View>
-						<Text style={styles.statusLabel}>NEW AUDIO</Text>
-						<Text style={styles.statusLabel}>RECORDING...</Text>
+						<Text style={styles.statusLabel}>DRILL ACTIVE</Text>
+						<Text style={styles.statusLabel}>PAR TIMER RUNNING</Text>
 					</View>
 				</View>
 

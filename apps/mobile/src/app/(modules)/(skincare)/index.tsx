@@ -19,16 +19,18 @@ export default function SkincareIndex() {
 				>
 					<View style={styles.viewContainer}>
 						<View style={styles.viewHeader}>
-							<Text style={styles.viewTitle}>Skin Health</Text>
-							<Text style={styles.viewSubtitle}>Managing your daily dermatological routine.</Text>
+							<Text style={styles.viewTitle}>Gear</Text>
+							<Text style={styles.viewSubtitle}>
+								Weapon maintenance, zero checks, and kit status.
+							</Text>
 						</View>
 						<SkincareWidget />
 						<View style={styles.logsList}>
 							<LogListItem
 								icon={Sparkles}
 								iconColor={NeonColors.accent.purple}
-								title="Face Wash"
-								subtitle="Completed morning set"
+								title="Glock 19 — cleaned"
+								subtitle="Bore snake and lube complete"
 								value="DONE"
 								delta="08:00 AM"
 								deltaColor={NeonColors.text.secondary}

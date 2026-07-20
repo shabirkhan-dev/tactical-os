@@ -1,113 +1,144 @@
-export type AdmissionStatus = "enrolled" | "pending" | "waitlisted";
-export type AdmissionSource = "portal" | "walk-in" | "referral" | "transfer";
+export type SessionStatus = "qualified" | "review" | "running" | "failed";
 
-export type Admission = {
+export type DrillSession = {
 	id: string;
-	student: string;
+	operator: string;
 	email: string;
+	drillType: string;
+	cohort: string;
+	instructor: string;
+	weapon: string;
+	score: string;
+	date: string;
+	status: SessionStatus;
+	range: string;
+	note: string;
+};
+
+/** @deprecated Use DrillSession — kept for gradual table migration */
+export type AdmissionStatus = SessionStatus;
+export type Admission = DrillSession & {
+	student: string;
 	grade: string;
 	campus: string;
 	guardian: string;
 	guardianRelation: string;
 	guardianPhone: string;
-	date: string;
-	status: AdmissionStatus;
-	source: AdmissionSource;
-	note: string;
+	source: string;
 };
 
-export const admissions: Admission[] = [
+export const drillSessions: DrillSession[] = [
 	{
-		id: "#A-2041",
-		student: "Amara Okafor",
-		email: "amara.okafor@family.mail",
-		grade: "Grade 1",
-		campus: "Northwood",
-		guardian: "Chidi Okafor",
-		guardianRelation: "Father",
-		guardianPhone: "+1 415 882 0141",
-		date: "Jul 14, 2026",
-		status: "enrolled",
-		source: "portal",
-		note: "Immunization packet complete",
+		id: "#D-4412",
+		operator: "ALPHA-1 · Mercer",
+		email: "mercer@alpha.unit",
+		drillType: "CQB qual",
+		cohort: "Alpha",
+		instructor: "Instructor Hale",
+		weapon: "Carbine / red-dot",
+		score: "18/20 · 90%",
+		date: "Jul 20, 2026",
+		status: "qualified",
+		range: "Range B",
+		note: "Split avg 8% faster than last CQB session",
 	},
 	{
-		id: "#A-2042",
-		student: "Liam Bennett",
-		email: "liam.bennett@family.mail",
-		grade: "Grade 4",
-		campus: "Riverside",
-		guardian: "Sarah Bennett",
-		guardianRelation: "Mother",
-		guardianPhone: "+1 628 441 9022",
-		date: "Jul 14, 2026",
-		status: "pending",
-		source: "walk-in",
-		note: "Awaiting prior school transcript",
+		id: "#D-4411",
+		operator: "ALPHA-2 · Rivera",
+		email: "rivera@alpha.unit",
+		drillType: "Marksmanship",
+		cohort: "Alpha",
+		instructor: "Instructor Chen",
+		weapon: "Pistol / irons",
+		score: "16/20 · 80%",
+		date: "Jul 20, 2026",
+		status: "review",
+		range: "Range A",
+		note: "Awaiting instructor sign-off",
 	},
 	{
-		id: "#A-2043",
-		student: "Sofia Reyes",
-		email: "sofia.reyes@family.mail",
-		grade: "Grade 7",
-		campus: "Northwood",
-		guardian: "Miguel Reyes",
-		guardianRelation: "Father",
-		guardianPhone: "+1 510 773 6610",
-		date: "Jul 13, 2026",
-		status: "enrolled",
-		source: "referral",
-		note: "Sibling already enrolled (G5)",
+		id: "#D-4410",
+		operator: "BRAVO-3 · Santos",
+		email: "santos@bravo.unit",
+		drillType: "Physical",
+		cohort: "Bravo",
+		instructor: "Instructor Park",
+		weapon: "—",
+		score: "12:04 course",
+		date: "Jul 19, 2026",
+		status: "qualified",
+		range: "Obstacle course",
+		note: "Logged offline · synced 14:22",
 	},
 	{
-		id: "#A-2044",
-		student: "Noah Kim",
-		email: "noah.kim@family.mail",
-		grade: "Grade 2",
-		campus: "Riverside",
-		guardian: "Grace Kim",
-		guardianRelation: "Mother",
-		guardianPhone: "+1 408 221 4481",
-		date: "Jul 12, 2026",
-		status: "waitlisted",
-		source: "portal",
-		note: "Grade 2 at capacity — offer pending",
+		id: "#D-4409",
+		operator: "ALPHA-4 · Kim",
+		email: "kim@alpha.unit",
+		drillType: "Qualification",
+		cohort: "Alpha",
+		instructor: "Instructor Hale",
+		weapon: "Carbine / LPVO",
+		score: "—",
+		date: "Jul 19, 2026",
+		status: "running",
+		range: "Range B",
+		note: "Timer active on mobile",
 	},
 	{
-		id: "#A-2045",
-		student: "Zara Ahmed",
-		email: "zara.ahmed@family.mail",
-		grade: "Grade 10",
-		campus: "Northwood",
-		guardian: "Imran Ahmed",
-		guardianRelation: "Father",
-		guardianPhone: "+1 650 991 3304",
-		date: "Jul 11, 2026",
-		status: "enrolled",
-		source: "transfer",
-		note: "Credits mapped · counseling scheduled",
+		id: "#D-4408",
+		operator: "BRAVO-1 · Ahmed",
+		email: "ahmed@bravo.unit",
+		drillType: "CQB",
+		cohort: "Bravo",
+		instructor: "Instructor Ortiz",
+		weapon: "SMG / holo",
+		score: "14/20 · 70%",
+		date: "Jul 18, 2026",
+		status: "failed",
+		range: "Kill house 2",
+		note: "Below qual threshold — remedial assigned",
 	},
 	{
-		id: "#A-2046",
-		student: "Elias Novak",
-		email: "elias.novak@family.mail",
-		grade: "Grade 5",
-		campus: "District",
-		guardian: "Petra Novak",
-		guardianRelation: "Mother",
-		guardianPhone: "+1 925 604 1188",
-		date: "Jul 10, 2026",
-		status: "pending",
-		source: "portal",
-		note: "Fee deposit unpaid",
+		id: "#D-4407",
+		operator: "ALPHA-5 · Novak",
+		email: "novak@alpha.unit",
+		drillType: "Custom",
+		cohort: "Alpha",
+		instructor: "Instructor Chen",
+		weapon: "Carbine / magnifier",
+		score: "19/20 · 95%",
+		date: "Jul 18, 2026",
+		status: "qualified",
+		range: "Range A",
+		note: "Optic change logged — accuracy +4%",
 	},
 ];
 
-export function admissionSummary(rows: Admission[]) {
+function toAdmission(row: DrillSession): Admission {
+	return {
+		...row,
+		student: row.operator,
+		grade: row.drillType,
+		campus: row.cohort,
+		guardian: row.instructor,
+		guardianRelation: row.range,
+		guardianPhone: row.weapon,
+		source: row.range,
+	};
+}
+
+export const admissions: Admission[] = drillSessions.map(toAdmission);
+
+export function sessionSummary(rows: DrillSession[]) {
 	return {
 		total: rows.length,
-		pending: rows.filter((r) => r.status === "pending").length,
-		waitlisted: rows.filter((r) => r.status === "waitlisted").length,
-		enrolled: rows.filter((r) => r.status === "enrolled").length,
+		review: rows.filter((r) => r.status === "review").length,
+		running: rows.filter((r) => r.status === "running").length,
+		qualified: rows.filter((r) => r.status === "qualified").length,
+		failed: rows.filter((r) => r.status === "failed").length,
 	};
+}
+
+export function admissionSummary(rows: Admission[]) {
+	return sessionSummary(rows);
 }

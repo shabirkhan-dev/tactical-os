@@ -53,30 +53,30 @@ type NavSection = { heading: string; items: NavItem[] };
 
 const sections: NavSection[] = [
 	{
-		heading: "Main Menu",
+		heading: "Command",
 		items: [
 			{ id: "dashboard", label: "Dashboard", icon: DashboardSquare01Icon, href: "/admin" },
 			{ id: "ai-assist", label: "AI Assist", icon: BubbleChatIcon, href: "/admin/ai" },
-			{ id: "attendance", label: "Attendance", icon: ClipboardIcon },
-			{ id: "timetable", label: "Timetable", icon: Calendar03Icon },
-			{ id: "exams", label: "Exams", icon: File01Icon },
+			{ id: "attendance", label: "Sessions", icon: ClipboardIcon },
+			{ id: "timetable", label: "Schedule", icon: Calendar03Icon },
+			{ id: "exams", label: "Qualifications", icon: File01Icon },
 			{ id: "announcements", label: "Announcements", icon: Megaphone01Icon },
 		],
 	},
 	{
-		heading: "People",
+		heading: "Personnel",
 		items: [
-			{ id: "students", label: "Students", icon: StudentIcon },
-			{ id: "teachers", label: "Teachers", icon: TeacherIcon },
-			{ id: "guardians", label: "Guardians", icon: UserMultiple02Icon },
+			{ id: "students", label: "Operators", icon: StudentIcon },
+			{ id: "teachers", label: "Instructors", icon: TeacherIcon },
+			{ id: "guardians", label: "Units", icon: UserMultiple02Icon },
 		],
 	},
 	{
-		heading: "Management",
+		heading: "Operations",
 		items: [
-			{ id: "admissions", label: "Admissions", icon: UserAdd01Icon },
-			{ id: "fees", label: "Fees & Invoices", icon: Invoice01Icon },
-			{ id: "academics", label: "Academics", icon: Mortarboard01Icon },
+			{ id: "admissions", label: "Drill Log", icon: UserAdd01Icon },
+			{ id: "fees", label: "Ammo & Logistics", icon: Invoice01Icon },
+			{ id: "academics", label: "Academy", icon: Mortarboard01Icon },
 			{ id: "roles", label: "Roles & Permissions", icon: UserSettings01Icon },
 			{ id: "integrations", label: "Integrations", icon: PuzzleIcon },
 		],
@@ -102,12 +102,12 @@ const sections: NavSection[] = [
 	},
 ];
 
-type School = { id: string; name: string; kind: string; mark: string };
+type Cohort = { id: string; name: string; kind: string; mark: string };
 
-const schools: School[] = [
-	{ id: "northwood", name: "Northwood High School", kind: "Grades 9–12", mark: "N" },
-	{ id: "riverside", name: "Riverside Elementary", kind: "Grades K–5", mark: "R" },
-	{ id: "district", name: "District Office", kind: "All campuses", mark: "D" },
+const cohorts: Cohort[] = [
+	{ id: "alpha", name: "Alpha Cohort", kind: "Range A · B", mark: "A" },
+	{ id: "bravo", name: "Bravo Cohort", kind: "Kill house · Obstacle", mark: "B" },
+	{ id: "command", name: "Command HQ", kind: "All ranges", mark: "HQ" },
 ];
 
 type AdminSidebarProps = {
@@ -137,9 +137,9 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 	const router = useRouter();
 	const { user, logout } = useAuth();
 	const [collapsed, setCollapsed] = useState(false);
-	const [schoolId, setSchoolId] = useState(schools[0].id);
+	const [cohortId, setCohortId] = useState(cohorts[0].id);
 
-	const school = schools.find((s) => s.id === schoolId) ?? schools[0];
+	const cohort = cohorts.find((s) => s.id === cohortId) ?? cohorts[0];
 	const isCollapsed = !mobile && collapsed;
 	const width = mobile ? "w-full" : isCollapsed ? "w-[76px]" : "w-[260px]";
 	const activeId = activeNavId(pathname);
@@ -204,16 +204,16 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 									)}
 								>
 									<div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-dashboard-accent-soft text-dashboard-accent">
-										<span className="font-bold text-[15px] leading-none">{school.mark}</span>
+										<span className="font-bold text-[15px] leading-none">{cohort.mark}</span>
 									</div>
 									{!isCollapsed && (
 										<>
 											<div className="min-w-0 flex-1">
 												<div className="text-[11px] text-dashboard-text-dim leading-tight">
-													{school.kind}
+													{cohort.kind}
 												</div>
 												<div className="truncate font-semibold text-[13px] text-dashboard-text-secondary leading-tight">
-													{school.name}
+													{cohort.name}
 												</div>
 											</div>
 											<HugeiconsIcon
@@ -234,16 +234,16 @@ export function AdminSidebar({ className, mobile = false, onNavigate }: AdminSid
 						>
 							<DropdownMenuGroup>
 								<DropdownMenuLabel className="text-[10.5px] text-dashboard-text-dim uppercase">
-									Switch campus
+									Switch cohort
 								</DropdownMenuLabel>
 							</DropdownMenuGroup>
 							<DropdownMenuSeparator className="bg-dashboard-border" />
-							{schools.map((s) => {
-								const selected = s.id === schoolId;
+							{cohorts.map((s) => {
+								const selected = s.id === cohortId;
 								return (
 									<DropdownMenuItem
 										key={s.id}
-										onClick={() => setSchoolId(s.id)}
+										onClick={() => setCohortId(s.id)}
 										className="gap-3 focus:bg-dashboard-hover-strong"
 									>
 										<div className="flex size-8 items-center justify-center rounded-md bg-dashboard-accent-soft font-bold text-[13px] text-dashboard-accent">

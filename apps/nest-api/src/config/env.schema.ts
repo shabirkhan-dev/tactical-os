@@ -41,7 +41,12 @@ export const envSchema = z
 		 * (e.g. Vercel ↔ Render). Requires Secure cookies (production HTTPS).
 		 */
 		COOKIE_SAME_SITE: z.enum(['lax', 'strict', 'none']).default('lax'),
-		CORS_ORIGIN: z.string().min(1).default('http://localhost:3000,http://127.0.0.1:3000'),
+		CORS_ORIGIN: z
+			.string()
+			.min(1)
+			.default(
+				'http://localhost:3000,http://127.0.0.1:3000,http://localhost:3002,http://127.0.0.1:3002,http://localhost:8081,http://localhost:8082',
+			),
 		TRUST_PROXY: booleanFromString,
 		AUTH_DEV_EXPOSE_CODES: z
 			.enum(['true', 'false'])

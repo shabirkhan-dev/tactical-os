@@ -1,6 +1,7 @@
 import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
 import type { Request } from 'express';
 
+import { isAllowedOrigin } from '@/common/security/allowed-origin';
 import { AppConfigService } from '@/config/app-config.service';
 
 const safeMethods = new Set(['GET', 'HEAD', 'OPTIONS']);
@@ -21,7 +22,10 @@ export class CsrfGuard implements CanActivate {
 		}
 
 		const requestedWith = request.headers['x-requested-with'];
-		if (this.config.corsOrigins.includes(origin) && requestedWith === 'XMLHttpRequest') {
+		if (
+			isAllowedOrigin(origin, this.config.corsOrigins, this.config.isProduction) &&
+			requestedWith === 'XMLHttpRequest'
+		) {
 			return true;
 		}
 

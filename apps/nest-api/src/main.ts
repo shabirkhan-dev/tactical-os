@@ -13,7 +13,7 @@ async function bootstrap() {
 
 	setupApp(app, config);
 
-	await app.listen(config.port, '0.0.0.0');
+	await app.listen(config.port);
 }
 
 void bootstrap();

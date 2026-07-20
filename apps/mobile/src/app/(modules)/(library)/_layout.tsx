@@ -21,7 +21,7 @@ export default function LibraryLayout() {
 			<Tabs.Screen
 				name="index"
 				options={{
-					title: "Dashboard",
+					title: "Catalog",
 					tabBarIcon: ({ color, focused }) => (
 						<LibraryIcon color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),
@@ -30,7 +30,7 @@ export default function LibraryLayout() {
 			<Tabs.Screen
 				name="books"
 				options={{
-					title: "Books",
+					title: "SOPs",
 					tabBarIcon: ({ color, focused }) => (
 						<BookMarked color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),

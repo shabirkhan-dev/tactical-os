@@ -21,7 +21,7 @@ export default function ExpensesLayout() {
 			<Tabs.Screen
 				name="index"
 				options={{
-					title: "Capital",
+					title: "Ammo",
 					tabBarIcon: ({ color, focused }) => (
 						<Wallet color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),
@@ -30,7 +30,7 @@ export default function ExpensesLayout() {
 			<Tabs.Screen
 				name="transactions"
 				options={{
-					title: "Logs",
+					title: "Range Log",
 					tabBarIcon: ({ color, focused }) => (
 						<List color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),

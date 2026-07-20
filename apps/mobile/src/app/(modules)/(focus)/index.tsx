@@ -27,9 +27,9 @@ export default function FocusIndex() {
 				>
 					<View style={styles.viewContainer}>
 						<View style={styles.viewHeader}>
-							<Text style={styles.viewTitle}>Focus</Text>
+							<Text style={styles.viewTitle}>Missions</Text>
 							<Text style={styles.viewSubtitle}>
-								Pomodoro, deep work tracking, and task management.
+								Training objectives, qual prep, and scheduled range blocks.
 							</Text>
 						</View>
 						<FocusWidget />

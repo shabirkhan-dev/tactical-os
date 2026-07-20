@@ -21,7 +21,7 @@ export default function SkincareLayout() {
 			<Tabs.Screen
 				name="index"
 				options={{
-					title: "Routine",
+					title: "Maintenance",
 					tabBarIcon: ({ color, focused }) => (
 						<Sparkles color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),
@@ -30,7 +30,7 @@ export default function SkincareLayout() {
 			<Tabs.Screen
 				name="products"
 				options={{
-					title: "Products",
+					title: "Inventory",
 					tabBarIcon: ({ color, focused }) => (
 						<ShoppingBag color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),

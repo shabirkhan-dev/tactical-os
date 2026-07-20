@@ -19,16 +19,16 @@ export default function NutritionIndex() {
 				>
 					<View style={styles.viewContainer}>
 						<View style={styles.viewHeader}>
-							<Text style={styles.viewTitle}>Nutrition</Text>
-							<Text style={styles.viewSubtitle}>Tracking your body's fuel and hydration.</Text>
+							<Text style={styles.viewTitle}>Loadout</Text>
+							<Text style={styles.viewSubtitle}>Range bag, mags, and kit checklist.</Text>
 						</View>
 						<NutritionWidget />
 						<View style={styles.logsList}>
 							<LogListItem
 								icon={CheckCircle2}
 								iconColor={NeonColors.accent.green}
-								title="Daily Protein Goal"
-								subtitle="120g of 150g consumed"
+								title="Pistol mags loaded"
+								subtitle="3 mags • 51 rounds total"
 								value="80%"
 								delta="On track"
 								deltaColor={NeonColors.text.secondary}

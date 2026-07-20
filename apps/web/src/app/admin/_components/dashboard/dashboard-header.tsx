@@ -15,7 +15,7 @@ type Props = {
 
 export function DashboardHeader({ name, className, onExport }: Props) {
 	const { user } = useAuth();
-	const greetingName = name ?? (user ? userFirstName(user.username) : "there");
+	const greetingName = name ?? (user ? userFirstName(user.username) : "Instructor");
 	const today = new Date().toLocaleDateString("en-US", {
 		weekday: "short",
 		month: "short",
@@ -35,23 +35,22 @@ export function DashboardHeader({ name, className, onExport }: Props) {
 			)}
 		>
 			<div className="min-w-0">
-				<div className="mb-1.5 flex items-center gap-2 text-[11px] text-dashboard-text-muted uppercase tracking-[0.08em]">
-					<span className="size-1.5 rounded-full bg-emerald-500" />
-					<span className="sm:hidden">Live · District</span>
-					<span className="hidden sm:inline">Live overview · District</span>
+				<div className="mb-1.5 flex items-center gap-2 font-mono text-[10px] text-dashboard-text-muted uppercase tracking-widest">
+					<span className="size-1.5 rounded-full bg-[var(--ops-live)] atlas-live-dot" />
+					<span>Command · Alpha cohort · Range B</span>
 				</div>
 				<h1 className="font-semibold text-[22px] text-dashboard-text-primary leading-tight tracking-tight sm:text-[24px]">
-					Welcome back, {greetingName}
+					Readiness overview, {greetingName}
 				</h1>
 				<p className="mt-1.5 text-[13px] text-dashboard-text-secondary leading-5 sm:hidden">
-					{today} · Attendance + admissions need a look.
+					{today} · 2 sessions need instructor review.
 				</p>
 				<p className="mt-1.5 hidden max-w-xl text-[13px] text-dashboard-text-secondary leading-5 sm:block">
-					{todayLong} · Northwood, Riverside, and District Office in one pulse. Attendance dips and
-					admission backlog need a look before lunch.
+					{todayLong} · Alpha and Bravo cohorts on the board. CQB qualification in progress —
+					offline queue has 3 sessions pending sync.
 				</p>
-				<p className="mt-1 hidden text-[12px] text-dashboard-text-dim sm:block">
-					Role: Campus admin · Data refreshed continuously from SIS
+				<p className="mt-1 hidden font-mono text-[11px] text-dashboard-text-dim sm:block">
+					Role: Instructor · Last sync 2m ago · mobile field app online
 				</p>
 			</div>
 

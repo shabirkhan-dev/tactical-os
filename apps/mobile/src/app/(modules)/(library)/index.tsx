@@ -27,8 +27,10 @@ export default function LibraryIndex() {
 				>
 					<View style={styles.viewContainer}>
 						<View style={styles.viewHeader}>
-							<Text style={styles.viewTitle}>Library</Text>
-							<Text style={styles.viewSubtitle}>Reading lists, knowledge base, and notes.</Text>
+							<Text style={styles.viewTitle}>Academy</Text>
+							<Text style={styles.viewSubtitle}>
+								SOPs, courseware, and training reference library.
+							</Text>
 						</View>
 						<LibraryWidget />
 					</View>

@@ -11,15 +11,15 @@ export function MindfulnessWidget() {
 					<View style={styles.iconContainer}>
 						<Brain size={20} color={NeonColors.accent.cyan} />
 					</View>
-					<Text style={styles.title}>Mental Clarity</Text>
-					<Text style={styles.subtitle}>Optimum</Text>
+					<Text style={styles.title}>Post-Drill Debrief</Text>
+					<Text style={styles.subtitle}>Clear & focused</Text>
 				</View>
 
 				<View style={styles.statsRow}>
 					<View style={styles.statBox}>
 						<Sun size={20} color={NeonColors.accent.yellow} />
 						<Text style={styles.statValue}>15m</Text>
-						<Text style={styles.statLabel}>Meditation</Text>
+						<Text style={styles.statLabel}>Review</Text>
 					</View>
 
 					<View style={styles.divider} />
@@ -27,7 +27,7 @@ export function MindfulnessWidget() {
 					<View style={styles.statBox}>
 						<Heart size={20} color={NeonColors.accent.red} />
 						<Text style={styles.statValue}>Calm</Text>
-						<Text style={styles.statLabel}>Avg Mood</Text>
+						<Text style={styles.statLabel}>Focus</Text>
 					</View>
 
 					<View style={styles.divider} />

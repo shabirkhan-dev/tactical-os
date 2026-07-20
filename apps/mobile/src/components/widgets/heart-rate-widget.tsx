@@ -22,13 +22,13 @@ export function HeartRateWidget() {
 		<Pressable style={({ pressed }) => [{ opacity: pressed ? 0.9 : 1 }]}>
 			<NeonCard>
 				<View style={styles.header}>
-					<Text style={styles.timeLabel}>TODAY 11:26 PM</Text>
-					<Heart size={24} color={NeonColors.text.primary} strokeWidth={1.5} />
+					<Text style={styles.timeLabel}>LIVE RANGE — TODAY</Text>
+					<Heart size={24} color={NeonColors.accent.red} strokeWidth={1.5} />
 				</View>
 
 				<View style={styles.mainValue}>
 					<Text style={styles.bpm}>
-						72 <Text style={styles.unit}>BPM</Text>
+						92 <Text style={styles.unit}>% ACC</Text>
 					</Text>
 				</View>
 
@@ -36,16 +36,16 @@ export function HeartRateWidget() {
 					<View style={styles.metaItem}>
 						<View style={styles.metaHeader}>
 							<View style={[styles.dot, { backgroundColor: NeonColors.accent.purple }]} />
-							<Text style={styles.metaLabel}>MIN</Text>
+							<Text style={styles.metaLabel}>BEST SPLIT</Text>
 						</View>
-						<Text style={styles.metaValue}>51 BPM</Text>
+						<Text style={styles.metaValue}>1.38s</Text>
 					</View>
 					<View style={styles.metaItem}>
 						<View style={styles.metaHeader}>
 							<View style={[styles.dot, { backgroundColor: NeonColors.accent.orange }]} />
-							<Text style={styles.metaLabel}>PEAK</Text>
+							<Text style={styles.metaLabel}>PAR TIME</Text>
 						</View>
-						<Text style={styles.metaValue}>97 BPM</Text>
+						<Text style={styles.metaValue}>8.12s</Text>
 					</View>
 				</View>
 

@@ -25,8 +25,8 @@ export function AdmissionsToolbar({ className, query, onQueryChange, onAdd }: Pr
 					type="search"
 					value={query}
 					onChange={(e) => onQueryChange(e.target.value)}
-					placeholder="Search admissions..."
-					aria-label="Search admissions"
+					placeholder="Search sessions..."
+					aria-label="Search drill sessions"
 					className="h-full min-w-0 flex-1 bg-transparent text-[12.5px] text-dashboard-text-primary placeholder:text-dashboard-text-muted focus:outline-none sm:w-[240px] sm:flex-none"
 				/>
 			</div>
@@ -35,12 +35,12 @@ export function AdmissionsToolbar({ className, query, onQueryChange, onAdd }: Pr
 				type="button"
 				onClick={onAdd}
 				disabled={!onAdd}
-				title={onAdd ? "Create admission" : "Admissions workflow coming soon"}
+				title={onAdd ? "Log new drill session" : "Session logging workflow coming soon"}
 				className="flex h-9 shrink-0 items-center gap-1.5 rounded-lg bg-dashboard-accent px-3 font-semibold text-[12.5px] text-dashboard-accent-fg transition-all hover:bg-dashboard-accent-hover enabled:active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-55 sm:px-3.5"
 			>
 				<HugeiconsIcon icon={Add01Icon} size={14} strokeWidth={2.4} />
-				<span className="sm:hidden">Add</span>
-				<span className="hidden sm:inline">New admission</span>
+				<span className="sm:hidden">Log</span>
+				<span className="hidden sm:inline">Log session</span>
 			</button>
 		</div>
 	);

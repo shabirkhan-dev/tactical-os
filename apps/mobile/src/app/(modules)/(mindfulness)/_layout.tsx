@@ -21,7 +21,7 @@ export default function MindfulnessLayout() {
 			<Tabs.Screen
 				name="index"
 				options={{
-					title: "Clarity",
+					title: "Review",
 					tabBarIcon: ({ color, focused }) => (
 						<Brain color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),
@@ -30,7 +30,7 @@ export default function MindfulnessLayout() {
 			<Tabs.Screen
 				name="journal"
 				options={{
-					title: "Journal",
+					title: "Notes",
 					tabBarIcon: ({ color, focused }) => (
 						<BookOpen color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),

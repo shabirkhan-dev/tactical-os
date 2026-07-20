@@ -21,7 +21,7 @@ export default function ExerciseLayout() {
 			<Tabs.Screen
 				name="index"
 				options={{
-					title: "Performance",
+					title: "Drills",
 					tabBarIcon: ({ color, focused }) => (
 						<Dumbbell color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),
@@ -30,7 +30,7 @@ export default function ExerciseLayout() {
 			<Tabs.Screen
 				name="records"
 				options={{
-					title: "Records",
+					title: "Log",
 					tabBarIcon: ({ color, focused }) => (
 						<Activity color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),

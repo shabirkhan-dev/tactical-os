@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { appDescription, appName } from "@/lib/shared";
 import "./global.css";
@@ -9,7 +9,18 @@ export const metadata: Metadata = {
 		template: `%s | ${appName}`,
 	},
 	description: appDescription,
-	keywords: ["tactical-os", "operator-training", "military", "drills", "readiness", "mission-planning", "inventory", "special-forces", "nextjs", "expo"],
+	keywords: [
+		"tactical-os",
+		"operator-training",
+		"military",
+		"drills",
+		"readiness",
+		"mission-planning",
+		"inventory",
+		"special-forces",
+		"nextjs",
+		"expo",
+	],
 	openGraph: {
 		title: appName,
 		description: appDescription,

@@ -62,6 +62,13 @@ function getErrorMessage(
 	statusCode: number,
 ): string {
 	if (statusCode === HttpStatus.INTERNAL_SERVER_ERROR && !(exception instanceof HttpException)) {
+		if (process.env.NODE_ENV !== 'production') {
+			const detail = exception instanceof Error ? exception.message : String(exception);
+			if (exception instanceof Error && exception.stack) {
+				console.error('[http]', exception.stack);
+			}
+			return detail || 'Internal server error';
+		}
 		return 'Internal server error';
 	}
 

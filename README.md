@@ -1,4 +1,4 @@
-﻿# Tactical OS
+# Tactical OS
 
 [![CI](https://github.com/shabirkhan-dev/tactical-os/actions/workflows/ci.yml/badge.svg)](https://github.com/shabirkhan-dev/tactical-os/actions/workflows/ci.yml)
 [![Security](https://github.com/shabirkhan-dev/tactical-os/actions/workflows/security.yml/badge.svg)](https://github.com/shabirkhan-dev/tactical-os/actions/workflows/security.yml)

@@ -14,7 +14,7 @@ export function WaterWidget() {
 				<View style={styles.header}>
 					<View>
 						<Text style={styles.amount}>
-							1.9 <Text style={styles.unit}>L today</Text>
+							12 <Text style={styles.unit}>drills this week</Text>
 						</Text>
 					</View>
 					<View style={styles.circularProgress}>
@@ -46,8 +46,8 @@ export function WaterWidget() {
 				</View>
 
 				<View style={styles.goalRow}>
-					<Text style={styles.goalLabel}>GOAL</Text>
-					<Text style={styles.goalValue}>2.5L</Text>
+					<Text style={styles.goalLabel}>WEEKLY GOAL</Text>
+					<Text style={styles.goalValue}>16 sessions</Text>
 				</View>
 				<View style={styles.separator} />
 
@@ -71,7 +71,7 @@ export function WaterWidget() {
 				</View>
 
 				<View style={styles.footer}>
-					<Text style={styles.footerText}>💧 1.7 L/DAY AVERAGE</Text>
+					<Text style={styles.footerText}>◎ 1.7 SESSIONS / DAY AVG</Text>
 				</View>
 			</NeonCard>
 		</Pressable>

@@ -67,7 +67,7 @@ export default function ProductsScreen() {
 				onClose={() => setModalVisible(false)}
 				onSave={handleSave}
 				color={NeonColors.accent.purple}
-				titleLabel="Add Skincare Product"
+				titleLabel="Add Gear Item"
 			/>
 		</View>
 	);

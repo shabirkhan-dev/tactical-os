@@ -14,16 +14,52 @@ import { NeonColors } from "@/constants/design-system";
 import { resolveMediaUrl } from "@/lib/media-url";
 import { useAuth } from "@/modules/auth";
 
-export type OSModule =
-	| "Dashboard"
-	| "Profile"
-	| "Skincare"
-	| "Exercise"
-	| "Expenses"
-	| "Nutrition"
-	| "Mindfulness"
-	| "Focus"
-	| "Library";
+export type OSModuleKey =
+	| "dashboard"
+	| "profile"
+	| "focus"
+	| "library"
+	| "gear"
+	| "drills"
+	| "logistics"
+	| "loadout"
+	| "debrief";
+
+const MODULE_LABELS: Record<OSModuleKey, string> = {
+	dashboard: "Ops Console",
+	profile: "Operator",
+	focus: "Missions",
+	library: "Academy",
+	gear: "Gear",
+	drills: "Drills",
+	logistics: "Logistics",
+	loadout: "Loadout",
+	debrief: "Debrief",
+};
+
+const MODULES: { key: OSModuleKey; route: Href }[] = [
+	{ key: "dashboard", route: "/(modules)/(dashboard)" },
+	{ key: "drills", route: "/(modules)/(exercise)" },
+	{ key: "library", route: "/(modules)/(library)" },
+	{ key: "focus", route: "/(modules)/(focus)" },
+	{ key: "gear", route: "/(modules)/(skincare)" },
+	{ key: "loadout", route: "/(modules)/(nutrition)" },
+	{ key: "debrief", route: "/(modules)/(mindfulness)" },
+	{ key: "logistics", route: "/(modules)/(expenses)" },
+	{ key: "profile", route: "/(modules)/(profile)" as Href },
+];
+
+function resolveModuleKey(segments: string[]): OSModuleKey {
+	if (segments.includes("(profile)")) return "profile";
+	if (segments.includes("(skincare)")) return "gear";
+	if (segments.includes("(exercise)")) return "drills";
+	if (segments.includes("(expenses)")) return "logistics";
+	if (segments.includes("(nutrition)")) return "loadout";
+	if (segments.includes("(mindfulness)")) return "debrief";
+	if (segments.includes("(focus)")) return "focus";
+	if (segments.includes("(library)")) return "library";
+	return "dashboard";
+}
 
 export function OSHeader() {
 	const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
@@ -40,29 +76,8 @@ export function OSHeader() {
 		router.replace("/(modules)/(profile)" as Href);
 	};
 
-	const currentModule: OSModule = React.useMemo(() => {
-		if (segments.includes("(profile)")) return "Profile";
-		if (segments.includes("(skincare)")) return "Skincare";
-		if (segments.includes("(exercise)")) return "Exercise";
-		if (segments.includes("(expenses)")) return "Expenses";
-		if (segments.includes("(nutrition)")) return "Nutrition";
-		if (segments.includes("(mindfulness)")) return "Mindfulness";
-		if (segments.includes("(focus)")) return "Focus";
-		if (segments.includes("(library)")) return "Library";
-		return "Dashboard";
-	}, [segments]);
-
-	const modules: { label: OSModule; route: Href }[] = [
-		{ label: "Dashboard", route: "/(modules)/(dashboard)" },
-		{ label: "Profile", route: "/(modules)/(profile)" as Href },
-		{ label: "Focus", route: "/(modules)/(focus)" },
-		{ label: "Library", route: "/(modules)/(library)" },
-		{ label: "Skincare", route: "/(modules)/(skincare)" },
-		{ label: "Exercise", route: "/(modules)/(exercise)" },
-		{ label: "Expenses", route: "/(modules)/(expenses)" },
-		{ label: "Nutrition", route: "/(modules)/(nutrition)" },
-		{ label: "Mindfulness", route: "/(modules)/(mindfulness)" },
-	];
+	const currentModuleKey = React.useMemo(() => resolveModuleKey(segments), [segments]);
+	const currentModuleLabel = MODULE_LABELS[currentModuleKey];
 
 	const handleSelect = (route: Href) => {
 		router.replace(route);
@@ -79,7 +94,7 @@ export function OSHeader() {
 
 				<View style={styles.dropdownContainer}>
 					<Pressable style={styles.accountSelector} onPress={() => setIsDropdownOpen(true)}>
-						<Text style={styles.accountName}>{currentModule}</Text>
+						<Text style={styles.accountName}>{currentModuleLabel}</Text>
 						<ChevronDown size={16} color={NeonColors.text.secondary} />
 					</Pressable>
 
@@ -92,21 +107,21 @@ export function OSHeader() {
 						<TouchableWithoutFeedback onPress={() => setIsDropdownOpen(false)}>
 							<View style={styles.modalOverlay}>
 								<View style={styles.dropdownMenu}>
-									{modules.map((mod) => (
+									{MODULES.map((mod) => (
 										<Pressable
-											key={mod.label}
+											key={mod.key}
 											style={styles.dropdownItem}
 											onPress={() => handleSelect(mod.route)}
 										>
 											<Text
 												style={[
 													styles.dropdownItemText,
-													currentModule === mod.label && styles.activeDropdownItemText,
+													currentModuleKey === mod.key && styles.activeDropdownItemText,
 												]}
 											>
-												{mod.label}
+												{MODULE_LABELS[mod.key]}
 											</Text>
-											{currentModule === mod.label && (
+											{currentModuleKey === mod.key && (
 												<Check size={16} color={NeonColors.accent.green} strokeWidth={3} />
 											)}
 										</Pressable>
@@ -179,7 +194,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 6,
 		borderRadius: 20,
 		borderWidth: 1,
-		borderColor: "rgba(255, 255, 255, 0.05)",
+		borderColor: "rgba(196, 214, 140, 0.08)",
 	},
 	accountName: {
 		color: NeonColors.text.primary,
@@ -195,12 +210,12 @@ const styles = StyleSheet.create({
 		paddingLeft: 64,
 	},
 	dropdownMenu: {
-		width: 180,
+		width: 200,
 		backgroundColor: NeonColors.surface,
 		borderRadius: 16,
 		padding: 8,
 		borderWidth: 1,
-		borderColor: "rgba(255, 255, 255, 0.1)",
+		borderColor: "rgba(196, 214, 140, 0.12)",
 		shadowColor: "#000",
 		shadowOffset: { width: 0, height: 10 },
 		shadowOpacity: 0.5,
@@ -242,7 +257,7 @@ const styles = StyleSheet.create({
 		width: 8,
 		height: 8,
 		borderRadius: 4,
-		backgroundColor: NeonColors.accent.green,
+		backgroundColor: NeonColors.accent.amber,
 		borderWidth: 1.5,
 		borderColor: NeonColors.background,
 	},

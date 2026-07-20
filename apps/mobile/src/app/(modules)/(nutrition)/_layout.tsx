@@ -21,7 +21,7 @@ export default function NutritionLayout() {
 			<Tabs.Screen
 				name="index"
 				options={{
-					title: "Diet",
+					title: "Kit",
 					tabBarIcon: ({ color, focused }) => (
 						<PieChart color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),
@@ -30,7 +30,7 @@ export default function NutritionLayout() {
 			<Tabs.Screen
 				name="meals"
 				options={{
-					title: "Meals",
+					title: "Checklist",
 					tabBarIcon: ({ color, focused }) => (
 						<Utensils color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),

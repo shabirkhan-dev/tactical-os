@@ -1,204 +1,408 @@
-/*
- * Tactical OS landing — console-first ops theme.
- * Dark command-surface default; flat panels, status semantics, grid texture.
- */
-
-[data-landing] {
-	--font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system,
-		"Segoe UI", sans-serif;
-	--font-serif: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-	--font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", Consolas,
-		monospace;
-	--font-geist-mono: var(--font-mono);
-
-	/* Ops status semantics */
-	--ops-live: #8fa85c;
-	--ops-ok: #6b9e78;
-	--ops-amber: #c17f24;
-	--ops-muted: #6b6b5e;
-
-	/* Light fallback */
-	--background: #f2f1ec;
-	--foreground: #141612;
-	--card: #fafaf8;
-	--card-foreground: #141612;
-	--popover: #fafaf8;
-	--popover-foreground: #141612;
-	--primary: #4a5730;
-	--primary-foreground: #fafaf8;
-	--secondary: #e8e6de;
-	--secondary-foreground: #1a1a14;
-	--muted: #e8e6de;
-	--muted-foreground: #5c5c52;
-	--accent: #c17f24;
-	--accent-foreground: #141612;
-	--destructive: #b33a32;
-	--border: rgba(20, 22, 18, 0.14);
-	--input: rgba(20, 22, 18, 0.12);
-	--ring: #4a5730;
-
-	--atlas-blue: #4a5730;
-	--atlas-blue-deep: #3a4528;
-	--atlas-teal: #3d6b5c;
-	--atlas-sky: #6b7c4a;
-	--atlas-amber: #c17f24;
-
-	font-family: var(--font-sans);
-	background-color: var(--background);
-	color: var(--foreground);
-	color-scheme: light;
-	-webkit-font-smoothing: antialiased;
-	text-rendering: optimizeLegibility;
-}
-
-[data-landing] .font-serif {
-	font-family: var(--font-sans);
-}
-
-[data-landing] .font-mono {
-	font-family: var(--font-mono);
-}
-
-.dark [data-landing],
-[data-landing].dark {
-	--background: #0e0f0c;
-	--foreground: #e8e6de;
-	--card: #161814;
-	--card-foreground: #e8e6de;
-	--popover: #161814;
-	--popover-foreground: #e8e6de;
-	--primary: #8fa85c;
-	--primary-foreground: #0e0f0c;
-	--secondary: #1e201a;
-	--secondary-foreground: #e8e6de;
-	--muted: #1e201a;
-	--muted-foreground: #8a8a7e;
-	--accent: #d4922a;
-	--accent-foreground: #0e0f0c;
-	--destructive: #e05a52;
-	--border: rgba(232, 230, 222, 0.1);
-	--input: rgba(232, 230, 222, 0.12);
-	--ring: #8fa85c;
-	color-scheme: dark;
-}
-
-html.dark:has([data-landing]) {
-	--background: #0e0f0c;
-	--foreground: #e8e6de;
-	--card: #161814;
-	--card-foreground: #e8e6de;
-	--popover: #161814;
-	--popover-foreground: #e8e6de;
-	--secondary: #1e201a;
-	--secondary-foreground: #e8e6de;
-	--muted: #1e201a;
-	--muted-foreground: #8a8a7e;
-	--border: rgba(232, 230, 222, 0.1);
-	--input: rgba(232, 230, 222, 0.12);
-	background-color: #0e0f0c;
-	color-scheme: dark;
-}
-
-html.dark:has([data-landing]) body {
-	background-color: #0e0f0c;
-}
-
-html:has([data-landing]):not(.dark) {
-	--background: #f2f1ec;
-	--foreground: #141612;
-	background-color: #f2f1ec;
-}
-
-html:has([data-landing]):not(.dark) body {
-	background-color: #f2f1ec;
-}
-
-/* Console grid texture */
-[data-landing] .ops-surface {
-	position: relative;
-	background-color: var(--background);
-	background-image:
-		linear-gradient(rgba(143, 168, 92, 0.03) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(143, 168, 92, 0.03) 1px, transparent 1px);
-	background-size: 24px 24px;
-}
-
-.dark [data-landing] .ops-surface {
-	background-image:
-		linear-gradient(rgba(143, 168, 92, 0.04) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(143, 168, 92, 0.04) 1px, transparent 1px);
-}
-
-[data-landing] .ops-panel {
-	border: 1px solid var(--border);
-	background: var(--card);
-}
-
-[data-landing] .ops-console {
-	border: 1px solid var(--border);
-	background: var(--card);
-	box-shadow: 0 1px 0 rgba(143, 168, 92, 0.08);
-}
-
-[data-landing] ::selection {
-	background: color-mix(in srgb, var(--ops-live) 35%, transparent);
-	color: var(--foreground);
-}
-
-[data-landing] .atlas-marquee-mask {
-	-webkit-mask-image: linear-gradient(
-		to right,
-		transparent,
-		#000 6%,
-		#000 94%,
-		transparent
-	);
-	mask-image: linear-gradient(
-		to right,
-		transparent,
-		#000 6%,
-		#000 94%,
-		transparent
-	);
-}
-
-@keyframes atlas-marquee {
-	from {
-		transform: translateX(0);
-	}
-	to {
-		transform: translateX(calc(-100% - var(--atlas-gap, 2rem)));
-	}
-}
-
-[data-landing] .atlas-marquee-track {
-	animation: atlas-marquee var(--atlas-duration, 40s) linear infinite;
-	animation-direction: var(--atlas-direction, normal);
-}
-
-[data-landing] .atlas-marquee-group:hover .atlas-marquee-track {
-	animation-play-state: paused;
-}
-
-@keyframes atlas-pulse-dot {
-	0%,
-	100% {
-		opacity: 1;
-	}
-	50% {
-		opacity: 0.35;
-	}
-}
-
-[data-landing] .atlas-live-dot {
-	animation: atlas-pulse-dot 2.2s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	[data-landing] .atlas-marquee-track {
-		animation-duration: 0s;
-	}
-	[data-landing] .atlas-live-dot {
-		animation: none;
-	}
-}
+/*
+
+ * Tactical OS landing — console-first ops theme.
+
+ * Dark command-surface default; flat panels, status semantics, grid texture.
+
+ */
+
+
+
+[data-landing] {
+
+	--font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system,
+
+		"Segoe UI", sans-serif;
+
+	--font-serif: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+	--font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", Consolas,
+
+		monospace;
+
+	--font-geist-mono: var(--font-mono);
+
+
+
+	/* Ops status semantics */
+
+	--ops-live: #8fa85c;
+
+	--ops-ok: #6b9e78;
+
+	--ops-amber: #c17f24;
+
+	--ops-muted: #6b6b5e;
+
+
+
+	/* Light fallback */
+
+	--background: #f2f1ec;
+
+	--foreground: #141612;
+
+	--card: #fafaf8;
+
+	--card-foreground: #141612;
+
+	--popover: #fafaf8;
+
+	--popover-foreground: #141612;
+
+	--primary: #4a5730;
+
+	--primary-foreground: #fafaf8;
+
+	--secondary: #e8e6de;
+
+	--secondary-foreground: #1a1a14;
+
+	--muted: #e8e6de;
+
+	--muted-foreground: #5c5c52;
+
+	--accent: #c17f24;
+
+	--accent-foreground: #141612;
+
+	--destructive: #b33a32;
+
+	--border: rgba(20, 22, 18, 0.14);
+
+	--input: rgba(20, 22, 18, 0.12);
+
+	--ring: #4a5730;
+
+
+
+	--atlas-blue: #4a5730;
+
+	--atlas-blue-deep: #3a4528;
+
+	--atlas-teal: #3d6b5c;
+
+	--atlas-sky: #6b7c4a;
+
+	--atlas-amber: #c17f24;
+
+
+
+	font-family: var(--font-sans);
+
+	background-color: var(--background);
+
+	color: var(--foreground);
+
+	color-scheme: light;
+
+	-webkit-font-smoothing: antialiased;
+
+	text-rendering: optimizeLegibility;
+
+}
+
+
+
+[data-landing] .font-serif {
+
+	font-family: var(--font-sans);
+
+}
+
+
+
+[data-landing] .font-mono {
+
+	font-family: var(--font-mono);
+
+}
+
+
+
+.dark [data-landing],
+
+[data-landing].dark {
+
+	--background: #0e0f0c;
+
+	--foreground: #e8e6de;
+
+	--card: #161814;
+
+	--card-foreground: #e8e6de;
+
+	--popover: #161814;
+
+	--popover-foreground: #e8e6de;
+
+	--primary: #8fa85c;
+
+	--primary-foreground: #0e0f0c;
+
+	--secondary: #1e201a;
+
+	--secondary-foreground: #e8e6de;
+
+	--muted: #1e201a;
+
+	--muted-foreground: #8a8a7e;
+
+	--accent: #d4922a;
+
+	--accent-foreground: #0e0f0c;
+
+	--destructive: #e05a52;
+
+	--border: rgba(232, 230, 222, 0.1);
+
+	--input: rgba(232, 230, 222, 0.12);
+
+	--ring: #8fa85c;
+
+	color-scheme: dark;
+
+}
+
+
+
+html.dark:has([data-landing]) {
+
+	--background: #0e0f0c;
+
+	--foreground: #e8e6de;
+
+	--card: #161814;
+
+	--card-foreground: #e8e6de;
+
+	--popover: #161814;
+
+	--popover-foreground: #e8e6de;
+
+	--secondary: #1e201a;
+
+	--secondary-foreground: #e8e6de;
+
+	--muted: #1e201a;
+
+	--muted-foreground: #8a8a7e;
+
+	--border: rgba(232, 230, 222, 0.1);
+
+	--input: rgba(232, 230, 222, 0.12);
+
+	background-color: #0e0f0c;
+
+	color-scheme: dark;
+
+}
+
+
+
+html.dark:has([data-landing]) body {
+
+	background-color: #0e0f0c;
+
+}
+
+
+
+html:has([data-landing]):not(.dark) {
+
+	--background: #f2f1ec;
+
+	--foreground: #141612;
+
+	background-color: #f2f1ec;
+
+}
+
+
+
+html:has([data-landing]):not(.dark) body {
+
+	background-color: #f2f1ec;
+
+}
+
+
+
+/* Console grid texture */
+
+[data-landing] .ops-surface {
+
+	position: relative;
+
+	background-color: var(--background);
+
+	background-image:
+
+		linear-gradient(rgba(143, 168, 92, 0.03) 1px, transparent 1px),
+
+		linear-gradient(90deg, rgba(143, 168, 92, 0.03) 1px, transparent 1px);
+
+	background-size: 24px 24px;
+
+}
+
+
+
+.dark [data-landing] .ops-surface {
+
+	background-image:
+
+		linear-gradient(rgba(143, 168, 92, 0.04) 1px, transparent 1px),
+
+		linear-gradient(90deg, rgba(143, 168, 92, 0.04) 1px, transparent 1px);
+
+}
+
+
+
+[data-landing] .ops-panel {
+
+	border: 1px solid var(--border);
+
+	background: var(--card);
+
+}
+
+
+
+[data-landing] .ops-console {
+
+	border: 1px solid var(--border);
+
+	background: var(--card);
+
+	box-shadow: 0 1px 0 rgba(143, 168, 92, 0.08);
+
+}
+
+
+
+[data-landing] ::selection {
+
+	background: color-mix(in srgb, var(--ops-live) 35%, transparent);
+
+	color: var(--foreground);
+
+}
+
+
+
+[data-landing] .atlas-marquee-mask {
+
+	-webkit-mask-image: linear-gradient(
+
+		to right,
+
+		transparent,
+
+		#000 6%,
+
+		#000 94%,
+
+		transparent
+
+	);
+
+	mask-image: linear-gradient(
+
+		to right,
+
+		transparent,
+
+		#000 6%,
+
+		#000 94%,
+
+		transparent
+
+	);
+
+}
+
+
+
+@keyframes atlas-marquee {
+
+	from {
+
+		transform: translateX(0);
+
+	}
+
+	to {
+
+		transform: translateX(calc(-100% - var(--atlas-gap, 2rem)));
+
+	}
+
+}
+
+
+
+[data-landing] .atlas-marquee-track {
+
+	animation: atlas-marquee var(--atlas-duration, 40s) linear infinite;
+
+	animation-direction: var(--atlas-direction, normal);
+
+}
+
+
+
+[data-landing] .atlas-marquee-group:hover .atlas-marquee-track {
+
+	animation-play-state: paused;
+
+}
+
+
+
+@keyframes atlas-pulse-dot {
+
+	0%,
+
+	100% {
+
+		opacity: 1;
+
+	}
+
+	50% {
+
+		opacity: 0.35;
+
+	}
+
+}
+
+
+
+[data-landing] .atlas-live-dot {
+
+	animation: atlas-pulse-dot 2.2s ease-in-out infinite;
+
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+
+	[data-landing] .atlas-marquee-track {
+
+		animation-duration: 0s;
+
+	}
+
+	[data-landing] .atlas-live-dot {
+
+		animation: none;
+
+	}
+
+}
+

@@ -1,4 +1,4 @@
-import { CheckCircle2, Coffee, Droplet, Mic, TrendingUp, Zap } from "lucide-react-native";
+import { CheckCircle2, Clock, Crosshair, Target, Timer, TrendingUp } from "lucide-react-native";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FloatingActionButton } from "@/components/ui/floating-action-button";
@@ -23,9 +23,8 @@ export default function DashboardIndex() {
 					showsVerticalScrollIndicator={false}
 					contentContainerStyle={styles.scrollContent}
 				>
-					{/* Status Section */}
 					<View style={styles.statusSection}>
-						<Text style={styles.statusLabel}>SYSTEM READINESS</Text>
+						<Text style={styles.statusLabel}>OPERATOR READINESS</Text>
 						<View style={styles.scoreRow}>
 							<Text style={styles.score}>
 								94.2<Text style={styles.scorePercent}>%</Text>
@@ -37,17 +36,15 @@ export default function DashboardIndex() {
 						</View>
 					</View>
 
-					{/* Quick Actions */}
 					<View style={styles.quickActionsRow}>
-						<QuickAction icon={Zap} label="Workout" />
-						<QuickAction icon={Droplet} label="Log Water" />
-						<QuickAction icon={Mic} label="Record" />
-						<QuickAction icon={Coffee} label="Mood" />
+						<QuickAction icon={Timer} label="Start Drill" />
+						<QuickAction icon={Crosshair} label="Log Score" />
+						<QuickAction icon={Clock} label="Par Timer" />
+						<QuickAction icon={Target} label="Weapons" />
 					</View>
 
-					{/* Vital Signs Carousel */}
 					<View style={styles.sectionHeader}>
-						<Text style={styles.sectionTitle}>VITAL SIGNS</Text>
+						<Text style={styles.sectionTitle}>LIVE METRICS</Text>
 					</View>
 
 					<ScrollView
@@ -77,20 +74,28 @@ export default function DashboardIndex() {
 						</View>
 					</ScrollView>
 
-					{/* Recent Activity */}
 					<View style={styles.sectionHeader}>
-						<Text style={styles.sectionTitle}>RECENT ACTIVITY</Text>
+						<Text style={styles.sectionTitle}>RECENT DRILLS</Text>
 					</View>
 
 					<View style={styles.logsList}>
 						<LogListItem
 							icon={CheckCircle2}
 							iconColor={NeonColors.accent.green}
-							title="Design System"
-							subtitle="Architecture finalized"
-							value="DONE"
-							delta="Just now"
+							title="Bill Drill — Stage 3"
+							subtitle="Draw to first shot • 1.42s"
+							value="A-Zone"
+							delta="2 min ago"
 							deltaColor={NeonColors.text.secondary}
+						/>
+						<LogListItem
+							icon={Target}
+							iconColor={NeonColors.accent.amber}
+							title="El Presidente"
+							subtitle="6 targets • 8.12s par"
+							value="PASS"
+							delta="Today 09:14"
+							deltaColor={NeonColors.accent.green}
 						/>
 					</View>
 				</ScrollView>
@@ -141,7 +146,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 		gap: 4,
-		backgroundColor: "rgba(0, 230, 118, 0.15)",
+		backgroundColor: "rgba(163, 196, 74, 0.15)",
 		paddingHorizontal: 8,
 		paddingVertical: 4,
 		borderRadius: 12,
@@ -182,5 +187,6 @@ const styles = StyleSheet.create({
 	logsList: {
 		paddingHorizontal: 16,
 		marginTop: 12,
+		gap: 8,
 	},
 });

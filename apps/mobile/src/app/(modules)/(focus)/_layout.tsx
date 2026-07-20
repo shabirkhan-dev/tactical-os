@@ -21,7 +21,7 @@ export default function FocusLayout() {
 			<Tabs.Screen
 				name="index"
 				options={{
-					title: "Dashboard",
+					title: "Board",
 					tabBarIcon: ({ color, focused }) => (
 						<Target color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),
@@ -30,7 +30,7 @@ export default function FocusLayout() {
 			<Tabs.Screen
 				name="tasks"
 				options={{
-					title: "Tasks",
+					title: "Objectives",
 					tabBarIcon: ({ color, focused }) => (
 						<ListTodo color={color} size={22} strokeWidth={focused ? 2.5 : 1.5} />
 					),

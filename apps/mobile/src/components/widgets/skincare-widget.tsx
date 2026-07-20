@@ -5,22 +5,32 @@ import { NeonColors } from "@/constants/design-system";
 
 export function SkincareWidget() {
 	const routine = [
-		{ name: "Cleanser", time: "08:00 AM", status: "Done", color: NeonColors.accent.blue },
-		{ name: "Moisturizer", time: "08:15 AM", status: "Done", color: NeonColors.accent.green },
-		{ name: "Sunscreen", time: "09:00 AM", status: "Pending", color: NeonColors.accent.orange },
+		{ name: "Bore clean", time: "Post-range", status: "Done", color: NeonColors.accent.blue },
+		{
+			name: "Lube & function check",
+			time: "Weekly",
+			status: "Done",
+			color: NeonColors.accent.green,
+		},
+		{
+			name: "Optic zero verify",
+			time: "Due today",
+			status: "Pending",
+			color: NeonColors.accent.orange,
+		},
 	];
 
 	return (
 		<Pressable style={({ pressed }) => [{ opacity: pressed ? 0.9 : 1 }]}>
 			<NeonCard>
 				<View style={styles.header}>
-					<Text style={styles.label}>DAILY ROUTINE</Text>
+					<Text style={styles.label}>GEAR MAINTENANCE</Text>
 					<Sparkles size={18} color={NeonColors.accent.purple} />
 				</View>
 
 				<View style={styles.statusRow}>
 					<Text style={styles.mainValue}>
-						Morning <Text style={styles.unit}>Set</Text>
+						Primary <Text style={styles.unit}>Loadout</Text>
 					</Text>
 					<View style={styles.dateBadge}>
 						<Calendar size={12} color={NeonColors.text.secondary} />

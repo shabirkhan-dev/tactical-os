@@ -12,24 +12,18 @@ const DOT_SIZE = 5;
 const DASHED_BG =
 	"repeating-linear-gradient(to right, var(--dashboard-chart-leader) 0 2px, transparent 2px 6px)";
 
-type Grade = { grade: number; students: number };
+type DrillType = { label: string; short: string; sessions: number };
 
-const GRADES: Grade[] = [
-	{ grade: 1, students: 266 },
-	{ grade: 2, students: 258 },
-	{ grade: 3, students: 272 },
-	{ grade: 4, students: 252 },
-	{ grade: 5, students: 240 },
-	{ grade: 6, students: 234 },
-	{ grade: 7, students: 250 },
-	{ grade: 8, students: 244 },
-	{ grade: 9, students: 224 },
-	{ grade: 10, students: 212 },
-	{ grade: 11, students: 200 },
-	{ grade: 12, students: 195 },
+const DRILL_TYPES: DrillType[] = [
+	{ label: "CQB", short: "CQB", sessions: 412 },
+	{ label: "Marksmanship", short: "MRK", sessions: 386 },
+	{ label: "Physical", short: "PHY", sessions: 298 },
+	{ label: "Qualification", short: "QLF", sessions: 264 },
+	{ label: "Custom", short: "CST", sessions: 198 },
+	{ label: "Dry fire", short: "DRY", sessions: 284 },
 ];
 
-const MAX = Math.max(...GRADES.map((g) => g.students));
+const MAX = Math.max(...DRILL_TYPES.map((d) => d.sessions));
 const GRID_LEVELS = [0, 0.2, 0.4, 0.6, 0.8, 1];
 
 type Props = {
@@ -42,7 +36,6 @@ export function GradeChart({ className }: Props) {
 	return (
 		<div className={cn("flex w-full flex-col", className)}>
 			<div className="relative w-full" style={{ height: CHART_H }}>
-				{/* horizontal grid lines: left dot + dotted leader only */}
 				{GRID_LEVELS.map((g) => (
 					<div
 						key={g}
@@ -65,23 +58,22 @@ export function GradeChart({ className }: Props) {
 					</div>
 				))}
 
-				{/* bars with grade labels */}
 				<div
 					className="absolute inset-0 flex items-stretch justify-between px-3"
 					style={{ paddingTop: PAD_TOP }}
 				>
-					{GRADES.map((g) => (
-						<div key={g.grade} className="flex flex-col items-center justify-end">
+					{DRILL_TYPES.map((d) => (
+						<div key={d.label} className="flex flex-col items-center justify-end">
 							<span
 								className="rounded-full bg-dashboard-accent transition-colors hover:bg-dashboard-accent-hover"
 								style={{
 									width: BAR_W,
-									height: inner * (0.4 + 0.6 * (g.students / MAX)),
+									height: inner * (0.4 + 0.6 * (d.sessions / MAX)),
 								}}
-								title={`Grade ${g.grade}: ${g.students} students`}
+								title={`${d.label}: ${d.sessions} sessions`}
 							/>
 							<span className="mt-2 font-medium text-[10px] text-dashboard-text-dim">
-								G{g.grade}
+								{d.short}
 							</span>
 						</div>
 					))}

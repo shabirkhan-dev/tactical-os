@@ -184,8 +184,7 @@ export function BillingScreen() {
 							<Text style={styles.eyebrow}>ACCOUNT</Text>
 							<Text style={styles.viewTitle}>Billing</Text>
 							<Text style={styles.viewSubtitle}>
-								Upgrade when you need team seats or managed support. Starter stays free to clone and
-								run.
+								Upgrade when you need squad seats, instructor dashboards, or managed support.
 							</Text>
 						</View>
 
@@ -351,7 +350,7 @@ function SubscriptionBanner({
 		return (
 			<NeonCard style={styles.sectionCard}>
 				<Text style={styles.sectionTitle}>Current plan</Text>
-				<Text style={styles.sectionHint}>Starter (free). Upgrade below when you need seats.</Text>
+				<Text style={styles.sectionHint}>Operator (free). Upgrade below for academy teams.</Text>
 			</NeonCard>
 		);
 	}

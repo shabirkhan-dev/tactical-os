@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "tactical-os",
   "description": "Operator training and readiness platform — mission planning, drills, response metrics, firing speed, and gear inventory for ops personnel.",
   "keywords": ["tactical-os", "operator-training", "military", "drills", "readiness", "mission-planning", "inventory", "special-forces", "nextjs", "expo"],
@@ -8,13 +8,15 @@
   "version": "0.1.0",
   "private": true,
   "license": "MIT OR Apache-2.0",
-  "packageManager": "bun@1.3.13",
+  "packageManager": "bun@1.4.0",
   "workspaces": ["apps/*", "packages/*"],
   "scripts": {
-    "dev": "turbo run dev --continue --filter=!rust --concurrency=12",
+    "dev": "turbo run dev --continue --filter=web --filter=docs --filter=nest-api --filter=mobile --filter=ai-api --concurrency=12",
+    "dev:core": "turbo run dev --continue --filter=web --filter=docs --filter=nest-api --filter=ai-api --concurrency=8",
+    "dev:mobile": "bun --cwd apps/mobile run dev",
     "dev:rust": "bun --cwd apps/rust run dev",
     "dev:ai": "bun --cwd apps/ai-api run dev",
-    "dev:all": "turbo run dev --continue --concurrency=12",
+    "dev:all": "turbo run dev --continue --filter=web --filter=docs --filter=nest-api --filter=mobile --filter=ai-api --filter=rust --concurrency=12",
     "build": "turbo run build",
     "start": "turbo run start",
     "preflight": "bun run lint && bun run typecheck && bun run test",
@@ -60,5 +62,3 @@
     "expo-symbols": "57.0.1"
   }
 }
-
-

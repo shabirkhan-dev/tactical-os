@@ -1,4 +1,4 @@
-import { BarChart3, TrendingUp, Zap } from "lucide-react-native";
+import { BarChart3, Crosshair, Timer } from "lucide-react-native";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LogListItem } from "@/components/ui/log-list-item";
@@ -17,36 +17,38 @@ export default function InsightsScreen() {
 				>
 					<View style={styles.viewContainer}>
 						<View style={styles.viewHeader}>
-							<Text style={styles.viewTitle}>Insights</Text>
-							<Text style={styles.viewSubtitle}>AI-powered analysis of your daily patterns.</Text>
+							<Text style={styles.viewTitle}>Analytics</Text>
+							<Text style={styles.viewSubtitle}>
+								Performance trends across drills, splits, and qualification scores.
+							</Text>
 						</View>
 
 						<View style={styles.logsList}>
 							<LogListItem
-								icon={TrendingUp}
+								icon={BarChart3}
 								iconColor={NeonColors.accent.green}
-								title="Weekly Trend"
-								subtitle="Consistency up 12% this week"
+								title="Weekly Volume"
+								subtitle="Drill sessions logged this week"
 								value="+12%"
 								delta="vs last week"
 								deltaColor={NeonColors.text.secondary}
 							/>
 							<LogListItem
-								icon={Zap}
-								iconColor={NeonColors.accent.orange}
-								title="Peak Energy"
-								subtitle="Best performance window detected"
-								value="10 AM"
-								delta="Optimal"
+								icon={Timer}
+								iconColor={NeonColors.accent.amber}
+								title="Best Split"
+								subtitle="Draw to first shot — Bill Drill"
+								value="1.38s"
+								delta="PR"
 								deltaColor={NeonColors.accent.green}
 							/>
 							<LogListItem
-								icon={BarChart3}
+								icon={Crosshair}
 								iconColor={NeonColors.accent.blue}
-								title="Sleep Quality"
-								subtitle="REM cycles improving steadily"
-								value="87%"
-								delta="+3%"
+								title="Hit Factor"
+								subtitle="Accuracy under time pressure"
+								value="92%"
+								delta="+4%"
 								deltaColor={NeonColors.accent.green}
 							/>
 						</View>
@@ -87,5 +89,6 @@ const styles = StyleSheet.create({
 	},
 	logsList: {
 		marginTop: 12,
+		gap: 8,
 	},
 });

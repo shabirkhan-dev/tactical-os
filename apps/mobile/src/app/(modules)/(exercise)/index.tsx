@@ -17,9 +17,9 @@ export default function ExerciseIndex() {
 				>
 					<View style={styles.viewContainer}>
 						<View style={styles.viewHeader}>
-							<Text style={styles.viewTitle}>Performance</Text>
+							<Text style={styles.viewTitle}>Drill Performance</Text>
 							<Text style={styles.viewSubtitle}>
-								Tracking biometric data and physical activity.
+								Split times, hit factor, and accuracy under par pressure.
 							</Text>
 						</View>
 						<HeartRateWidget />

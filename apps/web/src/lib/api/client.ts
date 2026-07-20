@@ -24,7 +24,7 @@ export class ApiError extends Error {
 	}
 }
 
-const apiOrigin = resolveApiOrigin(process.env.NEXT_PUBLIC_NEST_API_URL ?? "http://localhost:4000");
+const apiOrigin = resolveApiOrigin(process.env.NEXT_PUBLIC_NEST_API_URL ?? "http://127.0.0.1:4000");
 const apiPrefix = "/api/v1";
 
 export type ApiRequestOptions = RequestInit & { accessToken?: string };

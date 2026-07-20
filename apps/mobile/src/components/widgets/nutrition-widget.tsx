@@ -11,8 +11,8 @@ export function NutritionWidget() {
 					<View style={styles.iconContainer}>
 						<Flame size={20} color={NeonColors.accent.yellow} />
 					</View>
-					<Text style={styles.title}>Daily Macros</Text>
-					<Text style={styles.subtitle}>1,450 / 2,200 kcal</Text>
+					<Text style={styles.title}>Loadout Status</Text>
+					<Text style={styles.subtitle}>3 mags loaded • range bag packed</Text>
 				</View>
 
 				<View style={styles.progressContainer}>
@@ -25,17 +25,17 @@ export function NutritionWidget() {
 					<View style={styles.macroItem}>
 						<Beef size={18} color={NeonColors.accent.red} />
 						<Text style={styles.macroValue}>120g</Text>
-						<Text style={styles.macroLabel}>Protein</Text>
+						<Text style={styles.macroLabel}>Pistol</Text>
 					</View>
 					<View style={styles.macroItem}>
 						<Wheat size={18} color={NeonColors.accent.orange} />
 						<Text style={styles.macroValue}>160g</Text>
-						<Text style={styles.macroLabel}>Carbs</Text>
+						<Text style={styles.macroLabel}>Rifle</Text>
 					</View>
 					<View style={styles.macroItem}>
 						<Apple size={18} color={NeonColors.accent.green} />
 						<Text style={styles.macroValue}>45g</Text>
-						<Text style={styles.macroLabel}>Fats</Text>
+						<Text style={styles.macroLabel}>Support</Text>
 					</View>
 				</View>
 			</NeonCard>

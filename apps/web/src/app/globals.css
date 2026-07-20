@@ -73,12 +73,16 @@
 	--dashboard-chart-line: #404040;
 	--dashboard-chart-leader: rgba(115, 115, 115, 0.5);
 	/* Teal — school-ops accent; avoids generic indigo/purple SaaS default */
-	--dashboard-accent: #0f766e;
-	--dashboard-accent-hover: #0d9488;
-	--dashboard-accent-fg: #ffffff;
-	--dashboard-accent-soft: color-mix(in oklab, #0f766e 12%, transparent);
+	--dashboard-accent: #5c6b3a;
+	--dashboard-accent-hover: #4a5730;
+	--dashboard-accent-fg: #fafaf8;
+	--dashboard-accent-soft: color-mix(in oklab, #5c6b3a 14%, transparent);
 	--dashboard-shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.8),
 		0 1px 2px rgba(23, 23, 23, 0.04), 0 12px 32px -20px rgba(23, 23, 23, 0.12);
+
+	--ops-live: #5c6b3a;
+	--ops-ok: #4a7c59;
+	--ops-amber: #c17f24;
 }
 
 .dark {
@@ -114,15 +118,15 @@
 	--sidebar-border: rgba(255, 255, 255, 0.08);
 	--sidebar-ring: #b5b5b5;
 
-	--dashboard-bg: #101010;
-	--dashboard-sidebar-bg: #101010;
-	--dashboard-topbar-bg: #141414;
-	--dashboard-card-outer: #141414;
-	--dashboard-card-inner: #101010;
-	--dashboard-surface: #141414;
-	--dashboard-surface-elevated: #1c1c1c;
-	--dashboard-surface-hover: #1c1c1c;
-	--dashboard-surface-strong: #212121;
+	--dashboard-bg: #0e0f0c;
+	--dashboard-sidebar-bg: #0e0f0c;
+	--dashboard-topbar-bg: #121410;
+	--dashboard-card-outer: #161814;
+	--dashboard-card-inner: #0e0f0c;
+	--dashboard-surface: #161814;
+	--dashboard-surface-elevated: #1c1e18;
+	--dashboard-surface-hover: #1e201a;
+	--dashboard-surface-strong: #242820;
 	--dashboard-border: rgba(255, 255, 255, 0.08);
 	--dashboard-border-subtle: rgba(255, 255, 255, 0.06);
 	--dashboard-border-strong: rgba(255, 255, 255, 0.12);
@@ -140,12 +144,16 @@
 	--dashboard-tooltip-bg: rgba(20, 20, 20, 0.98);
 	--dashboard-chart-line: #eeeeee;
 	--dashboard-chart-leader: rgba(181, 181, 181, 0.5);
-	--dashboard-accent: #2dd4bf;
-	--dashboard-accent-hover: #5eead4;
-	--dashboard-accent-fg: #042f2e;
-	--dashboard-accent-soft: color-mix(in oklab, #2dd4bf 16%, transparent);
-	--dashboard-shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.04),
+	--dashboard-accent: #8fa85c;
+	--dashboard-accent-hover: #a3bc6e;
+	--dashboard-accent-fg: #0e0f0c;
+	--dashboard-accent-soft: color-mix(in oklab, #8fa85c 18%, transparent);
+	--dashboard-shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.03),
 		0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -16px rgba(0, 0, 0, 0.55);
+
+	--ops-live: #8fa85c;
+	--ops-ok: #6b9e78;
+	--ops-amber: #d4922a;
 }
 
 @theme inline {
@@ -186,6 +194,14 @@
 		font-family: var(--font-sans);
 		letter-spacing: 0;
 	}
+}
+
+.admin-ops-surface {
+	background-color: var(--dashboard-bg);
+	background-image:
+		linear-gradient(rgba(143, 168, 92, 0.035) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(143, 168, 92, 0.035) 1px, transparent 1px);
+	background-size: 24px 24px;
 }
 
 /* View Transition theme reveal (beui theme-toggle). */
