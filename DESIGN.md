@@ -1,25 +1,29 @@
 # Design System Brief
 
-This file is the source of truth for AI agents and humans when creating UI in this Starter.
+This file is the source of truth for AI agents and humans when creating UI in **Tactical OS**.
 Keep it updated before generating new screens with Codex, Claude Code, Cursor, v0, Open Design,
 Figma MCP, Onlook, Scamp, or similar tools.
 
 ## Product Intent
 
-This Starter should produce production-grade application interfaces, not generic demo pages.
-Generated UI must feel domain-specific, accessible, responsive, and built from reusable components.
+**Tactical OS** operator surfaces should feel like a serious training and readiness console —
+mission plans, drill boards, performance metrics, and inventory checks. Not generic SaaS
+marketing pages inside the product shell, and not HR or cyber-ops UI.
+
+Generated UI must be domain-specific for operational personnel: dense where planners need
+scanability, thumb-friendly where field operators log drills and gear on mobile.
 
 ## Audience
 
-- Developers starting new products from this monorepo.
-- Designers or product builders using AI tools to explore screens.
-- AI coding agents implementing UI from product briefs, Figma frames, or design-system prompts.
+- Operations and SF-style personnel tracking drills, response times, and readiness
+- Planners and trainers running mission prep and qualification programs
+- AI coding agents implementing Tactical OS modules from product briefs
 
 ## Visual Principles
 
 - Prefer clear hierarchy over decoration.
-- Prefer operational density for dashboards, admin panels, and internal tools.
-- Prefer calm, readable surfaces for documentation and product workflows.
+- Prefer operational density for command views, drill timelines, score tables, and inventory panels.
+- Prefer calm, readable surfaces for mission briefs and after-action review.
 - Avoid generic SaaS hero sections inside actual applications.
 - Avoid decorative blobs, glassmorphism, nested cards, and one-note purple/blue gradients.
 - Use real state design: loading, empty, error, disabled, hover, focus-visible, selected, saving,

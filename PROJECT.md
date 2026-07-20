@@ -1,11 +1,11 @@
-# Starter - Project overview
+# Tactical OS — Project overview
 
-This document is the deeper technical reference for the Starter monorepo.
-For quick setup/use, start with `README.md`.
+This document is the deeper technical reference for the Tactical OS monorepo.
+For product vision see `plan.md`. For quick setup, start with `README.md`.
 
 ## What this repository includes
 
-Monorepo school-os managed by **Bun + Turborepo**, with:
+Monorepo **Tactical OS** managed by **Bun + Turborepo**, with:
 
 - Multiple app templates (web, mobile, API, docs, Rust)
 - Shared workspace packages (`@school-os/*`)
@@ -17,7 +17,7 @@ Monorepo school-os managed by **Bun + Turborepo**, with:
 ## Repository layout
 
 ```text
-school-os/
+tactical-os/
 ├── apps/                     # Runnable applications
 │   ├── web/                  # Next.js app
 │   ├── mobile/               # Expo Router + NativeWind app

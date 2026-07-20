@@ -13,8 +13,30 @@ import type { IconSvgElement } from "@hugeicons/react";
 
 export const SITE = {
 	name: "Tactical OS",
-	title: "Tactical OS â€” Bun + Turborepo monorepo",
-	description: "Tactical OS — Bun + Turborepo monorepo: Next.js, Expo, NestJS, shared UI, CI, Docker, and Dev Container.",
+	title: "Tactical OS — operator training and readiness",
+	description:
+		"Tactical OS — operator training and readiness: plans, drills, performance, and inventory.",
+} as const;
+
+export const LANDING_COPY = {
+	heroBadge: "Built for operators",
+	heroTitlePrimary: "Train, plan, and track readiness",
+	heroTitleSecondary: "for real-world operations",
+	heroSubtitle:
+		"Operation planning, drill tracking, response metrics, firing-speed exercises, and gear inventory — for ops and SF-style personnel.",
+	workflowCardTitle: "Training drill",
+	workflowCardSub: "tactical-os",
+	chatCardTitle: "Ops board",
+	chatCardSub: "Tactical OS · active",
+	productHeading: "From mission plan to drill score — operator training in one system.",
+	productBody:
+		"Tactical OS is an operator training program and tracker: plan operations, log drills, measure response and firing speed, and manage inventory — web command view and mobile field use.",
+	whyLabel: "Why Tactical OS",
+	whyHeading: "Built for personnel who train like the mission depends on it.",
+	whySub: "Not HR software — operational readiness, drills, performance metrics, and gear accountability.",
+	aboutTitle: "About Tactical OS",
+	aboutLead:
+		"Tactical OS helps real operators and SF-style personnel plan ops, run drills, track performance, and manage inventory — readiness you can measure.",
 } as const;
 
 export type NavLink = {
@@ -135,19 +157,19 @@ export type ChatMessage = {
 export const AGENT_MESSAGES: ChatMessage[] = [
 	{
 		role: "user",
-		text: "Can we scaffold a school product with web + mobile + API?",
+		text: "Log today's CQB drill and compare response times to last week.",
 	},
 	{
 		role: "agent",
-		text: "Starter already ships all three â€” plus docs and a Rust binary.",
+		text: "Drill logged — split times are 8% faster than your last CQB session.",
 	},
 	{
 		role: "agent",
-		text: "Shared @school-os/ui and typescript-config keep stacks consistent.",
+		text: "Firing-speed scores and gear checks are tied to the same mission timeline.",
 	},
 	{
 		role: "agent",
-		text: "Run bun install && bun run dev â€” Turbo starts the workspace.",
+		text: "Ops board updated — readiness metrics are ready for review.",
 	},
 ];
 
@@ -168,9 +190,11 @@ export const CUSTOMER_LOGOS: CustomerLogo[] = [
 ];
 
 export const PRODUCT_BULLETS: string[] = [
-	"Five apps in one workspace â€” web, mobile, Nest, docs, Rust",
-	"Shared UI tokens and TypeScript configs via @school-os/*",
-	"Hooks, CI, architecture boundaries, and Compose out of the box",
+	"Mission planning and operation timelines in one command view",
+	"CQB and tactical drill programs with session logging",
+	"Response time and firing-speed metrics tracked over time",
+	"Gear and inventory accountability before every op",
+	"Web ops board plus mobile field use",
 ];
 
 export type IncidentEvent = {

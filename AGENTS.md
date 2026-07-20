@@ -1,12 +1,13 @@
-# Agent instructions (Starter)
+# Agent instructions (Tactical OS)
 
 Universal instructions for AI agents (Cursor, Copilot, Claude Code, Windsurf, Cline, Aider, etc.).
 Read this file first when working in this repo.
 
 ## Project overview
 
-Monorepo Starter managed with **Turborepo + Bun**. Apps, shared packages, and
-multi-language scripts, all wired into a single lint/format/build/test surface.
+Monorepo **Tactical OS** — an operator training program and tracker for real ops and SF-style
+personnel (mission planning, drills, response metrics, firing speed, inventory) — managed with
+**Turborepo + Bun**. See `plan.md` for product vision.
 
 ## Documentation
 
@@ -30,7 +31,7 @@ Before any Next.js work, find and read the relevant doc in `node_modules/next/di
 ## Repository layout
 
 ```
-school-os/
+tactical-os/
 ├── apps/
 │   ├── web/             # Next.js (React, Tailwind, shadcn-style UI)
 │   ├── mobile/          # Expo Router + NativeWind app (TypeScript)
@@ -156,7 +157,7 @@ only, then `bun run dev`. See `/docs/docker` and `docker/README.md`.
 - `DESIGN.md` — design-system brief for UI generation and review.
 - **Docs app** (`apps/docs`, run with `bun --cwd apps/docs run dev`):
   - `/docs/production-roadmap` — production build phases and Nest API spine
-  - `/docs/ai-first-workflow` — school-os audit and AI-first workflow roadmap
+  - `/docs/ai-first-workflow` — tactical-os audit and AI-first workflow roadmap
   - `/docs/qol` — full QoL stack (hooks, CI, per-language tools)
   - `/docs/architecture` — architecture baseline and enforceable boundaries
   - `/docs/overrides` — policy for project-specific architecture overrides

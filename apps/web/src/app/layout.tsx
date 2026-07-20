@@ -16,7 +16,8 @@ export const metadata: Metadata = {
 		default: "Tactical OS",
 		template: "%s | Tactical OS",
 	},
-	description: "Tactical OS — Bun + Turborepo monorepo: Next.js, Expo, NestJS, shared UI, CI, Docker, and Dev Container.",
+	description:
+		"Tactical OS — operator training and readiness: plans, drills, performance, and inventory.",
 	keywords: ["tactical-os", "tactical", "operations", "bun", "turborepo", "monorepo", "nextjs", "nestjs", "expo", "typescript", "fullstack", "docker"],
 	applicationName: "Tactical OS",
 	creator: "Tactical OS",
@@ -25,12 +26,14 @@ export const metadata: Metadata = {
 		locale: "en_US",
 		siteName: "Tactical OS",
 		title: "Tactical OS",
-		description: "Tactical OS — Bun + Turborepo monorepo: Next.js, Expo, NestJS, shared UI, CI, Docker, and Dev Container.",
+		description:
+			"Tactical OS — operator training and readiness: plans, drills, performance, and inventory.",
 	},
 	twitter: {
 		card: "summary_large_image",
 		title: "Tactical OS",
-		description: "Tactical OS — Bun + Turborepo monorepo: Next.js, Expo, NestJS, shared UI, CI, Docker, and Dev Container.",
+		description:
+			"Tactical OS — operator training and readiness: plans, drills, performance, and inventory.",
 	},
 	robots: { index: true, follow: true },
 };

@@ -22,7 +22,7 @@ import {
 	useTransform,
 } from "motion/react";
 import { useEffect, useRef } from "react";
-import { WHY_CARDS, type WhyCard } from "../data/landing.data";
+import { LANDING_COPY, WHY_CARDS, type WhyCard } from "../data/landing.data";
 import { ATLAS_EASE, springSnappy, springSoft } from "../lib/motion";
 import { cn } from "../lib/utils";
 import { FadeIn } from "./fade-in";
@@ -48,19 +48,18 @@ export function WhySection() {
 					<div className="max-w-xl">
 						<FadeIn>
 							<span className="inline-flex items-center rounded-full border border-border/70 bg-muted/50 px-3 py-1 font-medium text-foreground/85 text-xs">
-								Why Starter
+								{LANDING_COPY.whyLabel}
 							</span>
 						</FadeIn>
 						<FadeIn delay={0.06}>
 							<h2 className="mt-5 text-balance font-serif text-3xl text-foreground leading-[1.12] sm:text-4xl lg:text-[2.75rem]">
-								Built for teams who ship school products.
+								{LANDING_COPY.whyHeading}
 							</h2>
 						</FadeIn>
 					</div>
 					<FadeIn delay={0.1} className="max-w-sm lg:pb-1">
 						<p className="text-pretty text-muted-foreground text-sm leading-7 sm:text-base">
-							Every detail is tuned for monorepo speed — from the first bun install to a workspace
-							your whole team (and AI agents) can navigate.
+							{LANDING_COPY.whySub}
 						</p>
 					</FadeIn>
 				</div>

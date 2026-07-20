@@ -1,5 +1,6 @@
 ﻿export const appName = "Tactical OS Docs";
-export const appDescription = "Tactical OS — Bun + Turborepo monorepo: Next.js, Expo, NestJS, shared UI, CI, Docker, and Dev Container.";
+export const appDescription =
+	"Tactical OS — operator training and readiness: plans, drills, performance, and inventory.";
 export const docsRoute = "/docs";
 export const docsImageRoute = "/og/docs";
 export const docsContentRoute = "/llms.mdx/docs";
