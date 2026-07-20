@@ -15,6 +15,7 @@ import { Spinner } from "@school-os/ui/components/spinner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as api from "@/lib/api-client";
+import { readDevCodeFromSearchParams } from "@/modules/auth/lib/dev-auth-code";
 
 export function ResetPasswordForm() {
 	const router = useRouter();
@@ -28,8 +29,8 @@ export function ResetPasswordForm() {
 	const [submitting, setSubmitting] = useState(false);
 
 	useEffect(() => {
-		setDevelopmentCode(sessionStorage.getItem("starter-auth-development-code"));
-	}, []);
+		setDevelopmentCode(readDevCodeFromSearchParams(searchParams));
+	}, [searchParams]);
 
 	async function handleSubmit(event: React.FormEvent) {
 		event.preventDefault();
@@ -41,7 +42,6 @@ export function ResetPasswordForm() {
 		setSubmitting(true);
 		try {
 			await api.resetPassword({ email, code, newPassword: password });
-			sessionStorage.removeItem("starter-auth-development-code");
 			router.push("/login?reset=true");
 		} catch (caught) {
 			setError(caught instanceof Error ? caught.message : "Password reset failed");

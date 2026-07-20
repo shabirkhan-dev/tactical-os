@@ -2,15 +2,15 @@ import { Link, router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text } from "react-native";
 import { NeonColors } from "@/constants/design-system";
+import { devCodeRouteParams, readDevCodeParam } from "@/modules/auth/lib/dev-auth-code";
 import { authService } from "@/modules/auth/services/auth.service";
-import { tokenStorage } from "@/modules/auth/services/token-storage";
 import { AuthAlert } from "./auth-alert";
 import { AuthButton } from "./auth-button";
 import { AuthField } from "./auth-field";
 import { AuthScreen } from "./auth-screen";
 
 export function VerifyEmailForm() {
-	const params = useLocalSearchParams<{ email?: string }>();
+	const params = useLocalSearchParams<{ email?: string; devCode?: string }>();
 	const [email, setEmail] = useState(typeof params.email === "string" ? params.email : "");
 	const [code, setCode] = useState("");
 	const [developmentCode, setDevelopmentCode] = useState<string | null>(null);
@@ -19,15 +19,14 @@ export function VerifyEmailForm() {
 	const [resending, setResending] = useState(false);
 
 	useEffect(() => {
-		void tokenStorage.getDevelopmentCode().then(setDevelopmentCode);
-	}, []);
+		setDevelopmentCode(readDevCodeParam(params.devCode));
+	}, [params.devCode]);
 
 	async function handleSubmit() {
 		setError(null);
 		setSubmitting(true);
 		try {
 			await authService.verifyEmail({ email, code });
-			await tokenStorage.setDevelopmentCode(null);
 			router.replace({ pathname: "/login", params: { verified: "true" } });
 		} catch (caught) {
 			setError(caught instanceof Error ? caught.message : "Verification failed");
@@ -43,7 +42,10 @@ export function VerifyEmailForm() {
 			const result = await authService.resendVerification(email);
 			if (result.developmentCode) {
 				setDevelopmentCode(result.developmentCode);
-				await tokenStorage.setDevelopmentCode(result.developmentCode);
+				router.replace({
+					pathname: "/verify-email",
+					params: { email, ...devCodeRouteParams(result.developmentCode) },
+				});
 			}
 		} catch (caught) {
 			setError(caught instanceof Error ? caught.message : "Could not resend code");

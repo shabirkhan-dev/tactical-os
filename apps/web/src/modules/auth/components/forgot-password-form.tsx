@@ -16,6 +16,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import * as api from "@/lib/api-client";
+import { buildAuthRedirectUrl } from "@/modules/auth/lib/dev-auth-code";
 
 export function ForgotPasswordForm() {
 	const router = useRouter();
@@ -29,10 +30,7 @@ export function ForgotPasswordForm() {
 		setSubmitting(true);
 		try {
 			const result = await api.forgotPassword(email);
-			if (result.developmentCode) {
-				sessionStorage.setItem("starter-auth-development-code", result.developmentCode);
-			}
-			router.push(`/reset-password?email=${encodeURIComponent(email)}`);
+			router.push(buildAuthRedirectUrl("/reset-password", email, result.developmentCode));
 		} catch (caught) {
 			setError(caught instanceof Error ? caught.message : "Request failed");
 		} finally {

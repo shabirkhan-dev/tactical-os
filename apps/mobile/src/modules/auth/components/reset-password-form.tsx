@@ -1,14 +1,14 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
+import { readDevCodeParam } from "@/modules/auth/lib/dev-auth-code";
 import { authService } from "@/modules/auth/services/auth.service";
-import { tokenStorage } from "@/modules/auth/services/token-storage";
 import { AuthAlert } from "./auth-alert";
 import { AuthButton } from "./auth-button";
 import { AuthField } from "./auth-field";
 import { AuthScreen } from "./auth-screen";
 
 export function ResetPasswordForm() {
-	const params = useLocalSearchParams<{ email?: string }>();
+	const params = useLocalSearchParams<{ email?: string; devCode?: string }>();
 	const [email, setEmail] = useState(typeof params.email === "string" ? params.email : "");
 	const [code, setCode] = useState("");
 	const [password, setPassword] = useState("");
@@ -18,8 +18,8 @@ export function ResetPasswordForm() {
 	const [submitting, setSubmitting] = useState(false);
 
 	useEffect(() => {
-		void tokenStorage.getDevelopmentCode().then(setDevelopmentCode);
-	}, []);
+		setDevelopmentCode(readDevCodeParam(params.devCode));
+	}, [params.devCode]);
 
 	async function handleSubmit() {
 		setError(null);
@@ -34,7 +34,6 @@ export function ResetPasswordForm() {
 		setSubmitting(true);
 		try {
 			await authService.resetPassword({ email, code, newPassword: password });
-			await tokenStorage.setDevelopmentCode(null);
 			router.replace({ pathname: "/login", params: { reset: "true" } });
 		} catch (caught) {
 			setError(caught instanceof Error ? caught.message : "Password reset failed");

@@ -16,6 +16,10 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as api from "@/lib/api-client";
+import {
+	buildAuthRedirectUrl,
+	readDevCodeFromSearchParams,
+} from "@/modules/auth/lib/dev-auth-code";
 
 export function VerifyEmailForm() {
 	const router = useRouter();
@@ -28,8 +32,8 @@ export function VerifyEmailForm() {
 	const [resending, setResending] = useState(false);
 
 	useEffect(() => {
-		setDevelopmentCode(sessionStorage.getItem("starter-auth-development-code"));
-	}, []);
+		setDevelopmentCode(readDevCodeFromSearchParams(searchParams));
+	}, [searchParams]);
 
 	async function handleSubmit(event: React.FormEvent) {
 		event.preventDefault();
@@ -37,7 +41,6 @@ export function VerifyEmailForm() {
 		setSubmitting(true);
 		try {
 			await api.verifyEmail({ email, code });
-			sessionStorage.removeItem("starter-auth-development-code");
 			router.push("/login?verified=true");
 		} catch (caught) {
 			setError(caught instanceof Error ? caught.message : "Verification failed");
@@ -53,7 +56,7 @@ export function VerifyEmailForm() {
 			const result = await api.resendVerification(email);
 			if (result.developmentCode) {
 				setDevelopmentCode(result.developmentCode);
-				sessionStorage.setItem("starter-auth-development-code", result.developmentCode);
+				router.replace(buildAuthRedirectUrl("/verify-email", email, result.developmentCode));
 			}
 		} catch (caught) {
 			setError(caught instanceof Error ? caught.message : "Could not resend code");

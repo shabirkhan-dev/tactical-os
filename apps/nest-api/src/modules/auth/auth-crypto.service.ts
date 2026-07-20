@@ -157,6 +157,7 @@ export class AuthCryptoService {
 	}
 
 	private getEncryptionKey(): Buffer {
+		// codeql[js/insufficient-password-hash]: SHA-256 derives an AES key, not a password hash.
 		return createHash('sha256').update(this.config.authTokenSecret).digest();
 	}
 }

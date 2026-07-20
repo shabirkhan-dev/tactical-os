@@ -30,6 +30,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/auth-context";
 import { cn } from "@/lib/utils";
+import { buildAuthRedirectUrl } from "@/modules/auth/lib/dev-auth-code";
 
 export function SignupForm({ className, ...props }: React.ComponentProps<"div">) {
 	const router = useRouter();
@@ -75,10 +76,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
 		setSubmitting(true);
 		try {
 			const result = await register({ email, username, password });
-			if (result.developmentCode) {
-				sessionStorage.setItem("starter-auth-development-code", result.developmentCode);
-			}
-			router.push(`/verify-email?email=${encodeURIComponent(email)}`);
+			router.push(buildAuthRedirectUrl("/verify-email", email, result.developmentCode));
 		} catch {
 			// error set in context
 		} finally {

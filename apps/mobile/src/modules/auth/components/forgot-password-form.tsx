@@ -2,8 +2,8 @@ import { Link, router } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, Text } from "react-native";
 import { NeonColors } from "@/constants/design-system";
+import { devCodeRouteParams } from "@/modules/auth/lib/dev-auth-code";
 import { authService } from "@/modules/auth/services/auth.service";
-import { tokenStorage } from "@/modules/auth/services/token-storage";
 import { AuthAlert } from "./auth-alert";
 import { AuthButton } from "./auth-button";
 import { AuthField } from "./auth-field";
@@ -19,12 +19,10 @@ export function ForgotPasswordForm() {
 		setSubmitting(true);
 		try {
 			const result = await authService.forgotPassword(email.trim().toLowerCase());
-			if (result.developmentCode) {
-				await tokenStorage.setDevelopmentCode(result.developmentCode);
-			}
+			const normalizedEmail = email.trim().toLowerCase();
 			router.push({
 				pathname: "/reset-password",
-				params: { email: email.trim().toLowerCase() },
+				params: { email: normalizedEmail, ...devCodeRouteParams(result.developmentCode) },
 			});
 		} catch (caught) {
 			setError(caught instanceof Error ? caught.message : "Request failed");

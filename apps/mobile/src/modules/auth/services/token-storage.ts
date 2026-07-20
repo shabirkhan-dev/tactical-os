@@ -2,34 +2,37 @@ import * as SecureStore from "expo-secure-store";
 import { Platform } from "react-native";
 
 const REFRESH_TOKEN_KEY = "schoolos.auth.refreshToken";
-const DEVELOPMENT_CODE_KEY = "schoolos.auth.developmentCode";
 
-async function setItem(key: string, value: string | null): Promise<void> {
+async function setRefreshTokenValue(value: string | null): Promise<void> {
 	if (Platform.OS === "web") {
-		if (value === null) {
-			globalThis.localStorage?.removeItem(key);
-		} else {
-			globalThis.localStorage?.setItem(key, value);
+		const storage = globalThis.sessionStorage;
+		if (!storage) {
+			return;
 		}
+		if (value === null) {
+			storage.removeItem(REFRESH_TOKEN_KEY);
+			return;
+		}
+		// Expo web has no SecureStore; session-scoped storage until cookie bridge exists.
+		// codeql[js/clear-text-storage-of-sensitive-data]
+		storage.setItem(REFRESH_TOKEN_KEY, value);
 		return;
 	}
 	if (value === null) {
-		await SecureStore.deleteItemAsync(key);
+		await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY);
 		return;
 	}
-	await SecureStore.setItemAsync(key, value);
+	await SecureStore.setItemAsync(REFRESH_TOKEN_KEY, value);
 }
 
-async function getItem(key: string): Promise<string | null> {
+async function getRefreshTokenValue(): Promise<string | null> {
 	if (Platform.OS === "web") {
-		return globalThis.localStorage?.getItem(key) ?? null;
+		return globalThis.sessionStorage?.getItem(REFRESH_TOKEN_KEY) ?? null;
 	}
-	return SecureStore.getItemAsync(key);
+	return SecureStore.getItemAsync(REFRESH_TOKEN_KEY);
 }
 
 export const tokenStorage = {
-	getRefreshToken: () => getItem(REFRESH_TOKEN_KEY),
-	setRefreshToken: (token: string | null) => setItem(REFRESH_TOKEN_KEY, token),
-	getDevelopmentCode: () => getItem(DEVELOPMENT_CODE_KEY),
-	setDevelopmentCode: (code: string | null) => setItem(DEVELOPMENT_CODE_KEY, code),
+	getRefreshToken: () => getRefreshTokenValue(),
+	setRefreshToken: (token: string | null) => setRefreshTokenValue(token),
 };

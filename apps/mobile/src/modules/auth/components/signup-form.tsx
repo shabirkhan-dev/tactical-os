@@ -3,8 +3,8 @@ import { useState } from "react";
 import { StyleSheet, Text } from "react-native";
 import { NeonColors } from "@/constants/design-system";
 import { useAuth } from "@/modules/auth/context/auth-context";
+import { devCodeRouteParams } from "@/modules/auth/lib/dev-auth-code";
 import { registerSchema } from "@/modules/auth/schemas/auth.schemas";
-import { tokenStorage } from "@/modules/auth/services/token-storage";
 import { AuthAlert } from "./auth-alert";
 import { AuthButton } from "./auth-button";
 import { AuthField } from "./auth-field";
@@ -44,12 +44,9 @@ export function SignupForm() {
 		setSubmitting(true);
 		try {
 			const result = await register(parsed.data);
-			if (result.developmentCode) {
-				await tokenStorage.setDevelopmentCode(result.developmentCode);
-			}
 			router.push({
 				pathname: "/verify-email",
-				params: { email: parsed.data.email },
+				params: { email: parsed.data.email, ...devCodeRouteParams(result.developmentCode) },
 			});
 		} catch {
 			// error set in context

@@ -38,5 +38,6 @@ export function applyThemeClass(theme: Theme): ResolvedTheme {
 	return resolved;
 }
 
-/** Inline script: runs before paint to avoid a light/dark flash. */
-export const themeInitScript = `(function(){try{var k=${JSON.stringify(THEME_STORAGE_KEY)};var d=${JSON.stringify(DEFAULT_THEME)};var t=localStorage.getItem(k)||d;var dark=t==="dark"||(t==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.classList.toggle("dark",dark);r.style.colorScheme=dark?"dark":"light";}catch(e){}})();`;
+/** Inline script: runs before paint to avoid a light/dark flash. Keys are compile-time constants. */
+export const themeInitScript =
+	'(function(){try{var k="theme";var d="dark";var t=localStorage.getItem(k)||d;var dark=t==="dark"||(t==="system"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.classList.toggle("dark",dark);r.style.colorScheme=dark?"dark":"light";}catch(e){}})();';
