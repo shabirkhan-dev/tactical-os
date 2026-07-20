@@ -5,7 +5,7 @@ version: 1.2.0
 license: MIT
 ---
 
-# Expo Mobile Skill (School OS)
+# Expo Mobile Skill (Starter)
 
 Use this when working on **`apps/mobile`**.
 

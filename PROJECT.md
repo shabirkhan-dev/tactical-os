@@ -1,6 +1,6 @@
-# School OS - Project overview
+# Starter - Project overview
 
-This document is the deeper technical reference for the School OS monorepo.
+This document is the deeper technical reference for the Starter monorepo.
 For quick setup/use, start with `README.md`.
 
 ## What this repository includes

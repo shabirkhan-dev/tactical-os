@@ -1,5 +1,5 @@
 ---
-name: Reliability-First School OS Roadmap
+name: Reliability-First Starter Roadmap
 overview: ""
 todos: []
 isProject: false
@@ -24,7 +24,7 @@ todos:
     status: pending
 isProject: false
 ---
-# Reliability-First School OS Roadmap
+# Reliability-First Starter Roadmap
 
 ## Goals
 - Make this school-os safe as a default base for all 5 upcoming projects.

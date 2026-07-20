@@ -7,7 +7,7 @@ export default function HomePage() {
 				Turborepo + Bun + Next.js + Expo + Hono
 			</p>
 			<h1 className="mb-6 text-4xl font-semibold tracking-tight sm:text-5xl">
-				School OS Documentation
+				Starter Documentation
 			</h1>
 			<p className="max-w-2xl text-fd-muted-foreground sm:text-lg">
 				A clean, practical guide to the monorepo architecture, workflow, and app stack. Built for

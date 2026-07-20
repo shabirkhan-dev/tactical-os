@@ -12,8 +12,8 @@ import {
 import type { IconSvgElement } from "@hugeicons/react";
 
 export const SITE = {
-	name: "School OS",
-	title: "School OS — production monorepo starter",
+	name: "Starter",
+	title: "Starter — production monorepo starter",
 	description:
 		"Bun + Turborepo starter with Next.js, Expo, NestJS, docs, and Rust — shared UI, hooks, CI, and Docker included.",
 } as const;
@@ -73,7 +73,7 @@ export const NAV_ITEMS: NavItem[] = [
 			},
 			{
 				label: "About",
-				description: "Why we built School OS",
+				description: "Why we built Starter",
 				href: "/about",
 			},
 		],
@@ -140,7 +140,7 @@ export const AGENT_MESSAGES: ChatMessage[] = [
 	},
 	{
 		role: "agent",
-		text: "School OS already ships all three — plus docs and a Rust binary.",
+		text: "Starter already ships all three — plus docs and a Rust binary.",
 	},
 	{
 		role: "agent",
@@ -402,7 +402,7 @@ export type Testimonial = {
 export const TESTIMONIALS_ROW_ONE: Testimonial[] = [
 	{
 		quote:
-			"We skipped three weeks of wiring Turbo, hooks, and Docker. School OS was already opinionated the right way.",
+			"We skipped three weeks of wiring Turbo, hooks, and Docker. Starter was already opinionated the right way.",
 		name: "Maya Chen",
 		role: "Staff Eng, campus product",
 		seed: "Maya",
@@ -540,7 +540,7 @@ export const FAQ_ITEMS: FaqItem[] = [
 	},
 	{
 		id: "stack",
-		question: "What stacks does School OS include?",
+		question: "What stacks does Starter include?",
 		answer:
 			"Next.js web, Expo mobile, NestJS API, Fumadocs docs, and a Rust binary — plus shared UI, logger, and TypeScript configs.",
 		icon: Package01Icon,

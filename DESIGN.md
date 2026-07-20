@@ -1,12 +1,12 @@
 # Design System Brief
 
-This file is the source of truth for AI agents and humans when creating UI in this School OS.
+This file is the source of truth for AI agents and humans when creating UI in this Starter.
 Keep it updated before generating new screens with Codex, Claude Code, Cursor, v0, Open Design,
 Figma MCP, Onlook, Scamp, or similar tools.
 
 ## Product Intent
 
-This School OS should produce production-grade application interfaces, not generic demo pages.
+This Starter should produce production-grade application interfaces, not generic demo pages.
 Generated UI must feel domain-specific, accessible, responsive, and built from reusable components.
 
 ## Audience

@@ -23,9 +23,9 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "About — School OS",
+	title: "About — Starter",
 	description:
-		"A Bun + Turborepo monorepo starter for school-scale products. Meet the team behind School OS.",
+		"A Bun + Turborepo monorepo starter for school-scale products. Meet the team behind Starter.",
 };
 
 export default function AboutPage() {

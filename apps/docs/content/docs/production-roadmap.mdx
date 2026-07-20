@@ -2,15 +2,15 @@
 title: Production Roadmap
 description: Phased NestJS backend spine and product build plan.
 ---
-> **Purpose:** This README defines how we will build School OS from the clean `apps/nest-api` NestJS app onward. It summarizes the full idea, the product philosophy, the backend/frontend/AI architecture, and the exact production roadmap. It is written so we can share it with other AI tools, collaborators, reviewers, and future funders before and during development.
+> **Purpose:** This README defines how we will build Starter from the clean `apps/nest-api` NestJS app onward. It summarizes the full idea, the product philosophy, the backend/frontend/AI architecture, and the exact production roadmap. It is written so we can share it with other AI tools, collaborators, reviewers, and future funders before and during development.
 
 ---
 
 ## 1. Project Vision
 
-School OS is not another school ERP, digital register, or dashboard.
+Starter is not another school ERP, digital register, or dashboard.
 
-School OS is an **AI-native, policy-native, workflow-native operating system for schools**.
+Starter is an **AI-native, policy-native, workflow-native operating system for schools**.
 
 Traditional school software usually does this:
 
@@ -21,7 +21,7 @@ User checks dashboard manually
 User takes action manually
 ```
 
-School OS should do this:
+Starter should do this:
 
 ```txt
 System understands school state
@@ -34,12 +34,12 @@ System executes approved workflow
 Audit log records everything
 ```
 
-The long-term idea is bigger than school management. School OS is the first product in a future **Community OS / Quality of Life OS** approach, where the same architecture can later support education, health navigation, welfare, disaster preparedness, environment, youth development, and community service.
+The long-term idea is bigger than school management. Starter is the first product in a future **Community OS / Quality of Life OS** approach, where the same architecture can later support education, health navigation, welfare, disaster preparedness, environment, youth development, and community service.
 
 But the build focus now is strict:
 
 ```txt
-Start with School OS.
+Start with Starter.
 Build slowly.
 One production-quality vertical slice at a time.
 ```
@@ -89,7 +89,7 @@ Mobile: Expo / React Native
 Docs: docs app / Markdown
 ```
 
-Bun stays important for fast local development and monorepo commands. NestJS remains the main backend framework because School OS needs structured modules, dependency injection, guards, interceptors, queues, WebSockets, auth, testing, and production architecture.
+Bun stays important for fast local development and monorepo commands. NestJS remains the main backend framework because Starter needs structured modules, dependency injection, guards, interceptors, queues, WebSockets, auth, testing, and production architecture.
 
 Drizzle is chosen because it is TypeScript-first, lightweight, SQL-friendly, and a good fit for PostgreSQL.
 
@@ -104,7 +104,7 @@ Do not make teachers, admins, parents, or principals do more data entry.
 Use software to reduce work, guide decisions, and execute safe workflows.
 ```
 
-School OS must be:
+Starter must be:
 
 ```txt
 AI-native
@@ -123,7 +123,7 @@ integration-ready
 
 ---
 
-## 5. What Makes School OS Different
+## 5. What Makes Starter Different
 
 A normal school ERP stores records:
 
@@ -136,7 +136,7 @@ exams
 reports
 ```
 
-School OS adds operating intelligence:
+Starter adds operating intelligence:
 
 ```txt
 policies
@@ -155,20 +155,20 @@ offline workflows
 One-line positioning:
 
 ```txt
-School OS turns school operations from manual data entry into guided, automated, policy-safe workflows.
+Starter turns school operations from manual data entry into guided, automated, policy-safe workflows.
 ```
 
 Stronger long-term positioning:
 
 ```txt
-School OS is an execution layer for education and human development, starting with schools.
+Starter is an execution layer for education and human development, starting with schools.
 ```
 
 ---
 
 ## 6. Main Engines
 
-These engines are the heart of School OS. Domain modules like Students, Attendance, Fees, Homework, and Cleanliness plug into these engines.
+These engines are the heart of Starter. Domain modules like Students, Attendance, Fees, Homework, and Cleanliness plug into these engines.
 
 ### 6.1 Workflow Engine
 
@@ -600,7 +600,7 @@ audit log
 
 ## 14. Language and Localization
 
-School OS should be multilingual from the design level.
+Starter should be multilingual from the design level.
 
 Start with:
 
@@ -883,7 +883,7 @@ sensitive values not stored in audit metadata
 
 ### Phase 9 — Tasks, Policies, and Workflows v1
 
-Goal: make School OS more than CRUD.
+Goal: make Starter more than CRUD.
 
 Build:
 
@@ -1135,7 +1135,7 @@ Start with the backend spine.
 Use this prompt when asking another AI to review the plan:
 
 ```txt
-We are building School OS, an AI-native, policy-native, workflow-native operating system for schools. It is not a simple ERP or digital register. The backend starts with a clean NestJS app inside a Bun + Turborepo monorepo. We use PostgreSQL, Drizzle ORM, Zod validation, REST first, and production-grade architecture.
+We are building Starter, an AI-native, policy-native, workflow-native operating system for schools. It is not a simple ERP or digital register. The backend starts with a clean NestJS app inside a Bun + Turborepo monorepo. We use PostgreSQL, Drizzle ORM, Zod validation, REST first, and production-grade architecture.
 
 Please review this README as a senior backend/product architect. Focus on:
 1. Whether the architecture is too much or too little for the first MVP.

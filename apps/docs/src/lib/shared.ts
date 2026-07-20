@@ -1,4 +1,4 @@
-export const appName = "School OS Docs";
+export const appName = "Starter Docs";
 export const docsRoute = "/docs";
 export const docsImageRoute = "/og/docs";
 export const docsContentRoute = "/llms.mdx/docs";

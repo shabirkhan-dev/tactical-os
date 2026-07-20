@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# School OS scripts – bash
+# Starter scripts – bash
 set -euo pipefail
 
-echo "Hello from School OS scripts (bash)"
+echo "Hello from Starter scripts (bash)"

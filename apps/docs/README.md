@@ -1,6 +1,6 @@
 # docs
 
-School OS documentation site (Next.js + Fumadocs).
+Starter documentation site (Next.js + Fumadocs).
 
 All project docs live in `content/docs/` and are served from this app.
 

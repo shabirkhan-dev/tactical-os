@@ -23,9 +23,9 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "Pricing — School OS",
+	title: "Pricing — Starter",
 	description:
-		"School OS is free to clone and run. Slide for team and enterprise seats — no surprise overages.",
+		"Starter is free to clone and run. Slide for team and enterprise seats — no surprise overages.",
 };
 
 export default function PricingPage() {

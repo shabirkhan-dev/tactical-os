@@ -22,7 +22,7 @@ const QUICK_PROMPTS = [
 		label: "Run locally",
 		description: "Dev + install steps",
 		icon: CodeIcon,
-		prompt: "How do I install dependencies and run the School OS monorepo locally?",
+		prompt: "How do I install dependencies and run the Starter monorepo locally?",
 	},
 	{
 		label: "Nest auth",
@@ -138,7 +138,7 @@ export function AiAssistScreen() {
 								onSubmitPrompt={(value) => void send(value)}
 								disabled={!token}
 								busy={busy}
-								placeholder="Ask School OS Assist..."
+								placeholder="Ask Starter Assist..."
 								modelLabel={modelLabel}
 								showUpgradeRail={false}
 							/>

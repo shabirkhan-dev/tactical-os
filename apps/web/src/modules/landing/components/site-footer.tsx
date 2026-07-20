@@ -73,7 +73,7 @@ export function SiteFooter() {
 						<div className="mt-8">
 							<p className="font-medium text-foreground text-sm">Release notes</p>
 							<p className="mt-1 text-muted-foreground text-sm">
-								What landed in School OS this month. Once a month, no noise.
+								What landed in Starter this month. Once a month, no noise.
 							</p>
 							<form
 								onSubmit={handleSubmit}

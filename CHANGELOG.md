@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial School OS monorepo layout (Turborepo + Bun).
+- Initial Starter monorepo layout (Turborepo + Bun).
 - Dual license: MIT and Apache-2.0.
 
 [Unreleased]: https://github.com/shabirkhan-dev/school-os/compare/v0.1.0...HEAD

@@ -450,7 +450,7 @@ export function BillingPageContent() {
 								) : null}
 
 								<p className="text-center text-[11px] text-dashboard-text-muted leading-4">
-									Payments are processed by {PROVIDER_COPY[provider].label}. School OS does not
+									Payments are processed by {PROVIDER_COPY[provider].label}. Starter does not
 									store card numbers.
 								</p>
 							</div>

@@ -60,7 +60,7 @@ export function PricingSection() {
 				</FadeIn>
 				<FadeIn delay={0.1}>
 					<p className="mt-4 max-w-xl text-pretty text-muted-foreground leading-7">
-						School OS is free to clone and run. Slide for team and enterprise seats — no surprise
+						Starter is free to clone and run. Slide for team and enterprise seats — no surprise
 						overages, cancel anytime.
 					</p>
 				</FadeIn>

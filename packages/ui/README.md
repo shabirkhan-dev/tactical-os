@@ -1,6 +1,6 @@
 # `@school-os/ui`
 
-Shared shadcn/ui primitives for the School OS monorepo.
+Shared shadcn/ui primitives for the Starter monorepo.
 
 This package follows the [shadcn monorepo](https://ui.shadcn.com/docs/monorepo) layout:
 

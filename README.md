@@ -1,4 +1,4 @@
-# School OS
+# Starter
 
 Production-ready school platform monorepo built with **Bun + Turborepo**.
 

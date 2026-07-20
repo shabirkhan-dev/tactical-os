@@ -1,6 +1,6 @@
 ---
 name: antigravity
-description: Core operating principles and premium design standards for the Antigravity agent in the School OS.
+description: Core operating principles and premium design standards for the Antigravity agent in the Starter.
 version: 1.0.0
 ---
 
