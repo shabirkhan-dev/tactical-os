@@ -10,7 +10,7 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { PRICING_FEATURES, PRICING_TIERS } from "../data/landing.data";
+import { PRICING_FEATURES, PRICING_TIERS, LANDING_COPY } from "../data/landing.data";
 import { ATLAS_EASE, hoverTap, springSnappy, springSoft } from "../lib/motion";
 import { cn } from "../lib/utils";
 import { FadeIn } from "./fade-in";
@@ -42,8 +42,8 @@ export function PricingSection() {
 	const period = billing === "monthly" ? "/ month" : "/ month, billed yearly";
 	const servicesLabel =
 		tier.services === "unlimited"
-			? "Unlimited workspaces included."
-			: `${tier.services} workspace${tier.services === 1 ? "" : "s"} included.`;
+			? "Unlimited operators included."
+			: `${tier.services} operator seat${tier.services === 1 ? "" : "s"} included.`;
 
 	return (
 		<section id="pricing" className="w-full px-4 pt-20 pb-8 sm:px-8">
@@ -55,13 +55,12 @@ export function PricingSection() {
 				</FadeIn>
 				<FadeIn delay={0.06}>
 					<h2 className="mt-5 text-balance font-serif text-4xl text-foreground leading-tight tracking-[-0.02em] sm:text-5xl">
-						Start free. Scale when your team grows.
+						{LANDING_COPY.pricingHeading}
 					</h2>
 				</FadeIn>
 				<FadeIn delay={0.1}>
 					<p className="mt-4 max-w-xl text-pretty text-muted-foreground leading-7">
-						Starter is free to clone and run. Slide for team and enterprise seats — no surprise
-						overages, cancel anytime.
+						{LANDING_COPY.pricingBody}
 					</p>
 				</FadeIn>
 			</div>
@@ -122,7 +121,7 @@ export function PricingSection() {
 							</Link>
 						</motion.div>
 						<p className="text-muted-foreground text-sm leading-5">
-							Starter is free forever — clone and run, no card required.
+							Pilot tier is free while core drill logging ships — no card required.
 						</p>
 					</FadeIn>
 				</div>

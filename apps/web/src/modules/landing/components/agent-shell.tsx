@@ -22,7 +22,9 @@ export function AgentShell({ children }: AgentShellProps) {
 
 			<div className="border-t border-border/60 px-4">
 				<div className="mx-auto flex w-full max-w-6xl items-center justify-between py-5">
-					<p className="text-xs text-muted-foreground">© 2026 {SITE.name}. Clone → run → ship.</p>
+					<p className="text-xs text-muted-foreground">
+						© 2026 {SITE.name}. Train · track · prove readiness.
+					</p>
 					<ThemeToggle theme={theme} onToggle={toggleTheme} />
 				</div>
 			</div>

@@ -1,9 +1,6 @@
 /*
- * Starter landing theme.
- * Scoped to [data-landing] so the marketing surface can carry its own
- * neutral shadcn-like palette + display fonts without leaking into the
- * rest of the Starter app. Dark is the default; the .dark class is
- * toggled on <html> by the AgentShell.
+ * Tactical OS landing theme.
+ * Olive-lime primary with amber accents — operational, range-ready palette.
  */
 
 [data-landing] {
@@ -14,31 +11,31 @@
 		monospace;
 	--font-geist-mono: var(--font-mono);
 
-	/* Light palette — clean white Starter marketing surface */
-	--background: #ffffff;
-	--foreground: #09090b;
+	/* Light — warm stone + olive tactical surface */
+	--background: #fafaf8;
+	--foreground: #1a1a14;
 	--card: #ffffff;
-	--card-foreground: #09090b;
+	--card-foreground: #1a1a14;
 	--popover: #ffffff;
-	--popover-foreground: #09090b;
-	--primary: #2563eb;
-	--primary-foreground: #ffffff;
-	--secondary: #f4f4f5;
-	--secondary-foreground: #18181b;
-	--muted: #f4f4f5;
-	--muted-foreground: #71717a;
-	--accent: #2563eb;
-	--accent-foreground: #ffffff;
-	--destructive: #e5484d;
-	--border: rgba(9, 9, 15, 0.1);
-	--input: rgba(9, 9, 15, 0.12);
-	--ring: #2563eb;
+	--popover-foreground: #1a1a14;
+	--primary: #5c6b3a;
+	--primary-foreground: #fafaf8;
+	--secondary: #f0efe8;
+	--secondary-foreground: #2a2a22;
+	--muted: #f0efe8;
+	--muted-foreground: #6b6b5e;
+	--accent: #c17f24;
+	--accent-foreground: #fafaf8;
+	--destructive: #c0392b;
+	--border: rgba(26, 26, 20, 0.1);
+	--input: rgba(26, 26, 20, 0.12);
+	--ring: #5c6b3a;
 
-	--atlas-blue: #2563eb;
-	--atlas-blue-deep: #1d4ed8;
-	--atlas-teal: #10b981;
-	--atlas-sky: #3b82f6;
-	--atlas-amber: #f59e0b;
+	--atlas-blue: #5c6b3a;
+	--atlas-blue-deep: #4a5730;
+	--atlas-teal: #3d6b5c;
+	--atlas-sky: #6b7c4a;
+	--atlas-amber: #c17f24;
 
 	font-family: var(--font-sans);
 	background-color: var(--background);
@@ -58,28 +55,24 @@
 
 .dark [data-landing],
 [data-landing].dark {
-	/*
-	 * Meridian-like charcoal — soft dark gray, not pure black / app #141414.
-	 * Cards sit one step above so rims and frosted panels read clearly.
-	 */
-	--background: #1a1a1e;
-	--foreground: #fafafa;
-	--card: #222228;
-	--card-foreground: #fafafa;
-	--popover: #222228;
-	--popover-foreground: #fafafa;
-	--primary: #3b82f6;
-	--primary-foreground: #ffffff;
-	--secondary: #2a2a32;
-	--secondary-foreground: #fafafa;
-	--muted: #2a2a32;
-	--muted-foreground: #a1a1aa;
-	--accent: #3b82f6;
-	--accent-foreground: #ffffff;
-	--destructive: #f2555a;
+	--background: #141612;
+	--foreground: #f5f4ef;
+	--card: #1c1e18;
+	--card-foreground: #f5f4ef;
+	--popover: #1c1e18;
+	--popover-foreground: #f5f4ef;
+	--primary: #8fa85c;
+	--primary-foreground: #141612;
+	--secondary: #242820;
+	--secondary-foreground: #f5f4ef;
+	--muted: #242820;
+	--muted-foreground: #a8a89a;
+	--accent: #d4922a;
+	--accent-foreground: #141612;
+	--destructive: #e05a52;
 	--border: rgba(255, 255, 255, 0.1);
 	--input: rgba(255, 255, 255, 0.14);
-	--ring: #3b82f6;
+	--ring: #8fa85c;
 	color-scheme: dark;
 }
 
@@ -88,30 +81,30 @@
  * and any root-level bg-background never flash app #141414 against the page.
  */
 html.dark:has([data-landing]) {
-	--background: #1a1a1e;
-	--foreground: #fafafa;
-	--card: #222228;
-	--card-foreground: #fafafa;
-	--popover: #222228;
-	--popover-foreground: #fafafa;
-	--secondary: #2a2a32;
-	--secondary-foreground: #fafafa;
-	--muted: #2a2a32;
-	--muted-foreground: #a1a1aa;
+	--background: #141612;
+	--foreground: #f5f4ef;
+	--card: #1c1e18;
+	--card-foreground: #f5f4ef;
+	--popover: #1c1e18;
+	--popover-foreground: #f5f4ef;
+	--secondary: #242820;
+	--secondary-foreground: #f5f4ef;
+	--muted: #242820;
+	--muted-foreground: #a8a89a;
 	--border: rgba(255, 255, 255, 0.1);
 	--input: rgba(255, 255, 255, 0.14);
-	background-color: #1a1a1e;
+	background-color: #141612;
 	color-scheme: dark;
 }
 
 html.dark:has([data-landing]) body {
-	background-color: #1a1a1e;
+	background-color: #141612;
 }
 
 html:has([data-landing]):not(.dark) {
-	--background: #ffffff;
-	--foreground: #09090b;
-	background-color: #ffffff;
+	--background: #fafaf8;
+	--foreground: #1a1a14;
+	background-color: #fafaf8;
 }
 
 html:has([data-landing]):not(.dark) body {

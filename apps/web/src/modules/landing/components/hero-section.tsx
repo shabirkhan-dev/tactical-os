@@ -17,11 +17,11 @@ import { MeshCanvas } from "./mesh-canvas";
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const STEP_DOT: Record<string, string> = {
-	anomaly: "bg-emerald-500",
-	investigating: "bg-sky-500",
-	root: "bg-teal-500",
-	fix: "bg-amber-500",
-	notify: "bg-rose-500",
+	assign: "bg-lime-600",
+	timer: "bg-amber-500",
+	weapon: "bg-stone-500",
+	score: "bg-teal-500",
+	sync: "bg-emerald-500",
 };
 
 export function HeroSection() {
@@ -79,10 +79,10 @@ export function HeroSection() {
 					>
 						<motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }}>
 							<Link
-								href="#deploy"
+								href="#product"
 								className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary px-6 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
 							>
-								Get started
+								{LANDING_COPY.heroCtaPrimary}
 							</Link>
 						</motion.div>
 						<motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.98 }}>
@@ -90,7 +90,7 @@ export function HeroSection() {
 								href="http://localhost:3002/docs"
 								className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-border bg-transparent px-6 text-base font-medium text-foreground transition-colors hover:bg-primary/5 sm:w-auto"
 							>
-								Read the docs
+								{LANDING_COPY.heroCtaSecondary}
 							</Link>
 						</motion.div>
 					</motion.div>
@@ -127,13 +127,17 @@ function WorkflowCard() {
 						<HugeiconsIcon icon={File01Icon} className="size-4" aria-hidden={true} />
 					</span>
 					<div>
-						<p className="font-semibold text-neutral-900 text-sm">{LANDING_COPY.workflowCardTitle}</p>
-						<p className="text-[11px] text-neutral-500">{LANDING_COPY.workflowCardSub} · just now</p>
+						<p className="font-semibold text-neutral-900 text-sm">
+							{LANDING_COPY.workflowCardTitle}
+						</p>
+						<p className="text-[11px] text-neutral-500">
+							{LANDING_COPY.workflowCardSub} · just now
+						</p>
 					</div>
 				</div>
 
 				<p className="mt-4 font-medium text-[10px] text-neutral-400 uppercase tracking-wider">
-					Setup progress
+					{LANDING_COPY.workflowProgressLabel}
 				</p>
 
 				<div className="mt-2 flex flex-col">
@@ -175,7 +179,9 @@ function WorkflowCard() {
 					<span className="grid size-5 place-items-center rounded-full bg-emerald-500 text-white">
 						<HugeiconsIcon icon={Tick02Icon} className="size-3" aria-hidden={true} />
 					</span>
-					<span className="font-medium text-emerald-700 text-xs">Incident resolved</span>
+					<span className="font-medium text-emerald-700 text-xs">
+						{LANDING_COPY.workflowCompleteLabel}
+					</span>
 					<span className="ml-auto text-[10px] text-emerald-600/70">09:42</span>
 				</motion.div>
 			</div>
@@ -235,7 +241,7 @@ function AgentChatCard() {
 				</div>
 
 				<div className="flex items-center gap-2 rounded-xl border border-neutral-200 px-3 py-2">
-					<span className="text-[11px] text-neutral-400">Ask anything or type a command…</span>
+					<span className="text-[11px] text-neutral-400">{LANDING_COPY.chatPlaceholder}</span>
 					<span className="ml-auto grid size-6 place-items-center rounded-full bg-[var(--atlas-blue)] text-white">
 						<HugeiconsIcon icon={SentIcon} className="size-3" aria-hidden={true} />
 					</span>

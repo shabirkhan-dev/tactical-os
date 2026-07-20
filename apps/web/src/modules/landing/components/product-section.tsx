@@ -31,7 +31,7 @@ export function ProductSection() {
 				<div>
 					<FadeIn>
 						<span className="inline-flex items-center rounded-full border border-border bg-card px-3.5 py-1.5 font-medium text-muted-foreground text-xs">
-							See the workflow
+							{LANDING_COPY.productBadge}
 						</span>
 					</FadeIn>
 
@@ -93,10 +93,10 @@ function IncidentTimelineCard() {
 	return (
 		<div className="relative rounded-2xl border border-white/10 bg-neutral-950/85 p-4 shadow-2xl backdrop-blur-md sm:p-5">
 			<div className="flex items-center justify-between border-white/10 border-b pb-3">
-				<span className="font-medium font-mono text-white text-xs">school-os · turborepo</span>
+				<span className="font-medium font-mono text-white text-xs">tactical-os · training day</span>
 				<span className="flex items-center gap-1.5 text-[10px] text-white/60">
 					<span className="size-1.5 rounded-full bg-emerald-400" />
-					resolving
+					live
 				</span>
 			</div>
 

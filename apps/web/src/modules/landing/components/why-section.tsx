@@ -417,7 +417,7 @@ function ReadyPreview() {
 				transition={{ ...springSnappy, delay: 0.5 }}
 			>
 				<HugeiconsIcon icon={LockIcon} className="size-3.5" aria-hidden={true} />
-				Clone & run
+				Start pilot
 				<HugeiconsIcon icon={ArrowRight01Icon} className="size-3.5" aria-hidden={true} />
 			</motion.div>
 		</div>

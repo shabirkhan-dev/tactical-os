@@ -24,13 +24,13 @@ export function FaqSection() {
 					</FadeIn>
 					<FadeIn delay={0.06}>
 						<h2 className="mt-5 text-balance font-serif text-3xl text-foreground leading-[1.15] sm:text-4xl">
-							Questions teams ask before cloning.
+							Questions academies ask before switching.
 						</h2>
 					</FadeIn>
 					<FadeIn delay={0.1}>
 						<p className="mx-auto mt-4 max-w-xl text-pretty text-muted-foreground text-sm leading-7 sm:text-base">
-							How Starter is structured, what ships in the starter, and how quality gates keep the
-							workspace honest.
+							Offline mobile, drill types, weapons history, multi-tenant orgs, and how Tactical OS
+							fits your training program.
 						</p>
 					</FadeIn>
 				</div>
@@ -38,7 +38,7 @@ export function FaqSection() {
 				<FadeIn delay={0.14} y={24}>
 					<BouncyAccordion
 						items={items}
-						defaultValue="agents"
+						defaultValue="offline"
 						classNames={{
 							item: "border border-border/60 bg-card/80 shadow-none",
 							trigger: "items-start py-4 hover:bg-muted/20",

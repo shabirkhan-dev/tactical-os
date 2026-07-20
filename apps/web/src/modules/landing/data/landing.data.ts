@@ -1,11 +1,9 @@
 ﻿import {
 	ApertureIcon,
-	CircleIcon,
 	CommandIcon,
 	GemIcon,
 	HexagonIcon,
 	OctagonIcon,
-	Package01Icon,
 	SecurityCheckIcon,
 	TriangleIcon,
 } from "@hugeicons/core-free-icons";
@@ -14,28 +12,54 @@ import type { IconSvgElement } from "@hugeicons/react";
 export const SITE = {
 	name: "Tactical OS",
 	title: "Tactical OS — operator training and readiness",
-	description: "Operator training and readiness platform — mission planning, drills, response metrics, firing speed, and gear inventory for ops personnel.",
+	description:
+		"Drill logging, timers, weapon history, and instructor dashboards for training academies — web command center and offline mobile at the range.",
 } as const;
 
 export const LANDING_COPY = {
-	heroBadge: "Built for operators",
-	heroTitlePrimary: "Train, plan, and track readiness",
-	heroTitleSecondary: "for real-world operations",
+	heroBadge: "Built for training academies",
+	heroTitlePrimary: "Train hard. Track everything.",
+	heroTitleSecondary: "prove readiness with data",
 	heroSubtitle:
-		"Operation planning, drill tracking, response metrics, firing-speed exercises, and gear inventory — for ops and SF-style personnel.",
-	workflowCardTitle: "Training drill",
-	workflowCardSub: "tactical-os",
-	chatCardTitle: "Ops board",
-	chatCardSub: "Tactical OS · active",
-	productHeading: "From mission plan to drill score — operator training in one system.",
+		"Drill logging, built-in timers, weapon and accuracy history, and instructor dashboards — web command center and mobile field use, offline at the range.",
+	heroCtaPrimary: "Explore the platform",
+	heroCtaSecondary: "View the roadmap",
+	workflowCardTitle: "CQB qualification drill",
+	workflowCardSub: "Alpha cohort · Range B",
+	workflowProgressLabel: "Drill sequence",
+	workflowCompleteLabel: "Qualified — synced to command",
+	chatCardTitle: "Instructor board",
+	chatCardSub: "Tactical OS · live review",
+	chatPlaceholder: "Log splits, hits, ammo, gear notes…",
+	productBadge: "Training day workflow",
+	productHeading: "From assigned drill to qualified score — one connected system.",
 	productBody:
-		"Tactical OS is an operator training program and tracker: plan operations, log drills, measure response and firing speed, and manage inventory — web command view and mobile field use.",
+		"Instructors assign marksmanship, CQB, physical, and qualification drills. Operators log with timers on mobile — even offline. Weapon, attachment, and accuracy history show what made performance better or worse.",
 	whyLabel: "Why Tactical OS",
-	whyHeading: "Built for personnel who train like the mission depends on it.",
-	whySub: "Not HR software — operational readiness, drills, performance metrics, and gear accountability.",
+	whyHeading: "Training orgs deserve more than spreadsheets and paper logs.",
+	whySub:
+		"Multi-tenant academies, role-based access, offline-first mobile, and performance data you can trust — not HR software or generic fitness apps.",
+	capabilitiesBadge: "Platform",
+	capabilitiesHeading: "Everything a training academy needs to run and measure drills.",
+	capabilitiesBody:
+		"Assign drills, capture timers and scores, track weapons and attachments, sync from the field, and review readiness on web — built for instructors, operators, and planners.",
+	customersTitle: "Drill disciplines supported from day one",
+	ctaBadge: "Early access",
+	ctaHeading: "Run your next training day on Tactical OS.",
+	ctaBody:
+		"Start with drill logging and timers. Grow into structured exercises, cohort dashboards, and multi-academy tenancy as your program scales.",
+	pricingHeading: "Pricing that scales with your academy.",
+	pricingBody:
+		"Pilot free while we ship core drill logging. Paid tiers add cohorts, instructors, and isolated org tenants — no surprise overages.",
 	aboutTitle: "About Tactical OS",
 	aboutLead:
-		"Tactical OS helps real operators and SF-style personnel plan ops, run drills, track performance, and manage inventory — readiness you can measure.",
+		"Tactical OS is the operator training and readiness platform for academies — drills, weapons, performance, and mission-style exercise planning on one stack.",
+} as const;
+
+export const SECTION_LINKS = {
+	heroPrimary: "#product",
+	heroSecondary: "http://localhost:3002/docs",
+	ctaPrimary: "#pricing",
 } as const;
 
 export type NavLink = {
@@ -57,43 +81,43 @@ export type NavItem = {
 
 export const NAV_ITEMS: NavItem[] = [
 	{
-		label: "Product",
+		label: "Platform",
 		href: "#product",
 		items: [
 			{
-				label: "Apps",
-				description: "Web, mobile, Nest API, docs, and Rust",
+				label: "Drill workflow",
+				description: "Assign, run, log, and review training sessions",
 				href: "/#product",
 			},
 			{
-				label: "Architecture",
-				description: "Workspace packages and import boundaries",
-				href: "/#why",
+				label: "Capabilities",
+				description: "Timers, weapons, offline sync, and dashboards",
+				href: "/#capabilities",
 			},
 			{
-				label: "Capabilities",
-				description: "Shared UI, CI, Docker, and polyglot tooling",
-				href: "/#capabilities",
+				label: "Why Tactical OS",
+				description: "Built for academies, not generic SaaS",
+				href: "/#why",
 			},
 		],
 	},
 	{
 		label: "Resources",
-		href: "#customers",
+		href: "#faq",
 		items: [
 			{
 				label: "Docs",
-				description: "Quick start and deep references",
+				description: "Engineering and product documentation",
 				href: "http://localhost:3002/docs",
 			},
 			{
-				label: "Stack",
-				description: "What ships in the monorepo",
+				label: "Drill types",
+				description: "Marksmanship, CQB, physical, qualification",
 				href: "/#customers",
 			},
 			{
 				label: "About",
-				description: "Why we built Starter",
+				description: "Mission, roles, and roadmap",
 				href: "/about",
 			},
 		],
@@ -122,29 +146,29 @@ export type WorkflowStep = {
 
 export const WORKFLOW_STEPS: WorkflowStep[] = [
 	{
-		id: "anomaly",
-		label: "Clone the repo",
-		detail: "git clone â†’ bun install",
+		id: "assign",
+		label: "Drill assigned",
+		detail: "Instructor · CQB room 3 · 09:00",
 	},
 	{
-		id: "investigating",
-		label: "Hooks installed",
-		detail: "lefthook prepare formats and guards commits",
+		id: "timer",
+		label: "Timer running",
+		detail: "Split 1 · 1.42s · mobile offline",
 	},
 	{
-		id: "root",
-		label: "Workspace ready",
-		detail: "Turbo graph links web, mobile, Nest, docs, Rust",
+		id: "weapon",
+		label: "Weapon logged",
+		detail: "Carbine · red-dot · 24 rounds",
 	},
 	{
-		id: "fix",
-		label: "Dev servers up",
-		detail: "bun run dev â€” apps online in minutes",
+		id: "score",
+		label: "Score captured",
+		detail: "Hits 18/20 · accuracy 90%",
 	},
 	{
-		id: "notify",
-		label: "Quality gates green",
-		detail: "lint Â· typecheck Â· architecture check pass",
+		id: "sync",
+		label: "Synced to command",
+		detail: "Readiness board updated",
 	},
 ];
 
@@ -156,19 +180,19 @@ export type ChatMessage = {
 export const AGENT_MESSAGES: ChatMessage[] = [
 	{
 		role: "user",
-		text: "Log today's CQB drill and compare response times to last week.",
+		text: "Log today's CQB drill — compare splits to last week and note the optic change.",
 	},
 	{
 		role: "agent",
-		text: "Drill logged — split times are 8% faster than your last CQB session.",
+		text: "Logged. Split average is 8% faster than your last CQB session.",
 	},
 	{
 		role: "agent",
-		text: "Firing-speed scores and gear checks are tied to the same mission timeline.",
+		text: "Weapon profile updated: red-dot mount changed — accuracy up 4% over 5 sessions.",
 	},
 	{
 		role: "agent",
-		text: "Ops board updated — readiness metrics are ready for review.",
+		text: "Qualification threshold met. Instructor review queue updated.",
 	},
 ];
 
@@ -178,22 +202,20 @@ export type CustomerLogo = {
 };
 
 export const CUSTOMER_LOGOS: CustomerLogo[] = [
-	{ name: "Next.js", icon: HexagonIcon },
-	{ name: "Expo", icon: TriangleIcon },
-	{ name: "NestJS", icon: ApertureIcon },
-	{ name: "Turbo", icon: Package01Icon },
-	{ name: "Bun", icon: GemIcon },
-	{ name: "Biome", icon: CommandIcon },
-	{ name: "Docker", icon: OctagonIcon },
-	{ name: "Rust", icon: CircleIcon },
+	{ name: "Marksmanship", icon: ApertureIcon },
+	{ name: "CQB", icon: SecurityCheckIcon },
+	{ name: "Physical", icon: TriangleIcon },
+	{ name: "Qualification", icon: HexagonIcon },
+	{ name: "Custom drills", icon: CommandIcon },
+	{ name: "Offline mobile", icon: OctagonIcon },
 ];
 
 export const PRODUCT_BULLETS: string[] = [
-	"Mission planning and operation timelines in one command view",
-	"CQB and tactical drill programs with session logging",
-	"Response time and firing-speed metrics tracked over time",
-	"Gear and inventory accountability before every op",
-	"Web ops board plus mobile field use",
+	"Instructor-assigned drills with built-in timers and manual score entry",
+	"Weapon, attachment, and ammo logged every session — see what changed performance",
+	"Marksmanship, CQB, physical, qualification, and custom drill templates",
+	"Offline mobile capture at the range; sync when signal returns",
+	"Multi-tenant academies with operator, instructor, and planner roles",
 ];
 
 export type IncidentEvent = {
@@ -205,32 +227,32 @@ export type IncidentEvent = {
 
 export const INCIDENT_TIMELINE: IncidentEvent[] = [
 	{
-		title: "Workspace install",
-		detail: "bun install resolves apps/* and packages/*",
+		title: "Brief issued",
+		detail: "OPORD-lite · objectives · gear list · linked drills",
 		tone: "info",
 		icon: "activity",
 	},
 	{
-		title: "Turbo pipeline",
-		detail: "dev Â· build Â· lint Â· typecheck orchestrated",
+		title: "Operators deploy",
+		detail: "Mobile app · offline queue enabled",
 		tone: "info",
 		icon: "search",
 	},
 	{
-		title: "Architecture check",
-		detail: "import boundaries enforced before commit",
-		tone: "info",
-		icon: "pr",
-	},
-	{
-		title: "Test & e2e",
-		detail: "Vitest + Playwright green on web",
+		title: "Drills executed",
+		detail: "Timers · hits/misses · weapon snapshots",
 		tone: "info",
 		icon: "wrench",
 	},
 	{
-		title: "Ready to ship",
-		detail: "Docker Compose optional â€” school-os is live",
+		title: "Scores sync",
+		detail: "Cohort dashboard · delta vs last session",
+		tone: "info",
+		icon: "pr",
+	},
+	{
+		title: "Readiness reviewed",
+		detail: "Instructor sign-off · qualification status",
 		tone: "ok",
 		icon: "shield",
 	},
@@ -242,9 +264,9 @@ export type ToolCall = {
 };
 
 export const AGENT_TOOL_CALLS: ToolCall[] = [
-	{ name: "turbo run build", status: "done" },
-	{ name: "biome check", status: "done" },
-	{ name: "architecture:check", status: "done" },
+	{ name: "sync drill sessions", status: "done" },
+	{ name: "compute split delta", status: "done" },
+	{ name: "flag qualification pass", status: "running" },
 ];
 
 export type CapabilityCard = {
@@ -259,41 +281,44 @@ export type MeshPalette = "blue" | "teal" | "lime" | "amber";
 
 export const CAPABILITY_CARDS: CapabilityCard[] = [
 	{
-		title: "See the monorepo reason",
+		title: "Drill logging & timers",
 		description:
-			"Turbo graphs tasks across apps â€” watch install, lint, and build fan out from one command.",
+			"Assign marksmanship, CQB, physical, and qualification drills. Built-in timers and manual score entry — no stopwatch apps on the side.",
 		span: 4,
 		kind: "reasoning",
-		palette: "blue",
+		palette: "lime",
 	},
 	{
-		title: "Add an app in one workspace",
+		title: "Weapon & accuracy history",
 		description:
-			"Drop a package under apps/ or packages/, export as @school-os/*, and wire it into turbo.json.",
+			"Log weapon, attachments, ammo, and hits per session. See how gear changes correlate with split times over weeks.",
 		span: 2,
 		kind: "tools",
-		palette: "blue",
+		palette: "amber",
 	},
 	{
-		title: "Shared UI that sticks",
-		description: "Design tokens and primitives live in @school-os/ui for web.",
+		title: "Offline-first mobile",
+		description:
+			"Capture drills at the range without signal. Local queue syncs when connectivity returns.",
 		span: 2,
 		kind: "memory",
 		palette: "teal",
 	},
 	{
-		title: "Typed contracts end to end",
-		description: "Zod on Nest, TypeScript everywhere â€” schemas and configs stay honest.",
+		title: "Instructor dashboards",
+		description:
+			"Cohort readiness, session deltas, and qualification status on web — operators see their own progress.",
 		span: 2,
 		kind: "output",
-		palette: "lime",
+		palette: "blue",
 	},
 	{
-		title: "Gates before it merges",
-		description: "Lefthook formats, lints, typechecks, scans secrets, and checks architecture.",
+		title: "Multi-tenant academies",
+		description:
+			"Isolated orgs with units and cohorts. Roles for operators, instructors, planners, and org admins.",
 		span: 2,
 		kind: "approval",
-		palette: "blue",
+		palette: "lime",
 	},
 ];
 
@@ -311,30 +336,30 @@ export const STATS: Stat[] = [
 		value: 5,
 		suffix: "",
 		prefix: "",
-		label: "Runnable apps",
-		detail: "web Â· mobile Â· nest Â· docs Â· rust",
+		label: "Drill categories",
+		detail: "Marksmanship · CQB · physical · qual · custom",
 	},
 	{
 		value: 3,
 		suffix: "",
 		prefix: "",
-		label: "Shared packages",
-		detail: "ui Â· logger Â· tsconfig",
+		label: "Core roles",
+		detail: "Operator · instructor · planner",
+	},
+	{
+		value: 100,
+		suffix: "%",
+		prefix: "",
+		label: "Session traceability",
+		detail: "Weapon · ammo · score · timestamp",
 	},
 	{
 		value: 0,
 		suffix: "",
 		prefix: "",
-		label: "Time to first dev",
-		display: "<10m",
-		detail: "clone â†’ install â†’ run",
-	},
-	{
-		value: 4,
-		suffix: "+",
-		prefix: "",
-		label: "Languages wired",
-		detail: "TS Â· Rust Â· Bash Â· Python",
+		label: "Signal required",
+		display: "Offline",
+		detail: "Mobile capture · background sync",
 	},
 ];
 
@@ -347,21 +372,21 @@ export type AboutPrinciple = {
 export const ABOUT_PRINCIPLES: AboutPrinciple[] = [
 	{
 		icon: "bridge",
-		title: "Starter, not a demo dump",
+		title: "Training-first, not generic SaaS",
 		description:
-			"Every app and package earns its place by helping you ship a real product â€” not a throwaway scaffold.",
+			"Every feature earns its place by helping academies run drills and prove readiness — not another HR or fitness app.",
 	},
 	{
 		icon: "eye",
-		title: "Boundaries you can see",
+		title: "Data operators can trust",
 		description:
-			"Architecture checks and docs make import rules explicit so AI agents and humans stay inside the lanes.",
+			"Weapon history, split deltas, and qualification status — visible to instructors and operators without spreadsheet archaeology.",
 	},
 	{
 		icon: "shield",
-		title: "Quality by default",
+		title: "Field-ready by default",
 		description:
-			"Biome, Lefthook, Turbo, and CI run before code lands â€” so green hooks become the habit, not a hope.",
+			"Offline mobile, role-based access, and multi-tenant isolation — built for ranges and training floors, not just desk dashboards.",
 	},
 ];
 
@@ -377,38 +402,38 @@ export type AboutTeamMember = {
 
 export const ABOUT_TEAM: AboutTeamMember[] = [
 	{
-		id: "priya",
-		name: "Priya Nair",
-		role: "Lead maintainer",
-		seed: "PriyaNair",
-		bio: "Owns the monorepo spine and docs. Wants clone-to-dev to feel boringly reliable.",
+		id: "alex",
+		name: "Alex Mercer",
+		role: "Head instructor",
+		seed: "AlexMercer",
+		bio: "Runs CQB and qualification programs. Wants every drill logged with the same rigor as a live op brief.",
 		tone: "green",
 		profileHref: "#",
 	},
 	{
-		id: "marcus",
-		name: "Marcus Vale",
-		role: "Platform engineer",
-		seed: "MarcusVale",
-		bio: "Keeps Nest, Docker, and Turbo pipelines honest. Obsessed with cache-friendly task graphs.",
+		id: "sam",
+		name: "Sam Rivera",
+		role: "Range operations",
+		seed: "SamRivera",
+		bio: "Keeps mobile offline sync honest. Obsessed with zero lost sessions when signal drops at the range.",
 		tone: "teal",
 		profileHref: "#",
 	},
 	{
-		id: "lena",
-		name: "Lena Ortiz",
-		role: "DX & tooling",
-		seed: "LenaOrtiz",
-		bio: "Ships hooks, Biome rules, and agent guidance so every commit stays reviewable.",
+		id: "jordan",
+		name: "Jordan Hale",
+		role: "Readiness analytics",
+		seed: "JordanHale",
+		bio: "Builds instructor dashboards and split deltas so cohorts improve week over week, not guesswork.",
 		tone: "blue",
 		profileHref: "#",
 	},
 	{
-		id: "theo",
-		name: "Theo Park",
-		role: "Mobile & UI",
-		seed: "TheoPark",
-		bio: "Expo Router + shared design tokens. Believes the starter should look production-ready on day one.",
+		id: "casey",
+		name: "Casey Wu",
+		role: "Platform & mobile",
+		seed: "CaseyWu",
+		bio: "Web command center plus Expo field app. Believes training software should work where operators actually train.",
 		tone: "amber",
 		profileHref: "#",
 	},
@@ -424,23 +449,23 @@ export type Testimonial = {
 export const TESTIMONIALS_ROW_ONE: Testimonial[] = [
 	{
 		quote:
-			"We skipped three weeks of wiring Turbo, hooks, and Docker. Starter was already opinionated the right way.",
+			"We replaced three spreadsheets and a WhatsApp group. Every CQB session is timed, scored, and synced before instructors leave the range.",
 		name: "Maya Chen",
-		role: "Staff Eng, campus product",
+		role: "Academy lead, urban tactics",
 		seed: "Maya",
 	},
 	{
 		quote:
-			"One clone gave us Next, Expo, and Nest with shared UI. Architecture checks caught bad imports on day one.",
+			"Offline mobile was the dealbreaker. Operators log splits in the kill house; dashboards update when they hit Wi‑Fi.",
 		name: "Diego Santos",
-		role: "Frontend lead",
+		role: "Range master",
 		seed: "Diego",
 	},
 	{
 		quote:
-			"Students can PR into a real monorepo without babysitting tooling. lint and typecheck just work.",
+			"Weapon and optic changes finally show up in the data. Split times improved 12% once we could see attachment history.",
 		name: "Priya Nair",
-		role: "CS faculty",
+		role: "Marksmanship instructor",
 		seed: "Priya",
 	},
 ];
@@ -448,23 +473,23 @@ export const TESTIMONIALS_ROW_ONE: Testimonial[] = [
 export const TESTIMONIALS_ROW_TWO: Testimonial[] = [
 	{
 		quote:
-			"Adding a package under packages/ and exporting @school-os/* took minutes. Turbo picked it up immediately.",
+			"Multi-tenant setup let us run two cohorts under one org without cross-contamination. Qualification records stay clean.",
 		name: "Theo Park",
-		role: "Mobile engineer",
+		role: "Training director",
 		seed: "Theo",
 	},
 	{
 		quote:
-			"Lefthook + secret scan + architecture check means I trust contributor PRs before they hit CI.",
+			"Instructors assign drills in the morning; operators execute with built-in timers. No more arguing about stopwatch apps.",
 		name: "Lena Ortiz",
-		role: "Platform engineer",
+		role: "CQB program lead",
 		seed: "Lena",
 	},
 	{
 		quote:
-			"Docs live in the same repo. New teammates read /docs/quick-start and are productive the same afternoon.",
+			"Readiness board on web, field app on mobile — same product, same truth. That's what our accreditation reviewers wanted.",
 		name: "Maya Chen",
-		role: "Staff Eng, campus product",
+		role: "Academy lead, urban tactics",
 		seed: "MayaTwo",
 	},
 ];
@@ -475,10 +500,10 @@ export type TerminalLine = {
 };
 
 export const DEPLOY_TERMINAL: TerminalLine[] = [
-	{ text: "bun install", tone: "prompt" },
-	{ text: "Resolved workspaces apps/* packages/*", tone: "ok" },
-	{ text: "bun run prepare  # lefthook hooks", tone: "prompt" },
-	{ text: "bun run dev      # turbo starts the stack", tone: "ok" },
+	{ text: "assign drill --cohort alpha --type cqb", tone: "prompt" },
+	{ text: "Operators receive session on mobile (offline OK)", tone: "ok" },
+	{ text: "timer start · splits captured · weapon logged", tone: "info" },
+	{ text: "sync --when online → instructor dashboard", tone: "ok" },
 ];
 
 export type PricingTier = {
@@ -486,7 +511,7 @@ export type PricingTier = {
 	monthly: number;
 };
 
-/** Slider steps: free â†’ team â†’ org (workspaces / projects included). */
+/** Slider steps: pilot → academy → multi-unit → enterprise. */
 export const PRICING_TIERS: PricingTier[] = [
 	{ services: 1, monthly: 0 },
 	{ services: 5, monthly: 49 },
@@ -496,11 +521,11 @@ export const PRICING_TIERS: PricingTier[] = [
 ];
 
 export const PRICING_FEATURES: string[] = [
-	"Full monorepo starter (web Â· mobile Â· Nest Â· docs Â· Rust)",
-	"Shared @school-os packages and TS configs",
-	"Lefthook, Biome, Turbo, and architecture checks",
-	"Docker Compose fragments + Dev Container",
-	"Docs site and production roadmap baked in",
+	"Drill templates, timers, and manual score entry",
+	"Weapon, attachment, and ammo history per session",
+	"Offline mobile with background sync",
+	"Instructor dashboards and cohort readiness",
+	"Multi-tenant org isolation (paid tiers)",
 ];
 
 export type WhyCard = {
@@ -514,26 +539,26 @@ export type WhyCard = {
 export const WHY_CARDS: WhyCard[] = [
 	{
 		id: "route",
-		title: "One graph for every app",
+		title: "One system for the training day",
 		description:
-			"Turbo orchestrates install, lint, build, and test across the workspace â€” no glue scripts to invent.",
-		palette: "blue",
+			"Assign drills, run timers, log weapons, sync scores, and review readiness — web command and mobile field in one product.",
+		palette: "lime",
 		kind: "route",
 	},
 	{
 		id: "keys",
-		title: "Boundaries you can enforce",
+		title: "Roles that match your org",
 		description:
-			"Architecture checks and AGENTS.md keep apps and packages in their lanes â€” humans and AI included.",
-		palette: "lime",
+			"Operators, instructors, planners, and org admins — each sees what they need without spreadsheet sprawl.",
+		palette: "amber",
 		kind: "keys",
 	},
 	{
 		id: "ready",
-		title: "Running in under ten minutes",
+		title: "Works at the range",
 		description:
-			"Clone, bun install, bun run prepare, bun run dev â€” web, API, and docs come up without a weekend of setup.",
-		palette: "amber",
+			"Offline-first mobile capture with background sync — no lost sessions when signal drops mid-drill.",
+		palette: "teal",
 		kind: "ready",
 	},
 ];
@@ -547,45 +572,45 @@ export type FaqItem = {
 
 export const FAQ_ITEMS: FaqItem[] = [
 	{
-		id: "agents",
-		question: "Do I need Docker to start?",
+		id: "offline",
+		question: "Does mobile work offline at the range?",
 		answer:
-			"No. Host-only is fine: install Bun, bun install, bun run prepare, bun run dev. Compose is optional when you want Postgres or the full containerized stack.",
+			"Yes. Operators log drills, timers, and scores locally. When connectivity returns, sessions sync to the instructor dashboard in the background.",
 		icon: HexagonIcon,
 	},
 	{
-		id: "approvals",
-		question: "Can we keep or drop apps we do not need?",
+		id: "drills",
+		question: "What drill types are supported?",
 		answer:
-			"Yes. Apps under apps/ are independent. Remove or ignore what you do not ship yet â€” keep packages you still share.",
+			"Marksmanship, CQB, physical, qualification, and custom templates. MVP focuses on logging and timers; structured OPORD-lite exercise planning is on the roadmap.",
 		icon: SecurityCheckIcon,
 	},
 	{
-		id: "stack",
-		question: "What stacks does Starter include?",
+		id: "weapons",
+		question: "Can we track weapons and attachments over time?",
 		answer:
-			"Next.js web, Expo mobile, NestJS API, Fumadocs docs, and a Rust binary â€” plus shared UI, logger, and TypeScript configs.",
-		icon: Package01Icon,
+			"Every session can log weapon, attachments, ammo, and accuracy. History shows how gear changes correlate with splits and hit rates across weeks.",
+		icon: ApertureIcon,
 	},
 	{
-		id: "traces",
-		question: "How do architecture boundaries work?",
+		id: "tenants",
+		question: "Is this multi-tenant for training academies?",
 		answer:
-			"scripts/architecture/check-boundaries.sh runs in hooks and CI so apps cannot import each otherâ€™s internals. Overrides are documented in /docs/overrides.",
+			"Yes. Orgs are isolated with units and cohorts inside. Role-based access for operators, instructors, planners, and org admins.",
 		icon: CommandIcon,
 	},
 	{
 		id: "pricing",
-		question: "Is the starter free to use?",
+		question: "Is there a free tier?",
 		answer:
-			"The monorepo starter is free to clone and run. Paid tiers are optional for team seats, support, and managed onboarding â€” annual billing includes two months free.",
+			"Pilot tier is free while core drill logging ships. Paid tiers add more operators, instructors, and dedicated org tenancy — annual billing includes two months free.",
 		icon: GemIcon,
 	},
 	{
-		id: "security",
-		question: "What quality gates run before a commit?",
+		id: "redcore",
+		question: "Is Tactical OS the same as RedCore?",
 		answer:
-			"Lefthook formats with Biome, lints, typechecks, blocks large files, scans for obvious secrets, and runs the architecture check â€” Conventional Commits required.",
+			"No. Tactical OS is training and readiness for academies. RedCore is a separate evidence-first cyber ops product — different domain, different repo.",
 		icon: OctagonIcon,
 	},
 ];
@@ -599,7 +624,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
 	{
 		title: "Product",
 		links: [
-			{ label: "Apps overview", href: "/#product" },
+			{ label: "Training workflow", href: "/#product" },
 			{ label: "Capabilities", href: "/#capabilities" },
 			{ label: "Pricing", href: "/pricing" },
 		],
@@ -608,16 +633,15 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
 		title: "Resources",
 		links: [
 			{ label: "Docs", href: "http://localhost:3002/docs" },
-			{ label: "Stack", href: "/#customers" },
+			{ label: "Drill types", href: "/#customers" },
 			{ label: "FAQ", href: "/#faq" },
-			{ label: "Quick start", href: "/#deploy" },
+			{ label: "Roadmap", href: "/#deploy" },
 		],
 	},
 	{
 		title: "Company",
 		links: [
 			{ label: "About", href: "/about" },
-			{ label: "Careers", href: "/about" },
 			{ label: "Contact", href: "/about" },
 		],
 	},
@@ -626,5 +650,3 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
 export function dicebearUrl(seed: string): string {
 	return `https://api.dicebear.com/10.x/glass/svg?seed=${encodeURIComponent(seed)}`;
 }
-
-

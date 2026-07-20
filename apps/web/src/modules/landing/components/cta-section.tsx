@@ -5,13 +5,13 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { useState } from "react";
-import { DEPLOY_TERMINAL } from "../data/landing.data";
+import { DEPLOY_TERMINAL, LANDING_COPY } from "../data/landing.data";
 import { ATLAS_EASE, hoverTap, springSnappy } from "../lib/motion";
 import { FadeIn } from "./fade-in";
 
 export function CtaSection() {
 	const [copied, setCopied] = useState(false);
-	const command = "bun install";
+	const command = "assign drill --cohort alpha --type cqb";
 
 	const handleCopy = async () => {
 		try {
@@ -28,20 +28,19 @@ export function CtaSection() {
 			<div className="relative mx-auto flex w-full max-w-3xl flex-col items-center text-center">
 				<FadeIn>
 					<span className="inline-flex items-center rounded-full border border-border bg-card/70 px-3 py-1 font-medium text-muted-foreground text-xs backdrop-blur">
-						Up in minutes
+						{LANDING_COPY.ctaBadge}
 					</span>
 				</FadeIn>
 
 				<FadeIn delay={0.08}>
 					<h2 className="mt-5 max-w-2xl text-balance font-serif text-4xl text-foreground leading-[1.05] sm:text-5xl">
-						Clone the starter. Run the workspace.
+						{LANDING_COPY.ctaHeading}
 					</h2>
 				</FadeIn>
 
 				<FadeIn delay={0.12}>
 					<p className="mt-5 max-w-xl text-pretty text-muted-foreground text-sm leading-7 sm:text-base">
-						Install once with Bun — Turbo brings up web, mobile, Nest, docs, and Rust without a
-						weekend of glue work.
+						{LANDING_COPY.ctaBody}
 					</p>
 				</FadeIn>
 
@@ -55,7 +54,7 @@ export function CtaSection() {
 							<span className="size-3 rounded-full bg-[#ff5f57]" />
 							<span className="size-3 rounded-full bg-[#febc2e]" />
 							<span className="size-3 rounded-full bg-[#28c840]" />
-							<span className="ml-2 font-mono text-[11px] text-white/40">~/school-os</span>
+							<span className="ml-2 font-mono text-[11px] text-white/40">~/tactical-os</span>
 							<motion.button
 								type="button"
 								onClick={handleCopy}
@@ -106,10 +105,10 @@ export function CtaSection() {
 						transition={springSnappy}
 					>
 						<Link
-							href="#deploy"
+							href="#pricing"
 							className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-7 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90"
 						>
-							Get started
+							{LANDING_COPY.heroCtaPrimary}
 							<HugeiconsIcon icon={ArrowRight01Icon} className="size-4" aria-hidden={true} />
 						</Link>
 					</motion.div>
@@ -122,7 +121,7 @@ export function CtaSection() {
 							href="http://localhost:3002/docs"
 							className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-border bg-card px-6 text-base font-medium text-foreground transition-colors hover:border-border"
 						>
-							Read the docs
+							{LANDING_COPY.heroCtaSecondary}
 						</Link>
 					</motion.div>
 				</FadeIn>

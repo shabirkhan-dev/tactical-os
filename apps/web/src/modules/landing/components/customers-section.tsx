@@ -2,7 +2,7 @@
 
 import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
-import { CUSTOMER_LOGOS } from "../data/landing.data";
+import { CUSTOMER_LOGOS, LANDING_COPY } from "../data/landing.data";
 import { springSnappy } from "../lib/motion";
 import { FadeIn } from "./fade-in";
 import { Marquee } from "./marquee";
@@ -12,9 +12,7 @@ export function CustomersSection() {
 		<section id="customers" className="px-4 py-20 sm:py-28">
 			<div className="mx-auto w-full max-w-6xl">
 				<FadeIn>
-					<p className="text-center text-sm text-muted-foreground">
-						Built with the stack you already know
-					</p>
+					<p className="text-center text-sm text-muted-foreground">{LANDING_COPY.customersTitle}</p>
 				</FadeIn>
 
 				<FadeIn delay={0.1} className="mt-10">

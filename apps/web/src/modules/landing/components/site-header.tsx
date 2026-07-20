@@ -1,6 +1,11 @@
 "use client";
 
-import { ArrowDown01Icon, Cancel01Icon, HexagonIcon, Menu01Icon } from "@hugeicons/core-free-icons";
+import {
+	ArrowDown01Icon,
+	Cancel01Icon,
+	SecurityCheckIcon,
+	Menu01Icon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
@@ -10,7 +15,7 @@ import { ATLAS_EASE, menuItemVariants, springSnappy, springSoft } from "../lib/m
 import { cn } from "../lib/utils";
 import { LandingAuthActions } from "./landing-auth-actions";
 
-function StarterMark({ className }: { className?: string }) {
+function TacticalMark({ className }: { className?: string }) {
 	return (
 		<span
 			className={cn(
@@ -18,8 +23,12 @@ function StarterMark({ className }: { className?: string }) {
 				className,
 			)}
 		>
-			<HugeiconsIcon icon={HexagonIcon} className="size-4" strokeWidth={2.25} aria-hidden={true} />
-			<span className="pointer-events-none absolute size-1.5 rounded-full bg-background" />
+			<HugeiconsIcon
+				icon={SecurityCheckIcon}
+				className="size-4"
+				strokeWidth={2.25}
+				aria-hidden={true}
+			/>
 		</span>
 	);
 }
@@ -45,7 +54,7 @@ export function SiteHeader() {
 						href="/"
 						className="flex shrink-0 items-center gap-2 rounded-lg px-1 font-semibold text-foreground outline-none focus-visible:ring-2 focus-visible:ring-foreground/30"
 					>
-						<StarterMark />
+						<TacticalMark />
 						{SITE.name}
 					</Link>
 
