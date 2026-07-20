@@ -3,8 +3,8 @@
 import {
 	ArrowDown01Icon,
 	Cancel01Icon,
-	SecurityCheckIcon,
 	Menu01Icon,
+	SecurityCheckIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "motion/react";
@@ -19,7 +19,7 @@ function TacticalMark({ className }: { className?: string }) {
 	return (
 		<span
 			className={cn(
-				"relative grid size-7 place-items-center rounded-lg bg-foreground text-background",
+				"grid size-7 place-items-center border border-primary/40 bg-primary/10 text-primary",
 				className,
 			)}
 		>
@@ -42,20 +42,27 @@ export function SiteHeader() {
 	const closeMobile = () => setMobileOpen(false);
 
 	return (
-		<section className="sticky top-0 z-50 w-full px-4 pt-6 sm:px-8">
-			<header className="relative mx-auto w-full max-w-5xl">
+		<section className="sticky top-0 z-50 w-full border-border/80 border-b bg-background/95 backdrop-blur-sm">
+			<header className="relative mx-auto flex h-12 w-full max-w-6xl items-center justify-between px-4 sm:px-8">
 				<motion.div
-					initial={reduceMotion ? false : { opacity: 0, y: -12 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.55, ease: ATLAS_EASE }}
-					className="relative flex h-14 items-center justify-between rounded-full border border-border/50 bg-background/80 px-3 shadow-sm backdrop-blur-xl sm:px-4"
+					initial={reduceMotion ? false : { opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 0.4, ease: ATLAS_EASE }}
+					className="flex w-full items-center justify-between"
 				>
 					<Link
 						href="/"
-						className="flex shrink-0 items-center gap-2 rounded-lg px-1 font-semibold text-foreground outline-none focus-visible:ring-2 focus-visible:ring-foreground/30"
+						className="flex shrink-0 items-center gap-2.5 outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
 					>
 						<TacticalMark />
-						{SITE.name}
+						<span className="flex flex-col leading-none">
+							<span className="font-semibold text-foreground text-sm tracking-tight">
+								{SITE.name}
+							</span>
+							<span className="font-mono text-[9px] text-muted-foreground uppercase tracking-widest">
+								v0.1 · training console
+							</span>
+						</span>
 					</Link>
 
 					<nav className="-translate-x-1/2 absolute left-1/2 hidden items-center gap-0.5 lg:flex">

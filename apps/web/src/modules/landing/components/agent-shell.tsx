@@ -15,7 +15,10 @@ export function AgentShell({ children }: AgentShellProps) {
 	const { theme, toggleTheme } = useAtlasTheme();
 
 	return (
-		<div data-landing className="relative min-h-screen bg-background text-foreground antialiased">
+		<div
+			data-landing
+			className="ops-surface relative min-h-screen bg-background text-foreground antialiased"
+		>
 			<SiteHeader />
 			<main>{children}</main>
 			<SiteFooter />

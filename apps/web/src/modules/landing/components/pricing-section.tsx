@@ -10,10 +10,11 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { PRICING_FEATURES, PRICING_TIERS, LANDING_COPY } from "../data/landing.data";
+import { LANDING_COPY, PRICING_FEATURES, PRICING_TIERS } from "../data/landing.data";
 import { ATLAS_EASE, hoverTap, springSnappy, springSoft } from "../lib/motion";
 import { cn } from "../lib/utils";
 import { FadeIn } from "./fade-in";
+import { SectionLabel } from "./ops-ui";
 
 type Billing = "monthly" | "yearly";
 
@@ -46,15 +47,13 @@ export function PricingSection() {
 			: `${tier.services} operator seat${tier.services === 1 ? "" : "s"} included.`;
 
 	return (
-		<section id="pricing" className="w-full px-4 pt-20 pb-8 sm:px-8">
-			<div className="mx-auto flex w-full max-w-2xl flex-col items-center text-center">
+		<section id="pricing" className="w-full border-border/60 border-t px-4 pt-20 pb-8 sm:px-8">
+			<div className="mx-auto flex w-full max-w-2xl flex-col">
 				<FadeIn>
-					<span className="inline-flex items-center rounded-full border border-border bg-card px-3.5 py-1.5 font-medium text-muted-foreground text-xs">
-						Pricing
-					</span>
+					<SectionLabel>pricing</SectionLabel>
 				</FadeIn>
 				<FadeIn delay={0.06}>
-					<h2 className="mt-5 text-balance font-serif text-4xl text-foreground leading-tight tracking-[-0.02em] sm:text-5xl">
+					<h2 className="mt-4 text-balance font-semibold text-2xl text-foreground leading-tight sm:text-3xl">
 						{LANDING_COPY.pricingHeading}
 					</h2>
 				</FadeIn>

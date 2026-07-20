@@ -1,43 +1,33 @@
 "use client";
 
-import { motion } from "motion/react";
-import {
-	dicebearUrl,
-	TESTIMONIALS_ROW_ONE,
-	TESTIMONIALS_ROW_TWO,
-	type Testimonial,
-} from "../data/landing.data";
-import { hoverLift, springSnappy } from "../lib/motion";
+import { TESTIMONIALS_ROW_ONE, TESTIMONIALS_ROW_TWO, type Testimonial } from "../data/landing.data";
 import { FadeIn } from "./fade-in";
-import { Marquee } from "./marquee";
+import { SectionLabel } from "./ops-ui";
+
+const ALL_TESTIMONIALS = [...TESTIMONIALS_ROW_ONE, ...TESTIMONIALS_ROW_TWO];
 
 export function TestimonialsSection() {
 	return (
-		<section className="overflow-hidden px-4 py-20 sm:py-28">
-			<div className="mx-auto mb-14 max-w-2xl text-center">
-				<FadeIn>
-					<span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
-						Loved by builders
-					</span>
-				</FadeIn>
-				<FadeIn delay={0.08}>
-					<h2 className="mt-5 text-balance font-serif text-3xl font-medium leading-tight tracking-tight sm:text-4xl">
-						Teams who ship products, not repo glue.
-					</h2>
-				</FadeIn>
-			</div>
+		<section className="border-border/60 border-t px-4 py-20 sm:px-8">
+			<div className="mx-auto w-full max-w-6xl">
+				<div className="mb-10 max-w-2xl">
+					<FadeIn>
+						<SectionLabel>field reports</SectionLabel>
+					</FadeIn>
+					<FadeIn delay={0.08}>
+						<h2 className="mt-4 font-semibold text-2xl text-foreground leading-tight sm:text-3xl">
+							What academy leads say after switching from spreadsheets.
+						</h2>
+					</FadeIn>
+				</div>
 
-			<div className="flex flex-col gap-5">
-				<Marquee durationSeconds={52}>
-					{TESTIMONIALS_ROW_ONE.map((testimonial) => (
-						<TestimonialCard key={testimonial.seed} testimonial={testimonial} />
+				<div className="grid gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+					{ALL_TESTIMONIALS.map((testimonial, index) => (
+						<FadeIn key={testimonial.seed} delay={index * 0.04}>
+							<TestimonialCard testimonial={testimonial} />
+						</FadeIn>
 					))}
-				</Marquee>
-				<Marquee durationSeconds={58} reverse>
-					{TESTIMONIALS_ROW_TWO.map((testimonial) => (
-						<TestimonialCard key={testimonial.seed} testimonial={testimonial} />
-					))}
-				</Marquee>
+				</div>
 			</div>
 		</section>
 	);
@@ -45,27 +35,16 @@ export function TestimonialsSection() {
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 	return (
-		<motion.figure
-			className="flex w-[380px] max-w-[85vw] flex-col justify-between rounded-3xl border border-border/60 bg-card/50 p-6"
-			whileHover={hoverLift}
-			transition={springSnappy}
-		>
-			<blockquote className="text-pretty text-sm leading-relaxed text-foreground/90">
+		<figure className="flex h-full flex-col justify-between bg-card p-5">
+			<blockquote className="text-pretty text-foreground/90 text-sm leading-relaxed">
 				“{testimonial.quote}”
 			</blockquote>
-			<figcaption className="mt-6 flex items-center gap-3">
-				{/* biome-ignore lint/performance/noImgElement: external dicebear avatar SVG, not optimizable via next/image */}
-				<img
-					src={dicebearUrl(testimonial.seed)}
-					alt={testimonial.name}
-					className="h-10 w-10 rounded-full border border-border/60 bg-muted"
-					loading="lazy"
-				/>
-				<div>
-					<p className="text-sm font-medium text-foreground">{testimonial.name}</p>
-					<p className="text-xs text-muted-foreground">{testimonial.role}</p>
-				</div>
+			<figcaption className="mt-5 border-border border-t pt-4">
+				<p className="font-medium text-foreground text-sm">{testimonial.name}</p>
+				<p className="mt-0.5 font-mono text-[10px] text-muted-foreground uppercase">
+					{testimonial.role}
+				</p>
 			</figcaption>
-		</motion.figure>
+		</figure>
 	);
 }

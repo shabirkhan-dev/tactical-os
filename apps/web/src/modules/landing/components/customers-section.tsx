@@ -1,34 +1,30 @@
 "use client";
 
 import { HugeiconsIcon } from "@hugeicons/react";
-import { motion } from "motion/react";
 import { CUSTOMER_LOGOS, LANDING_COPY } from "../data/landing.data";
-import { springSnappy } from "../lib/motion";
 import { FadeIn } from "./fade-in";
-import { Marquee } from "./marquee";
+import { SectionLabel } from "./ops-ui";
 
 export function CustomersSection() {
 	return (
-		<section id="customers" className="px-4 py-20 sm:py-28">
+		<section id="customers" className="border-border/60 border-t px-4 py-14 sm:px-8">
 			<div className="mx-auto w-full max-w-6xl">
 				<FadeIn>
-					<p className="text-center text-sm text-muted-foreground">{LANDING_COPY.customersTitle}</p>
+					<SectionLabel>{LANDING_COPY.customersTitle}</SectionLabel>
 				</FadeIn>
 
-				<FadeIn delay={0.1} className="mt-10">
-					<Marquee durationSeconds={38}>
+				<FadeIn delay={0.1} className="mt-6">
+					<div className="grid grid-cols-2 gap-px border border-border bg-border sm:grid-cols-3 lg:grid-cols-6">
 						{CUSTOMER_LOGOS.map(({ name, icon }) => (
-							<motion.div
+							<div
 								key={name}
-								className="flex items-center gap-2.5 rounded-full px-2 text-muted-foreground/80"
-								whileHover={{ scale: 1.06, color: "var(--foreground)" }}
-								transition={springSnappy}
+								className="flex items-center gap-2.5 bg-card px-4 py-4 text-muted-foreground transition-colors hover:text-foreground"
 							>
-								<HugeiconsIcon icon={icon} className="h-5 w-5" strokeWidth={1.75} />
-								<span className="text-lg font-medium tracking-tight">{name}</span>
-							</motion.div>
+								<HugeiconsIcon icon={icon} className="size-4 shrink-0" strokeWidth={1.75} />
+								<span className="font-mono text-[11px] uppercase tracking-wide">{name}</span>
+							</div>
 						))}
-					</Marquee>
+					</div>
 				</FadeIn>
 			</div>
 		</section>

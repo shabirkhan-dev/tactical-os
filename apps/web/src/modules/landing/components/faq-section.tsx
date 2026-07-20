@@ -4,6 +4,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { BouncyAccordion } from "@/components/motion/bouncy-accordion";
 import { FAQ_ITEMS } from "../data/landing.data";
 import { FadeIn } from "./fade-in";
+import { SectionLabel } from "./ops-ui";
 
 export function FaqSection() {
 	const items = FAQ_ITEMS.map((item) => ({
@@ -14,16 +15,14 @@ export function FaqSection() {
 	}));
 
 	return (
-		<section id="faq" className="w-full px-4 py-20 sm:px-8 sm:py-28">
+		<section id="faq" className="w-full border-border/60 border-t px-4 py-20 sm:px-8">
 			<div className="mx-auto w-full max-w-3xl">
-				<div className="mb-10 text-center sm:mb-14">
+				<div className="mb-10 sm:mb-14">
 					<FadeIn>
-						<span className="inline-flex items-center rounded-full border border-border/60 bg-muted/40 px-3 py-1 font-medium text-foreground/80 text-xs">
-							FAQ
-						</span>
+						<SectionLabel>faq</SectionLabel>
 					</FadeIn>
 					<FadeIn delay={0.06}>
-						<h2 className="mt-5 text-balance font-serif text-3xl text-foreground leading-[1.15] sm:text-4xl">
+						<h2 className="mt-4 text-balance font-semibold text-2xl text-foreground leading-tight sm:text-3xl">
 							Questions academies ask before switching.
 						</h2>
 					</FadeIn>

@@ -89,11 +89,11 @@ export function SiteFooter() {
 									value={email}
 									onChange={(event) => setEmail(event.target.value)}
 									placeholder="you@academy.dev"
-									className="h-12 w-full flex-1 appearance-none rounded-full border border-border bg-background px-5 text-foreground text-sm shadow-none outline-none transition-[border-color,box-shadow] placeholder:text-muted-foreground focus-visible:border-primary/50 focus-visible:ring-2 focus-visible:ring-ring/40"
+									className="h-12 w-full flex-1 appearance-none border border-border bg-background px-5 text-foreground text-sm shadow-none outline-none transition-[border-color,box-shadow] placeholder:text-muted-foreground focus-visible:border-primary/50 focus-visible:ring-2 focus-visible:ring-ring/40"
 								/>
 								<button
 									type="submit"
-									className="inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
+									className="inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 bg-primary px-6 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
 								>
 									{subscribed ? "Subscribed" : "Subscribe"}
 								</button>

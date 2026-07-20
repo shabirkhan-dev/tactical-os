@@ -5,25 +5,24 @@ import { useEffect, useRef, useState } from "react";
 import { STATS, type Stat } from "../data/landing.data";
 import { ATLAS_EASE } from "../lib/motion";
 import { FadeIn } from "./fade-in";
+import { SectionLabel } from "./ops-ui";
 
 export function StatsSection() {
 	return (
-		<section id="stats" className="px-4 py-20 sm:py-28">
+		<section id="stats" className="border-border/60 border-t px-4 py-20 sm:px-8">
 			<div className="mx-auto w-full max-w-6xl">
 				<div className="mx-auto max-w-2xl text-center">
 					<FadeIn>
-						<span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
-							At a glance
-						</span>
+						<SectionLabel>readiness metrics</SectionLabel>
 					</FadeIn>
 					<FadeIn delay={0.08}>
-						<h2 className="mt-5 text-balance font-serif text-3xl font-medium leading-tight tracking-tight sm:text-4xl">
+						<h2 className="mt-4 text-balance font-semibold text-2xl text-foreground leading-tight sm:text-3xl">
 							Built for training days that need proof, not paperwork.
 						</h2>
 					</FadeIn>
 				</div>
 
-				<div className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-border/60 bg-border/60 lg:grid-cols-4">
+				<div className="mt-12 grid grid-cols-2 gap-px overflow-hidden border border-border bg-border lg:grid-cols-4">
 					{STATS.map((stat, index) => (
 						<StatCell key={stat.label} stat={stat} index={index} />
 					))}
@@ -43,7 +42,7 @@ function StatCell({ stat, index }: { stat: Stat; index: number }) {
 			transition={{ duration: 0.5, delay: index * 0.06, ease: ATLAS_EASE }}
 			whileHover={{ scale: 1.02 }}
 		>
-			<span className="font-serif text-4xl font-medium tabular-nums tracking-tight text-foreground sm:text-5xl">
+			<span className="font-mono text-3xl text-primary tabular-nums tracking-tight sm:text-4xl">
 				{stat.display ? (
 					stat.display
 				) : (
