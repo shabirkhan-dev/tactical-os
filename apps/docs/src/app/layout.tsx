@@ -4,9 +4,12 @@ import { appDescription, appName } from "@/lib/shared";
 import "./global.css";
 
 export const metadata: Metadata = {
-	title: { default: appName, template: `%s | ${appName}`,
+	title: {
+		default: appName,
+		template: `%s | ${appName}`,
+	},
 	description: appDescription,
-	keywords: ["tactical-os", "tactical", "operations", "bun", "turborepo", "monorepo", "nextjs", "nestjs", "expo", "typescript", "fullstack", "docker"],
+	keywords: ["tactical-os", "operator-training", "military", "drills", "readiness", "mission-planning", "inventory", "special-forces", "nextjs", "expo"],
 	openGraph: {
 		title: appName,
 		description: appDescription,

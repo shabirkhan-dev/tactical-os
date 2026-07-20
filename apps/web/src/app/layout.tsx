@@ -16,24 +16,21 @@ export const metadata: Metadata = {
 		default: "Tactical OS",
 		template: "%s | Tactical OS",
 	},
-	description:
-		"Tactical OS — operator training and readiness: plans, drills, performance, and inventory.",
-	keywords: ["tactical-os", "tactical", "operations", "bun", "turborepo", "monorepo", "nextjs", "nestjs", "expo", "typescript", "fullstack", "docker"],
+	description: "Operator training and readiness platform — mission planning, drills, response metrics, firing speed, and gear inventory for ops personnel.",
+	keywords: ["tactical-os", "operator-training", "military", "drills", "readiness", "mission-planning", "inventory", "special-forces", "nextjs", "expo"],
 	applicationName: "Tactical OS",
 	creator: "Tactical OS",
 	openGraph: {
 		type: "website",
 		locale: "en_US",
 		siteName: "Tactical OS",
-		title: "Tactical OS",
-		description:
-			"Tactical OS — operator training and readiness: plans, drills, performance, and inventory.",
+		title: "Tactical OS — operator readiness",
+		description: "Operator training and readiness platform — mission planning, drills, response metrics, firing speed, and gear inventory for ops personnel.",
 	},
 	twitter: {
 		card: "summary_large_image",
-		title: "Tactical OS",
-		description:
-			"Tactical OS — operator training and readiness: plans, drills, performance, and inventory.",
+		title: "Tactical OS — operator readiness",
+		description: "Operator training and readiness platform — mission planning, drills, response metrics, firing speed, and gear inventory for ops personnel.",
 	},
 	robots: { index: true, follow: true },
 };

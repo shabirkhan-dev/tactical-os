@@ -14,8 +14,7 @@ import type { IconSvgElement } from "@hugeicons/react";
 export const SITE = {
 	name: "Tactical OS",
 	title: "Tactical OS — operator training and readiness",
-	description:
-		"Tactical OS — operator training and readiness: plans, drills, performance, and inventory.",
+	description: "Operator training and readiness platform — mission planning, drills, response metrics, firing speed, and gear inventory for ops personnel.",
 } as const;
 
 export const LANDING_COPY = {
@@ -627,4 +626,5 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
 export function dicebearUrl(seed: string): string {
 	return `https://api.dicebear.com/10.x/glass/svg?seed=${encodeURIComponent(seed)}`;
 }
+
 

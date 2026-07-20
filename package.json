@@ -1,7 +1,7 @@
 ﻿{
   "name": "tactical-os",
-  "description": "Tactical OS — operator training and readiness: plans, drills, performance, and inventory.",
-  "keywords": ["tactical-os", "tactical", "operations", "bun", "turborepo", "monorepo", "nextjs", "nestjs", "expo", "typescript", "fullstack", "docker"],
+  "description": "Operator training and readiness platform — mission planning, drills, response metrics, firing speed, and gear inventory for ops personnel.",
+  "keywords": ["tactical-os", "operator-training", "military", "drills", "readiness", "mission-planning", "inventory", "special-forces", "nextjs", "expo"],
   "homepage": "https://github.com/shabirkhan-dev/tactical-os#readme",
   "repository": { "type": "git", "url": "https://github.com/shabirkhan-dev/tactical-os.git" },
   "bugs": { "url": "https://github.com/shabirkhan-dev/tactical-os/issues" },
@@ -60,4 +60,5 @@
     "expo-symbols": "57.0.1"
   }
 }
+
 
