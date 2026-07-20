@@ -60,8 +60,8 @@ function AboutHero() {
 				</FadeIn>
 				<FadeIn delay={0.12}>
 					<p className="mt-6 max-w-2xl text-pretty text-muted-foreground text-base leading-8 sm:text-lg">
-						We built Starter after wiring the same five apps together too many times. It&apos;s
-						the Bun + Turborepo workspace we wished we had — shared UI, hooks, CI, Docker, and docs
+						We built Starter after wiring the same five apps together too many times. It&apos;s the
+						Bun + Turborepo workspace we wished we had — shared UI, hooks, CI, Docker, and docs
 						included from day one.
 					</p>
 				</FadeIn>
