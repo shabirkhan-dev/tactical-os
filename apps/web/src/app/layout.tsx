@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { themeInitScript } from "@/components/theme";
@@ -11,11 +11,28 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+	metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://github.com/shabirkhan-dev/tactical-os"),
 	title: {
-		default: "Starter",
-		template: "%s | Starter",
+		default: "Tactical OS",
+		template: "%s | Tactical OS",
 	},
-	description: "Production-ready application starter",
+	description: "Tactical OS — Bun + Turborepo monorepo: Next.js, Expo, NestJS, shared UI, CI, Docker, and Dev Container.",
+	keywords: ["tactical-os", "tactical", "operations", "bun", "turborepo", "monorepo", "nextjs", "nestjs", "expo", "typescript", "fullstack", "docker"],
+	applicationName: "Tactical OS",
+	creator: "Tactical OS",
+	openGraph: {
+		type: "website",
+		locale: "en_US",
+		siteName: "Tactical OS",
+		title: "Tactical OS",
+		description: "Tactical OS — Bun + Turborepo monorepo: Next.js, Expo, NestJS, shared UI, CI, Docker, and Dev Container.",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Tactical OS",
+		description: "Tactical OS — Bun + Turborepo monorepo: Next.js, Expo, NestJS, shared UI, CI, Docker, and Dev Container.",
+	},
+	robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
